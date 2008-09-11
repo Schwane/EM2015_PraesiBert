@@ -62,6 +62,11 @@ namespace ServerAppl
 
     Message* Listener::handleReceivedMessage(QString commandName, Message* msg)
     {
+        return NULL;
+    }
+
+    Message* Listener::handleLoginResponseMessage(QString commandName, Message* msg)
+    {
         Message * responseMessage = NULL;
 
         if("login_RESPONSE" == commandName)
@@ -71,6 +76,8 @@ namespace ServerAppl
                 delete(this->priorClientObject);
             }
         }
+
+        delete msg;
 
         return responseMessage;
     }

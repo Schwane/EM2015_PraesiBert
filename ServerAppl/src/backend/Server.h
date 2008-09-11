@@ -42,9 +42,11 @@ namespace ServerAppl
         QList<unsigned int> * getAllClientIdentifiers();
         QList<unsigned int> * getListenerClientIdentifiers();
         unsigned int getMasterClientIdentifier();
-        Message* handleReceivedMessage(QString commandName, Message* msg);
         bool registerMaster(Master * master);
         bool registerListener(Listener * listener);
+
+        /* Message handlers */
+        Message* handleReceivedMessage(QString commandName, Message* msg);
 
     public slots:
         void onNewClient(uint clientId);

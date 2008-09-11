@@ -85,14 +85,22 @@ namespace ServerAppl
         if(IS_COMMAND(commandName, "PROOF_RESPONSE"))
         {
             responseMessage = new Message(QString("login"), QString("server"), QString("client"));
-
         }
+
+        delete(msg);
 
         return responseMessage;
     }
 
     Message* Master::handleLoginResponse(QString commandName, Message* msg)
     {
+        if(IS_COMMAND(commandName, "LOGIN_RESPONSE"))
+        {
+            delete(this->priorClientObject);
+        }
+
+        delete(msg);
+
         return NULL;
     }
 

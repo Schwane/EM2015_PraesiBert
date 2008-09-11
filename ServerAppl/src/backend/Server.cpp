@@ -99,13 +99,14 @@ namespace ServerAppl
                     clientId,
                     QString("login"),
                     HANDLER_OBJ(newClient),
-                    HANDLER_FUNC(handleReceivedMessage)
+                    HANDLER_FUNC(UnspecifiedClient::handleLoginMessages)
                     );
+
             commandRouter->registerMessageHandler(
                     clientId,
                     QString("LOGIN_NONCE"),
                     HANDLER_OBJ(newClient),
-                    HANDLER_FUNC(handleReceivedMessage)
+                    HANDLER_FUNC(UnspecifiedClient::handleLoginNonceMessage)
                     );
         }
         else
@@ -169,13 +170,13 @@ namespace ServerAppl
                         clientId,
                         QString("LOGIN_RESPONSE"),
                         HANDLER_OBJ(master),
-                        HANDLER_FUNC(handleReceivedMessage)
+                        HANDLER_FUNC(Master::handleLoginResponse)
                         );
                 commandRouter->registerMessageHandler(
                         clientId,
                         QString("PROOF_RESPONSE"),
                         HANDLER_OBJ(master),
-                        HANDLER_FUNC(handleReceivedMessage)
+                        HANDLER_FUNC(Master::handleProofResponse)
                         );
 
                 registrationSuccessfull = TRUE;
@@ -205,7 +206,7 @@ namespace ServerAppl
                         clientId,
                         QString("login_RESPONSE"),
                         HANDLER_OBJ(listener),
-                        HANDLER_FUNC(handleReceivedMessage)
+                        HANDLER_FUNC(Listener::handleLoginResponseMessage)
                         );
                 registrationSuccessfull = TRUE;
             }

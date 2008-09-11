@@ -27,7 +27,9 @@ namespace ServerAppl
         Listener();
         virtual ~Listener();
 
+        /* Message handlers */
         Message* handleReceivedMessage(QString commandName, Message* msg);
+        Message* handleLoginResponseMessage(QString commandName, Message* msg);
 
         /* data types */
         enum ListenerConnectionStmState

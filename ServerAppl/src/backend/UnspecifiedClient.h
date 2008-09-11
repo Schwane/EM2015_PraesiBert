@@ -30,8 +30,11 @@ namespace ServerAppl
         UnspecifiedClient(Server * server, uint clientId, QString name);
         virtual ~UnspecifiedClient();
         unsigned int getClientId();
+
+        /* Message handlers */
         Message* handleReceivedMessage(QString commandName, Message* msg);
         Message* handleLoginMessages(QString commandName, Message* msg);
+        Message* handleLoginNonceMessage(QString commandName, Message * msg);
 
         QString getName();
         QTime getLastTimestamp();

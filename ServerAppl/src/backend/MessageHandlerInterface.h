@@ -14,7 +14,7 @@
 
 #define IS_COMMAND(cmdObj, cmdStr) ((cmdStr) == (cmdObj))
 #define HANDLER_OBJ(obj) ((MessageHandlerInterface *)(obj))
-#define HANDLER_FUNC(func) (&MessageHandlerInterface::func)
+#define HANDLER_FUNC(func) ( static_cast<handleReceivedMessageFunction>(&func) )
 
 namespace ServerAppl
 {

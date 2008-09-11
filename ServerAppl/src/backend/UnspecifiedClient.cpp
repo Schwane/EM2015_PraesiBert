@@ -34,19 +34,10 @@ namespace ServerAppl
     {
         Message * responseMessage;
 
-        if(IS_COMMAND(commandName, "login"))
-        {
-            responseMessage = handleLoginMessages(commandName, msg);
-        }
-        else if(IS_COMMAND(commandName, "LOGIN_NONCE"))
-        {
-            responseMessage = handleLoginMessages(commandName, msg);
-        }
-        else
-        {
-            responseMessage = new Message(QString("unknown_message"),QString("server"), QString("client"));
-            responseMessage->addParameter(QString("receivedCommand"), commandName);
-        }
+        responseMessage = new Message(QString("unknown_message"),QString("server"), QString("client"));
+        responseMessage->addParameter(QString("receivedCommand"), commandName);
+
+        delete(msg);
 
         return responseMessage;
     }
@@ -73,9 +64,23 @@ namespace ServerAppl
                     responseMessage->addParameter(QString("status"), QString("rejected"));
                 }
             }
-
         }
-        else if(IS_COMMAND(commandName, "LOGIN_NONCE"))
+        else
+        {
+            responseMessage = new Message(QString("unknown_message"),QString("server"), QString("client"));
+            responseMessage->addParameter(QString("receivedCommand"), commandName);
+        }
+
+        delete(msg);
+
+        return responseMessage;
+    }
+
+    Message* UnspecifiedClient::handleLoginNonceMessage(QString commandName, Message * msg)
+    {
+        Message * responseMessage;
+
+        if(IS_COMMAND(commandName, "LOGIN_NONCE"))
         {
             Master * newMaster;
             const QMap<QString, QVariant>* parameters = msg->getParameters();
