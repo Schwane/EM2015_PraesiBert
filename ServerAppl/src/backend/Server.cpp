@@ -14,6 +14,8 @@
 
 namespace ServerAppl
 {
+    const char Server::serverCommandPort[] = "1000";
+    const char Server::serverDataPort[] = "1001";
 
     Server::Server()
     {
@@ -27,13 +29,36 @@ namespace ServerAppl
         presentationController = new PresentationController(this);
         masterClient = NULL;
 
-        /* connect signals of command-router */
-        QObject::connect( messageParser, SIGNAL(cmdMessageParsed(Message*, uint)), commandRouter, SLOT(onMessageParsed(Message*, uint)) );
-        QObject::connect( commandRouter, SIGNAL(writeMessage(Message*, uint)), messageWriter, SLOT(writeCmdMessage(Message*, uint)) );
+        if(serverSocket->beginListening(QString(serverCommandPort),QString(serverDataPort)))
+        {
+            /* connect signals to command-router */
+            QObject::connect(
+                    serverSocket, SIGNAL(receivedCmdFromClient(QByteArray , uint)),
+                    messageParser, SLOT(parseCmdMessage(QByteArray, uint))
+                    );
+            QObject::connect(
+                    messageParser, SIGNAL(cmdMessageParsed(Message*, uint)),
+                    commandRouter, SLOT(onMessageParsed(Message*, uint))
+                    );
+            QObject::connect(
+                    commandRouter, SIGNAL(writeMessage(Message*, uint)),
+                    messageWriter, SLOT(writeCmdMessage(Message*, uint))
+                    );
 
-        /* connect signals of command-router */
-        QObject::connect( messageParser, SIGNAL(dataMessageParsed(Message*, uint)), dataRouter, SLOT(onMessageParsed(Message*, uint)) );
-        QObject::connect( dataRouter, SIGNAL(writeMessage(Message*, uint)), messageWriter, SLOT(writeDataMessage(Message*, uint)) );
+            /* connect signals to data-router */
+            QObject::connect(
+                    serverSocket, SIGNAL(receivedDataFromClient(QByteArray , uint)),
+                    messageParser, SLOT(parseDataMessage(QByteArray, uint))
+                    );
+            QObject::connect(
+                    messageParser, SIGNAL(dataMessageParsed(Message*, uint)),
+                    dataRouter, SLOT(onMessageParsed(Message*, uint))
+                    );
+            QObject::connect(
+                    dataRouter, SIGNAL(writeMessage(Message*, uint)),
+                    messageWriter, SLOT(writeDataMessage(Message*, uint))
+                    );
+        }
 
         WRITE_DEBUG("Server-constructor finished.")
     }

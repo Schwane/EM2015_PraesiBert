@@ -56,6 +56,10 @@ namespace ServerAppl
         void initDataRouter();
 
     /* properties */
+    public:
+        static const char serverCommandPort[];
+        static const char serverDataPort[];
+
     private:
         MessageRouter * commandRouter;
         MessageRouter * dataRouter;
