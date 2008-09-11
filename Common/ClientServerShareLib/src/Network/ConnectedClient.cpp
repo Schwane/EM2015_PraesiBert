@@ -26,6 +26,7 @@ namespace Network
             : m_clientID(clientID)
             , m_hasCmdSocket(false)
             , m_hasDataSocket(false)
+            , disconnectHandled(false)
     {
         m_next_block_size_cmd = 0;
         m_next_block_size_data = 0;
@@ -333,20 +334,24 @@ namespace Network
      */
     void ConnectedClient::handleDisconnect()
     {
-        // Close BOTH socket types, if one connection is lost!
+        if(!disconnectHandled)
+        {
+            disconnectHandled = TRUE;
+            // Close BOTH socket types, if one connection is lost!
 
-//        disconnect(m_cmdSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
-//        disconnect(m_dataSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
+            //        disconnect(m_cmdSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
+            //        disconnect(m_dataSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
 
-        m_cmdSocket->close();
-        m_dataSocket->close();
+            m_cmdSocket->close();
+            m_dataSocket->close();
 
-        m_hasCmdSocket = false;
-        m_hasDataSocket = false;
+            m_hasCmdSocket = false;
+            m_hasDataSocket = false;
 
-        // Call signal that tells which client disconnected
-        emit disconnected(m_clientID);
-        // Call signal that tells the thread should be finished
-        emit finished();
+            // Call signal that tells which client disconnected
+            emit disconnected(m_clientID);
+            // Call signal that tells the thread should be finished
+            emit finished();
+        }
     }
 }

@@ -86,8 +86,11 @@ namespace Network
         QByteArray m_bufferCmd;
         /// Buffer for data received at the data socket.
         QByteArray m_bufferData;
+        /// Will be used to avoid double-handling of disconnect.
+        bool disconnectHandled;
 
-    signals:         /**
+    signals:
+         /**
          * @brief Signal that is emitted, whe an newcommanda is available fromthe commanda socket of the client.
          *
          * @param[out] data Data in QByteArray format that is send out.
