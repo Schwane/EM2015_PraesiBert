@@ -1,0 +1,17 @@
+Verzeichnisstruktur:
+
+EM2015_PraesiBert
+    |
+    |----> ServerAppl (Verzeichnis mit Momentics-Cascades-Projekt)  
+    |
+    |----> Client
+    |    |----> MasterClientAppl (Verzeichnis mit Momentics-Cascades-Projekt)
+    |    |----> ListenerClientAppl (Verzeichnis mit Momentics-Cascades-Projekt)
+    |    |----> ClientLib (Verzeichnis mit Momentics-API-Projekt)        
+    |
+    |----> Common
+    |    |----> NetworkLib (Verzeichnis mit Momentics-API-Projekt)
+    |    |----> AudioLib (Verzeichnis mit Momentics-API-Projekt)
+    |    |----> VideoUiLib (Verzeichnis mit Momentics-API-Projekt)
+    |
+    |----> .git (Verzeichnis, das von git erstellt wird und uns nicht betrifft)
