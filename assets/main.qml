@@ -16,12 +16,86 @@
 
 import bb.cascades 1.4
 
-Page {
-    Container {
-        Label {
-            // Localized text with the dynamic translation and locale updates support
-            text: qsTr("Hello World") + Retranslate.onLocaleOrLanguageChanged
-            textStyle.base: SystemDefaults.TextStyles.BigText
+TabbedPane {
+    showTabsOnActionBar: true
+    Tab{
+        title: "Client"
+        Page {
+            titleBar: TitleBar {
+                title: "Client setup"
+            }
+            Container {
+                layout: StackLayout {
+
+                }
+                Label {
+                    text: "Select IP-Address to connect to:"
+                }
+                Container {
+                    layout: DockLayout {
+
+                    }
+
+                    TextField {
+                        id: clientIPTextField
+                        text: "127.0.0.1"
+                        enabled: true
+                    }
+                    Button {
+                        id: clientConnectButton
+                        text: "Connect"
+                        horizontalAlignment: HorizontalAlignment.Right
+                    }
+                }
+                TextArea {
+                    id: clientConsole
+                    editable: false
+                    textStyle.textAlign: TextAlign.Left
+                    layoutProperties: StackLayoutProperties {
+                        spaceQuota: 1
+                    }
+                }
+            }
+        }
+    }
+    Tab {
+        title: "Server"
+        Page {
+            titleBar: TitleBar {
+                title: "Server setup"
+            }
+            Container {
+                Label {
+                    text: "Start the server to see the IP-Adress:"
+                }
+                Container {
+                    layout: DockLayout {
+
+                    }
+                    TextField {
+                        id: serverIPTextField
+                        text: "127.0.0.1"
+                        enabled: false
+
+                    }
+                    Button {
+                        id: serverConnectButton
+                        text: "Start server"
+                        horizontalAlignment: HorizontalAlignment.Right
+                        onClicked: {
+                            serverIPTextField.text = "127.0.0.2"
+                        }
+                    }
+                }
+                TextArea {
+                    id: serverConsole
+                    editable: false
+                    textStyle.textAlign: TextAlign.Left
+                    layoutProperties: StackLayoutProperties {
+                        spaceQuota: 1
+                    }
+                }
+            }
         }
     }
 }
