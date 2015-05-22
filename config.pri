@@ -40,10 +40,15 @@ config_pri_assets {
 
 config_pri_source_group1 {
     SOURCES += \
+        $$quote($$BASEDIR/src/Network/ClientSocket.cpp) \
+        $$quote($$BASEDIR/src/Network/ServerSocket.cpp) \
         $$quote($$BASEDIR/src/applicationui.cpp) \
         $$quote($$BASEDIR/src/main.cpp)
 
-    HEADERS += $$quote($$BASEDIR/src/applicationui.hpp)
+    HEADERS += \
+        $$quote($$BASEDIR/src/Network/ClientSocket.h) \
+        $$quote($$BASEDIR/src/Network/ServerSocket.h) \
+        $$quote($$BASEDIR/src/applicationui.hpp)
 }
 
 CONFIG += precompile_header
@@ -57,6 +62,11 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../src/*.cc) \
         $$quote($$BASEDIR/../src/*.cpp) \
         $$quote($$BASEDIR/../src/*.cxx) \
+        $$quote($$BASEDIR/../src/Network/*.c) \
+        $$quote($$BASEDIR/../src/Network/*.c++) \
+        $$quote($$BASEDIR/../src/Network/*.cc) \
+        $$quote($$BASEDIR/../src/Network/*.cpp) \
+        $$quote($$BASEDIR/../src/Network/*.cxx) \
         $$quote($$BASEDIR/../assets/*.qml) \
         $$quote($$BASEDIR/../assets/*.js) \
         $$quote($$BASEDIR/../assets/*.qs)

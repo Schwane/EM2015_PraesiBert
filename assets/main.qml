@@ -45,6 +45,10 @@ TabbedPane {
                         id: clientConnectButton
                         text: "Connect"
                         horizontalAlignment: HorizontalAlignment.Right
+                        onClicked: {
+                            serverSocket.init()
+                            clientSocket.init()
+                        }
                     }
                 }
                 TextArea {

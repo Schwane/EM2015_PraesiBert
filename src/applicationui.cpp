@@ -21,6 +21,9 @@
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/LocaleHandler>
 
+#include "Network/ClientSocket.h"
+#include "Network/ServerSocket.h"
+
 using namespace bb::cascades;
 
 ApplicationUI::ApplicationUI() :
@@ -43,6 +46,17 @@ ApplicationUI::ApplicationUI() :
     // Create scene document from main.qml asset, the parent is set
     // to ensure the document gets destroyed properly at shut down.
     QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
+
+    // ================== THIS IS WHERE THE MAGIC HAPPENS =======================
+    // Create instances of Client and Socket
+    ClientSocket *_clientSocket = new ClientSocket();
+    ServerSocket *_serverSocket = new ServerSocket();
+
+    // Make instances of Client- and Server-Socket available in QML-File
+    qml->setContextProperty("clientSocket", _clientSocket);
+    qml->setContextProperty("serverSocket", _serverSocket);
+
+    // ================== THIS IS WHERE THE MAGIC ENDS ==========================
 
     // Create root object for the UI
     AbstractPane *root = qml->createRootObject<AbstractPane>();
