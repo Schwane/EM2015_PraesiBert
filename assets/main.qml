@@ -29,34 +29,52 @@ TabbedPane {
 
                 }
                 Label {
-                    text: "Select IP-Address to connect to:"
+                    text: "Select IP-Address and Port to connect to:"
                 }
                 Container {
-                    layout: DockLayout {
+                    layout: GridLayout {
 
                     }
-
+                    Label {
+                        text: "IP-Address:"
+                    }
                     TextField {
-                        id: clientIPTextField
-                        text: "127.0.0.1"
-                        enabled: true
+                         id: clientIPTextField
+                         text: "127.0.0.1"
+                         enabled: true
+                    }
+                    Label {
+                        text: "Port:"
+                    }
+                    TextField {
+                        id: clientPortTextField
+                        text: "1337"
+                    }   
+                }
+                Container {
+                    layout: GridLayout {
+
                     }
                     Button {
                         id: clientConnectButton
                         text: "Connect"
-                        horizontalAlignment: HorizontalAlignment.Right
+                        horizontalAlignment: HorizontalAlignment.Left
                         onClicked: {
-                            serverSocket.init()
-                            clientSocket.init()
+                            clientDisconnectButton.enabled = true;
+                            clientConnectButton.enabled = false;
+                            clientSocket.connectToServer(clientIPTextField.text, clientPortTextField.text);
                         }
                     }
-                }
-                TextArea {
-                    id: clientConsole
-                    editable: false
-                    textStyle.textAlign: TextAlign.Left
-                    layoutProperties: StackLayoutProperties {
-                        spaceQuota: 1
+                    Button {
+                        id: clientDisconnectButton
+                        text: "Disconnect"
+                        horizontalAlignment: HorizontalAlignment.Right
+                        enabled: false
+                        onClicked: {
+                            clientConnectButton.enabled = true;
+                            clientDisconnectButton.enabled = false;
+                            clientSocket.disconnectFromServer();
+                        }
                     }
                 }
             }
@@ -70,33 +88,58 @@ TabbedPane {
             }
             Container {
                 Label {
-                    text: "Start the server to see the IP-Adress:"
+                    text: "Select a listenig-port and start the server:"
                 }
                 Container {
                     layout: DockLayout {
 
                     }
-                    TextField {
-                        id: serverIPTextField
-                        text: "127.0.0.1"
-                        enabled: false
+                    Container {
+                        layout: GridLayout {
+                        
+                        }
+                        Label {
+                            text: "IP-Address:"
+                        }
+                        TextField {
+                            id: serverIPTextField
+                            objectName: "serverIPTextField"
+                            text: "0.0.0.0"
+                            enabled: false
+                        }
+                        Label {
+                            text: "Port:"
+                        }
+                        TextField {
+                            id: serverPortTextField
+                            text: "1337"
+                        }   
+                    }
+                }
+                Container{
+                    layout: GridLayout {
 
                     }
                     Button {
-                        id: serverConnectButton
+                        id: serverStartButton
                         text: "Start server"
-                        horizontalAlignment: HorizontalAlignment.Right
+                        horizontalAlignment: HorizontalAlignment.Left
                         onClicked: {
-                            serverIPTextField.text = "127.0.0.2"
+                            serverStopButton.enabled = true;
+                            serverStartButton.enabled = false;
+                            serverSocket.beginListening(serverPortTextField.text);
                         }
                     }
-                }
-                TextArea {
-                    id: serverConsole
-                    editable: false
-                    textStyle.textAlign: TextAlign.Left
-                    layoutProperties: StackLayoutProperties {
-                        spaceQuota: 1
+                    Button {
+                        id: serverStopButton
+                        text: "Stop server"
+                        horizontalAlignment: HorizontalAlignment.Right
+                        onClicked: {
+                            serverStartButton.enabled = true;
+                            serverStopButton.enabled = false;
+                            serverSocket.closeServer();
+                        }
+                        enabled: false
                     }
                 }
             }

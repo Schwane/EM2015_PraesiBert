@@ -12,7 +12,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" id="com.qnx.qcc.toolChain.1490771556" name="Device-Debug" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.qnx.qcc.toolChain.1490771556" name="Device-Debug" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.1490771556.1919679326" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.991992163" name="com.qnx.qcc.toolChain" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.1541661170" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -20,15 +20,178 @@
 							<option id="com.qnx.qcc.option.compiler.638976841" name="Compiler:" superClass="com.qnx.qcc.option.compiler"/>
 							<option id="com.qnx.qcc.option.runtime.166786066" name="Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.446486134" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder autoBuildTarget="Device-Debug" enableAutoBuild="true" id="com.qnx.qcc.toolChain.1490771556.1606520497" incrementalBuildTarget="Device-Debug" managedBuildOn="false" name="device-debug builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="qml.device-debug"/>
+							<builder autoBuildTarget="Device-Debug" enableAutoBuild="true" id="com.qnx.qcc.toolChain.1490771556.1606520497" incrementalBuildTarget="Device-Debug" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="device-debug builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="qml.device-debug"/>
 							<tool id="com.qnx.qcc.tool.compiler.2069396346" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.595828433" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.595828433" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.includePath.2061091092" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtTest"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtScriptTools"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtScript"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtDeclarative"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/system"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/smartcard"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/sbengine"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/openssl"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/xmp"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtMultimedia"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/OMXAL"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/AL"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/camera"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/wmm"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtCore"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/gestures"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/egm"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/platform"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/cascades/advertisement"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bbads"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/pim/unified"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bbmsp"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtSvg"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtOpenGL"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtGui"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/libpng16"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/libpng14"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/img"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/sensor/libsensor.h"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/QtLocationSubset"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/device"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/libxslt"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/libxml"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtXmlPatterns"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtXml"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtSql"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/cascades/datamanager"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/push"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/vpnext"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtNetwork"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/QtNfcSubset"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/nfc"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/btapi"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/wifi"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/communications/push"/>
+								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.1813689220" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.1307762" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.1890698605" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
-							<tool id="com.qnx.qcc.tool.linker.168814444" name="QCC Linker" superClass="com.qnx.qcc.tool.linker"/>
+							<tool id="com.qnx.qcc.tool.linker.168814444" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
+								<option id="com.qnx.qcc.option.linker.libraries.300557367" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
+									<listOptionValue builtIn="false" value="PushService"/>
+									<listOptionValue builtIn="false" value="wifi"/>
+									<listOptionValue builtIn="false" value="btapi"/>
+									<listOptionValue builtIn="false" value="csm"/>
+									<listOptionValue builtIn="false" value="curl"/>
+									<listOptionValue builtIn="false" value="dns_sd"/>
+									<listOptionValue builtIn="false" value="nfc_bps"/>
+									<listOptionValue builtIn="false" value="peripheral_discovery"/>
+									<listOptionValue builtIn="false" value="phone-number"/>
+									<listOptionValue builtIn="false" value="proxyinfo"/>
+									<listOptionValue builtIn="false" value="QtNfcSubset"/>
+									<listOptionValue builtIn="false" value="QtNetwork"/>
+									<listOptionValue builtIn="false" value="socket"/>
+									<listOptionValue builtIn="false" value="vpn_ext"/>
+									<listOptionValue builtIn="false" value="push_service"/>
+									<listOptionValue builtIn="false" value="bbdata"/>
+									<listOptionValue builtIn="false" value="bbcascadesdatamanager"/>
+									<listOptionValue builtIn="false" value="expat"/>
+									<listOptionValue builtIn="false" value="bbcascadespickers"/>
+									<listOptionValue builtIn="false" value="QtSql"/>
+									<listOptionValue builtIn="false" value="QtXml"/>
+									<listOptionValue builtIn="false" value="QtXmlPatterns"/>
+									<listOptionValue builtIn="false" value="sqlite3"/>
+									<listOptionValue builtIn="false" value="xml2"/>
+									<listOptionValue builtIn="false" value="xslt"/>
+									<listOptionValue builtIn="false" value="bbdevice"/>
+									<listOptionValue builtIn="false" value="location_manager"/>
+									<listOptionValue builtIn="false" value="QtLocationSubset"/>
+									<listOptionValue builtIn="false" value="QtSensors"/>
+									<listOptionValue builtIn="false" value="sensor"/>
+									<listOptionValue builtIn="false" value="exif"/>
+									<listOptionValue builtIn="false" value="font"/>
+									<listOptionValue builtIn="false" value="gif"/>
+									<listOptionValue builtIn="false" value="glview"/>
+									<listOptionValue builtIn="false" value="harfbuzz"/>
+									<listOptionValue builtIn="false" value="img"/>
+									<listOptionValue builtIn="false" value="jpeg"/>
+									<listOptionValue builtIn="false" value="tiff"/>
+									<listOptionValue builtIn="false" value="EGL"/>
+									<listOptionValue builtIn="false" value="GLESv1_CM"/>
+									<listOptionValue builtIn="false" value="GLESv2"/>
+									<listOptionValue builtIn="false" value="png"/>
+									<listOptionValue builtIn="false" value="png14"/>
+									<listOptionValue builtIn="false" value="png16"/>
+									<listOptionValue builtIn="false" value="QtGui"/>
+									<listOptionValue builtIn="false" value="QtOpenGL"/>
+									<listOptionValue builtIn="false" value="QtSvg"/>
+									<listOptionValue builtIn="false" value="screen"/>
+									<listOptionValue builtIn="false" value="grskia"/>
+									<listOptionValue builtIn="false" value="WTLE"/>
+									<listOptionValue builtIn="false" value="bbmsp"/>
+									<listOptionValue builtIn="false" value="bbplatformbbm"/>
+									<listOptionValue builtIn="false" value="bbpim"/>
+									<listOptionValue builtIn="false" value="unifieddatasourcec"/>
+									<listOptionValue builtIn="false" value="bbads"/>
+									<listOptionValue builtIn="false" value="bbcascadesadvertisement"/>
+									<listOptionValue builtIn="false" value="bb"/>
+									<listOptionValue builtIn="false" value="bbplatform"/>
+									<listOptionValue builtIn="false" value="geomonitor"/>
+									<listOptionValue builtIn="false" value="bps"/>
+									<listOptionValue builtIn="false" value="egm"/>
+									<listOptionValue builtIn="false" value="geo_search"/>
+									<listOptionValue builtIn="false" value="gestures"/>
+									<listOptionValue builtIn="false" value="QtCore"/>
+									<listOptionValue builtIn="false" value="webkit"/>
+									<listOptionValue builtIn="false" value="wmm"/>
+									<listOptionValue builtIn="false" value="iType"/>
+									<listOptionValue builtIn="false" value="asound"/>
+									<listOptionValue builtIn="false" value="bbcascadesmultimedia"/>
+									<listOptionValue builtIn="false" value="bbmultimedia"/>
+									<listOptionValue builtIn="false" value="camapi"/>
+									<listOptionValue builtIn="false" value="camerafeatures"/>
+									<listOptionValue builtIn="false" value="OpenAL"/>
+									<listOptionValue builtIn="false" value="alut"/>
+									<listOptionValue builtIn="false" value="OpenMAXAL"/>
+									<listOptionValue builtIn="false" value="QtMultimedia"/>
+									<listOptionValue builtIn="false" value="QtMultimediaKit"/>
+									<listOptionValue builtIn="false" value="xmp"/>
+									<listOptionValue builtIn="false" value="credential"/>
+									<listOptionValue builtIn="false" value="ssl"/>
+									<listOptionValue builtIn="false" value="sbengine"/>
+									<listOptionValue builtIn="false" value="loadsbengine"/>
+									<listOptionValue builtIn="false" value="scs"/>
+									<listOptionValue builtIn="false" value="bbcascades"/>
+									<listOptionValue builtIn="false" value="bbcascadesplaces"/>
+									<listOptionValue builtIn="false" value="bbsystem"/>
+									<listOptionValue builtIn="false" value="bbplatformplaces"/>
+									<listOptionValue builtIn="false" value="bbutility"/>
+									<listOptionValue builtIn="false" value="clipboard"/>
+									<listOptionValue builtIn="false" value="context"/>
+									<listOptionValue builtIn="false" value="intl"/>
+									<listOptionValue builtIn="false" value="googleurl"/>
+									<listOptionValue builtIn="false" value="icui18n"/>
+									<listOptionValue builtIn="false" value="ids"/>
+									<listOptionValue builtIn="false" value="iconv"/>
+									<listOptionValue builtIn="false" value="archive"/>
+									<listOptionValue builtIn="false" value="lzma"/>
+									<listOptionValue builtIn="false" value="m"/>
+									<listOptionValue builtIn="false" value="packageinfo"/>
+									<listOptionValue builtIn="false" value="QREncoder"/>
+									<listOptionValue builtIn="false" value="QtDeclarative"/>
+									<listOptionValue builtIn="false" value="QtScript"/>
+									<listOptionValue builtIn="false" value="QtScriptTools"/>
+									<listOptionValue builtIn="false" value="QtTest"/>
+									<listOptionValue builtIn="false" value="slog2"/>
+									<listOptionValue builtIn="false" value="spellcheck_client"/>
+									<listOptionValue builtIn="false" value="strpattern"/>
+									<listOptionValue builtIn="false" value="ucl"/>
+									<listOptionValue builtIn="false" value="z"/>
+									<listOptionValue builtIn="false" value="zxing"/>
+								</option>
+							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.37990218" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
 					</folderInfo>
@@ -50,7 +213,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" id="com.qnx.qcc.toolChain.500430808" name="Device-Release" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.qnx.qcc.toolChain.500430808" name="Device-Release" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.500430808.304833240" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.897769284" name="com.qnx.qcc.toolChain" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.336754262" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -58,15 +221,178 @@
 							<option id="com.qnx.qcc.option.compiler.801755881" name="Compiler:" superClass="com.qnx.qcc.option.compiler"/>
 							<option id="com.qnx.qcc.option.runtime.894713533" name="Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.1335042121" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder autoBuildTarget="Device-Release" enableAutoBuild="true" id="com.qnx.qcc.toolChain.500430808.894456520" incrementalBuildTarget="Device-Release" managedBuildOn="false" name="device-release builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="qml.device-release"/>
+							<builder autoBuildTarget="Device-Release" enableAutoBuild="true" id="com.qnx.qcc.toolChain.500430808.894456520" incrementalBuildTarget="Device-Release" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="device-release builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="qml.device-release"/>
 							<tool id="com.qnx.qcc.tool.compiler.1929748740" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.2039204221" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.2039204221" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.includePath.1410889870" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtTest"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtScriptTools"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtScript"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtDeclarative"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/system"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/smartcard"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/sbengine"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/openssl"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/xmp"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtMultimedia"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/OMXAL"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/AL"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/camera"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/wmm"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtCore"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/gestures"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/egm"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/platform"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/cascades/advertisement"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bbads"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/pim/unified"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bbmsp"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtSvg"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtOpenGL"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtGui"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/libpng16"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/libpng14"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/img"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/sensor/libsensor.h"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/QtLocationSubset"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/device"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/libxslt"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/libxml"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtXmlPatterns"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtXml"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtSql"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/cascades/datamanager"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/push"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/vpnext"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtNetwork"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/QtNfcSubset"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/nfc"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/btapi"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/wifi"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/communications/push"/>
+								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.1361607149" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.230981571" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.528260796" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
-							<tool id="com.qnx.qcc.tool.linker.689947200" name="QCC Linker" superClass="com.qnx.qcc.tool.linker"/>
+							<tool id="com.qnx.qcc.tool.linker.689947200" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
+								<option id="com.qnx.qcc.option.linker.libraries.1007125299" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
+									<listOptionValue builtIn="false" value="PushService"/>
+									<listOptionValue builtIn="false" value="wifi"/>
+									<listOptionValue builtIn="false" value="btapi"/>
+									<listOptionValue builtIn="false" value="csm"/>
+									<listOptionValue builtIn="false" value="curl"/>
+									<listOptionValue builtIn="false" value="dns_sd"/>
+									<listOptionValue builtIn="false" value="nfc_bps"/>
+									<listOptionValue builtIn="false" value="peripheral_discovery"/>
+									<listOptionValue builtIn="false" value="phone-number"/>
+									<listOptionValue builtIn="false" value="proxyinfo"/>
+									<listOptionValue builtIn="false" value="QtNfcSubset"/>
+									<listOptionValue builtIn="false" value="QtNetwork"/>
+									<listOptionValue builtIn="false" value="socket"/>
+									<listOptionValue builtIn="false" value="vpn_ext"/>
+									<listOptionValue builtIn="false" value="push_service"/>
+									<listOptionValue builtIn="false" value="bbdata"/>
+									<listOptionValue builtIn="false" value="bbcascadesdatamanager"/>
+									<listOptionValue builtIn="false" value="expat"/>
+									<listOptionValue builtIn="false" value="bbcascadespickers"/>
+									<listOptionValue builtIn="false" value="QtSql"/>
+									<listOptionValue builtIn="false" value="QtXml"/>
+									<listOptionValue builtIn="false" value="QtXmlPatterns"/>
+									<listOptionValue builtIn="false" value="sqlite3"/>
+									<listOptionValue builtIn="false" value="xml2"/>
+									<listOptionValue builtIn="false" value="xslt"/>
+									<listOptionValue builtIn="false" value="bbdevice"/>
+									<listOptionValue builtIn="false" value="location_manager"/>
+									<listOptionValue builtIn="false" value="QtLocationSubset"/>
+									<listOptionValue builtIn="false" value="QtSensors"/>
+									<listOptionValue builtIn="false" value="sensor"/>
+									<listOptionValue builtIn="false" value="exif"/>
+									<listOptionValue builtIn="false" value="font"/>
+									<listOptionValue builtIn="false" value="gif"/>
+									<listOptionValue builtIn="false" value="glview"/>
+									<listOptionValue builtIn="false" value="harfbuzz"/>
+									<listOptionValue builtIn="false" value="img"/>
+									<listOptionValue builtIn="false" value="jpeg"/>
+									<listOptionValue builtIn="false" value="tiff"/>
+									<listOptionValue builtIn="false" value="EGL"/>
+									<listOptionValue builtIn="false" value="GLESv1_CM"/>
+									<listOptionValue builtIn="false" value="GLESv2"/>
+									<listOptionValue builtIn="false" value="png"/>
+									<listOptionValue builtIn="false" value="png14"/>
+									<listOptionValue builtIn="false" value="png16"/>
+									<listOptionValue builtIn="false" value="QtGui"/>
+									<listOptionValue builtIn="false" value="QtOpenGL"/>
+									<listOptionValue builtIn="false" value="QtSvg"/>
+									<listOptionValue builtIn="false" value="screen"/>
+									<listOptionValue builtIn="false" value="grskia"/>
+									<listOptionValue builtIn="false" value="WTLE"/>
+									<listOptionValue builtIn="false" value="bbmsp"/>
+									<listOptionValue builtIn="false" value="bbplatformbbm"/>
+									<listOptionValue builtIn="false" value="bbpim"/>
+									<listOptionValue builtIn="false" value="unifieddatasourcec"/>
+									<listOptionValue builtIn="false" value="bbads"/>
+									<listOptionValue builtIn="false" value="bbcascadesadvertisement"/>
+									<listOptionValue builtIn="false" value="bb"/>
+									<listOptionValue builtIn="false" value="bbplatform"/>
+									<listOptionValue builtIn="false" value="geomonitor"/>
+									<listOptionValue builtIn="false" value="bps"/>
+									<listOptionValue builtIn="false" value="egm"/>
+									<listOptionValue builtIn="false" value="geo_search"/>
+									<listOptionValue builtIn="false" value="gestures"/>
+									<listOptionValue builtIn="false" value="QtCore"/>
+									<listOptionValue builtIn="false" value="webkit"/>
+									<listOptionValue builtIn="false" value="wmm"/>
+									<listOptionValue builtIn="false" value="iType"/>
+									<listOptionValue builtIn="false" value="asound"/>
+									<listOptionValue builtIn="false" value="bbcascadesmultimedia"/>
+									<listOptionValue builtIn="false" value="bbmultimedia"/>
+									<listOptionValue builtIn="false" value="camapi"/>
+									<listOptionValue builtIn="false" value="camerafeatures"/>
+									<listOptionValue builtIn="false" value="OpenAL"/>
+									<listOptionValue builtIn="false" value="alut"/>
+									<listOptionValue builtIn="false" value="OpenMAXAL"/>
+									<listOptionValue builtIn="false" value="QtMultimedia"/>
+									<listOptionValue builtIn="false" value="QtMultimediaKit"/>
+									<listOptionValue builtIn="false" value="xmp"/>
+									<listOptionValue builtIn="false" value="credential"/>
+									<listOptionValue builtIn="false" value="ssl"/>
+									<listOptionValue builtIn="false" value="sbengine"/>
+									<listOptionValue builtIn="false" value="loadsbengine"/>
+									<listOptionValue builtIn="false" value="scs"/>
+									<listOptionValue builtIn="false" value="bbcascades"/>
+									<listOptionValue builtIn="false" value="bbcascadesplaces"/>
+									<listOptionValue builtIn="false" value="bbsystem"/>
+									<listOptionValue builtIn="false" value="bbplatformplaces"/>
+									<listOptionValue builtIn="false" value="bbutility"/>
+									<listOptionValue builtIn="false" value="clipboard"/>
+									<listOptionValue builtIn="false" value="context"/>
+									<listOptionValue builtIn="false" value="intl"/>
+									<listOptionValue builtIn="false" value="googleurl"/>
+									<listOptionValue builtIn="false" value="icui18n"/>
+									<listOptionValue builtIn="false" value="ids"/>
+									<listOptionValue builtIn="false" value="iconv"/>
+									<listOptionValue builtIn="false" value="archive"/>
+									<listOptionValue builtIn="false" value="lzma"/>
+									<listOptionValue builtIn="false" value="m"/>
+									<listOptionValue builtIn="false" value="packageinfo"/>
+									<listOptionValue builtIn="false" value="QREncoder"/>
+									<listOptionValue builtIn="false" value="QtDeclarative"/>
+									<listOptionValue builtIn="false" value="QtScript"/>
+									<listOptionValue builtIn="false" value="QtScriptTools"/>
+									<listOptionValue builtIn="false" value="QtTest"/>
+									<listOptionValue builtIn="false" value="slog2"/>
+									<listOptionValue builtIn="false" value="spellcheck_client"/>
+									<listOptionValue builtIn="false" value="strpattern"/>
+									<listOptionValue builtIn="false" value="ucl"/>
+									<listOptionValue builtIn="false" value="z"/>
+									<listOptionValue builtIn="false" value="zxing"/>
+								</option>
+							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.642361975" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
 					</folderInfo>
@@ -88,7 +414,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" id="com.qnx.qcc.toolChain.200584131" name="Device-Profile" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.qnx.qcc.toolChain.200584131" name="Device-Profile" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.200584131.1353963430" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.152426288" name="com.qnx.qcc.toolChain" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.980079315" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -96,15 +422,178 @@
 							<option id="com.qnx.qcc.option.compiler.1160328284" name="Compiler:" superClass="com.qnx.qcc.option.compiler"/>
 							<option id="com.qnx.qcc.option.runtime.1382284298" name="Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.1858748595" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder autoBuildTarget="Device-Profile" enableAutoBuild="true" id="com.qnx.qcc.toolChain.200584131.1638517902" incrementalBuildTarget="Device-Profile" managedBuildOn="false" name="device-profile builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="qml.device-profile"/>
+							<builder autoBuildTarget="Device-Profile" enableAutoBuild="true" id="com.qnx.qcc.toolChain.200584131.1638517902" incrementalBuildTarget="Device-Profile" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="device-profile builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="qml.device-profile"/>
 							<tool id="com.qnx.qcc.tool.compiler.229264338" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.881322794" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.881322794" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.includePath.173210655" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtTest"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtScriptTools"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtScript"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtDeclarative"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/system"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/smartcard"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/sbengine"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/openssl"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/xmp"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtMultimedia"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/OMXAL"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/AL"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/camera"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/wmm"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtCore"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/gestures"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/egm"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/platform"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/cascades/advertisement"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bbads"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/pim/unified"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bbmsp"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtSvg"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtOpenGL"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtGui"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/libpng16"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/libpng14"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/img"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/sensor/libsensor.h"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/QtLocationSubset"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/device"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/libxslt"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/libxml"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtXmlPatterns"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtXml"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtSql"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/cascades/datamanager"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/push"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/vpnext"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtNetwork"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/QtNfcSubset"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/nfc"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/btapi"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/wifi"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/communications/push"/>
+								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.1170774582" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.1393809605" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.2102765509" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
-							<tool id="com.qnx.qcc.tool.linker.2046289670" name="QCC Linker" superClass="com.qnx.qcc.tool.linker"/>
+							<tool id="com.qnx.qcc.tool.linker.2046289670" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
+								<option id="com.qnx.qcc.option.linker.libraries.1883798294" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
+									<listOptionValue builtIn="false" value="PushService"/>
+									<listOptionValue builtIn="false" value="wifi"/>
+									<listOptionValue builtIn="false" value="btapi"/>
+									<listOptionValue builtIn="false" value="csm"/>
+									<listOptionValue builtIn="false" value="curl"/>
+									<listOptionValue builtIn="false" value="dns_sd"/>
+									<listOptionValue builtIn="false" value="nfc_bps"/>
+									<listOptionValue builtIn="false" value="peripheral_discovery"/>
+									<listOptionValue builtIn="false" value="phone-number"/>
+									<listOptionValue builtIn="false" value="proxyinfo"/>
+									<listOptionValue builtIn="false" value="QtNfcSubset"/>
+									<listOptionValue builtIn="false" value="QtNetwork"/>
+									<listOptionValue builtIn="false" value="socket"/>
+									<listOptionValue builtIn="false" value="vpn_ext"/>
+									<listOptionValue builtIn="false" value="push_service"/>
+									<listOptionValue builtIn="false" value="bbdata"/>
+									<listOptionValue builtIn="false" value="bbcascadesdatamanager"/>
+									<listOptionValue builtIn="false" value="expat"/>
+									<listOptionValue builtIn="false" value="bbcascadespickers"/>
+									<listOptionValue builtIn="false" value="QtSql"/>
+									<listOptionValue builtIn="false" value="QtXml"/>
+									<listOptionValue builtIn="false" value="QtXmlPatterns"/>
+									<listOptionValue builtIn="false" value="sqlite3"/>
+									<listOptionValue builtIn="false" value="xml2"/>
+									<listOptionValue builtIn="false" value="xslt"/>
+									<listOptionValue builtIn="false" value="bbdevice"/>
+									<listOptionValue builtIn="false" value="location_manager"/>
+									<listOptionValue builtIn="false" value="QtLocationSubset"/>
+									<listOptionValue builtIn="false" value="QtSensors"/>
+									<listOptionValue builtIn="false" value="sensor"/>
+									<listOptionValue builtIn="false" value="exif"/>
+									<listOptionValue builtIn="false" value="font"/>
+									<listOptionValue builtIn="false" value="gif"/>
+									<listOptionValue builtIn="false" value="glview"/>
+									<listOptionValue builtIn="false" value="harfbuzz"/>
+									<listOptionValue builtIn="false" value="img"/>
+									<listOptionValue builtIn="false" value="jpeg"/>
+									<listOptionValue builtIn="false" value="tiff"/>
+									<listOptionValue builtIn="false" value="EGL"/>
+									<listOptionValue builtIn="false" value="GLESv1_CM"/>
+									<listOptionValue builtIn="false" value="GLESv2"/>
+									<listOptionValue builtIn="false" value="png"/>
+									<listOptionValue builtIn="false" value="png14"/>
+									<listOptionValue builtIn="false" value="png16"/>
+									<listOptionValue builtIn="false" value="QtGui"/>
+									<listOptionValue builtIn="false" value="QtOpenGL"/>
+									<listOptionValue builtIn="false" value="QtSvg"/>
+									<listOptionValue builtIn="false" value="screen"/>
+									<listOptionValue builtIn="false" value="grskia"/>
+									<listOptionValue builtIn="false" value="WTLE"/>
+									<listOptionValue builtIn="false" value="bbmsp"/>
+									<listOptionValue builtIn="false" value="bbplatformbbm"/>
+									<listOptionValue builtIn="false" value="bbpim"/>
+									<listOptionValue builtIn="false" value="unifieddatasourcec"/>
+									<listOptionValue builtIn="false" value="bbads"/>
+									<listOptionValue builtIn="false" value="bbcascadesadvertisement"/>
+									<listOptionValue builtIn="false" value="bb"/>
+									<listOptionValue builtIn="false" value="bbplatform"/>
+									<listOptionValue builtIn="false" value="geomonitor"/>
+									<listOptionValue builtIn="false" value="bps"/>
+									<listOptionValue builtIn="false" value="egm"/>
+									<listOptionValue builtIn="false" value="geo_search"/>
+									<listOptionValue builtIn="false" value="gestures"/>
+									<listOptionValue builtIn="false" value="QtCore"/>
+									<listOptionValue builtIn="false" value="webkit"/>
+									<listOptionValue builtIn="false" value="wmm"/>
+									<listOptionValue builtIn="false" value="iType"/>
+									<listOptionValue builtIn="false" value="asound"/>
+									<listOptionValue builtIn="false" value="bbcascadesmultimedia"/>
+									<listOptionValue builtIn="false" value="bbmultimedia"/>
+									<listOptionValue builtIn="false" value="camapi"/>
+									<listOptionValue builtIn="false" value="camerafeatures"/>
+									<listOptionValue builtIn="false" value="OpenAL"/>
+									<listOptionValue builtIn="false" value="alut"/>
+									<listOptionValue builtIn="false" value="OpenMAXAL"/>
+									<listOptionValue builtIn="false" value="QtMultimedia"/>
+									<listOptionValue builtIn="false" value="QtMultimediaKit"/>
+									<listOptionValue builtIn="false" value="xmp"/>
+									<listOptionValue builtIn="false" value="credential"/>
+									<listOptionValue builtIn="false" value="ssl"/>
+									<listOptionValue builtIn="false" value="sbengine"/>
+									<listOptionValue builtIn="false" value="loadsbengine"/>
+									<listOptionValue builtIn="false" value="scs"/>
+									<listOptionValue builtIn="false" value="bbcascades"/>
+									<listOptionValue builtIn="false" value="bbcascadesplaces"/>
+									<listOptionValue builtIn="false" value="bbsystem"/>
+									<listOptionValue builtIn="false" value="bbplatformplaces"/>
+									<listOptionValue builtIn="false" value="bbutility"/>
+									<listOptionValue builtIn="false" value="clipboard"/>
+									<listOptionValue builtIn="false" value="context"/>
+									<listOptionValue builtIn="false" value="intl"/>
+									<listOptionValue builtIn="false" value="googleurl"/>
+									<listOptionValue builtIn="false" value="icui18n"/>
+									<listOptionValue builtIn="false" value="ids"/>
+									<listOptionValue builtIn="false" value="iconv"/>
+									<listOptionValue builtIn="false" value="archive"/>
+									<listOptionValue builtIn="false" value="lzma"/>
+									<listOptionValue builtIn="false" value="m"/>
+									<listOptionValue builtIn="false" value="packageinfo"/>
+									<listOptionValue builtIn="false" value="QREncoder"/>
+									<listOptionValue builtIn="false" value="QtDeclarative"/>
+									<listOptionValue builtIn="false" value="QtScript"/>
+									<listOptionValue builtIn="false" value="QtScriptTools"/>
+									<listOptionValue builtIn="false" value="QtTest"/>
+									<listOptionValue builtIn="false" value="slog2"/>
+									<listOptionValue builtIn="false" value="spellcheck_client"/>
+									<listOptionValue builtIn="false" value="strpattern"/>
+									<listOptionValue builtIn="false" value="ucl"/>
+									<listOptionValue builtIn="false" value="z"/>
+									<listOptionValue builtIn="false" value="zxing"/>
+								</option>
+							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.367751712" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
 					</folderInfo>
@@ -126,7 +615,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" id="com.qnx.qcc.toolChain.2102218025" name="Simulator-Debug" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.qnx.qcc.toolChain.2102218025" name="Simulator-Debug" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.2102218025.1439036490" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.1892326846" name="com.qnx.qcc.toolChain" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.220542715" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -134,15 +623,178 @@
 							<option id="com.qnx.qcc.option.compiler.1449682203" name="Compiler:" superClass="com.qnx.qcc.option.compiler"/>
 							<option id="com.qnx.qcc.option.runtime.1735875689" name="Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.937560956" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder autoBuildTarget="Simulator-Debug" enableAutoBuild="true" id="com.qnx.qcc.toolChain.2102218025.1439095538" incrementalBuildTarget="Simulator-Debug" managedBuildOn="false" name="simulator-debug builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="qml.simulator-debug"/>
+							<builder autoBuildTarget="Simulator-Debug" enableAutoBuild="true" id="com.qnx.qcc.toolChain.2102218025.1439095538" incrementalBuildTarget="Simulator-Debug" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="simulator-debug builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="qml.simulator-debug"/>
 							<tool id="com.qnx.qcc.tool.compiler.1067240474" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.263383923" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.263383923" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.includePath.1882157289" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtTest"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtScriptTools"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtScript"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtDeclarative"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/system"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/smartcard"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/sbengine"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/openssl"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/xmp"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtMultimedia"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/OMXAL"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/AL"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/camera"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/wmm"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtCore"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/gestures"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/egm"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/platform"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/cascades/advertisement"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bbads"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/pim/unified"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bbmsp"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtSvg"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtOpenGL"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtGui"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/libpng16"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/libpng14"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/img"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/sensor/libsensor.h"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/QtLocationSubset"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/device"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/libxslt"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/libxml"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtXmlPatterns"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtXml"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtSql"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/cascades/datamanager"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/push"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/vpnext"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtNetwork"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/QtNfcSubset"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/nfc"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/btapi"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/wifi"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/communications/push"/>
+								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.2126994632" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.825526739" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.1645803216" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
-							<tool id="com.qnx.qcc.tool.linker.2132513535" name="QCC Linker" superClass="com.qnx.qcc.tool.linker"/>
+							<tool id="com.qnx.qcc.tool.linker.2132513535" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
+								<option id="com.qnx.qcc.option.linker.libraries.1632663318" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
+									<listOptionValue builtIn="false" value="PushService"/>
+									<listOptionValue builtIn="false" value="wifi"/>
+									<listOptionValue builtIn="false" value="btapi"/>
+									<listOptionValue builtIn="false" value="csm"/>
+									<listOptionValue builtIn="false" value="curl"/>
+									<listOptionValue builtIn="false" value="dns_sd"/>
+									<listOptionValue builtIn="false" value="nfc_bps"/>
+									<listOptionValue builtIn="false" value="peripheral_discovery"/>
+									<listOptionValue builtIn="false" value="phone-number"/>
+									<listOptionValue builtIn="false" value="proxyinfo"/>
+									<listOptionValue builtIn="false" value="QtNfcSubset"/>
+									<listOptionValue builtIn="false" value="QtNetwork"/>
+									<listOptionValue builtIn="false" value="socket"/>
+									<listOptionValue builtIn="false" value="vpn_ext"/>
+									<listOptionValue builtIn="false" value="push_service"/>
+									<listOptionValue builtIn="false" value="bbdata"/>
+									<listOptionValue builtIn="false" value="bbcascadesdatamanager"/>
+									<listOptionValue builtIn="false" value="expat"/>
+									<listOptionValue builtIn="false" value="bbcascadespickers"/>
+									<listOptionValue builtIn="false" value="QtSql"/>
+									<listOptionValue builtIn="false" value="QtXml"/>
+									<listOptionValue builtIn="false" value="QtXmlPatterns"/>
+									<listOptionValue builtIn="false" value="sqlite3"/>
+									<listOptionValue builtIn="false" value="xml2"/>
+									<listOptionValue builtIn="false" value="xslt"/>
+									<listOptionValue builtIn="false" value="bbdevice"/>
+									<listOptionValue builtIn="false" value="location_manager"/>
+									<listOptionValue builtIn="false" value="QtLocationSubset"/>
+									<listOptionValue builtIn="false" value="QtSensors"/>
+									<listOptionValue builtIn="false" value="sensor"/>
+									<listOptionValue builtIn="false" value="exif"/>
+									<listOptionValue builtIn="false" value="font"/>
+									<listOptionValue builtIn="false" value="gif"/>
+									<listOptionValue builtIn="false" value="glview"/>
+									<listOptionValue builtIn="false" value="harfbuzz"/>
+									<listOptionValue builtIn="false" value="img"/>
+									<listOptionValue builtIn="false" value="jpeg"/>
+									<listOptionValue builtIn="false" value="tiff"/>
+									<listOptionValue builtIn="false" value="EGL"/>
+									<listOptionValue builtIn="false" value="GLESv1_CM"/>
+									<listOptionValue builtIn="false" value="GLESv2"/>
+									<listOptionValue builtIn="false" value="png"/>
+									<listOptionValue builtIn="false" value="png14"/>
+									<listOptionValue builtIn="false" value="png16"/>
+									<listOptionValue builtIn="false" value="QtGui"/>
+									<listOptionValue builtIn="false" value="QtOpenGL"/>
+									<listOptionValue builtIn="false" value="QtSvg"/>
+									<listOptionValue builtIn="false" value="screen"/>
+									<listOptionValue builtIn="false" value="grskia"/>
+									<listOptionValue builtIn="false" value="WTLE"/>
+									<listOptionValue builtIn="false" value="bbmsp"/>
+									<listOptionValue builtIn="false" value="bbplatformbbm"/>
+									<listOptionValue builtIn="false" value="bbpim"/>
+									<listOptionValue builtIn="false" value="unifieddatasourcec"/>
+									<listOptionValue builtIn="false" value="bbads"/>
+									<listOptionValue builtIn="false" value="bbcascadesadvertisement"/>
+									<listOptionValue builtIn="false" value="bb"/>
+									<listOptionValue builtIn="false" value="bbplatform"/>
+									<listOptionValue builtIn="false" value="geomonitor"/>
+									<listOptionValue builtIn="false" value="bps"/>
+									<listOptionValue builtIn="false" value="egm"/>
+									<listOptionValue builtIn="false" value="geo_search"/>
+									<listOptionValue builtIn="false" value="gestures"/>
+									<listOptionValue builtIn="false" value="QtCore"/>
+									<listOptionValue builtIn="false" value="webkit"/>
+									<listOptionValue builtIn="false" value="wmm"/>
+									<listOptionValue builtIn="false" value="iType"/>
+									<listOptionValue builtIn="false" value="asound"/>
+									<listOptionValue builtIn="false" value="bbcascadesmultimedia"/>
+									<listOptionValue builtIn="false" value="bbmultimedia"/>
+									<listOptionValue builtIn="false" value="camapi"/>
+									<listOptionValue builtIn="false" value="camerafeatures"/>
+									<listOptionValue builtIn="false" value="OpenAL"/>
+									<listOptionValue builtIn="false" value="alut"/>
+									<listOptionValue builtIn="false" value="OpenMAXAL"/>
+									<listOptionValue builtIn="false" value="QtMultimedia"/>
+									<listOptionValue builtIn="false" value="QtMultimediaKit"/>
+									<listOptionValue builtIn="false" value="xmp"/>
+									<listOptionValue builtIn="false" value="credential"/>
+									<listOptionValue builtIn="false" value="ssl"/>
+									<listOptionValue builtIn="false" value="sbengine"/>
+									<listOptionValue builtIn="false" value="loadsbengine"/>
+									<listOptionValue builtIn="false" value="scs"/>
+									<listOptionValue builtIn="false" value="bbcascades"/>
+									<listOptionValue builtIn="false" value="bbcascadesplaces"/>
+									<listOptionValue builtIn="false" value="bbsystem"/>
+									<listOptionValue builtIn="false" value="bbplatformplaces"/>
+									<listOptionValue builtIn="false" value="bbutility"/>
+									<listOptionValue builtIn="false" value="clipboard"/>
+									<listOptionValue builtIn="false" value="context"/>
+									<listOptionValue builtIn="false" value="intl"/>
+									<listOptionValue builtIn="false" value="googleurl"/>
+									<listOptionValue builtIn="false" value="icui18n"/>
+									<listOptionValue builtIn="false" value="ids"/>
+									<listOptionValue builtIn="false" value="iconv"/>
+									<listOptionValue builtIn="false" value="archive"/>
+									<listOptionValue builtIn="false" value="lzma"/>
+									<listOptionValue builtIn="false" value="m"/>
+									<listOptionValue builtIn="false" value="packageinfo"/>
+									<listOptionValue builtIn="false" value="QREncoder"/>
+									<listOptionValue builtIn="false" value="QtDeclarative"/>
+									<listOptionValue builtIn="false" value="QtScript"/>
+									<listOptionValue builtIn="false" value="QtScriptTools"/>
+									<listOptionValue builtIn="false" value="QtTest"/>
+									<listOptionValue builtIn="false" value="slog2"/>
+									<listOptionValue builtIn="false" value="spellcheck_client"/>
+									<listOptionValue builtIn="false" value="strpattern"/>
+									<listOptionValue builtIn="false" value="ucl"/>
+									<listOptionValue builtIn="false" value="z"/>
+									<listOptionValue builtIn="false" value="zxing"/>
+								</option>
+							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.2109753748" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
 					</folderInfo>

@@ -17,7 +17,14 @@
 #ifndef ApplicationUI_HPP_
 #define ApplicationUI_HPP_
 
+// Qt imports
 #include <QObject>
+#include <QString>
+
+// Cascades imports
+#include <bb/cascades/Application>
+#include <bb/cascades/TextField>
+#include <bb/cascades/TextArea>
 
 namespace bb
 {
@@ -29,22 +36,27 @@ namespace bb
 
 class QTranslator;
 
-/*!
- * @brief Application UI object
+/**
+ * @brief Application UI class
  *
  * Use this object to create and init app UI, to create context objects, to register the new meta types etc.
  */
 class ApplicationUI : public QObject
 {
     Q_OBJECT
+
 public:
-    ApplicationUI();
+    ApplicationUI(bb::cascades::Application* app);
     virtual ~ApplicationUI() {}
+
 private slots:
     void onSystemLanguageChanged();
+    void updateServerIPTextField(QString text);
+
 private:
     QTranslator* m_pTranslator;
     bb::cascades::LocaleHandler* m_pLocaleHandler;
+    bb::cascades::TextField* serverIPTextField;
 };
 
 #endif /* ApplicationUI_HPP_ */

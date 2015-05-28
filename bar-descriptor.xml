@@ -43,6 +43,8 @@
     <configuration name="Simulator-Debug">
        <platformArchitecture>x86</platformArchitecture>
        <asset path="x86/o-g/Network_IF" entry="true" type="Qnx/Elf">Network_IF</asset>
+       <asset path="libperipheral_discovery.so" type="Qnx/Elf">lib/libperipheral_discovery.so</asset>
+       <asset path="libvpn_ext.so" type="Qnx/Elf">lib/libvpn_ext.so</asset>
     </configuration>
 
     <!-- The name that is displayed in the BlackBerry 10 application installer.

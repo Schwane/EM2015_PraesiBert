@@ -8,17 +8,39 @@
 #ifndef SERVERSOCKET_H_
 #define SERVERSOCKET_H_
 
+// Qt includes
 #include <QObject>
+#include <QTcpServer>
+#include <QTcpSocket>
+#include <QString>
 
-class ServerSocket : public QObject
+/**
+ * @brief ConnectionServer class
+ *
+ * Instantiates a server socket that clients can connect to for non-massive data communication.
+ */
+class ServerSocket : public QTcpServer
 {
     Q_OBJECT
 public:
-    ServerSocket();
+    ServerSocket(QObject* parent);
     virtual ~ServerSocket();
 
+private:
+    QTcpSocket* aTcpConnection;
+
 public slots:
-    void init();
+    bool beginListening(QString port_str);
+    bool closeServer();
+    bool send();
+    bool handleClientConnection();
+    bool handleClientDisconnect();
+
+signals:
+    void newIP(QString newIP);
+    void clientDisconnect();
+    void stoppedServer();
+    //void receive();
 };
 
 #endif /* SERVERSOCKET_H_ */

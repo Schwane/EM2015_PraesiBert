@@ -16,18 +16,19 @@
 
 #include "applicationui.hpp"
 
-#include <bb/cascades/Application>
+// Cascades imports
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/LocaleHandler>
 
+// Other includes
 #include "Network/ClientSocket.h"
 #include "Network/ServerSocket.h"
 
 using namespace bb::cascades;
 
-ApplicationUI::ApplicationUI() :
-        QObject()
+ApplicationUI::ApplicationUI(bb::cascades::Application* app) :
+        QObject(app)
 {
     // prepare the localization
     m_pTranslator = new QTranslator(this);
@@ -47,19 +48,22 @@ ApplicationUI::ApplicationUI() :
     // to ensure the document gets destroyed properly at shut down.
     QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
 
-    // ================== THIS IS WHERE THE MAGIC HAPPENS =======================
     // Create instances of Client and Socket
-    ClientSocket *_clientSocket = new ClientSocket();
-    ServerSocket *_serverSocket = new ServerSocket();
+    ClientSocket *_clientSocket = new ClientSocket(this);
+    ServerSocket *_serverSocket = new ServerSocket(this);
 
-    // Make instances of Client- and Server-Socket available in QML-File
+    // Make instances of Client- and Server-Socket available in QML UI
     qml->setContextProperty("clientSocket", _clientSocket);
     qml->setContextProperty("serverSocket", _serverSocket);
 
-    // ================== THIS IS WHERE THE MAGIC ENDS ==========================
-
     // Create root object for the UI
     AbstractPane *root = qml->createRootObject<AbstractPane>();
+
+    // Fetch editable objects from QML UI
+    serverIPTextField = root->findChild<TextField*>("serverIPTextField");
+
+    // Connect singals and slots
+    connect(_serverSocket, SIGNAL(newIP(QString)), this, SLOT(updateServerIPTextField(QString)));
 
     // Set created root object as the application scene
     Application::instance()->setScene(root);
@@ -74,4 +78,9 @@ void ApplicationUI::onSystemLanguageChanged()
     if (m_pTranslator->load(file_name, "app/native/qm")) {
         QCoreApplication::instance()->installTranslator(m_pTranslator);
     }
+}
+
+void ApplicationUI::updateServerIPTextField(QString ip_str)
+{
+    serverIPTextField->setText(ip_str);
 }

@@ -8,17 +8,22 @@
 #ifndef CLIENTSOCKET_H_
 #define CLIENTSOCKET_H_
 
+// Qt imports
 #include <QObject>
+#include <QTcpSocket>
+#include <QString>
 
-class ClientSocket : public QObject
+class ClientSocket : public QTcpSocket
 {
     Q_OBJECT
 public:
-    ClientSocket();
+    ClientSocket(QObject*);
     virtual ~ClientSocket();
 
 public slots:
-    void init();
+    bool connectToServer(QString ipAddr_str, QString port_str);
+    bool disconnectFromServer();
+    bool handleConnect();
 };
 
 #endif /* CLIENTSOCKET_H_ */
