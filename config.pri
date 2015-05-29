@@ -877,12 +877,14 @@ config_pri_assets {
 config_pri_source_group1 {
     SOURCES += \
         $$quote($$BASEDIR/src/Network/ClientSocket.cpp) \
+        $$quote($$BASEDIR/src/Network/ConnectedClient.cpp) \
         $$quote($$BASEDIR/src/Network/ServerSocket.cpp) \
         $$quote($$BASEDIR/src/applicationui.cpp) \
         $$quote($$BASEDIR/src/main.cpp)
 
     HEADERS += \
         $$quote($$BASEDIR/src/Network/ClientSocket.h) \
+        $$quote($$BASEDIR/src/Network/ConnectedClient.h) \
         $$quote($$BASEDIR/src/Network/ServerSocket.h) \
         $$quote($$BASEDIR/src/applicationui.hpp)
 }

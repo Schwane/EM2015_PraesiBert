@@ -12,6 +12,7 @@
 #include <QObject>
 #include <QTcpSocket>
 #include <QString>
+#include <QByteArray>
 
 class ClientSocket : public QTcpSocket
 {
@@ -24,6 +25,11 @@ public slots:
     bool connectToServer(QString ipAddr_str, QString port_str);
     bool disconnectFromServer();
     bool handleConnect();
+    bool handleNewData();
+    int sendData(QByteArray data);
+
+signals:
+    void newData(QByteArray data);
 };
 
 #endif /* CLIENTSOCKET_H_ */

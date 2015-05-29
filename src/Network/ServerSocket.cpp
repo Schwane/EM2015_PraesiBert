@@ -7,22 +7,53 @@
 
 #include "ServerSocket.h"
 
+// QT includes
 #include <QDebug>
 #include <QHostAddress>
 #include <QNetworkInterface>
 #include <QList>
 
-ServerSocket::ServerSocket(QObject* parent) : QTcpServer(parent)
+/**
+ * @brief Constructor of the ServerSocket class.
+ *
+ * @param[in] parent Parent QObject that creates the server socket object.
+ *
+ * TODO: Obsolete!?
+ * The constructor connects signals of the <i>QTcpServer</i> class with slots of the ServerSocket class.<br>
+ * These connections include handling for:<br>
+ * <ul>
+ *  <li>New connections of clients (method: ServerSocket::handleClientConnection())</li>
+ * </ul>
+ */
+ServerSocket::ServerSocket(QObject* parent)
+        : QTcpServer(parent)
+        , connectedClients(0)
+        , clientID(0)
 {
-    connect(this, SIGNAL(newConnection()), this, SLOT(handleClientConnection()));
 }
 
+/**
+ * @brief Destructor of the ServerSocket class.
+ *
+ * Closes the server socket and deletes itself.
+ */
 ServerSocket::~ServerSocket()
 {
-    this->close();
+    this->closeServer();
     delete this;
 }
 
+/**
+ * @brief Method that is called to start listening for incoming connections.
+ *
+ * @param[in] port_str Listening port for incoming connections in QString format.
+ *
+ * @return Returns true, if the listening for incoming connections was successfull.
+ *
+ * Initializes the TCP server and starts listening for incoming connections on any address.<br>
+ * Afterwards the IP-Address of the server is located and a signal (ServerSocket::newIP()) with the IP in QString format is emitted.<br>
+ * If no IP was found, localhost is used as IP-Address.
+ */
 bool ServerSocket::beginListening(QString port_str)
 {
     // Define variables for IP-Address and Port
@@ -60,26 +91,79 @@ bool ServerSocket::beginListening(QString port_str)
     return true;
 }
 
+/**
+ * @brief Signal to close the server.
+ *
+ * @return Returns true, if the server was closed successfully.
+ */
 bool ServerSocket::closeServer()
 {
     this->close();
+    qDebug() << "Closing server.\n";
     return true;
 }
 
-bool ServerSocket::send()
+/**
+ * @brief Send method for server.
+ *
+ * Sends data to all clients on method call.
+ */
+bool ServerSocket::send(QByteArray data)
 {
-    // TODO: Implement send method
+    for(int i = 0; i < clientThreadList.size(); i++)
+    {
+        clientThreadList.at(i)->sendData(data);
+    }
     return true;
 }
 
-bool ServerSocket::handleClientConnection()
+/**
+ * @brief Method for handling new connections from clients.
+ *
+ * This method is called every time a new client tries to connect to the server.<br>
+ * Within the method a new TcpSocket object (ClientConnection class) is created for the connected client and put into an own thread.<br>
+ * TODO: More documentation!
+ */
+void ServerSocket::incomingConnection(int socketDescriptor)
 {
-    aTcpConnection = this->nextPendingConnection();
-    qDebug() << "New connection to server";
+    // Increment counter for connected clients and clientID
+    connectedClients++;
+    clientID++;
+
+    // Create new client thread (ConnectedClient class), add client thread to thread list and start client thread
+    ConnectedClient* newClient = new ConnectedClient(this, socketDescriptor, clientID);
+    clientThreadList.append(newClient);
+
+    // Connect signals and slots for communication between server- and client- object
+    connect(newClient, SIGNAL(newData(QByteArray, unsigned int)), this, SLOT(handleNewData(QByteArray, unsigned int)));
+    connect(newClient, SIGNAL(disconnected(unsigned int)), this, SLOT(handleClientDisconnect(unsigned int)));
+
+    // Start the thread with low priority
+    newClient->start(QThread::LowPriority);
+
+    qDebug() << "New client connected to server with ID: " << clientID << "\n.";
+}
+
+bool ServerSocket::handleClientDisconnect(unsigned int clientID)
+{
+    qDebug() << "Client with ID " << clientID << " disconnected from server.\n";
+    for(int i = 0; i < clientThreadList.length(); i++)
+    {
+        if(clientThreadList.at(i)->getClientID() == clientID)
+        {
+            //TODO: Causes chrash!!
+            //clientThreadList.at(i)->quit();
+            clientThreadList.at(i)->deleteLater();
+            clientThreadList.removeAt(i);
+            break;
+        }
+    }
     return true;
 }
 
-bool ServerSocket::handleClientDisconnect()
+void ServerSocket::handleNewData(QByteArray data, unsigned int clientID)
 {
-    return true;
+    QString data_str(data);
+    qDebug() << "New data from client with ID: " << clientID << "\n.";
+    qDebug() << data_str << "\n.";
 }

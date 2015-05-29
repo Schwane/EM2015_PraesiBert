@@ -13,11 +13,15 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QString>
+#include <QByteArray>
+
+// Other includes
+#include "ConnectedClient.h"
 
 /**
- * @brief ConnectionServer class
+ * @class ServerSocket ServerSocket.h "Network/ServerSocket.h".
  *
- * Instantiates a server socket that clients can connect to for non-massive data communication.
+ * Instantiates a server socket that clients can connect to for communication.
  */
 class ServerSocket : public QTcpServer
 {
@@ -27,20 +31,24 @@ public:
     virtual ~ServerSocket();
 
 private:
-    QTcpSocket* aTcpConnection;
+    ConnectedClient* newClient;
+    QList<ConnectedClient*> clientThreadList;
+    unsigned int connectedClients;
+    unsigned int clientID;
 
 public slots:
     bool beginListening(QString port_str);
     bool closeServer();
-    bool send();
-    bool handleClientConnection();
-    bool handleClientDisconnect();
+    bool send(QByteArray data);
+    bool handleClientDisconnect(unsigned int clientID);
+    void incomingConnection(int socketDescriptor);
+    void handleNewData(QByteArray data, unsigned int clientID);
 
 signals:
     void newIP(QString newIP);
     void clientDisconnect();
     void stoppedServer();
-    //void receive();
+    void receiveFromClient(uint clientID, QByteArray* data);
 };
 
 #endif /* SERVERSOCKET_H_ */
