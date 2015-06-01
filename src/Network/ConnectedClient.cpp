@@ -5,28 +5,37 @@
  *      Author: Niklas
  */
 
-#include <src/Network/ConnectedClient.h>
+#include "ConnectedClient.h"
 
 // Qt includes
 #include <QByteArray>
 
 ConnectedClient::ConnectedClient(QObject* parent, int socketDescriptor, unsigned int clientID)
         : QThread(parent)
+        , socketDescriptor(socketDescriptor)
         , clientID(clientID)
 {
-    tcpSocket = new QTcpSocket(this);
-    // Set socketdescriptor on creation of object
-    tcpSocket->setSocketDescriptor(socketDescriptor);
-
-    // Connect signals and slots for event handling
-    connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(handleDataRead()));
-    connect(tcpSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
 }
 
 ConnectedClient::~ConnectedClient()
 {
     tcpSocket->close();
     delete tcpSocket;
+}
+
+void ConnectedClient::run()
+{
+    // Create socket object and set socket descriptor on start of thread
+    // Do not set "this" as parent for socket. Leads to critical crash.
+    tcpSocket = new QTcpSocket();
+    tcpSocket->setSocketDescriptor(socketDescriptor);
+
+    // Connect signals and slots for event handling
+    connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(handleDataRead()));
+    connect(tcpSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
+
+    // Enter the event loop
+    exec();
 }
 
 unsigned int ConnectedClient::getClientID()

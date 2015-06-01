@@ -126,9 +126,8 @@ bool ServerSocket::send(QByteArray data)
  */
 void ServerSocket::incomingConnection(int socketDescriptor)
 {
-    // Increment counter for connected clients and clientID
+    // Increment counter for connected clients
     connectedClients++;
-    clientID++;
 
     // Create new client thread (ConnectedClient class), add client thread to thread list and start client thread
     ConnectedClient* newClient = new ConnectedClient(this, socketDescriptor, clientID);
@@ -142,6 +141,9 @@ void ServerSocket::incomingConnection(int socketDescriptor)
     newClient->start(QThread::LowPriority);
 
     qDebug() << "New client connected to server with ID: " << clientID << "\n.";
+
+    // Increment clientID afterwards
+    clientID++;
 }
 
 bool ServerSocket::handleClientDisconnect(unsigned int clientID)

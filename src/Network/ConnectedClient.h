@@ -21,6 +21,7 @@ public:
     virtual ~ConnectedClient();
 
     unsigned int getClientID();
+    void run();
 
 private:
     unsigned int socketDescriptor;
