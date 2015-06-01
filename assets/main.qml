@@ -29,7 +29,7 @@ TabbedPane {
 
                 }
                 Label {
-                    text: "Select IP-Address and Port to connect to:"
+                    text: "Select IP-Address and port to connect to:"
                 }
                 Container {
                     layout: GridLayout {
@@ -88,7 +88,7 @@ TabbedPane {
             }
             Container {
                 Label {
-                    text: "Select a listenig-port and start the server:"
+                    text: "Select a port for listening and start the server:"
                 }
                 Container {
                     layout: DockLayout {

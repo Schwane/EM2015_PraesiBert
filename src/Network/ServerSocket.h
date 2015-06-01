@@ -21,7 +21,31 @@
 /**
  * @class ServerSocket ServerSocket.h "Network/ServerSocket.h".
  *
- * Instantiates a server socket that clients can connect to for communication.
+ * @brief Server Socket class.
+ *
+ * Instantiates a TCP Server Socket that clients can connect to for communication.<br>
+ *
+ * The class inherits from the <i>QTcpServer</i>-class.<br>
+ * Besides the methods of <i>QTcpServer</i> it provides several signals and slots connection and data handling:
+ * <ul>
+ *  <li>signals:</li>
+ *      <ul>
+ *          <li>newIP(): Emitted with current IP, when the server is set up.</li>
+ *          <li>clientDisconnect(): Emitted with clientID, when connection to a client is lost.</li>
+ *          <li>stoppedServer(): Emitted, when server is stopped.</li>
+ *          <li>receiveFromClient(): Emitted with ByteArray and clientID, when a message is received from a client.</li>
+ *      </ul>
+ *  <li>slots:</li>
+ *      <ul>
+ *          <li>beginListening(): Calling this slot makes the server start to listen for incoming connections of the port that is given as parameter.</li>
+ *          <li>closeServer(): Shuts down the server.</li>
+ *          <li>sendToAll(): Sends the ByteArray that is given as parameter to all of it's clients.</li>
+ *      </ul>
+ *  </ul>
+ *
+ * The ServerSocket manages all of the connected clients in a list (m_clientList) with a specific ID.
+ * For any client that establishes a connection to the server, an object of the <i>ConnectedClient</i>-class is created, pushed to an own thread and stored in m_clientList.<br>
+ * The <i>ConnectedClient</i>-class contains a QTcpSocket that the server can use to communicate with it's clients.
  */
 class ServerSocket : public QTcpServer
 {
@@ -31,24 +55,50 @@ public:
     virtual ~ServerSocket();
 
 private:
-    ConnectedClient* newClient;
-    QList<ConnectedClient*> clientList;
-    unsigned int connectedClients;
-    unsigned int clientID;
+    /// QList that stores the connected clients.
+    QList<ConnectedClient*> m_clientList;
+    /// Variable that stores the amount of connected clients.
+    uint m_connectedClients;
+    /// ID that is given to a new connected client.
+    uint m_clientID;
+
+private slots:
+    void handleClientDisconnect(uint clientID);
+    void incomingConnection(int socketDescriptor);
+    void handleNewData(QByteArray data, uint clientID);
 
 public slots:
     bool beginListening(QString port_str);
     bool closeServer();
-    bool send(QByteArray data);
-    bool handleClientDisconnect(unsigned int clientID);
-    void incomingConnection(int socketDescriptor);
-    void handleNewData(QByteArray data, unsigned int clientID);
+    bool sendToAll(QByteArray data);
 
 signals:
+    /**
+     * @brief Signal that is emitted, when the server is set up correctly and a correct IP was found.
+     *
+     * @param[in] newIP IP-Address in QString format that was found.
+     */
     void newIP(QString newIP);
-    void clientDisconnect();
+
+    /**
+     * @brief Signal that is emitted, when the connection to a client was lost.
+     *
+     * @param[in] clientID ID of the client that the connection was lost to.
+     */
+    void clientDisconnect(uint clientID);
+
+    /**
+     * @brief Signal that is emitted, when the server was stopped.
+     */
     void stoppedServer();
-    void receiveFromClient(uint clientID, QByteArray* data);
+
+    /**
+     * @brief Signal that is emitted, when data was received from a client.
+     *
+     * @param[in] data Data that was received from the client.
+     * @param[in] clientID ID of the client that sent the data.
+     */
+    void receivedFromClient(QByteArray data, uint clientID);
 };
 
 #endif /* SERVERSOCKET_H_ */
