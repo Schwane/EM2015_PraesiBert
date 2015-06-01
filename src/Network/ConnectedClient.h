@@ -11,17 +11,16 @@
 // Qt includes
 #include <QObject>
 #include <QTcpSocket>
-#include <QThread>
+#include <QByteArray>
 
-class ConnectedClient : public QThread
+class ConnectedClient : public QObject
 {
     Q_OBJECT
 public:
-    ConnectedClient(QObject* parent, int socketDescriptor, unsigned int clientID);
+    ConnectedClient(int socketDescriptor, unsigned int clientID);
     virtual ~ConnectedClient();
 
     unsigned int getClientID();
-    void run();
 
 private:
     unsigned int socketDescriptor;
@@ -33,9 +32,11 @@ private slots:
     void handleDisconnect();
 
 public slots:
+    void process();
     int sendData(QByteArray data);
 
 signals:
+    void finished();
     void disconnected(unsigned int clientID);
     void newData(QByteArray data, unsigned int clientID);
 };

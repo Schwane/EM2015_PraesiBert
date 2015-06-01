@@ -12,6 +12,7 @@
 #include <QHostAddress>
 #include <QNetworkInterface>
 #include <QList>
+#include <QThread>
 
 /**
  * @brief Constructor of the ServerSocket class.
@@ -110,9 +111,9 @@ bool ServerSocket::closeServer()
  */
 bool ServerSocket::send(QByteArray data)
 {
-    for(int i = 0; i < clientThreadList.size(); i++)
+    for(int i = 0; i < clientList.size(); i++)
     {
-        clientThreadList.at(i)->sendData(data);
+        clientList.at(i)->sendData(data);
     }
     return true;
 }
@@ -129,18 +130,29 @@ void ServerSocket::incomingConnection(int socketDescriptor)
     // Increment counter for connected clients
     connectedClients++;
 
-    // Create new client thread (ConnectedClient class), add client thread to thread list and start client thread
-    ConnectedClient* newClient = new ConnectedClient(this, socketDescriptor, clientID);
-    clientThreadList.append(newClient);
+    // Create client thread and a new client (ConnectedClient class) and move it to the client thread
+    // Do not give a parent to newClient, so it can be moved to a thread
+    ConnectedClient* newClient = new ConnectedClient(socketDescriptor, clientID);
+    QThread* thread = new QThread(this);
+    newClient->moveToThread(thread);
+
+    // Connect signals and slots for thread start and stop
+    connect(thread, SIGNAL(started()), newClient, SLOT(process())); // Call process() on thread start
+    connect(newClient, SIGNAL(finished()), thread, SLOT(quit())); // Quit thread when client socket is finished
+    connect(newClient, SIGNAL(finished()), newClient, SLOT(deleteLater())); // Delete client socket when it's finished
+    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater())); // Delete thread when it is finished
+
+    // Append client thread to thread list.
+    clientList.append(newClient);
 
     // Connect signals and slots for communication between server- and client- object
-    connect(newClient, SIGNAL(newData(QByteArray, unsigned int)), this, SLOT(handleNewData(QByteArray, unsigned int)));
-    connect(newClient, SIGNAL(disconnected(unsigned int)), this, SLOT(handleClientDisconnect(unsigned int)));
+    connect(newClient, SIGNAL(newData(QByteArray, unsigned int)), this, SLOT(handleNewData(QByteArray, unsigned int))); // Process data when it is available from a client
+    connect(newClient, SIGNAL(disconnected(unsigned int)), this, SLOT(handleClientDisconnect(unsigned int))); // Handle a disconnect of a client
 
     // Start the thread with low priority
-    newClient->start(QThread::LowPriority);
+    thread->start(QThread::LowPriority);
 
-    qDebug() << "New client connected to server with ID: " << clientID << "\n.";
+    qDebug() << "New client connected to server with ID: " << clientID << ".\n";
 
     // Increment clientID afterwards
     clientID++;
@@ -149,14 +161,11 @@ void ServerSocket::incomingConnection(int socketDescriptor)
 bool ServerSocket::handleClientDisconnect(unsigned int clientID)
 {
     qDebug() << "Client with ID " << clientID << " disconnected from server.\n";
-    for(int i = 0; i < clientThreadList.length(); i++)
+    for(int i = 0; i < clientList.length(); i++)
     {
-        if(clientThreadList.at(i)->getClientID() == clientID)
+        if(clientList.at(i)->getClientID() == clientID)
         {
-            //TODO: Causes chrash!!
-            //clientThreadList.at(i)->quit();
-            clientThreadList.at(i)->deleteLater();
-            clientThreadList.removeAt(i);
+            clientList.removeAt(i);
             break;
         }
     }

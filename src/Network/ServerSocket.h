@@ -32,7 +32,7 @@ public:
 
 private:
     ConnectedClient* newClient;
-    QList<ConnectedClient*> clientThreadList;
+    QList<ConnectedClient*> clientList;
     unsigned int connectedClients;
     unsigned int clientID;
 

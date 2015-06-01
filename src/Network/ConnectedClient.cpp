@@ -7,12 +7,8 @@
 
 #include "ConnectedClient.h"
 
-// Qt includes
-#include <QByteArray>
-
-ConnectedClient::ConnectedClient(QObject* parent, int socketDescriptor, unsigned int clientID)
-        : QThread(parent)
-        , socketDescriptor(socketDescriptor)
+ConnectedClient::ConnectedClient(int socketDescriptor, unsigned int clientID)
+        : socketDescriptor(socketDescriptor)
         , clientID(clientID)
 {
 }
@@ -23,19 +19,15 @@ ConnectedClient::~ConnectedClient()
     delete tcpSocket;
 }
 
-void ConnectedClient::run()
+void ConnectedClient::process()
 {
     // Create socket object and set socket descriptor on start of thread
-    // Do not set "this" as parent for socket. Leads to critical crash.
-    tcpSocket = new QTcpSocket();
+    tcpSocket = new QTcpSocket(this);
     tcpSocket->setSocketDescriptor(socketDescriptor);
 
     // Connect signals and slots for event handling
     connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(handleDataRead()));
     connect(tcpSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
-
-    // Enter the event loop
-    exec();
 }
 
 unsigned int ConnectedClient::getClientID()
@@ -58,6 +50,8 @@ int ConnectedClient::sendData(QByteArray data)
 void ConnectedClient::handleDisconnect()
 {
     tcpSocket->close();
-    tcpSocket->deleteLater();
+    // Call signal that tells which client disconnected
     emit disconnected(clientID);
+    // Call signal that tells the thread should be finished
+    emit finished();
 }
