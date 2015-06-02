@@ -43,6 +43,8 @@ public:
     virtual ~ConnectedClient();
 
     uint getClientID();
+    int sendData(QByteArray data);
+    void disconnectFromServer();
 
 private:
     /// Integer value of the socket descriptor.
@@ -58,7 +60,6 @@ private slots:
 
 public slots:
     void process();
-    int sendData(QByteArray data);
 
 signals:
     /**

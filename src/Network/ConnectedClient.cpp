@@ -83,6 +83,18 @@ int ConnectedClient::sendData(QByteArray data)
 }
 
 /**
+ * @brief Closes the connection to the Server.
+ *
+ * This class closes the connection to the server.
+ * It emits the signal <i>finished</i> to quit the thread.
+ */
+void ConnectedClient::disconnectFromServer()
+{
+    m_tcpSocket->disconnectFromHost();
+    emit finished();
+}
+
+/**
  * @brief Disconnect handler for the client.
  *
  * This method is called, when the client was disconnected from the server.<br>

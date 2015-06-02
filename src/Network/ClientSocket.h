@@ -45,8 +45,7 @@ public:
 
 public slots:
     bool connectToServer(QString ipAddr_str, QString port_str);
-    bool disconnectFromServer();
-    uint sendData(QByteArray data);
+    void disconnectFromServer();
 
 signals:
     /**

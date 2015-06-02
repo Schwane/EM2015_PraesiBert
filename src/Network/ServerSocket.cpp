@@ -94,14 +94,18 @@ bool ServerSocket::beginListening(QString port_str)
  *
  * Emits the signal <i>stoppedServer</i> after it closed the server.
  */
-bool ServerSocket::closeServer()
+void ServerSocket::closeServer()
 {
     qDebug() << "Closing server.\n";
 
+    // Close connection to each Client
+    for(int i = 0; i < m_clientList.length(); i++)
+    {
+        m_clientList.at(i)->disconnectFromServer();
+    }
+
     this->close();
     emit stoppedServer();
-
-    return true;
 }
 
 /**
@@ -111,13 +115,12 @@ bool ServerSocket::closeServer()
  *
  * Sends data to all clients on method call.
  */
-bool ServerSocket::sendToAll(QByteArray data)
+void ServerSocket::sendToAll(QByteArray data)
 {
     for(int i = 0; i < m_clientList.size(); i++)
     {
         m_clientList.at(i)->sendData(data);
     }
-    return true;
 }
 
 /**

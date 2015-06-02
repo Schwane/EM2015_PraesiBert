@@ -73,12 +73,11 @@ bool ClientSocket::connectToServer(QString ipAddr_str, QString port_str)
  * This method lets the socket disconnect from the server that it is connected to.<br>
  * Emits the <i>lostConnection</i>-Signal after it disconnected from the server.
  */
-bool ClientSocket::disconnectFromServer()
+void ClientSocket::disconnectFromServer()
 {
     disconnectFromHost();
     lostConnection();
     qDebug() << "Disconnected from host.\n";
-    return true;
 }
 
 /**
@@ -108,18 +107,4 @@ void ClientSocket::handleNewData()
     qDebug() << data_str << ".\n";
 
     emit newData(data);
-}
-
-/**
- * @brief Slot for sending data.
- *
- * @return Returns the number of sent bytes.
- *
- * Sends the data that is given as parameter in QByteArray format to the server that the client is connected to.
- */
-uint ClientSocket::sendData(QByteArray data)
-{
-    uint sentBytes;
-    sentBytes = this->write(data);
-    return sentBytes;
 }

@@ -69,8 +69,8 @@ private slots:
 
 public slots:
     bool beginListening(QString port_str);
-    bool closeServer();
-    bool sendToAll(QByteArray data);
+    void closeServer();
+    void sendToAll(QByteArray data);
 
 signals:
     /**
