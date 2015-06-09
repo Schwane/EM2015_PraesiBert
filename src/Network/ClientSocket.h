@@ -36,32 +36,45 @@
  *      </ul>
  *  </ul>
  */
-class ClientSocket : public QTcpSocket
+class ClientSocket : public QObject
 {
     Q_OBJECT
 public:
+    static const int cmdConnection = 0;
+    static const int dataConnection = 1;
+
     ClientSocket(QObject*);
     virtual ~ClientSocket();
 
-public slots:
-    bool connectToServer(QString ipAddr_str, QString port_str);
-    void disconnectFromServer();
+private:
+    QTcpSocket* m_cmdSocket;
+    QTcpSocket* m_dataSocket;
 
 signals:
     /**
      * @brief Signal that is emitted, when new data is available at the client socket.
      *
-     * @param[in] data Data that was read from the socket.
+     * @param[out] data Data that was read from the socket.
      */
-    void newData(QByteArray data);
+    void receivedCmd(QByteArray data);
+
+    void receivedData(QByteArray data);
+
+    void connectedToCmdServer();
+
+    void connectedToDataServer();
 
     /**
      * @brief Signal that is emitted, when the connection was lost to the server.
      */
     void lostConnection();
 
+public slots:
+    bool connectToServer(QString ipAddr_str, QString cmdPort_str, QString dataPort_str);
+    int sendData(QByteArray data, int connectionType);
+    void disconnectFromServer();
+
 private slots:
-    void handleConnect();
     void handleNewData();
 };
 

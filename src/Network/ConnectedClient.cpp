@@ -13,9 +13,10 @@
  * Initializes the variables <i>m_socketDescriptor</i> and <i>m_clientID</i> with the values that were given as parameters.<br>
  * The constructor does not implement a parent object so that it can be moved into a QThread.
  */
-ConnectedClient::ConnectedClient(int socketDescriptor, uint clientID)
-        : m_socketDescriptor(socketDescriptor)
-        , m_clientID(clientID)
+ConnectedClient::ConnectedClient(uint clientID)
+        : m_clientID(clientID)
+        , isCmdSocketInit(false)
+        , isDataSocketInit(false)
 {
 }
 
@@ -26,8 +27,10 @@ ConnectedClient::ConnectedClient(int socketDescriptor, uint clientID)
  */
 ConnectedClient::~ConnectedClient()
 {
-    m_tcpSocket->close();
-    delete m_tcpSocket;
+    m_cmdSocket->close();
+    m_dataSocket->close();
+    delete m_cmdSocket;
+    delete m_dataSocket;
 }
 
 /**
@@ -38,13 +41,17 @@ ConnectedClient::~ConnectedClient()
  */
 void ConnectedClient::process()
 {
-    // Create socket object and set socket descriptor on start of thread
-    m_tcpSocket = new QTcpSocket(this);
-    m_tcpSocket->setSocketDescriptor(m_socketDescriptor);
-
-    // Connect signals and slots for event handling
-    connect(m_tcpSocket, SIGNAL(readyRead()), this, SLOT(handleDataRead()));
-    connect(m_tcpSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
+    // Check of socket is established already and connect signals and slots
+    if(isCmdSocketInit)
+    {
+        connect(m_cmdSocket, SIGNAL(readyRead()), this, SLOT(handleCmdRead()));
+        connect(m_cmdSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
+    }
+    if(isDataSocketInit)
+    {
+        connect(m_dataSocket, SIGNAL(readyRead()), this, SLOT(handleDataRead()));
+        connect(m_dataSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
+    }
 }
 
 /**
@@ -57,6 +64,66 @@ uint ConnectedClient::getClientID()
     return m_clientID;
 }
 
+QHostAddress ConnectedClient::getPeerAddress()
+{
+    // Use Command-Socket for verifying the peer address primarily
+    if(isCmdSocketInit)
+    {
+        return m_cmdSocket->peerAddress();
+    }
+    else
+    {
+        if(isDataSocketInit)
+        {
+            return m_dataSocket->peerAddress();
+        }
+        else
+        {
+            return QHostAddress::LocalHost;
+        }
+    }
+}
+
+void ConnectedClient::setSocket(QTcpSocket* tcpSocket, int connectionType)
+{
+    if(connectionType == ConnectedClient::cmdConnection)
+    {
+        m_cmdSocket = tcpSocket;
+        connect(m_cmdSocket, SIGNAL(readyRead()), this, SLOT(handleCmdRead()));
+        connect(m_cmdSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
+        isCmdSocketInit = true;
+        return;
+    }
+    if(connectionType == ConnectedClient::dataConnection)
+    {
+        m_dataSocket = tcpSocket;
+        connect(m_dataSocket, SIGNAL(readyRead()), this, SLOT(handleDataRead()));
+        connect(m_dataSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
+        isDataSocketInit = true;
+        return;
+    }
+}
+
+bool ConnectedClient::hasSocketType(int connectionType)
+{
+    if(connectionType == ConnectedClient::cmdConnection)
+    {
+        return isCmdSocketInit;
+    }
+    if(connectionType == ConnectedClient::dataConnection)
+    {
+        return isDataSocketInit;
+    }
+    // Return false if none of the above statements is true
+    return false;
+}
+
+void ConnectedClient::handleCmdRead()
+{
+    QByteArray readData = m_cmdSocket->readAll();
+    emit newData(readData, m_clientID, ConnectedClient::cmdConnection);
+}
+
 /**
  * @brief Handler for new data at socket.
  *
@@ -65,8 +132,8 @@ uint ConnectedClient::getClientID()
  */
 void ConnectedClient::handleDataRead()
 {
-    QByteArray readData = m_tcpSocket->readAll();
-    emit newData(readData, m_clientID);
+    QByteArray readData = m_dataSocket->readAll();
+    emit newData(readData, m_clientID, ConnectedClient::dataConnection);
 }
 
 /**
@@ -76,10 +143,20 @@ void ConnectedClient::handleDataRead()
  *
  * This method is used to send data to the connected client that is given in QByteArray format as parameter.<br>
  */
-int ConnectedClient::sendData(QByteArray data)
+int ConnectedClient::sendData(QByteArray data, int connectionType)
 {
-    qint64 sentBytes = m_tcpSocket->write(data);
-    return sentBytes;
+    if(connectionType == ConnectedClient::cmdConnection)
+    {
+        qint64 sentBytes = m_cmdSocket->write(data);
+        return sentBytes;
+    }
+    if(connectionType == ConnectedClient::dataConnection)
+    {
+        qint64 sentBytes = m_dataSocket->write(data);
+        return sentBytes;
+    }
+    // Return 0 of none of socket was selected correctly
+    return 0;
 }
 
 /**
@@ -90,7 +167,8 @@ int ConnectedClient::sendData(QByteArray data)
  */
 void ConnectedClient::disconnectFromServer()
 {
-    m_tcpSocket->disconnectFromHost();
+    m_cmdSocket->disconnectFromHost();
+    m_dataSocket->disconnectFromHost();
     emit finished();
 }
 
@@ -102,7 +180,13 @@ void ConnectedClient::disconnectFromServer()
  */
 void ConnectedClient::handleDisconnect()
 {
-    m_tcpSocket->close();
+    // Close BOTH socket types, if one connection is lost!
+    m_cmdSocket->close();
+    m_dataSocket->close();
+
+    isCmdSocketInit = false;
+    isDataSocketInit = false;
+
     // Call signal that tells which client disconnected
     emit disconnected(m_clientID);
     // Call signal that tells the thread should be finished

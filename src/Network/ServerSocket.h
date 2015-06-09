@@ -47,7 +47,7 @@
  * For any client that establishes a connection to the server, an object of the <i>ConnectedClient</i>-class is created, pushed to an own thread and stored in m_clientList.<br>
  * The <i>ConnectedClient</i>-class contains a QTcpSocket that the server can use to communicate with it's clients.
  */
-class ServerSocket : public QTcpServer
+class ServerSocket : public QObject
 {
     Q_OBJECT
 public:
@@ -55,6 +55,10 @@ public:
     virtual ~ServerSocket();
 
 private:
+    /// QTcpServer for command connections
+    QTcpServer* m_cmdServer;
+    /// QTcpServer for data connections
+    QTcpServer* m_dataServer;
     /// QList that stores the connected clients.
     QList<ConnectedClient*> m_clientList;
     /// Variable that stores the amount of connected clients.
@@ -63,27 +67,28 @@ private:
     uint m_clientID;
 
 private slots:
+    void handleNewConnection();
     void handleClientDisconnect(uint clientID);
-    void incomingConnection(int socketDescriptor);
-    void handleNewData(QByteArray data, uint clientID);
+    void handleNewRead(QByteArray data, uint clientID, int connectionType);
 
 public slots:
-    bool beginListening(QString port_str);
+    bool beginListening(QString cmdPort_str, QString dataPort_str);
     void closeServer();
-    void sendToAll(QByteArray data);
+    void sendToAll(QByteArray data, int connectionType);
+    int sendToID(QByteArray data, uint clientID, int connectionType);
 
 signals:
     /**
      * @brief Signal that is emitted, when the server is set up correctly and a correct IP was found.
      *
-     * @param[in] newIP IP-Address in QString format that was found.
+     * @param[out] newIP IP-Address in QString format that was found.
      */
     void newIP(QString newIP);
 
     /**
      * @brief Signal that is emitted, when the connection to a client was lost.
      *
-     * @param[in] clientID ID of the client that the connection was lost to.
+     * @param[out] clientID ID of the client that the connection was lost to.
      */
     void clientDisconnect(uint clientID);
 
@@ -95,10 +100,13 @@ signals:
     /**
      * @brief Signal that is emitted, when data was received from a client.
      *
-     * @param[in] data Data that was received from the client.
-     * @param[in] clientID ID of the client that sent the data.
+     * @param[out] data Data that was received from the client.
+     * @param[out] clientID ID of the client that sent the data.
      */
-    void receivedFromClient(QByteArray data, uint clientID);
+    void receivedCmdFromClient(QByteArray data, uint clientID);
+
+    //TODO: Docu!
+    void receivedDataFromClient(QByteArray data, uint clientID);
 };
 
 #endif /* SERVERSOCKET_H_ */

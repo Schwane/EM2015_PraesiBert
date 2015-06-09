@@ -17,10 +17,19 @@
  * Connects the signal <i>connected()</i> of superclass <i>QTcpSocket</i> with the slot <i>handleConnect()</i> of this class.<br>
  * Connects the signal <i>readyRead()</i> of superclass <i>QTcpSocket</i> with the slot <i>handleNewData()</i> of this class.
  */
-ClientSocket::ClientSocket(QObject* parent) : QTcpSocket(parent)
+ClientSocket::ClientSocket(QObject* parent) : QObject(parent)
 {
-    connect(this, SIGNAL(connected()), this, SLOT(handleConnect()));
-    connect(this, SIGNAL(readyRead()), this, SLOT(handleNewData()));
+    m_cmdSocket = new QTcpSocket(parent);
+    m_dataSocket = new QTcpSocket(parent);
+
+    connect(m_cmdSocket, SIGNAL(connected()), this, SIGNAL(connectedToCmdServer()));
+    connect(m_dataSocket, SIGNAL(connected()), this, SIGNAL(connectedToDataServer()));
+
+    connect(m_cmdSocket, SIGNAL(disconnected()), this, SLOT(disconnectFromServer()));
+    connect(m_dataSocket, SIGNAL(disconnected()), this, SLOT(disconnectFromServer()));
+
+    connect(m_cmdSocket, SIGNAL(readyRead()), this, SLOT(handleNewData()));
+    connect(m_dataSocket, SIGNAL(readyRead()), this, SLOT(handleNewData()));
 }
 
 /**
@@ -30,8 +39,10 @@ ClientSocket::ClientSocket(QObject* parent) : QTcpSocket(parent)
  */
 ClientSocket::~ClientSocket()
 {
-    this->close();
-    delete this;
+    m_cmdSocket->close();
+    m_dataSocket->close();
+    delete m_cmdSocket;
+    delete m_dataSocket;
 }
 
 /**
@@ -45,20 +56,23 @@ ClientSocket::~ClientSocket()
  * This method tries to connect to the server at the IP-Address and port that are given as parameter.<br>
  * The method emits the <i>lostConnection</i>-Signal, when the connection could not be established.
  */
-bool ClientSocket::connectToServer(QString ipAddr_str, QString port_str)
+bool ClientSocket::connectToServer(QString ipAddr_str, QString cmdPort_str, QString dataPort_str)
 {
-    // Parse Port from String
-    int port_int = port_str.toInt(0, 10);
+    // Parse Ports from Strings
+    int cmdPort_int = cmdPort_str.toInt(0, 10);
+    int dataPort_int = dataPort_str.toInt(0, 10);
 
-    qDebug() << "Connecting to " << ipAddr_str << "at port " << port_str << ".\n";
+    qDebug() << "Connecting to Server at " << ipAddr_str << ".\n";
+    qDebug() << "Command port: " << cmdPort_str << ".\n" << "Data port: " << dataPort_str << ".\n";
 
     // Connect to designated IP and Port
-    connectToHost(ipAddr_str, port_int);
+    m_cmdSocket->connectToHost(ipAddr_str, cmdPort_int);
+    m_dataSocket->connectToHost(ipAddr_str, dataPort_int);
 
-    if(!waitForConnected(5000))
+    if(!m_cmdSocket->waitForConnected(5000) | !m_dataSocket->waitForConnected(5000))
     {
-        qDebug() << "Connection to server could not be established.\n";
-        lostConnection();
+        qDebug() << "Connection to Server could not be established.\n";
+        emit lostConnection();
         return false;
     }
     else
@@ -75,20 +89,14 @@ bool ClientSocket::connectToServer(QString ipAddr_str, QString port_str)
  */
 void ClientSocket::disconnectFromServer()
 {
-    disconnectFromHost();
-    lostConnection();
-    qDebug() << "Disconnected from host.\n";
-}
+    m_cmdSocket->disconnectFromHost();
+    m_dataSocket->disconnectFromHost();
 
-/**
- * @brief Handler for an established connection.
- *
- * This method is called, when the connection to a server was established successfully.<br>
- * It prints some information to the debug console.
- */
-void ClientSocket::handleConnect()
-{
-    qDebug() << "Established connection to server.\n";
+    m_cmdSocket->close();
+    m_dataSocket->close();
+
+    emit lostConnection();
+    qDebug() << "Disconnected from host.\n";
 }
 
 /**
@@ -99,12 +107,40 @@ void ClientSocket::handleConnect()
  */
 void ClientSocket::handleNewData()
 {
+    QTcpSocket* signalSender;
+    signalSender = qobject_cast<QTcpSocket*>(sender());
+
     QByteArray data;
-    data = this->readAll();
 
-    qDebug() << "New data at client.\n";
-    QString data_str(data);
-    qDebug() << data_str << ".\n";
+    if(m_cmdSocket == signalSender)
+    {
+        data = m_cmdSocket->readAll();
+        emit receivedCmd(data);
+        qDebug() << "New command at client.\n";
+        QString data_str(data);
+        qDebug() << data_str << ".\n";
+        return;
+    }
+    if(m_dataSocket == signalSender)
+    {
+        data = m_cmdSocket->readAll();
+        emit receivedData(data);
+        qDebug() << "New data at client.\n";
+        QString data_str(data);
+        qDebug() << data_str << ".\n";
+        return;
+    }
+}
 
-    emit newData(data);
+int ClientSocket::sendData(QByteArray data, int connectionType)
+{
+    switch(connectionType)
+    {
+        case ClientSocket::cmdConnection:
+            return m_cmdSocket->write(data);
+        case ClientSocket::dataConnection:
+            return m_dataSocket->write(data);
+        default:
+            return 0;
+    }
 }

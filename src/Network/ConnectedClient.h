@@ -11,6 +11,7 @@
 // Qt includes
 #include <QObject>
 #include <QTcpSocket>
+#include <QHostAddress>
 #include <QByteArray>
 
 /**
@@ -39,11 +40,17 @@ class ConnectedClient : public QObject
 {
     Q_OBJECT
 public:
-    ConnectedClient(int socketDescriptor, uint clientID);
+    static const int cmdConnection = 0;
+    static const int dataConnection = 1;
+
+    ConnectedClient(uint clientID);
     virtual ~ConnectedClient();
 
     uint getClientID();
-    int sendData(QByteArray data);
+    QHostAddress getPeerAddress();
+    void setSocket(QTcpSocket* tcpSocket, int connectionType);
+    bool hasSocketType(int connectionType);
+    int sendData(QByteArray data, int connectionType);
     void disconnectFromServer();
 
 private:
@@ -51,15 +58,22 @@ private:
     uint m_socketDescriptor;
     /// ID of the client.
     uint m_clientID;
-    /// Socket of the client.
-    QTcpSocket* m_tcpSocket;
+    /// Command Socket of the client.
+    QTcpSocket* m_cmdSocket;
+    /// Data Socket of the client.
+    QTcpSocket* m_dataSocket;
 
-private slots:
-    void handleDataRead();
-    void handleDisconnect();
+    bool isCmdSocketInit;
+    bool isDataSocketInit;
+
+//private slots:
+// TODO: Reassign private slots!
 
 public slots:
     void process();
+    void handleCmdRead();
+    void handleDataRead();
+    void handleDisconnect();
 
 signals:
     /**
@@ -70,17 +84,17 @@ signals:
     /**
      * @brief Signal that is emitted, when the client was disconnected.
      *
-     * @param[in] clientID ID of the client that lost the connection.
+     * @param[out] clientID ID of the client that lost the connection.
      */
     void disconnected(uint clientID);
 
     /**
      * @brief Signal that is emitted, when new data is available from a client.
      *
-     * @param[in] data Data in QByteArray format that is send out.
-     * @param[in] clientID Own ID of the client that sends the data.
+     * @param[out] data Data in QByteArray format that is send out.
+     * @param[out] clientID Own ID of the client that sends the data.
      */
-    void newData(QByteArray data, uint clientID);
+    void newData(QByteArray data, uint clientID, int connectionType);
 };
 
 #endif /* CONNECTEDCLIENT_H_ */

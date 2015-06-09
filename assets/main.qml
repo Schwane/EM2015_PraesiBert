@@ -44,12 +44,19 @@ TabbedPane {
                          enabled: true
                     }
                     Label {
-                        text: "Port:"
+                        text: "CMD-Port:"
                     }
                     TextField {
-                        id: clientPortTextField
+                        id: clientCmdPortTextField
                         text: "1337"
-                    }   
+                    } 
+                    Label {
+                        text: "Data-Port:"
+                    }
+                    TextField {
+                        id: clientDataPortTextField
+                        text: "1338"
+                    }  
                 }
                 Container {
                     layout: GridLayout {
@@ -62,7 +69,7 @@ TabbedPane {
                         onClicked: {
                             clientDisconnectButton.enabled = true;
                             clientConnectButton.enabled = false;
-                            clientSocket.connectToServer(clientIPTextField.text, clientPortTextField.text);
+                            clientSocket.connectToServer(clientIPTextField.text, clientCmdPortTextField.text, clientDataPortTextField.text);
                         }
                     }
                     Button {
@@ -108,12 +115,19 @@ TabbedPane {
                             enabled: false
                         }
                         Label {
-                            text: "Port:"
+                            text: "CMD-Port:"
                         }
                         TextField {
-                            id: serverPortTextField
+                            id: serverCmdPortTextField
                             text: "1337"
-                        }   
+                        }
+                        Label {
+                            text: "Data-Port:"
+                        }
+                        TextField {
+                            id: serverDataPortTextField
+                            text: "1338"
+                        }     
                     }
                 }
                 Container{
@@ -127,7 +141,7 @@ TabbedPane {
                         onClicked: {
                             serverStopButton.enabled = true;
                             serverStartButton.enabled = false;
-                            serverSocket.beginListening(serverPortTextField.text);
+                            serverSocket.beginListening(serverCmdPortTextField.text, serverDataPortTextField.text);
                         }
                     }
                     Button {
