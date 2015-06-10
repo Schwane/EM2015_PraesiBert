@@ -4,10 +4,18 @@ BASEDIR = $$quote($$_PRO_FILE_PWD_)
 device {
     CONFIG(debug, debug|release) {
         profile {
+            INCLUDEPATH += $$quote($$BASEDIR/../ClientLib)
+
+            DEPENDPATH += $$quote($$BASEDIR/../ClientLib)
+
             CONFIG += \
                 config_pri_assets \
                 config_pri_source_group1
         } else {
+            INCLUDEPATH += $$quote($$BASEDIR/../ClientLib)
+
+            DEPENDPATH += $$quote($$BASEDIR/../ClientLib)
+
             CONFIG += \
                 config_pri_assets \
                 config_pri_source_group1
@@ -17,6 +25,10 @@ device {
 
     CONFIG(release, debug|release) {
         !profile {
+            INCLUDEPATH += $$quote($$BASEDIR/../ClientLib)
+
+            DEPENDPATH += $$quote($$BASEDIR/../ClientLib)
+
             CONFIG += \
                 config_pri_assets \
                 config_pri_source_group1
@@ -27,6 +39,10 @@ device {
 simulator {
     CONFIG(debug, debug|release) {
         !profile {
+            INCLUDEPATH += $$quote($$BASEDIR/../ClientLib)
+
+            DEPENDPATH += $$quote($$BASEDIR/../ClientLib)
+
             CONFIG += \
                 config_pri_assets \
                 config_pri_source_group1
@@ -35,15 +51,22 @@ simulator {
 }
 
 config_pri_assets {
-    OTHER_FILES += $$quote($$BASEDIR/assets/main.qml)
+    OTHER_FILES += \
+        $$quote($$BASEDIR/assets/example/msg.xml) \
+        $$quote($$BASEDIR/assets/img/fuchs.jpg) \
+        $$quote($$BASEDIR/assets/img/test.jpg) \
+        $$quote($$BASEDIR/assets/main.qml)
 }
 
 config_pri_source_group1 {
     SOURCES += \
+        $$quote($$BASEDIR/src/MasterClient/MasterClient.cpp) \
         $$quote($$BASEDIR/src/applicationui.cpp) \
         $$quote($$BASEDIR/src/main.cpp)
 
-    HEADERS += $$quote($$BASEDIR/src/applicationui.hpp)
+    HEADERS += \
+        $$quote($$BASEDIR/src/MasterClient/MasterClient.hpp) \
+        $$quote($$BASEDIR/src/applicationui.hpp)
 }
 
 CONFIG += precompile_header
@@ -57,9 +80,20 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../src/*.cc) \
         $$quote($$BASEDIR/../src/*.cpp) \
         $$quote($$BASEDIR/../src/*.cxx) \
+        $$quote($$BASEDIR/../src/MasterClient/*.c) \
+        $$quote($$BASEDIR/../src/MasterClient/*.c++) \
+        $$quote($$BASEDIR/../src/MasterClient/*.cc) \
+        $$quote($$BASEDIR/../src/MasterClient/*.cpp) \
+        $$quote($$BASEDIR/../src/MasterClient/*.cxx) \
         $$quote($$BASEDIR/../assets/*.qml) \
         $$quote($$BASEDIR/../assets/*.js) \
-        $$quote($$BASEDIR/../assets/*.qs)
+        $$quote($$BASEDIR/../assets/*.qs) \
+        $$quote($$BASEDIR/../assets/example/*.qml) \
+        $$quote($$BASEDIR/../assets/example/*.js) \
+        $$quote($$BASEDIR/../assets/example/*.qs) \
+        $$quote($$BASEDIR/../assets/img/*.qml) \
+        $$quote($$BASEDIR/../assets/img/*.js) \
+        $$quote($$BASEDIR/../assets/img/*.qs)
 
     HEADERS += \
         $$quote($$BASEDIR/../src/*.h) \

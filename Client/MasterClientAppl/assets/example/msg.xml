@@ -1,0 +1,18 @@
+<message>
+	<header>
+		<sender>
+			App
+		</sender>
+		<receiver>
+			Client
+		</receiver>
+	</header>
+	<command>slide</command>
+	<parameters>
+		<parameter name="image" type="b64">
+			<data>
+				$(MSG)
+			</data>
+		</parameter>
+	</parameters>
+</message>

@@ -20,6 +20,13 @@
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/LocaleHandler>
+#include <bb/cascades/Image>
+#include <QSettings>
+
+#include "Message/Message.hpp"
+#include "Client/Client.hpp"
+#include "MasterClient/MasterClient.hpp"
+
 
 using namespace bb::cascades;
 
@@ -40,10 +47,38 @@ ApplicationUI::ApplicationUI() :
     // initial load
     onSystemLanguageChanged();
 
+    qmlRegisterType<Client>("com.Client",1,0,"Client");
+    qmlRegisterType<MasterClient>("com.Client",1,0,"MasterClient");
+    qmlRegisterType<Message>("com.Client",1,0,"Message");
+
+    Message *msg = new Message("slide","gui","cl");
+    QString path( "app/native/assets/img/test.jpg");
+
+    QImage img(path);
+    QByteArray imgBytes;
+    QBuffer b(&imgBytes);
+    b.open(QIODevice::WriteOnly);
+    img.save(&b, "JPG");
+    msg -> addParameter("image", imgBytes);
+
+    QFile xmlDoc("app/native/assets/example/msg.xml");
+    xmlDoc.open(QIODevice::ReadOnly | QIODevice::Text);
+    QString xmlMsg(xmlDoc.readAll());
+
+    xmlMsg.replace("$(MSG)", imgBytes.toBase64());
+
     // Create scene document from main.qml asset, the parent is set
     // to ensure the document gets destroyed properly at shut down.
     QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
 
+    QDeclarativePropertyMap* propertyMap = new QDeclarativePropertyMap;
+
+    propertyMap->insert("msg", QVariant(xmlMsg));
+
+    qml->setContextProperty("_testmsg", msg);
+    qml->setContextProperty("_ptyMap", propertyMap);
+
+    qDebug() << "Nach set context";
     // Create root object for the UI
     AbstractPane *root = qml->createRootObject<AbstractPane>();
 
@@ -56,7 +91,7 @@ void ApplicationUI::onSystemLanguageChanged()
     QCoreApplication::instance()->removeTranslator(m_pTranslator);
     // Initiate, load and install the application translation files.
     QString locale_string = QLocale().name();
-    QString file_name = QString("MasterClientAppl_%1").arg(locale_string);
+    QString file_name = QString("Template_%1").arg(locale_string);
     if (m_pTranslator->load(file_name, "app/native/qm")) {
         QCoreApplication::instance()->installTranslator(m_pTranslator);
     }
