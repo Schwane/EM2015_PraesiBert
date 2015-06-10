@@ -871,50 +871,7 @@ simulator {
 }
 
 config_pri_assets {
-    OTHER_FILES += \
-        $$quote($$BASEDIR/assets/main.qml) \
-        $$quote($$BASEDIR/doc/Network_IF.doxyfile) \
-        $$quote($$BASEDIR/doc/latex/_client_socket_8cpp.tex) \
-        $$quote($$BASEDIR/doc/latex/_client_socket_8h.tex) \
-        $$quote($$BASEDIR/doc/latex/_connected_client_8cpp.tex) \
-        $$quote($$BASEDIR/doc/latex/_connected_client_8h.tex) \
-        $$quote($$BASEDIR/doc/latex/_server_socket_8cpp.tex) \
-        $$quote($$BASEDIR/doc/latex/_server_socket_8h.tex) \
-        $$quote($$BASEDIR/doc/latex/annotated.tex) \
-        $$quote($$BASEDIR/doc/latex/applicationui_8cpp.tex) \
-        $$quote($$BASEDIR/doc/latex/applicationui_8hpp.tex) \
-        $$quote($$BASEDIR/doc/latex/class_application_u_i.eps) \
-        $$quote($$BASEDIR/doc/latex/class_application_u_i.pdf) \
-        $$quote($$BASEDIR/doc/latex/class_application_u_i.tex) \
-        $$quote($$BASEDIR/doc/latex/class_client_socket.eps) \
-        $$quote($$BASEDIR/doc/latex/class_client_socket.pdf) \
-        $$quote($$BASEDIR/doc/latex/class_client_socket.tex) \
-        $$quote($$BASEDIR/doc/latex/class_connected_client.eps) \
-        $$quote($$BASEDIR/doc/latex/class_connected_client.pdf) \
-        $$quote($$BASEDIR/doc/latex/class_connected_client.tex) \
-        $$quote($$BASEDIR/doc/latex/class_server_socket.eps) \
-        $$quote($$BASEDIR/doc/latex/class_server_socket.pdf) \
-        $$quote($$BASEDIR/doc/latex/class_server_socket.tex) \
-        $$quote($$BASEDIR/doc/latex/dir_0c0333544ec44c57ec7d33d873fe36a2.tex) \
-        $$quote($$BASEDIR/doc/latex/dir_68267d1309a1af8e8297ef4c3efbcdba.tex) \
-        $$quote($$BASEDIR/doc/latex/doxygen.sty) \
-        $$quote($$BASEDIR/doc/latex/files.tex) \
-        $$quote($$BASEDIR/doc/latex/hierarchy.tex) \
-        $$quote($$BASEDIR/doc/latex/main_8cpp.tex) \
-        $$quote($$BASEDIR/doc/latex/make.bat) \
-        $$quote($$BASEDIR/doc/latex/namespacebb.tex) \
-        $$quote($$BASEDIR/doc/latex/namespacebb_1_1cascades.tex) \
-        $$quote($$BASEDIR/doc/latex/namespaces.tex) \
-        $$quote($$BASEDIR/doc/latex/refman.aux) \
-        $$quote($$BASEDIR/doc/latex/refman.bbl) \
-        $$quote($$BASEDIR/doc/latex/refman.blg) \
-        $$quote($$BASEDIR/doc/latex/refman.idx) \
-        $$quote($$BASEDIR/doc/latex/refman.log) \
-        $$quote($$BASEDIR/doc/latex/refman.out) \
-        $$quote($$BASEDIR/doc/latex/refman.pdf) \
-        $$quote($$BASEDIR/doc/latex/refman.synctex) \
-        $$quote($$BASEDIR/doc/latex/refman.tex) \
-        $$quote($$BASEDIR/doc/latex/refman.toc)
+    OTHER_FILES += $$quote($$BASEDIR/assets/main.qml)
 }
 
 config_pri_source_group1 {
@@ -948,18 +905,9 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../src/Network/*.cc) \
         $$quote($$BASEDIR/../src/Network/*.cpp) \
         $$quote($$BASEDIR/../src/Network/*.cxx) \
-        $$quote($$BASEDIR/..//*.qml) \
-        $$quote($$BASEDIR/..//*.js) \
-        $$quote($$BASEDIR/..//*.qs) \
         $$quote($$BASEDIR/../assets/*.qml) \
         $$quote($$BASEDIR/../assets/*.js) \
-        $$quote($$BASEDIR/../assets/*.qs) \
-        $$quote($$BASEDIR/../doc/*.qml) \
-        $$quote($$BASEDIR/../doc/*.js) \
-        $$quote($$BASEDIR/../doc/*.qs) \
-        $$quote($$BASEDIR/../doc/latex/*.qml) \
-        $$quote($$BASEDIR/../doc/latex/*.js) \
-        $$quote($$BASEDIR/../doc/latex/*.qs)
+        $$quote($$BASEDIR/../assets/*.qs)
 
     HEADERS += \
         $$quote($$BASEDIR/../src/*.h) \

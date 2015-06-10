@@ -20,11 +20,11 @@
  *
  * @param[in] parent Parent QObject that creates the server socket object.
  *
- * The constructor initializes the super class and the variables <i>m_connectedClients</i>(amount of connected clients) and <i>m_clientID</i>(ID that is given to client) with their initial value <i>0</i>.
+ * The constructor initializes <i>m_clientID</i> (ID that is given to client) with its initial value <i>0</i>.<br>
+ * Also initializes both types of server sockets with <i>parent</i> as parameter.
  */
 ServerSocket::ServerSocket(QObject* parent)
         : QObject(parent)
-        , m_connectedClients(0)
         , m_clientID(0)
 {
     m_cmdServer = new QTcpServer(parent);
@@ -45,13 +45,15 @@ ServerSocket::~ServerSocket()
 /**
  * @brief Method that is called to start listening for incoming connections.
  *
- * @param[in] port_str Listening port for incoming connections in QString format.
+ * @param[in] cmdPort_str Listening port for incoming command connections in QString format.
+ * @param[in] dataPort_str Listening port for incoming data connections in QString format.
  *
  * @return Returns true, if the listening for incoming connections started successfully.
  *
- * Initializes the TCP server and starts listening for incoming connections on any address.<br>
- * Afterwards the IP-Address of the server is located and the signal <i>newIP()</i> with the IP in QString format is emitted.<br>
- * If no IP was found, localhost is used as IP-Address.
+ * First the IP-Address of the server is located and the signal <i>newIP()</i> with the IP in QString format is emitted.<br>
+ * If no IP was found, localhost is used as IP-Address.<br>
+ * Afterwards initializes the TCP server sockets and starts listening for incoming connections on any address.<br>
+ * Also connects the signals <i>newConnection</i> of the server sockets with the handler slot <i>handleNewConnection()</i>.
  */
 bool ServerSocket::beginListening(QString cmdPort_str, QString dataPort_str)
 {
@@ -106,9 +108,8 @@ bool ServerSocket::beginListening(QString cmdPort_str, QString dataPort_str)
 /**
  * @brief Signal to close the server.
  *
- * @return Returns true, if the server was closed successfully.
- *
- * Emits the signal <i>stoppedServer</i> after it closed the server.
+ * Disconnects from all of the clients in <i>m_clientList</i> and closes both servers.
+ * Emits the signal <i>stoppedServer</i> afterwards.
  */
 void ServerSocket::closeServer()
 {
@@ -129,8 +130,10 @@ void ServerSocket::closeServer()
  * @brief Method for sending data to all clients.
  *
  * @param[in] data Data that is send to the clients.
+ * @param[in] connectionType Defines the type of connection that is used for sending the data.
  *
- * Sends data to all clients on method call.
+ * Sends data to all clients via the socket that is selected with <i>connectionType</i>.<br>
+ * <i>connectionType</i> can either be <i>ConnectedClient::cmdConnection</i> or <i>ConnectedClient::dataConnection</i>.
  */
 void ServerSocket::sendToAll(QByteArray data, int connectionType)
 {
@@ -140,6 +143,16 @@ void ServerSocket::sendToAll(QByteArray data, int connectionType)
     }
 }
 
+/**
+ * @brief Method for sending data to a client with specified ID.
+ *
+ * @param[in] data Data that is send to the clients.
+ * @param[in] clientID ID of the client that the data is send to.
+ * @param[in] connectionType Defines the type of connection that is used for sending the data.
+ *
+ * Sends data to the client with the specified ID via the socket that is selected with <i>connectionType</i>.<br>
+ * <i>connectionType</i> can either be <i>ConnectedClient::cmdConnection</i> or <i>ConnectedClient::dataConnection</i>.
+ */
 int ServerSocket::sendToID(QByteArray data, uint clientID, int connectionType)
 {
     for(int i = 0; i < m_clientList.size(); i++)
@@ -156,14 +169,19 @@ int ServerSocket::sendToID(QByteArray data, uint clientID, int connectionType)
 /**
  * @brief Method for handling new connections from clients.
  *
- * This method is called by the super class every time a new client tries to connect to the server.<br>
- * Within the method a new ClientConnection class object (with a QTcpSocket) is created for the connected client and put into an own thread.<br>
+ * This method is called every time a new client tries to connect to one of the server sockets.<br>
+ * Within the method a new ClientConnection class object (with two QTcpSockets) is created for the connected client and put into an own thread.<br>
  *
  * The new connection is set up the following way:
  * <ol>
- *  <li>The value for the amount of connected clients is incremented.</li>
- *  <li>A new ConnectedClient object (newClient) is created. The constructor gets the socketDescriptor of this function call and the clientID as parameter.</li>
- *  <li>A new thread is created and newClient is moved to the thread.</li>
+ *  <li>The sender which called this slot, is determined.</li>
+ *  <li>Depending on the sender, a new QTcpSocket object is read from one of the server sockets.</li>
+ *  <li>A loop checks if the peer address of the new socket is already in the list of clients.<li>
+ *       <ul>
+ *          <li>If so, the socket is added to this client and the function returns.</li>
+ *          <li>If not, a new ConnectedClient object (newClient) is created and the socket is added to that client.</li>
+ *       </ul>
+ *  <li>A new thread is created and the newClient is moved to the thread.</li>
  *  <li>Signals and slots of the thread and newClient are connected with each other.</li>
  *  <li>newClient is appended to the list of connected clients (m_clientList).</li>
  *  <li>Signals and slots of the server and newClient are connected with each other.</li>
@@ -187,7 +205,6 @@ void ServerSocket::handleNewConnection()
         newSocket = m_dataServer->nextPendingConnection();
     }
 
-    //TODO: Maybe integrate this loop in if case above
     /*
      * Check, if a Client with the same peer address is already in the clientList.
      * If so, just add the new socket type to the client.
@@ -248,9 +265,7 @@ void ServerSocket::handleNewConnection()
     thread->start(QThread::LowPriority);
 
     m_clientID++;
-    m_connectedClients++;
 }
-
 
 /**
  * @brief Handler for client disconnects.
@@ -274,8 +289,6 @@ void ServerSocket::handleClientDisconnect(uint clientID)
         }
     }
 
-    // Remove amount of connected clients
-    m_connectedClients--;
     emit clientDisconnect(clientID);
 }
 
@@ -284,9 +297,12 @@ void ServerSocket::handleClientDisconnect(uint clientID)
  *
  * @param[in] data Data that was send from a client in QByteArray format.
  * @param[in] clientID ID of the client that send the data.
+ * @param[in] connectionType Type of connection that the data is available at.
  *
  * This method handles the data that was send by a client.<br>
- * It emits the signal <i>receivedFromClient()</i> with the data in QByteArray format and the client ID as parameters.
+ * It determines which type of data is available from a client with <i>connectionType</i>.<br>
+ * It emits the signal <i>receivedCmdFromClient()</i> with the data in QByteArray format and the client ID as parameters, if the new data was a command.
+ * It emits the signal <i>receivedDataFromClient()</i> with the data in QByteArray format and the client ID as parameters, if the new data was actually data.
  */
 void ServerSocket::handleNewRead(QByteArray data, uint clientID, int connectionType)
 {
@@ -304,6 +320,5 @@ void ServerSocket::handleNewRead(QByteArray data, uint clientID, int connectionT
         qDebug() << data_str << ".\n";
         emit receivedDataFromClient(data, clientID);
         return;
-
     }
 }
