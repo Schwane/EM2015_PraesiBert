@@ -23,8 +23,8 @@
 #include <bb/cascades/Image>
 #include <QSettings>
 
-#include "Message/Message.hpp"
-#include "Client/Client.hpp"
+#include "Message.hpp"
+#include "Client.hpp"
 #include "MasterClient/MasterClient.hpp"
 
 

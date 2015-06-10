@@ -14,9 +14,9 @@
 #include <bb/ImageData>
 #include <bb/cascades/Image>
 
-#include "include/Message.hpp"
-#include "include/XMLMessageParser.hpp"
-#include "include/XMLMessageWriter.hpp"
+#include "Message.hpp"
+#include "XMLMessageParser.hpp"
+#include "XMLMessageWriter.hpp"
 #include "ClientSocket.h"
 
 
@@ -69,7 +69,7 @@ protected:
     XMLMessageWriter* xmlmw;
     //DummSocket* ds;
     QString lastSentMsg;
-    ClientSocket *cs;
+    Network::ClientSocket *cs;
     LoginState login_state;
 
 };

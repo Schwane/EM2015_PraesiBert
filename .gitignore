@@ -4,3 +4,10 @@ arm-p/
 x86/
 .metadata/
 BlackBerry10Simulator-BB10_3_1-995/
+Client/ClientLib/config.pri
+Client/ClientLib/translations/qm
+Client/ListenerClientAppl/config.pri
+Client/MasterClientAppl/config.pri
+Common/NetworkLib/config.pri
+Common/NetworkLib/translations/qm
+Common/NetworkLibTestApp/config.pri

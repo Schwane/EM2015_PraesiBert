@@ -3,15 +3,13 @@ APP_NAME = ClientLib
 CONFIG += qt warn_on
 
 # uncomment for building static library
-# CONFIG += staticlib
+CONFIG += staticlib
 
 # uncomment for generating separate debug info
 # CONFIG += separate_debug_info
 
-QT += network
-
 include(cascades10_library.pri)
-
+include($$quote($$_PRO_FILE_PWD_)/../../Common/NetworkLib/static.pri)
 include(config.pri)
 
 # specify a list of .ts files for supported languages

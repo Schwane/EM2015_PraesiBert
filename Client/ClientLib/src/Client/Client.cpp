@@ -17,7 +17,7 @@ Client::Client()
     xmlmp = new XMLMessageParser();
     xmlmw = new XMLMessageWriter();
     //ds = new DummSocket();
-    cs = new ClientSocket(this);
+    cs = new Network::ClientSocket(this);
 
     //connectToServer("192.168.1.144", "2000");
 

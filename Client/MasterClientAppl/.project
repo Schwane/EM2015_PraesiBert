@@ -3,6 +3,8 @@
 	<name>MasterClientAppl</name>
 	<comment></comment>
 	<projects>
+		<project>ClientLib</project>
+		<project>NetworkLib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -11,7 +11,7 @@
 #include <QDateTime>
 #include <QObject>
 #include <QRegExp>
-#include "include/XMLMessageWriter.hpp"
+#include "XMLMessageWriter.hpp"
 
 
 class XMLMessageWriter;

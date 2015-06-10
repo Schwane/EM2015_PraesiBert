@@ -10,8 +10,8 @@
 
 #include <QObject>
 
-#include "Client/Client.hpp"
-#include "Message/Authentication/MessageAuthenticator.h"
+#include "Client.hpp"
+#include "MessageAuthenticator.h"
 
 class MasterClient: public Client
 {
