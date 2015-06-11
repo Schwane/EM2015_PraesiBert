@@ -25,6 +25,7 @@ class Message : public QObject
     friend class XMLMessageParser;
     friend class XMLMessageWriter;
     friend class Client;
+    friend class Praesentation;
 public:
     Message();
     Message(QString command, QString sender, QString receiver);

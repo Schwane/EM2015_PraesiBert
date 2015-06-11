@@ -12,12 +12,14 @@ Client::Client()
 {
     /*register remote functions*/
     registerdFunctions.insert("slide",&Client::setSlide);
+    registerdFunctions.insert("praesentation",&Client::parsePraesentation);
     //registerdFunctions.insert("login",&Client::loginResponse);
 
     xmlmp = new XMLMessageParser();
     xmlmw = new XMLMessageWriter();
     //ds = new DummSocket();
     cs = new Network::ClientSocket(this);
+    prs = new Praesentation();
 
     //connectToServer("192.168.1.144", "2000");
 
@@ -34,6 +36,8 @@ Client::Client()
 Client::~Client()
 {
     delete xmlmp;
+    delete xmlmw;
+    delete prs;
     //delete ds;
 }
 
@@ -118,6 +122,12 @@ Client::setSlide(QMap<QString, QVariant> parameters, QMap<QString, QString> para
     }
 
     return resp;
+}
+
+Message*
+Client::parsePraesentation(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types)
+{
+    return prs->parsePraesentation(parameters, parameter_types);
 }
 
 Message*

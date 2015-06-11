@@ -18,6 +18,7 @@
 #include "XMLMessageParser.hpp"
 #include "XMLMessageWriter.hpp"
 #include "ClientSocket.h"
+#include "Praesentation.hpp"
 
 
 class Client;
@@ -71,6 +72,7 @@ protected:
     QString lastSentMsg;
     Network::ClientSocket *cs;
     LoginState login_state;
+    Praesentation *prs;
 
 };
 
