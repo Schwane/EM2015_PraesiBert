@@ -93,7 +93,8 @@ namespace Network
     public slots:
         bool connectToServer(QString ipAddr_str, QString cmdPort_str, QString dataPort_str);
         void disconnectFromServer();
-        int sendData(QByteArray data, int connectionType);
+        int sendCmd(QByteArray data);
+        int sendData(QByteArray data);
 
     private slots:
         void handleNewData();

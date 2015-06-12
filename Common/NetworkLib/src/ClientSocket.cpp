@@ -104,26 +104,29 @@ namespace Network
     /**
      * @brief Method that is used to send data from one of the sockets.
      *
-     * @param[in] data Data that is send to the server.
-     * @param[in] connectionType Determines which socket to be used for sending.
+     * @param[in] data Command that is send to the server.
      *
      * @return Returns the number of bytes that were actually send to the server.
      *
-     * This method sends data from one of the sockets (command or data) to the server.<br>
-     * The socket used for sending the data to the server is determined by the parameter <i>connectionType</i>.
-     * The parameter can either be <i>ClientSocket::cmdConnection</i>(0) or <i>ClientSocket::dataConnection</i>(1).
+     * This method sends data from the command socket to the server.<br>
      */
-    int ClientSocket::sendData(QByteArray data, int connectionType)
+    int ClientSocket::sendCmd(QByteArray data)
     {
-        switch(connectionType)
-        {
-            case ClientSocket::cmdConnection:
-                return m_cmdSocket->write(data);
-            case ClientSocket::dataConnection:
-                return m_dataSocket->write(data);
-            default:
-                return 0;
-        }
+        return m_cmdSocket->write(data);
+    }
+
+    /**
+     * @brief Method that is used to send data from one of the sockets.
+     *
+     * @param[in] data Data that is send to the server.
+     *
+     * @return Returns the number of bytes that were actually send to the server.
+     *
+     * This method sends data from the data socket to the server.<br>
+     */
+    int ClientSocket::sendData(QByteArray data)
+    {
+        return m_dataSocket->write(data);
     }
 
     /**

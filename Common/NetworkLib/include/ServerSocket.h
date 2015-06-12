@@ -104,8 +104,10 @@ namespace Network
     public slots:
         bool beginListening(QString cmdPort_str, QString dataPort_str);
         void closeServer();
-        void sendToAll(QByteArray data, int connectionType);
-        int sendToID(QByteArray data, uint clientID, int connectionType);
+        void sendCmdToAll(QByteArray data);
+        void sendDataToAll(QByteArray data);
+        int sendCmdToID(QByteArray data, uint clientID);
+        int sendDataToID(QByteArray data, uint clientID);
 
     private slots:
         void handleNewConnection();

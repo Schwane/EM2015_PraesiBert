@@ -129,20 +129,54 @@ namespace Network
     }
 
     /**
-     * @brief Method for sending data to all clients.
+     * @brief Method for sending a command to all clients.
      *
-     * @param[in] data Data that is send to the clients.
-     * @param[in] connectionType Defines the type of connection that is used for sending the data.
+     * @param[in] data Command that is send to the clients.
      *
-     * Sends data to all clients via the socket that is selected with <i>connectionType</i>.<br>
-     * <i>connectionType</i> can either be <i>ConnectedClient::cmdConnection</i> or <i>ConnectedClient::dataConnection</i>.
+     * Sends a command to all clients.
      */
-    void ServerSocket::sendToAll(QByteArray data, int connectionType)
+    void ServerSocket::sendCmdToAll(QByteArray data)
     {
         for(int i = 0; i < m_clientList.size(); i++)
         {
-            m_clientList.at(i)->sendData(data, connectionType);
+            m_clientList.at(i)->sendData(data, ConnectedClient::cmdConnection);
         }
+    }
+
+    /**
+     * @brief Method for sending data to all clients.
+     *
+     * @param[in] data Data that is send to the clients.
+     *
+     * Sends data to all clients.
+     */
+    void ServerSocket::sendDataToAll(QByteArray data)
+    {
+        for(int i = 0; i < m_clientList.size(); i++)
+        {
+            m_clientList.at(i)->sendData(data, ConnectedClient::dataConnection);
+        }
+    }
+
+    /**
+     * @brief Method for sending a command to a client with specified ID.
+     *
+     * @param[in] data Command that is send to the clients.
+     * @param[in] clientID ID of the client that the command is send to.
+     *
+     * Sends a command to the client with the specified ID.
+     */
+    int ServerSocket::sendCmdToID(QByteArray data, uint clientID)
+    {
+        for(int i = 0; i < m_clientList.size(); i++)
+        {
+            if(m_clientList.at(i)->getClientID() == clientID)
+            {
+                // Send data and return amount of sent data in bytes
+                return m_clientList.at(i)->sendData(data, ConnectedClient::cmdConnection);
+            }
+        }
+        return 0;
     }
 
     /**
@@ -150,19 +184,17 @@ namespace Network
      *
      * @param[in] data Data that is send to the clients.
      * @param[in] clientID ID of the client that the data is send to.
-     * @param[in] connectionType Defines the type of connection that is used for sending the data.
      *
-     * Sends data to the client with the specified ID via the socket that is selected with <i>connectionType</i>.<br>
-     * <i>connectionType</i> can either be <i>ConnectedClient::cmdConnection</i> or <i>ConnectedClient::dataConnection</i>.
+     * Sends data to the client with the specified ID.
      */
-    int ServerSocket::sendToID(QByteArray data, uint clientID, int connectionType)
+    int ServerSocket::sendDataToID(QByteArray data, uint clientID)
     {
         for(int i = 0; i < m_clientList.size(); i++)
         {
             if(m_clientList.at(i)->getClientID() == clientID)
             {
                 // Send data and return amount of sent data in bytes
-                return m_clientList.at(i)->sendData(data, connectionType);
+                return m_clientList.at(i)->sendData(data, ConnectedClient::dataConnection);
             }
         }
         return 0;
