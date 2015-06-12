@@ -1,4 +1,4 @@
-QMAKE_TARGET  = NetworkLib
+QMAKE_TARGET  = ClientServerShareLib
 LUPDATE       = $(QNX_HOST)/usr/bin/lupdate
 LRELEASE      = $(QNX_HOST)/usr/bin/lrelease
 
@@ -11,7 +11,7 @@ release: ../$(QMAKE_TARGET).pro $(QMAKE_TARGET).ts
 	$(LRELEASE) $(QMAKE_TARGET).pro
 	mv *.qm qm/
 	
-	cd qm && rcc -project -o ../NetworkLib_translations.qrc
-	mv NetworkLib_translations.qrc qm/
+	cd qm && rcc -project -o ../ClientServerShareLib_translations.qrc
+	mv ClientServerShareLib_translations.qrc qm/
 
 FORCE:

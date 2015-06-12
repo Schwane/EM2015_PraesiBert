@@ -1,5 +1,5 @@
 ======================================================================
-=== ClientLib
+=== ClientServerShareLib
 ======================================================================
 
 How to link the library to your application
@@ -8,7 +8,7 @@ How to link the library to your application
 We assume that you have the library and your application located
 in the same directory and both are opened in Eclipse workspace.
 
-1) check "ClientLib" on "Project References" page
+1) check "ClientServerShareLib" on "Project References" page
    in Project properties.
 
 2) Modify "YourApplication.pro" file in your application to contain
@@ -16,11 +16,11 @@ in the same directory and both are opened in Eclipse workspace.
 
   2a) when using shared library:
 
-      include($$quote($$_PRO_FILE_PWD_)/../ClientLib/shared.pri)
+      include($$quote($$_PRO_FILE_PWD_)/../ClientServerShareLib/shared.pri)
 
   2b) when using static library:
 
-      include($$quote($$_PRO_FILE_PWD_)/../ClientLib/static.pri)
+      include($$quote($$_PRO_FILE_PWD_)/../ClientServerShareLib/static.pri)
 
   2c) when specifying manually:
 
@@ -31,19 +31,19 @@ in the same directory and both are opened in Eclipse workspace.
    in your application to contain the following:
 
   3a) in <configuration name="Device-Debug"> tag:
-       <asset path="../ClientLib/arm/so.le-v7-g/" entry="false" dest="lib"><include name="libClientLib.so.*"/></asset>
+       <asset path="../ClientServerShareLib/arm/so.le-v7-g/" entry="false" dest="lib"><include name="libClientServerShareLib.so.*"/></asset>
 
   3b) in <configuration name="Device-Release"> tag:
 
-       <asset path="../ClientLib/arm/so.le-v7/" entry="false" dest="lib"><include name="libClientLib.so.*"/></asset>
+       <asset path="../ClientServerShareLib/arm/so.le-v7/" entry="false" dest="lib"><include name="libClientServerShareLib.so.*"/></asset>
 
   3c) in <configuration name="Device-Profile"> tag:
 
-       <asset path="../ClientLib/arm-p/so.le-v7-g/" entry="false" dest="lib"><include name="libClientLib.so.*"/></asset>
+       <asset path="../ClientServerShareLib/arm-p/so.le-v7-g/" entry="false" dest="lib"><include name="libClientServerShareLib.so.*"/></asset>
 
   3d) in <configuration name="Simulator-Debug"> tag:
 
-       <asset path="../ClientLib/x86/so-g/" entry="false" dest="lib"><include name="libClientLib.so.*"/></asset>
+       <asset path="../ClientServerShareLib/x86/so-g/" entry="false" dest="lib"><include name="libClientServerShareLib.so.*"/></asset>
 
 How to build your application
 =============================
@@ -57,7 +57,7 @@ How to build a static library
 =============================
 
 By default, the library is created as shared one. If you want to build
-static one, add the following line to "ClientLib.pro" file:
+static one, add the following line to "ClientServerShareLib.pro" file:
 
     CONFIG += staticlib
 
@@ -102,11 +102,11 @@ for your shared library. There are two approach to load them:
 
     1da) For BB10 devices:
 
-         set solib-search-path /ABSOLUTE/PATH/TO/WORKSPACE/ClientLib/arm/so.le-v7-g/
+         set solib-search-path /ABSOLUTE/PATH/TO/WORKSPACE/ClientServerShareLib/arm/so.le-v7-g/
 
     1db) For BB10 simulators:
 
-         set solib-search-path /ABSOLUTE/PATH/TO/WORKSPACE/ClientLib/x86/so-g/
+         set solib-search-path /ABSOLUTE/PATH/TO/WORKSPACE/ClientServerShareLib/x86/so-g/
 
 2) Via Debugger Launch Configuration dialog:
 
@@ -120,15 +120,15 @@ for your shared library. There are two approach to load them:
 
   2d) Use "Add..." button to specify path to your:
 
-    2da) For BB10 devices, ClientLib/arm/so.le-v7-g/ folder in workspace
+    2da) For BB10 devices, ClientServerShareLib/arm/so.le-v7-g/ folder in workspace
 
-    2db) For BB10 simulators, ClientLib/x86/so-g/ folder in workspace
+    2db) For BB10 simulators, ClientServerShareLib/x86/so-g/ folder in workspace
 
 How to generate separate debug info
 ===================================
 
 By default, the shared library contain debug info. If you want to build
-a separate debug info file, add the following line to "ClientLib.pro" file:
+a separate debug info file, add the following line to "ClientServerShareLib.pro" file:
 
     CONFIG += separate_debug_info
 
@@ -136,7 +136,7 @@ How to add translations for additional languages
 ================================================
 
 To add them, specify all required .ts files in "TRANSLATIONS" property
-in "ClientLib.pro" file e.g.:
+in "ClientServerShareLib.pro" file e.g.:
 
     TRANSLATIONS += $${TARGET}_en_US.ts $${TARGET}_fr_FR.ts
 
@@ -144,13 +144,13 @@ Note that those .ts files will be generated in "translations" folder.
 
 Note that "TRANSLATIONS" property is overridden by "config.pri" file
 so your additions need to specified after the "include(config.pri)" statement
-in "ClientLib.pro" file.
+in "ClientServerShareLib.pro" file.
 
 How to add library translations to an application
 =================================================
 
 The build system of the library just creates a set of .qm files stored
-in "ClientLib/translations/qm/" directory.
+in "ClientServerShareLib/translations/qm/" directory.
 
 For the following steps, we assume that YourApplication is based
 on Cascades Project template i.e. it contains ApplicationUI class.
@@ -162,7 +162,7 @@ To use the library translations into your application you need to:
     1a) Add the following code in the "bar-descriptor.xml" file in your application
         to integrate your library translations to the application:
 
-        <asset path="../ClientLib/translations/qm" dest="qm">
+        <asset path="../ClientServerShareLib/translations/qm" dest="qm">
             <include name="*.qm"/>
         </asset>
 
@@ -178,16 +178,16 @@ To use the library translations into your application you need to:
         function to load the library translations from the application:
 
         QCoreApplication::instance()->removeTranslator(m_pLibraryTranslator);
-        file_name = QString("ClientLib_%1").arg(locale_string);
+        file_name = QString("ClientServerShareLib_%1").arg(locale_string);
         if (m_pLibraryTranslator->load(file_name, "app/native/qm")) {
             QCoreApplication::instance()->installTranslator(m_pLibraryTranslator);
         }
 
 2) When using qm files via QRC file:
 
-    2a) Uncomment the following line in "ClientLib.pro" file:
+    2a) Uncomment the following line in "ClientServerShareLib.pro" file:
 
-        RESOURCES += translations/qm/ClientLib_translations.qrc
+        RESOURCES += translations/qm/ClientServerShareLib_translations.qrc
 
     2b) Add the following line "ApplicationUI" class:
 
@@ -201,7 +201,7 @@ To use the library translations into your application you need to:
         function to load the library translations from the qrc:
 
         QCoreApplication::instance()->removeTranslator(m_pLibraryTranslator);
-        file_name = QString(":/ClientLib_%1.qm").arg(locale_string);
+        file_name = QString(":/ClientServerShareLib_%1.qm").arg(locale_string);
         if (m_pLibraryTranslator->load(file_name)) {
             QCoreApplication::instance()->installTranslator(m_pLibraryTranslator);
         }
@@ -209,4 +209,4 @@ To use the library translations into your application you need to:
     2e) When using static library, you need to add the following line
         at the beginning of "main" function in "main.cpp" file in your application:
 
-        Q_INIT_RESOURCES(ClientLib_translations)
+        Q_INIT_RESOURCES(ClientServerShareLib_translations)

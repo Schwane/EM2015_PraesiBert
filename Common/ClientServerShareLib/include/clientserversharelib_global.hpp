@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-#ifndef NetworkLib_Global_HPP_
-#define NetworkLib_Global_HPP_
+#ifndef ClientServerShareLib_Global_HPP_
+#define ClientServerShareLib_Global_HPP_
 
 #include <QtCore/qglobal.h>
 
-#ifndef NETWORKLIB_STATIC_LINK
-  #ifdef NETWORKLIB_LIBRARY
-    #define NETWORKLIB_EXPORT Q_DECL_EXPORT
+#ifndef CLIENTSERVERSHARELIB_STATIC_LINK
+  #ifdef CLIENTSERVERSHARELIB_LIBRARY
+    #define CLIENTSERVERSHARELIB_EXPORT Q_DECL_EXPORT
   #else
-    #define NETWORKLIB_EXPORT Q_DECL_IMPORT
+    #define CLIENTSERVERSHARELIB_EXPORT Q_DECL_IMPORT
   #endif
 #else
-  #define NETWORKLIB_EXPORT
-#endif /* NETWORKLIB_STATIC_LINK */
+  #define CLIENTSERVERSHARELIB_EXPORT
+#endif /* CLIENTSERVERSHARELIB_STATIC_LINK */
 
-#endif /* NetworkLib_Global_HPP_ */
+#endif /* ClientServerShareLib_Global_HPP_ */

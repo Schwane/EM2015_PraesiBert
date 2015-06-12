@@ -1,4 +1,4 @@
-APP_NAME = NetworkLib
+APP_NAME = ClientServerShareLib
 
 CONFIG += qt warn_on
 
@@ -16,4 +16,4 @@ include(config.pri)
 # TRANSLATIONS += $${TARGET}_en_US.ts
 
 # uncomment following line to include translations to binary
-# RESOURCES += translations/qm/NetworkLib_translations.qrc
+# RESOURCES += translations/qm/ClientServerShareLib_translations.qrc

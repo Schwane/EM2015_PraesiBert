@@ -1,4 +1,4 @@
-LIBTARGET = NetworkLib
+LIBTARGET = ClientServerShareLib
 
 profile {
     LIBTARGETDIR_PROFILE = -p
