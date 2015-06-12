@@ -43,6 +43,7 @@ public:
     virtual ~Client();
 public Q_SLOTS:
     Message* setSlide(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
+    Message* parsePraesentation(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
     Message* loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
     Q_INVOKABLE bb::cascades::Image getSlide();
     Q_INVOKABLE QString getLastSentMsg();

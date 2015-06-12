@@ -127,7 +127,12 @@ Client::setSlide(QMap<QString, QVariant> parameters, QMap<QString, QString> para
 Message*
 Client::parsePraesentation(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types)
 {
-    return prs->parsePraesentation(parameters, parameter_types);
+    Message *resp = new Message("RESPONSE","cl","gui");
+    resp->addParameter("status", QString("ok"));
+
+    prs->parsePraesentation(parameters, parameter_types);
+    //TODO correct response needs to be generated! This is only a quick-fix (Sebastian).
+    return resp;
 }
 
 Message*
