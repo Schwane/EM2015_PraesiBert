@@ -26,6 +26,23 @@ XMLMessageParser::~XMLMessageParser()
 void
 XMLMessageParser::parseMessage(QByteArray bytes)
 {
+    emit messageParsed(messageParser(bytes));
+}
+void
+XMLMessageParser::parseCmdMessage(QByteArray bytes)
+{
+    emit cmdMessageParsed(messageParser(bytes));
+}
+
+void
+XMLMessageParser::parseDataMessage(QByteArray bytes)
+{
+    emit dataMessageParsed(messageParser(bytes));
+}
+
+Message*
+XMLMessageParser::messageParser(QByteArray& bytes)
+{
     QXmlStreamReader *xmlr = new QXmlStreamReader(bytes);
     QString command, sender, receiver, parameter, type, data, name;
 
@@ -144,6 +161,7 @@ XMLMessageParser::parseMessage(QByteArray bytes)
         qDebug() << "XML error: " << xmlr->errorString().data();
     }
 
-    emit messageParsed(msg);
     delete xmlr;
+
+    return msg;
 }
