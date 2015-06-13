@@ -25,7 +25,6 @@ public:
         //QXmlStreamReader xmlr;
         //Client* cl;
     public Q_SLOTS:
-        void writeMessage(Message* msg, bool cleanup);
         void writeMessage(Message* msg);
     Q_SIGNALS:
         void messageWritten(QByteArray msg);

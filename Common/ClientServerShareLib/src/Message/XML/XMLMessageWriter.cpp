@@ -26,7 +26,7 @@ XMLMessageWriter::~XMLMessageWriter()
 
 
 void
-XMLMessageWriter::writeMessage(Message* msg, bool cleanup)
+XMLMessageWriter::writeMessage(Message* msg)
 {
     QByteArray msgBytes;
 
@@ -68,17 +68,7 @@ XMLMessageWriter::writeMessage(Message* msg, bool cleanup)
     xmlw.writeEndElement();
     xmlw.writeEndElement();
 
+    delete msg;
 
-
-    if (cleanup)
-    {
-        delete msg;
-    }
     emit messageWritten(msgBytes);
-}
-
-void
-XMLMessageWriter::writeMessage(Message* msg)
-{
-    writeMessage(msg, true);
 }
