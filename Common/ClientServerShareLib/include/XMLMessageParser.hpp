@@ -32,12 +32,16 @@ public Q_SLOTS:
 
     void parseCmdMessage(QByteArray bytes);
     void parseDataMessage(QByteArray bytes);
+    void parseCmdMessage(QByteArray bytes, uint clientId);
+    void parseDataMessage(QByteArray bytes, uint clientId);
 
 Q_SIGNALS:
     void messageParsed(Message *msg); //TODO: should be removed because it don't seperates between data and command messages
 
     void cmdMessageParsed(Message *msg);
     void dataMessageParsed(Message *msg);
+    void cmdMessageParsed(Message *msg, uint clientId);
+    void dataMessageParsed(Message *msg, uint clientId);
 
 
 };

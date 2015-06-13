@@ -40,6 +40,18 @@ XMLMessageParser::parseDataMessage(QByteArray bytes)
     emit dataMessageParsed(messageParser(bytes));
 }
 
+void
+XMLMessageParser::parseCmdMessage(QByteArray bytes, uint clientId)
+{
+    emit cmdMessageParsed(messageParser(bytes), clientId);
+}
+
+void
+XMLMessageParser::parseDataMessage(QByteArray bytes, uint clientId)
+{
+    emit dataMessageParsed(messageParser(bytes), clientId);
+}
+
 Message*
 XMLMessageParser::messageParser(QByteArray& bytes)
 {
