@@ -102,3 +102,23 @@ XMLMessageWriter::writeDataMessage(Message* msg)
     delete(msg);
     emit dataMessageWritten(msgBytes);
 }
+
+void
+XMLMessageWriter::writeCmdMessage(Message* msg, uint clientId)
+{
+    QByteArray msgBytes;
+
+    createMessageByteArray(msg, &msgBytes);
+    delete(msg);
+    emit cmdMessageWritten(msgBytes, clientId);
+}
+
+void
+XMLMessageWriter::writeDataMessage(Message* msg, uint clientId)
+{
+    QByteArray msgBytes;
+
+    createMessageByteArray(msg, &msgBytes);
+    delete(msg);
+    emit dataMessageWritten(msgBytes, clientId);
+}
