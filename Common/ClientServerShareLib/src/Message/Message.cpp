@@ -116,3 +116,28 @@ Message::setTimestamp(QDateTime ts)
 {
     timestamp = ts;
 }
+
+QString Message::getCommand()
+{
+    return command;
+}
+
+QString Message::getSender()
+{
+    return sender;
+}
+
+QString Message::getReceiver()
+{
+    return receiver;
+}
+
+const QMap<QString, QVariant>* Message::getParameters()
+{
+    return &parameters;
+}
+
+const QMap<QString, QString>* Message::getParameterTypes()
+{
+    return &parameter_types;
+}

@@ -30,6 +30,12 @@ public:
     Message();
     Message(QString command, QString sender, QString receiver);
     virtual ~Message();
+    QString getCommand();
+    QString getSender();
+    QString getReceiver();
+    const QMap<QString, QVariant>* getParameters();
+    const QMap<QString, QString>* getParameterTypes();
+
 private:
     QString command;
     QString sender;
