@@ -101,6 +101,15 @@ namespace Network
          */
         void receivedDataFromClient(QByteArray data, uint clientID);
 
+        /**
+         * @brief Signal that is emitted, when a new client connected to the server.
+         *
+         * @param[out] clientID ID of the client that connected to the server.
+         *
+         * This Signal is only emitted, when <b>both</i> types of sockets (data and command) successfully connected to the server.
+         */
+        void newClient(uint clientID);
+
     public slots:
         bool beginListening(QString cmdPort_str, QString dataPort_str);
         void closeServer();
