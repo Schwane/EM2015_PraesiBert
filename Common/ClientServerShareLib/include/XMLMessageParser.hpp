@@ -24,12 +24,26 @@ public:
     //XMLMessageParser(Client *cl);
     virtual ~XMLMessageParser();
 private:
+    Message* messageParser(QByteArray& bytes);
     //QXmlStreamReader xmlr;
     //Client* cl;
 public Q_SLOTS:
-    void parseMessage(QByteArray bytes);
+    void parseMessage(QByteArray bytes); //TODO: should be removed because it don't seperates between data and command messages
+
+    void parseCmdMessage(QByteArray bytes);
+    void parseDataMessage(QByteArray bytes);
+    void parseCmdMessage(QByteArray bytes, uint clientId);
+    void parseDataMessage(QByteArray bytes, uint clientId);
+
 Q_SIGNALS:
-    void messageParsed(Message *msg);
+    void messageParsed(Message *msg); //TODO: should be removed because it don't seperates between data and command messages
+
+    void cmdMessageParsed(Message *msg);
+    void dataMessageParsed(Message *msg);
+    void cmdMessageParsed(Message *msg, uint clientId);
+    void dataMessageParsed(Message *msg, uint clientId);
+
+
 };
 
 #endif /* XMLMESSAGEPARSER_HPP_ */
