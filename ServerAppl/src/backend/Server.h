@@ -31,7 +31,7 @@ namespace ServerAppl
     /**
      *
      */
-    class Server : public MessageHandlerInterface, public MessageRouter
+    class Server : public MessageRouter, public MessageHandlerInterface
     {
         Q_OBJECT
 

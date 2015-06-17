@@ -3,7 +3,7 @@
 	<name>ServerAppl</name>
 	<comment></comment>
 	<projects>
-		<project>NetworkLib</project>
+		<project>ClientServerShareLib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
