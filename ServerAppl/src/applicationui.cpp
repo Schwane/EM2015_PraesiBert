@@ -20,6 +20,7 @@
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/LocaleHandler>
+#include <bb/cascades/Button>
 
 using namespace bb::cascades;
 
@@ -29,6 +30,9 @@ ApplicationUI::ApplicationUI() :
     // prepare the localization
     m_pTranslator = new QTranslator(this);
     m_pLocaleHandler = new LocaleHandler(this);
+
+    // Initialize server
+    server = new ServerAppl::Server();
 
     bool res = QObject::connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()), this, SLOT(onSystemLanguageChanged()));
     // This is only available in Debug builds
@@ -47,6 +51,10 @@ ApplicationUI::ApplicationUI() :
     // Create root object for the UI
     AbstractPane *root = qml->createRootObject<AbstractPane>();
 
+    connect( root->findChild<Button *>("butTriggerAction1"), SIGNAL(clicked()), this, SLOT(onButtonClicked1()));
+    connect( root->findChild<Button *>("butTriggerAction2"), SIGNAL(clicked()), this, SLOT(onButtonClicked2()));
+    connect( root->findChild<Button *>("butTriggerAction3"), SIGNAL(clicked()), this, SLOT(onButtonClicked3()));
+
     // Set created root object as the application scene
     Application::instance()->setScene(root);
 }
@@ -60,4 +68,19 @@ void ApplicationUI::onSystemLanguageChanged()
     if (m_pTranslator->load(file_name, "app/native/qm")) {
         QCoreApplication::instance()->installTranslator(m_pTranslator);
     }
+}
+
+void ApplicationUI::onButtonClicked1()
+{
+    // trigger test-action
+}
+
+void ApplicationUI::onButtonClicked2()
+{
+    // trigger test-action
+}
+
+void ApplicationUI::onButtonClicked3()
+{
+    // trigger test-action
 }

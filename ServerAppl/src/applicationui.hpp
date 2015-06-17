@@ -19,6 +19,9 @@
 
 #include <QObject>
 
+#include <src/backend/PresentationController.h>
+#include <src/backend/Server.h>
+
 namespace bb
 {
     namespace cascades
@@ -42,9 +45,15 @@ public:
     virtual ~ApplicationUI() {}
 private slots:
     void onSystemLanguageChanged();
+    void onButtonClicked1();
+    void onButtonClicked2();
+    void onButtonClicked3();
+
 private:
     QTranslator* m_pTranslator;
     bb::cascades::LocaleHandler* m_pLocaleHandler;
+    ServerAppl::Server * server;
+    ServerAppl::PresentationController * presentation;
 };
 
 #endif /* ApplicationUI_HPP_ */

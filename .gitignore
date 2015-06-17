@@ -8,6 +8,7 @@ Client/ListenerClientAppl/config.pri
 Client/MasterClientAppl/config.pri
 Common/ClientServerShareLib/config.pri
 Common/ClientServerShareLib/translations/qm
-Common/ClientServerShareLib/config.pri
+ServerAppl/translations/qm
+ServerAppl/config.pri
 Common/NetworkLibTestApp/config.pri
 sim_10_3_1_995/
