@@ -13,16 +13,23 @@ namespace ServerAppl
 
     MessageRouter::MessageRouter()
     {
-        registeredMessageHandlers = new QMap<QString, messageHandler>();
+        registeredMessageHandlers = new QMap<uint, QMap<QString, messageHandler>* >();
 
     }
 
     MessageRouter::~MessageRouter()
     {
+        int i = registeredMessageHandlers->count() - 1;
+
+        while(0 <= i)
+        {
+            delete(registeredMessageHandlers->value(i));
+            i--;
+        }
         delete(registeredMessageHandlers);
     }
 
-    bool MessageRouter::registerMessageHandler(QString command, MessageHandlerInterface * object,
+    bool MessageRouter::registerMessageHandler(uint clientId, QString command, MessageHandlerInterface * object,
             handleReceivedMessageFunction function)
     {
         messageHandler handler;
@@ -30,51 +37,77 @@ namespace ServerAppl
         handler.object = object;
         handler.function = function;
 
-        return registerMessageHandler(command, handler);
+        return registerMessageHandler(clientId, command, handler);
     }
 
-    bool MessageRouter::registerMessageHandler(QString command, messageHandler handler)
+    bool MessageRouter::registerMessageHandler(uint clientId, QString command, messageHandler handler)
     {
         bool registeredMessageHandlerSuccessfull = FALSE;
+        QMap<QString, messageHandler> * clientCommands;
 
-        if(!registeredMessageHandlers->contains(command))
+        if(!registeredMessageHandlers->contains(clientId))
         {
-            registeredMessageHandlers->insert(command, handler);
+            clientCommands = new QMap<QString, messageHandler>();
+            registeredMessageHandlers->insert(clientId, clientCommands);
+        }
+        else
+        {
+            clientCommands = registeredMessageHandlers->value(clientId);
+        }
+
+        if(!clientCommands->contains(command))
+        {
+            clientCommands->insert(command, handler);
             registeredMessageHandlerSuccessfull = TRUE;
         }
 
         return registeredMessageHandlerSuccessfull;
     }
 
-    bool MessageRouter::unregisterMessageHandler(QString command)
+    bool MessageRouter::unregisterMessageHandler(uint clientId, QString command)
     {
         bool unregisteredMessageHandlerSuccessfull = FALSE;
+        QMap<QString, messageHandler> * clientCommands;
 
-        if(registeredMessageHandlers->contains(command))
+        if(registeredMessageHandlers->contains(clientId))
         {
-            registeredMessageHandlers->remove(command);
-            unregisteredMessageHandlerSuccessfull = TRUE;
-        }
+            clientCommands = registeredMessageHandlers->value(clientId);
 
+            if(clientCommands->contains(command))
+            {
+                clientCommands->remove(command);
+                unregisteredMessageHandlerSuccessfull = TRUE;
+            }
+        }
         return unregisteredMessageHandlerSuccessfull;
     }
 
-    void MessageRouter::onMessageParsed(Message* message)
+    void MessageRouter::onMessageParsed(Message* message, uint clientId)
     {
         QString command = message->getCommand();
+        QMap<QString, messageHandler> * clientCommands;
         Message * responseMessage;
 
-        if(registeredMessageHandlers->contains(command))
+        if(registeredMessageHandlers->contains(clientId))
         {
-            messageHandler handlerFunction = registeredMessageHandlers->value(command);
-            responseMessage = ((handlerFunction.object)->*(handlerFunction.function))(command, message);
-            WRITE_DEBUG("MessageRouter: Handled received message.")
+            clientCommands = registeredMessageHandlers->value(clientId);
+
+            if(clientCommands->contains(command))
+            {
+                messageHandler handlerFunction = clientCommands->value(command);
+                responseMessage = ((handlerFunction.object)->*(handlerFunction.function))(command, message);
+                WRITE_DEBUG("MessageRouter: Handled received message.")
+            }
+            else
+            {
+                responseMessage = new Message(QString("RESPONSE"), message->getReceiver(), message->getSender());
+                responseMessage->addParameter(QString("status"), QString("unknown command"));
+                WRITE_DEBUG("MessageRouter: Received unknown message.")
+            }
         }
         else
         {
-            responseMessage = new Message(QString("RESPONSE"), message->getReceiver(), message->getSender());
-            responseMessage->addParameter(QString("status"), QString("unknown command"));
-            WRITE_DEBUG("MessageRouter: Received unknown message.")
+            //TODO: client not registered. Maybe thrown an exception or emit error-signal?
         }
 
         if(!responseMessage)
@@ -92,7 +125,7 @@ namespace ServerAppl
             WRITE_DEBUG("MessageRouter: Got Null-Pointer for response message.")
         }
 
-        emit writeMessage(responseMessage);
+        emit writeMessage(responseMessage, clientId);
     }
 
 } /* namespace ServerAppl */

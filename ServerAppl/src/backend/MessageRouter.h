@@ -32,18 +32,18 @@ namespace ServerAppl
     public:
         MessageRouter();
         ~MessageRouter();
-        bool registerMessageHandler(QString command, MessageHandlerInterface * object, handleReceivedMessageFunction function);
-        bool registerMessageHandler(QString command, messageHandler handler);
-        bool unregisterMessageHandler(QString command);
+        bool registerMessageHandler(uint clientId, QString command, MessageHandlerInterface * object, handleReceivedMessageFunction function);
+        bool registerMessageHandler(uint clientId, QString command, messageHandler handler);
+        bool unregisterMessageHandler(uint clientId, QString command);
 
     signals:
-        void writeMessage(Message * message);
+        void writeMessage(Message * message, uint clientId);
 
     public slots:
-        void onMessageParsed(Message * message);
+        void onMessageParsed(Message * message, uint clientId);
 
     private:
-        QMap<QString, messageHandler> * registeredMessageHandlers;
+        QMap<uint, QMap<QString, messageHandler> *> * registeredMessageHandlers;
     };
 }
 
