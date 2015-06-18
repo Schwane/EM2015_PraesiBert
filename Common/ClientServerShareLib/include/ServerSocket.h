@@ -106,7 +106,7 @@ namespace Network
          *
          * @param[out] clientID ID of the client that connected to the server.
          *
-         * This Signal is only emitted, when <b>both</i> types of sockets (data and command) successfully connected to the server.
+         * This Signal is only emitted, when <b>both</b> types of sockets (data and command) successfully connected to the server.
          */
         void newClient(uint clientID);
 
