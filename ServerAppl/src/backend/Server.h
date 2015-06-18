@@ -31,7 +31,7 @@ namespace ServerAppl
     /**
      *
      */
-    class Server : public MessageRouter, public MessageHandlerInterface
+    class Server : public QObject, public MessageHandlerInterface
     {
         Q_OBJECT
 
@@ -47,11 +47,19 @@ namespace ServerAppl
     public slots:
         void onNewClient();
 
+    private:
+        void deleteCommandRouter();
+        void deleteDataRouter();
+        void initCommandRouter();
+        void initDataRouter();
+
     /* properties */
     public:
         XMLMessageParser * messageParser;
 
     private:
+        MessageRouter * commandRouter;
+        MessageRouter * dataRouter;
         XMLMessageWriter * messageWriter;
         Network::ServerSocket * serverSocket;
         PresentationController * presentationController;

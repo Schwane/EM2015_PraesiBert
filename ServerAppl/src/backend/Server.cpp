@@ -21,14 +21,19 @@ namespace ServerAppl
         serverSocket = new Network::ServerSocket(this);
         messageParser = new XMLMessageParser();
         messageWriter = new XMLMessageWriter();
+        commandRouter =  new MessageRouter();
+        dataRouter = new MessageRouter();
         listenerClients = QMap <unsigned int, Listener *>();
         presentationController = new PresentationController(this);
         masterClient = NULL;
 
-        registerMessageHandler(QString("login"), (MessageHandlerInterface *)this, &MessageHandlerInterface::handleReceivedMessage);
+        /* connect signals of command-router */
+        QObject::connect( messageParser, SIGNAL(cmdMessageParsed(Message*, uint)), commandRouter, SLOT(onMessageParsed(Message*, uint)) );
+        QObject::connect( commandRouter, SIGNAL(writeMessage(Message*, uint)), messageWriter, SLOT(writeCmdMessage(Message*, uint)) );
 
-        QObject::connect(messageParser, SIGNAL(messageParsed(Message *)), this, SLOT(onMessageParsed(Message *)) );
-        QObject::connect(this, SIGNAL(writeMessage(Message *)), messageWriter, SLOT(writeMessage(Message*)) );
+        /* connect signals of command-router */
+        QObject::connect( messageParser, SIGNAL(dataMessageParsed(Message*, uint)), dataRouter, SLOT(onMessageParsed(Message*, uint)) );
+        QObject::connect( dataRouter, SIGNAL(writeMessage(Message*, uint)), messageWriter, SLOT(writeDataMessage(Message*, uint)) );
 
         WRITE_DEBUG("Server-constructor finished.")
     }
@@ -42,10 +47,10 @@ namespace ServerAppl
 
 
         delete(presentationController);
+        delete(dataRouter);
+        delete(commandRouter);
         delete(messageWriter);
         delete(messageParser);
-//        delete(xmlWriter);
-//        delete(xmlReader);
         delete(serverSocket);
 
         WRITE_DEBUG("Server-destructor finished.")
@@ -53,7 +58,7 @@ namespace ServerAppl
 
     Message* Server::handleReceivedMessage(QString commandName, Message* msg)
     {
-
+        return NULL;
     }
 
     void Server::onNewClient()
@@ -108,6 +113,22 @@ namespace ServerAppl
     unsigned int Server::getMasterClientIdentifier()
     {
         return masterClient->getIdentifier();
+    }
+
+    void Server::deleteCommandRouter()
+    {
+    }
+
+    void Server::deleteDataRouter()
+    {
+    }
+
+    void Server::initCommandRouter()
+    {
+    }
+
+    void Server::initDataRouter()
+    {
     }
 
 } /* namespace ServerAppl */
