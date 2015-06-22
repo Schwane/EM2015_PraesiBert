@@ -15,15 +15,66 @@ namespace ServerAppl
 
     }
 
+    Master::Master(UnspecifiedClient * priorClientObject, QString nonce1 )
+    {
+        this->priorClientObject = priorClientObject;
+        this->server = priorClientObject->getServer();
+        this->clientId = priorClientObject->getClientId();
+        this->name = priorClientObject->getName();
+        this->lastTimestamp = priorClientObject->getLastTimestamp();
+        this->nonce.part_1 = nonce1;
+        acceptSlides =  FALSE;
+    }
+
     Master::~Master()
     {
         // TODO Auto-generated destructor stub
     }
 
-//    Message* handleReceivedMessage(QString commandName, Message* msg)
-//    {
-//        return NULL;
-//    }
+    bool Master::createMaster(UnspecifiedClient * client, Master* master, QString nonce1)
+    {
+        master = new Master(client, nonce1);
+
+        return true;
+    }
+
+    Message* Master::handleReceivedMessage(QString commandName, Message* msg)
+    {
+        Message * responseMessage;
+
+        if(IS_COMMAND(commandName, "PROOF_RESPONSE"))
+        {
+            responseMessage = handleProofResponse(commandName, msg);
+        }
+        else if(IS_COMMAND(commandName, "LOGIN_RESPONSE"))
+        {
+            responseMessage = handleLoginResponse(commandName, msg);
+        }
+        else
+        {
+
+        }
+
+        return responseMessage;
+    }
+
+    Message* Master::handleProofResponse(QString commandName, Message* msg)
+    {
+        Message * responseMessage;
+
+        if(IS_COMMAND(commandName, "PROOF_RESPONSE"))
+        {
+            responseMessage = new Message(QString("login"), QString("server"), QString("client"));
+
+        }
+
+        return responseMessage;
+    }
+
+    Message* Master::handleLoginResponse(QString commandName, Message* msg)
+    {
+        return NULL;
+    }
 
     void Master::onReceivedData(unsigned int receiverIdentifier)
     {
@@ -31,7 +82,7 @@ namespace ServerAppl
          * and emit signal with pointer to packet
          */
 
-        if(receiverIdentifier == getIdentifier())
+        if(receiverIdentifier == getClientId())
         {
             /* received slides */
             acceptSlides = FALSE;

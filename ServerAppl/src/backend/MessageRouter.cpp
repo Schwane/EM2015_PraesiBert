@@ -112,20 +112,23 @@ namespace ServerAppl
 
         if(!responseMessage)
         {
-            if(message)
-            {
-                responseMessage = new Message(QString("RESPONSE"), message->getReceiver(), message->getSender());
-            }
-            else
-            {
-                responseMessage = new Message(QString("RESPONSE"), "", "server");
-            }
-
-            responseMessage->addParameter(QString("status"), QString("unknown server error"));
-            WRITE_DEBUG("MessageRouter: Got Null-Pointer for response message.")
+            //TODO when is a returned null-pointer for responseMessage an error?
+//            if(message)
+//            {
+//                responseMessage = new Message(QString("RESPONSE"), message->getReceiver(), message->getSender());
+//            }
+//            else
+//            {
+//                responseMessage = new Message(QString("RESPONSE"), "", "server");
+//            }
+//
+//            responseMessage->addParameter(QString("status"), QString("unknown server error"));
+//            WRITE_DEBUG("MessageRouter: Got Null-Pointer for response message.")
         }
-
-        emit writeMessage(responseMessage, clientId);
+        else
+        {
+            emit writeMessage(responseMessage, clientId);
+        }
     }
 
 } /* namespace ServerAppl */

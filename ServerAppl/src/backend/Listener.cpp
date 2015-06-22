@@ -12,7 +12,15 @@ namespace ServerAppl
     Listener::Listener()
     {
         connectionStm(Init);
+    }
 
+    Listener::Listener(UnspecifiedClient * priorClientObject)
+    {
+        this->priorClientObject = priorClientObject;
+        this->clientId = priorClientObject->getClientId();
+        this->name = priorClientObject->getName();
+        this->lastTimestamp = priorClientObject->getLastTimestamp();
+        connectionStm(Init);
     }
 
     Listener::~Listener()
@@ -20,26 +28,49 @@ namespace ServerAppl
         // TODO Auto-generated destructor stub
     }
 
+    bool Listener::createListener(UnspecifiedClient* client, Listener* listener)
+    {
+        listener = new Listener(client);
+
+        return true;
+    }
+
+
+//    Message* Listener::handleReceivedMessage(QString commandName, Message* msg)
+//    {
+//        Message * responseMessage;
+//
+//        if("login" == commandName)
+//        {
+//            /* command is login (compare returns 0) */
+//            responseMessage = new Message("login", "server", "client");
+//
+//            if(connectionStm(Login))
+//            {
+//                responseMessage->addParameter(QString("status"), QString("ok"));
+//            }
+//            else
+//            {
+//                responseMessage->addParameter(QString("status"), QString("rejected"));
+//            }
+//        }
+//
+//        delete msg;
+//
+//        return responseMessage;
+//    }
+
     Message* Listener::handleReceivedMessage(QString commandName, Message* msg)
     {
-        Message * responseMessage;
+        Message * responseMessage = NULL;
 
-        if("login" == commandName)
+        if("login_RESPONSE" == commandName)
         {
-            /* command is login (compare returns 0) */
-            responseMessage = new Message("login", "server", "client");
-
             if(connectionStm(Login))
             {
-                responseMessage->addParameter(QString("status"), QString("ok"));
-            }
-            else
-            {
-                responseMessage->addParameter(QString("status"), QString("rejected"));
+                delete(this->priorClientObject);
             }
         }
-
-        delete msg;
 
         return responseMessage;
     }

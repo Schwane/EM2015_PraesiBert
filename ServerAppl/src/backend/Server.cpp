@@ -61,34 +61,32 @@ namespace ServerAppl
         return NULL;
     }
 
-    void Server::onNewClient()
+    void Server::onNewClient(uint clientId)
     {
-        if(FALSE)
-        {
-            /* create a listener-client */
-            Listener * listenerClient;
-            listenerClient = new Listener();
-            listenerClients.insert(listenerClient->getIdentifier(),listenerClient);
+        UnspecifiedClient * newClient;
 
-            /* send message with confirmation to client */
+        if(!connectedClients.contains(clientId))
+        {
+            newClient = new UnspecifiedClient(this, clientId, QString(""));
+            connectedClients.insert(clientId, newClient);
+
+            commandRouter->registerMessageHandler(
+                    clientId,
+                    QString("login"),
+                    HANDLER_OBJ(newClient),
+                    HANDLER_FUNC(handleReceivedMessage)
+                    );
+            commandRouter->registerMessageHandler(
+                    clientId,
+                    QString("LOGIN_NONCE"),
+                    HANDLER_OBJ(newClient),
+                    HANDLER_FUNC(handleReceivedMessage)
+                    );
         }
         else
         {
-            if(!masterClient)
-            {
-                /* create master-client only if no one exist. */
-                masterClient = new Master();
-//                QObject::connect( masterClient, SIGNAL(receivedSlides()), presentationController, SLOT(onReceivedSlides()) );
-//                QObject::connect( xmlReader, SIGNAL(receivedData(unsigned int)), masterClient, SLOT(onReceivedData(unsigned int)) );
-                QObject::connect( messageParser, SIGNAL(messageParsed(Message*)), this, SLOT(onMessageParsed(Message *)) );
-//                QObject::connect( presentationController, SIGNAL(transmitSlidesResponse(bool)), masterClient, SLOT(transmitSlidesResponse(bool)) );
-            }
-            else
-            {
-
-            }
+            //TODO: handle double-occurence of clientId!
         }
-
     }
 
     QList<unsigned int>* Server::getAllClientIdentifiers()
@@ -112,7 +110,7 @@ namespace ServerAppl
 
     unsigned int Server::getMasterClientIdentifier()
     {
-        return masterClient->getIdentifier();
+        return masterClient->getClientId();
     }
 
     void Server::deleteCommandRouter()
@@ -125,6 +123,70 @@ namespace ServerAppl
 
     void Server::initCommandRouter()
     {
+    }
+
+    bool Server::registerMaster(Master* master)
+    {
+        bool registrationSuccessfull = FALSE;
+
+        if(master)
+        {
+            uint clientId = master->getClientId();
+
+            if(!masterClient
+                && connectedClients.contains(clientId)
+                )
+            {
+                masterClient = master;
+
+                commandRouter->unregisterMessageHandler(clientId, QString("LOGIN_NONCE"));
+                commandRouter->registerMessageHandler(
+                        clientId,
+                        QString("LOGIN_RESPONSE"),
+                        HANDLER_OBJ(master),
+                        HANDLER_FUNC(handleReceivedMessage)
+                        );
+                commandRouter->registerMessageHandler(
+                        clientId,
+                        QString("PROOF_RESPONSE"),
+                        HANDLER_OBJ(master),
+                        HANDLER_FUNC(handleReceivedMessage)
+                        );
+
+                registrationSuccessfull = TRUE;
+            }
+        }
+
+        return registrationSuccessfull;
+    }
+
+    bool Server::registerListener(Listener* listener)
+    {
+        bool registrationSuccessfull = FALSE;
+
+        if(listener)
+        {
+            uint clientId = listener->getClientId();
+
+            if(connectedClients.contains(clientId)
+                    && !listenerClients.contains(clientId)
+                    )
+            {
+                listenerClients.insert(clientId, listener);
+                connectedClients.insert(clientId, (UnspecifiedClient*) listener);
+
+                commandRouter->unregisterMessageHandler(clientId, QString("login"));
+                commandRouter->registerMessageHandler(
+                        clientId,
+                        QString("login_RESPONSE"),
+                        HANDLER_OBJ(listener),
+                        HANDLER_FUNC(handleReceivedMessage)
+                        );
+                registrationSuccessfull = TRUE;
+            }
+        }
+
+        return registrationSuccessfull;
     }
 
     void Server::initDataRouter()

@@ -43,9 +43,11 @@ namespace ServerAppl
         QList<unsigned int> * getListenerClientIdentifiers();
         unsigned int getMasterClientIdentifier();
         Message* handleReceivedMessage(QString commandName, Message* msg);
+        bool registerMaster(Master * master);
+        bool registerListener(Listener * listener);
 
     public slots:
-        void onNewClient();
+        void onNewClient(uint clientId);
 
     private:
         void deleteCommandRouter();
@@ -54,16 +56,15 @@ namespace ServerAppl
         void initDataRouter();
 
     /* properties */
-    public:
-        XMLMessageParser * messageParser;
-
     private:
         MessageRouter * commandRouter;
         MessageRouter * dataRouter;
+        XMLMessageParser * messageParser;
         XMLMessageWriter * messageWriter;
         Network::ServerSocket * serverSocket;
         PresentationController * presentationController;
         Master * masterClient;
+        QMap <unsigned int, UnspecifiedClient *> connectedClients;
         QMap <unsigned int, Listener *> listenerClients;
 
 
