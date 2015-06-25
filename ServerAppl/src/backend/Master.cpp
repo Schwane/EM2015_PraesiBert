@@ -17,13 +17,23 @@ namespace ServerAppl
 
     Master::Master(UnspecifiedClient * priorClientObject, QString nonce1 )
     {
+        QByteArray concatenatedNonce;
+
         this->priorClientObject = priorClientObject;
         this->server = priorClientObject->getServer();
         this->clientId = priorClientObject->getClientId();
         this->name = priorClientObject->getName();
         this->lastTimestamp = priorClientObject->getLastTimestamp();
+        this->acceptSlides =  FALSE;
         this->nonce.part_1 = nonce1;
-        acceptSlides =  FALSE;
+        this->nonce.part_2 = generateNonce(456);
+        this->symmetricKey = "KATZE";
+        this->messageAuthenticator = new MessageAuthenticator();
+
+        concatenatedNonce.append(this->nonce.part_1);
+        concatenatedNonce.append(this->nonce.part_2);
+        this->messageAuthenticator->hmacSha1(this->symmetricKey,concatenatedNonce);
+        this->messageAuthenticator->setKey(this->symmetricKey);
     }
 
     Master::~Master()
@@ -36,6 +46,16 @@ namespace ServerAppl
         master = new Master(client, nonce1);
 
         return true;
+    }
+
+    QString Master::generateNonce(uint seed)
+    {
+        char buf[64];
+
+        srand(seed);
+        sprintf(buf, "%d", rand());
+
+        return QString(buf);
     }
 
     Message* Master::handleReceivedMessage(QString commandName, Message* msg)
@@ -92,6 +112,11 @@ namespace ServerAppl
             emit receivedSlides();
         }
 
+    }
+
+    NONCE Master::getNonce()
+    {
+        return this->nonce;
     }
 
     void Master::onTransmitSlidesResponse(bool accepted)

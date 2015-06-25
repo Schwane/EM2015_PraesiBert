@@ -8,7 +8,10 @@
 #ifndef MASTER_H_
 #define MASTER_H_
 
+#include <QByteArray>
 #include <QObject>
+
+#include <MessageAuthenticator.h>
 
 #include <src/backend/UnspecifiedClient.h>
 #include <src/backend/MessageHandlerInterface.h>
@@ -28,10 +31,12 @@ namespace ServerAppl
 
     public:
         static bool createMaster(UnspecifiedClient * client, Master * master, QString nonce1);
+        static QString generateNonce(uint seed);
 
         Master();
         Master(UnspecifiedClient * priorClientObject, QString nonce1);
         virtual ~Master();
+        NONCE getNonce();
 
         Message* handleReceivedMessage(QString commandName, Message* msg);
         Message* handleProofResponse(QString commandName, Message* msg);
@@ -47,6 +52,9 @@ namespace ServerAppl
     private:
         UnspecifiedClient * priorClientObject;
         NONCE nonce;
+        QByteArray symmetricKey;
+        QByteArray macKey;
+        MessageAuthenticator * messageAuthenticator;
         bool acceptSlides;
     };
 } /* namespace ServerAppl */

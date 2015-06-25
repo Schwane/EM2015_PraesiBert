@@ -90,7 +90,8 @@ namespace ServerAppl
                 {
                     if(this->server->registerMaster(newMaster))
                     {
-                        responseMessage->addParameter(QString("nonce2"), QString("nonce_2"));
+                        NONCE nonce = newMaster->getNonce();
+                        responseMessage->addParameter(QString("nonce2"), nonce.part_2);
                     }
                     else
                     {
