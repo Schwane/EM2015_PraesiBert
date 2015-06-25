@@ -22,7 +22,6 @@ namespace Network
      * @brief Client Socket class.
      *
      * Instantiates two TCP Client Sockets (command and data) that can connect to servers.<br>
-     * The static constants <i>cmdConnection</i> and <i>dataConnection</i> are used to define or determine the <i>connectionType</i> of the current method.<br>
      * This means if a function is called with one of the static constants as <i>connectionType</i>, the function can determine which type of connection to use.<br>
      * The class provides several signals and slots for connection and data handling:
      * <ul>
@@ -46,11 +45,6 @@ namespace Network
     {
         Q_OBJECT
     public:
-        /// Static constant for indicating a command connection.
-        static const int cmdConnection = 0;
-        /// Static constant for indicating a data connection.
-        static const int dataConnection = 1;
-
         ClientSocket(QObject*);
         virtual ~ClientSocket();
 

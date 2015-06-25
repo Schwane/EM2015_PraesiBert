@@ -121,7 +121,6 @@ namespace Network
     private slots:
         void handleNewConnection();
         void handleClientDisconnect(uint clientID);
-        void handleNewRead(QByteArray data, uint clientID, int connectionType);
     };
 }
 #endif /* SERVERSOCKET_H_ */

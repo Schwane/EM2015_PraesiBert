@@ -20,8 +20,8 @@ namespace Network
      */
     ConnectedClient::ConnectedClient(uint clientID)
             : m_clientID(clientID)
-            , hasCmdSocket(false)
-            , hasDataSocket(false)
+            , m_hasCmdSocket(false)
+            , m_hasDataSocket(false)
     {
     }
 
@@ -39,81 +39,89 @@ namespace Network
     }
 
     /**
-     * @brief Method used to set one of the sockets.
+     * @brief Method used to set the command socket.
      *
      * @param[in] tcpSocket New socket object that one of the clients sockets is assigned to.
-     * @param[in] connectionType Defines, which of the sockets is set to the new socket.
      *
      * Each time a new connection is established with the server, a new QTcpSocket object is created.<br>
-     * This object is then passed to this function with the <i>connectionType</i> as parameter.<br>
-     * Within this function the new socket object is then assigned to the command socket or data socket, depending on the <i>connectionType</i>.
+     * This object is then passed to this function as parameter.<br>
+     * Within this function, the new socket object is then assigned to the command socket.
      */
-    void ConnectedClient::setSocket(QTcpSocket* tcpSocket, int connectionType)
+    void ConnectedClient::setCmdSocket(QTcpSocket* tcpSocket)
     {
-        if(connectionType == ConnectedClient::cmdConnection)
-        {
-            m_cmdSocket = tcpSocket;
-            connect(m_cmdSocket, SIGNAL(readyRead()), this, SLOT(handleCmdRead()));
-            connect(m_cmdSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
-            hasCmdSocket = true;
-            return;
-        }
-        if(connectionType == ConnectedClient::dataConnection)
-        {
-            m_dataSocket = tcpSocket;
-            connect(m_dataSocket, SIGNAL(readyRead()), this, SLOT(handleDataRead()));
-            connect(m_dataSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
-            hasDataSocket = true;
-            return;
-        }
+        m_cmdSocket = tcpSocket;
+        connect(m_cmdSocket, SIGNAL(readyRead()), this, SLOT(handleCmdRead()));
+        connect(m_cmdSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
+        m_hasCmdSocket = true;
+        return;
     }
 
     /**
-     * @brief Method that returns, if a type of socket is established already.
+     * @brief Method used to set the data socket.
      *
-     * @param[in] connectionType Defines the type of socket that is requested.
+     * @param[in] tcpSocket New socket object that one of the clients sockets is assigned to.
      *
-     * @return Returns true, if the socket that was requested with the <i>connectionType</i> is set up and available.
+     * Each time a new connection is established with the server, a new QTcpSocket object is created.<br>
+     * This object is then passed to this function as parameter.<br>
+     * Within this function, the new socket object is then assigned to the data socket.
      */
-    bool ConnectedClient::hasSocketType(int connectionType)
+    void ConnectedClient::setDataSocket(QTcpSocket* tcpSocket)
     {
-        if(connectionType == ConnectedClient::cmdConnection)
-        {
-            return hasCmdSocket;
-        }
-        if(connectionType == ConnectedClient::dataConnection)
-        {
-            return hasDataSocket;
-        }
-        // Return false if none of the above statements is true
-        return false;
+        m_dataSocket = tcpSocket;
+        connect(m_dataSocket, SIGNAL(readyRead()), this, SLOT(handleDataRead()));
+        connect(m_dataSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
+        m_hasDataSocket = true;
+        return;
+    }
+
+    /**
+     * @brief Method that returns, whether the command socket is established already.
+     *
+     * @return Returns true, if the socket is set up and available.
+     */
+    bool ConnectedClient::hasCmdSocket()
+    {
+        return m_hasCmdSocket;
+    }
+
+    /**
+     * @brief Method that returns, whether the data socket is established already.
+     *
+     * @return Returns true, if the socket is set up and available.
+     */
+    bool ConnectedClient::hasDataSocket()
+    {
+        return m_hasDataSocket;
+    }
+
+    /**
+     * @brief Sends a command to the connected client.
+     *
+     * @param[in] data Command in QByteArray format that is send.
+     *
+     * @return Returns the amount of bytes that were actually sent to the client.
+     *
+     * This method is used to send a command to the connected client that is given in QByteArray format as parameter.<br>
+     */
+    int ConnectedClient::sendCmd(QByteArray data)
+    {
+        qint64 sentBytes = m_cmdSocket->write(data);
+        return sentBytes;
     }
 
     /**
      * @brief Sends data to the connected client.
      *
      * @param[in] data Data in QByteArray format that is send.
-     * @param[in] connectionType Defines from which socket the data is send.
      *
-     * @return Returns the amount of bytes that were actually send to the client.
+     * @return Returns the amount of bytes that were actually sent to the client.
      *
      * This method is used to send data to the connected client that is given in QByteArray format as parameter.<br>
-     * The socket that is used to send the data is define with the parameter <i>connectionType</i>.
      */
-    int ConnectedClient::sendData(QByteArray data, int connectionType)
+    int ConnectedClient::sendData(QByteArray data)
     {
-        if(connectionType == ConnectedClient::cmdConnection)
-        {
-            qint64 sentBytes = m_cmdSocket->write(data);
-            return sentBytes;
-        }
-        if(connectionType == ConnectedClient::dataConnection)
-        {
-            qint64 sentBytes = m_dataSocket->write(data);
-            return sentBytes;
-        }
-        // Return 0 of none of socket was selected correctly
-        return 0;
+        qint64 sentBytes = m_dataSocket->write(data);
+        return sentBytes;
     }
 
     /**
@@ -151,13 +159,13 @@ namespace Network
     QHostAddress ConnectedClient::getPeerAddress()
     {
         // Use Command-Socket for verifying the peer address primarily
-        if(hasCmdSocket)
+        if(m_hasCmdSocket)
         {
             return m_cmdSocket->peerAddress();
         }
         else
         {
-            if(hasDataSocket)
+            if(m_hasDataSocket)
             {
                 return m_dataSocket->peerAddress();
             }
@@ -177,12 +185,12 @@ namespace Network
     void ConnectedClient::process()
     {
         // Check if socket is established already and connect signals and slots
-        if(hasCmdSocket)
+        if(m_hasCmdSocket)
         {
             connect(m_cmdSocket, SIGNAL(readyRead()), this, SLOT(handleCmdRead()));
             connect(m_cmdSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
         }
-        if(hasDataSocket)
+        if(m_hasDataSocket)
         {
             connect(m_dataSocket, SIGNAL(readyRead()), this, SLOT(handleDataRead()));
             connect(m_dataSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
@@ -193,24 +201,24 @@ namespace Network
      * @brief Handler for new data from the command socket.
      *
      * This method is called when new data is available at the command socket.<br>
-     * It emits the signal <i>newData()</i> with the new data in QByteArray format, the clientID and the connectionType <i>ConnectedClient::cmdConnection</i>.
+     * It emits the signal <i>newCmd()</i> with the new data in QByteArray format and the clientID.
      */
     void ConnectedClient::handleCmdRead()
     {
         QByteArray readData = m_cmdSocket->readAll();
-        emit newData(readData, m_clientID, ConnectedClient::cmdConnection);
+        emit newCmd(readData, m_clientID);
     }
 
     /**
      * @brief Handler for new data from the data socket.
      *
      * This method is called when new data is available at the data socket.<br>
-     * It emits the signal <i>newData()</i> with the new data in QByteArray format, the clientID and the connectionType <i>ConnectedClient::dataConnection</i>.
+     * It emits the signal <i>newData()</i> with the new data in QByteArray format and the clientID.
      */
     void ConnectedClient::handleDataRead()
     {
         QByteArray readData = m_dataSocket->readAll();
-        emit newData(readData, m_clientID, ConnectedClient::dataConnection);
+        emit newData(readData, m_clientID);
     }
 
     /**
@@ -225,8 +233,8 @@ namespace Network
         m_cmdSocket->close();
         m_dataSocket->close();
 
-        hasCmdSocket = false;
-        hasDataSocket = false;
+        m_hasCmdSocket = false;
+        m_hasDataSocket = false;
 
         // Call signal that tells which client disconnected
         emit disconnected(m_clientID);
