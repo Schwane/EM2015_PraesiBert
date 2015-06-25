@@ -139,7 +139,7 @@ namespace Network
     {
         for(int i = 0; i < m_clientList.size(); i++)
         {
-            m_clientList.at(i)->sendData(data, ConnectedClient::cmdConnection);
+            m_clientList.at(i)->sendCmd(data);
         }
     }
 
@@ -154,7 +154,7 @@ namespace Network
     {
         for(int i = 0; i < m_clientList.size(); i++)
         {
-            m_clientList.at(i)->sendData(data, ConnectedClient::dataConnection);
+            m_clientList.at(i)->sendData(data);
         }
     }
 
@@ -173,7 +173,7 @@ namespace Network
             if(m_clientList.at(i)->getClientID() == clientID)
             {
                 // Send data and return amount of sent data in bytes
-                return m_clientList.at(i)->sendData(data, ConnectedClient::cmdConnection);
+                return m_clientList.at(i)->sendCmd(data);
             }
         }
         return 0;
@@ -194,7 +194,7 @@ namespace Network
             if(m_clientList.at(i)->getClientID() == clientID)
             {
                 // Send data and return amount of sent data in bytes
-                return m_clientList.at(i)->sendData(data, ConnectedClient::dataConnection);
+                return m_clientList.at(i)->sendData(data);
             }
         }
         return 0;
@@ -251,12 +251,12 @@ namespace Network
                 qDebug() << "Found existing Client with ID " << m_clientList.at(i)->getClientID() << " and IP-Address " << m_clientList.at(i)->getPeerAddress().toString() << ".\n";
                 if(signalSender == m_cmdServer)
                 {
-                    m_clientList.at(i)->setSocket(newSocket, ConnectedClient::cmdConnection);
+                    m_clientList.at(i)->setCmdSocket(newSocket);
                     qDebug() << "Added new Command-Socket to Client with ID " << m_clientList.at(i)->getClientID() << ".\n";
                 }
                 if(signalSender == m_dataServer)
                 {
-                    m_clientList.at(i)->setSocket(newSocket, ConnectedClient::dataConnection);
+                    m_clientList.at(i)->setDataSocket(newSocket);
                     qDebug() << "Added new Data-Socket to Client with ID " << m_clientList.at(i)->getClientID() << ".\n";
                 }
                 emit (newClient(i));
@@ -271,12 +271,12 @@ namespace Network
 
         if(signalSender == m_cmdServer)
         {
-            newClient->setSocket(newSocket, ConnectedClient::cmdConnection);
+            newClient->setCmdSocket(newSocket);
             qDebug() << "Created new client plus Command-Socket with ID " << m_clientID << ".\n";
         }
         if(signalSender == m_dataServer)
         {
-            newClient->setSocket(newSocket, ConnectedClient::dataConnection);
+            newClient->setDataSocket(newSocket);
             qDebug() << "Created new client plus Data-Socket with ID " << m_clientID << ".\n";
         }
 
@@ -293,7 +293,8 @@ namespace Network
         m_clientList.append(newClient);
 
         // Connect signals and slots for communication between server- and client- object
-        connect(newClient, SIGNAL(newData(QByteArray, uint, int)), this, SLOT(handleNewRead(QByteArray, uint, int))); // Process data when it is available from a client
+        connect(newClient, SIGNAL(newCmd(QByteArray, uint)), this, SIGNAL(receivedCmdFromClient(QByteArray, uint))); // Process data when it is available from a client
+        connect(newClient, SIGNAL(newData(QByteArray, uint)), this, SIGNAL(receivedDataFromClient(QByteArray, uint))); // Process data when it is available from a client
         connect(newClient, SIGNAL(disconnected(uint)), this, SLOT(handleClientDisconnect(uint))); // Handle a disconnect of a client
 
         // Start the thread with low priority
@@ -325,36 +326,5 @@ namespace Network
         }
 
         emit clientDisconnect(clientID);
-    }
-
-    /**
-     * @brief Handler for new data of a client.
-     *
-     * @param[in] data Data that was send from a client in QByteArray format.
-     * @param[in] clientID ID of the client that send the data.
-     * @param[in] connectionType Type of connection that the data is available at.
-     *
-     * This method handles the data that was send by a client.<br>
-     * It determines which type of data is available from a client with <i>connectionType</i>.<br>
-     * It emits the signal <i>receivedCmdFromClient()</i> with the data in QByteArray format and the client ID as parameters, if the new data was a command.
-     * It emits the signal <i>receivedDataFromClient()</i> with the data in QByteArray format and the client ID as parameters, if the new data was actually data.
-     */
-    void ServerSocket::handleNewRead(QByteArray data, uint clientID, int connectionType)
-    {
-        QString data_str(data);
-        if(connectionType == ConnectedClient::cmdConnection)
-        {
-            qDebug() << "New command read from client with ID: " << clientID << ".\n";
-            qDebug() << data_str << "\n.";
-            emit receivedCmdFromClient(data, clientID);
-            return;
-        }
-        if(connectionType == ConnectedClient::dataConnection)
-        {
-            qDebug() << "New data read from client with ID: " << clientID << ".\n";
-            qDebug() << data_str << ".\n";
-            emit receivedDataFromClient(data, clientID);
-            return;
-        }
     }
 }
