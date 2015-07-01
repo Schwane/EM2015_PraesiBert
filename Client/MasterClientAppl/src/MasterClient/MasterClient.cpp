@@ -19,6 +19,7 @@ MasterClient::MasterClient()
     connect(cs, SIGNAL(lostConnection()),this,SLOT(connectionLostMaster()));
 
 
+
     srand(123);
     char buf[64];
     sprintf(buf, "%d", rand());
@@ -29,7 +30,10 @@ MasterClient::MasterClient()
 
     id = "master";
 
-    ranf_queue = new RedenanfrageQueue();
+    ranf_queue = new RedeanfrageQueue();
+    ranf_mute = false;
+
+    connect(ranf_queue, SIGNAL(sizeChanged(int)), this, SIGNAL(ranfSizeChanged(int)));
 }
 
 MasterClient::~MasterClient()
@@ -105,6 +109,11 @@ MasterClient::loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QS
     return resp;
 }
 
+Message*
+MasterClient::redeanfrage(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types)
+{
+    return NULL;
+}
 void
 MasterClient::authenticate()
 {
@@ -126,4 +135,38 @@ MasterClient::connectionLostMaster()
     connect(xmlmw, SIGNAL(messageWritten(QByteArray)), cs, SLOT(sendCmd(QByteArray)));
     disconnect(xmlmw, SIGNAL(messageWritten(QByteArray)), msgAuth, SLOT(authenticateMessage(QByteArray)));
     disconnect(msgAuth, SIGNAL(messageAuthenticated(QByteArray)),cs, SLOT(sendCmd(QByteArray)));
+}
+
+
+void
+MasterClient::clearRanf(){
+    ranf_queue -> clear();
+}
+
+void
+MasterClient::muteRanf()
+{
+    ranf_mute = !ranf_mute;
+    if (ranf_mute)
+        registerdFunctions.remove(CMD_RANF_ASK);
+    else
+        registerdFunctions.insert(CMD_RANF_ASK, static_cast<remoteFunction>(&MasterClient::redeanfrage));
+    emit ranfMuteChanged(ranf_mute);
+}
+
+void
+MasterClient::dummyRanf()
+{
+    Redeanfrage *ranf1 = new Redeanfrage("xxx" + rand());
+    Redeanfrage *ranf2 = new Redeanfrage("yyy" + rand());
+    ranf_queue->enqueue(ranf1);
+    ranf_queue->enqueue(ranf2);
+}
+
+void
+MasterClient::acceptRanf()
+{
+    Redeanfrage *ranf = ranf_queue->dequeue();
+    if (ranf != NULL)
+        delete ranf;
 }

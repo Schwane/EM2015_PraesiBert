@@ -31,14 +31,20 @@ public:
     MasterClient();
     virtual ~MasterClient();
 public Q_SLOTS:
+    /*Remote execution functions*/
     Message* loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
-
     Message* redeanfrage(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
 
     Q_INVOKABLE void authenticate();
     void connectionLostMaster();
 
-    Q_INVOKABLE void rejectAllRedeanfragen();
+    Q_INVOKABLE void clearRanf();
+    Q_INVOKABLE void muteRanf();
+    Q_INVOKABLE void acceptRanf();
+    Q_INVOKABLE void dummyRanf();
+Q_SIGNALS:
+    void ranfMuteChanged(bool mute);
+    void ranfSizeChanged(int size);
 private:
     QByteArray sym_key;
     QByteArray mac_key;
@@ -48,6 +54,8 @@ private:
     AuthState auth_state;
 
     RedeanfrageQueue *ranf_queue;
+    bool ranf_mute;
+    int ranf_size;
 };
 
 #endif /* MASTERCLIENT_HPP_ */

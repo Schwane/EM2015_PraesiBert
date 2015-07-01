@@ -9,8 +9,8 @@
 #define REDEANFRAGE_HPP_
 
 #include <QObject>
-#include "include/Message.hpp"
-#include "include/commands.hpp"
+#include "Message.hpp"
+#include "commands.hpp"
 
 class Redeanfrage: public QObject
 {

@@ -78,6 +78,46 @@ Page {
                 text: "Send cmd"        
             }
             
+            
+        }
+        Container {
+            layout: StackLayout {
+                orientation: LayoutOrientation.LeftToRight
+            
+            }
+            Button {
+                id: button5
+                onClicked: {
+                    cl.dummyRanf();
+                }
+                text: "RANF erzeugen"        
+            }
+            
+            Button {
+                id: button6
+                onClicked: {
+                    cl.acceptRanf();
+                }
+                text: "0"        
+            }
+            
+            Button {
+                id: button7
+                onClicked: {
+                    cl.clearRanf();
+                }
+                text: "clear"        
+            }
+            
+            Button {
+                id: button8
+                onClicked: {
+                    cl.muteRanf();
+                }
+                text: "mute"        
+            }
+        
+        
         }
 
         Container {
@@ -110,6 +150,16 @@ Page {
                 }
                 onLoginStateChanged: {
                     loginstate.text = cl.getLoginState();
+                }
+                onRanfMuteChanged: {
+                    if (mute)
+                        button8.text = "unmute";
+                    else 
+                        button8.text = "mute";
+                }
+                onRanfSizeChanged: {
+                    console.log("size:" + size);
+                    button6.text = "" + size;
                 }
             }
         ]

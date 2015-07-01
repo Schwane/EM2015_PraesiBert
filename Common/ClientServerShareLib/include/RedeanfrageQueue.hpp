@@ -10,7 +10,7 @@
 
 #include <QObject>
 #include <QtCore>
-#include "include/Redeanfrage.hpp"
+#include "Redeanfrage.hpp"
 
 class RedeanfrageQueue: public QObject
 {
@@ -25,6 +25,8 @@ public Q_SLOTS:
     int enqueue(Redeanfrage *ranf);
     Redeanfrage* dequeue();
     void clear();
+Q_SIGNALS:
+    void sizeChanged(int size);
 };
 
 #endif /* REDEANFRAGEQUEUE_H_ */
