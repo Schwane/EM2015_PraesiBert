@@ -12,6 +12,9 @@
 
 #include "Client.hpp"
 #include "MessageAuthenticator.h"
+#include "commands.hpp"
+#include "Redeanfrage.hpp"
+#include "RedeanfrageQueue.hpp"
 
 class MasterClient: public Client
 {
@@ -28,9 +31,20 @@ public:
     MasterClient();
     virtual ~MasterClient();
 public Q_SLOTS:
+    /*Remote execution functions*/
     Message* loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
+    Message* redeanfrage(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
+
     Q_INVOKABLE void authenticate();
     void connectionLostMaster();
+
+    Q_INVOKABLE void clearRanf();
+    Q_INVOKABLE void muteRanf();
+    Q_INVOKABLE void acceptRanf();
+    Q_INVOKABLE void dummyRanf();
+Q_SIGNALS:
+    void ranfMuteChanged(bool mute);
+    void ranfSizeChanged(int size);
 private:
     QByteArray sym_key;
     QByteArray mac_key;
@@ -38,6 +52,10 @@ private:
     QString nonce2;
     MessageAuthenticator* msgAuth;
     AuthState auth_state;
+
+    RedeanfrageQueue *ranf_queue;
+    bool ranf_mute;
+    int ranf_size;
 };
 
 #endif /* MASTERCLIENT_HPP_ */

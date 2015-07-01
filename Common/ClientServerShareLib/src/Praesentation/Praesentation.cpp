@@ -56,6 +56,7 @@ Praesentation::setBasepath()
 {
     basePath.clear();
     basePath = QDir::homePath();
+    basePath.append("/");
     basePath.append(praesentationId);
     basePath.append("/");
 }
@@ -114,4 +115,24 @@ Praesentation::parsePraesentation(QMap<QString, QVariant> params, QMap<QString, 
             //@TODO: Ausnahme wenn die Nachricht nicht gültig war
         }
     }
+}
+
+void
+Praesentation::setSlide(int slide)
+{
+    if (slide > totalSlides)
+        return;
+    if (slide < 0)
+        return;
+    currentSlide = slide;
+
+    QString path = slideReference.value(slide);
+
+    QImage img(path); /* Load image and convert it to cascades image for the gui */
+    QImage swappedImage = img.rgbSwapped();
+    if(swappedImage.format() != QImage::Format_RGB32) {
+        swappedImage = swappedImage.convertToFormat(QImage::Format_RGB32);
+    }
+    const bb::ImageData imgData= bb::ImageData::fromPixels(swappedImage.bits(), bb::PixelFormat::RGBX, swappedImage.width(), swappedImage.height(), swappedImage.bytesPerLine());
+    emit slideChanged(bb::cascades::Image(imgData));
 }
