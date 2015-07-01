@@ -23,5 +23,22 @@ Page {
             text: qsTr("Hello World") + Retranslate.onLocaleOrLanguageChanged
             textStyle.base: SystemDefaults.TextStyles.BigText
         }
+        Button{
+            id: triggerAction1
+            objectName: "butTriggerAction1"
+            text: "New Client"
+        }
+        
+        Button{
+            id: triggerAction2
+            objectName: "butTriggerAction2"
+            text: "Transmit Slides Request"
+        }
+        
+        Button{
+            id: triggerAction3
+            objectName: "butTriggerAction3"
+            text: "Received Data"
+        }
     }
 }

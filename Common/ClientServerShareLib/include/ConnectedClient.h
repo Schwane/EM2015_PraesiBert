@@ -52,26 +52,23 @@ namespace Network
     {
         Q_OBJECT
     public:
-        /// Static constant for indicating a command connection.
-        static const int cmdConnection = 0;
-        /// Static constant for indicating a data connection.
-        static const int dataConnection = 1;
 
         ConnectedClient(uint clientID);
         virtual ~ConnectedClient();
 
-        void setSocket(QTcpSocket* tcpSocket, int connectionType);
-        bool hasSocketType(int connectionType);
+        void setCmdSocket(QTcpSocket* tcpSocket);
+        void setDataSocket(QTcpSocket* tcpSocket);
+        bool hasCmdSocket();
+        bool hasDataSocket();
 
-        int sendData(QByteArray data, int connectionType);
+        int sendCmd(QByteArray data);
+        int sendData(QByteArray data);
         void disconnectFromServer();
 
         uint getClientID();
         QHostAddress getPeerAddress();
 
     private:
-        /// Integer value of the socket descriptor.
-        uint m_socketDescriptor;
         /// ID of the client.
         uint m_clientID;
         /// Command Socket of the client.
@@ -79,19 +76,25 @@ namespace Network
         /// Data Socket of the client.
         QTcpSocket* m_dataSocket;
         /// Boolean that stores, whether the command socket has been set up.
-        bool hasCmdSocket;
+        bool m_hasCmdSocket;
         /// Boolean that stores, whether the data socket has been set up.
-        bool hasDataSocket;
+        bool m_hasDataSocket;
 
-    signals:
+    signals:         /**
+         * @brief Signal that is emitted, whe an newcommanda is available fromthe commanda socket of the client.
+         *
+         * @param[out] data Data in QByteArray format that is send out.
+         * @param[out] clientID Own ID of the client that sends the data.
+         */
+        void newCmd(QByteArray data, uint clientID);
+
         /**
-          * @brief Signal that is emitted, when new data is available from a socket of the client.
-          *
-          * @param[out] data Data in QByteArray format that is send out.
-          * @param[out] clientID Own ID of the client that sends the data.
-          * @param[out] connectionType Type of connection, defined by one of the static constants of this class.
-          */
-         void newData(QByteArray data, uint clientID, int connectionType);
+        * @brief Signal that is emitted, when new data is available from the data socket of the client.
+        *
+        * @param[out] data Data in QByteArray format that is send out.
+        * @param[out] clientID Own ID of the client that sends the data.
+        */
+        void newData(QByteArray data, uint clientID);
 
         /**
          * @brief Signal that is emitted, when the client was disconnected.

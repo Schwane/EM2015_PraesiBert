@@ -23,14 +23,18 @@ XMLMessageWriter::~XMLMessageWriter()
     // TODO Auto-generated destructor stub
 }
 
-
-
+/**
+ * @brief This function writes a given message into a given QByteArray.
+ *
+ * ... detailed ...
+ *
+ * @param[in] msg Pointer to message-object that shall be written into byte-stream (object will not be deleted!).
+ * @param[out] outputMessageBytes Pointer to QByteArray-object into which the bytes shall be written.
+ */
 void
-XMLMessageWriter::writeMessage(Message* msg, bool cleanup)
+XMLMessageWriter::createMessageByteArray(Message* msg, QByteArray* outputMessageBytes)
 {
-    QByteArray msgBytes;
-
-    QXmlStreamWriter xmlw(&msgBytes);
+    QXmlStreamWriter xmlw(outputMessageBytes);
 
     xmlw.writeStartElement("message");
 
@@ -67,18 +71,54 @@ XMLMessageWriter::writeMessage(Message* msg, bool cleanup)
 
     xmlw.writeEndElement();
     xmlw.writeEndElement();
-
-
-
-    if (cleanup)
-    {
-        delete msg;
-    }
-    emit messageWritten(msgBytes);
 }
 
 void
 XMLMessageWriter::writeMessage(Message* msg)
 {
-    writeMessage(msg, true);
+    QByteArray msgBytes;
+
+    createMessageByteArray(msg, &msgBytes);
+    delete(msg);
+    emit messageWritten(msgBytes);
+}
+
+void
+XMLMessageWriter::writeCmdMessage(Message* msg)
+{
+    QByteArray msgBytes;
+
+    createMessageByteArray(msg, &msgBytes);
+    delete(msg);
+    emit cmdMessageWritten(msgBytes);
+}
+
+void
+XMLMessageWriter::writeDataMessage(Message* msg)
+{
+    QByteArray msgBytes;
+
+    createMessageByteArray(msg, &msgBytes);
+    delete(msg);
+    emit dataMessageWritten(msgBytes);
+}
+
+void
+XMLMessageWriter::writeCmdMessage(Message* msg, uint clientId)
+{
+    QByteArray msgBytes;
+
+    createMessageByteArray(msg, &msgBytes);
+    delete(msg);
+    emit cmdMessageWritten(msgBytes, clientId);
+}
+
+void
+XMLMessageWriter::writeDataMessage(Message* msg, uint clientId)
+{
+    QByteArray msgBytes;
+
+    createMessageByteArray(msg, &msgBytes);
+    delete(msg);
+    emit dataMessageWritten(msgBytes, clientId);
 }
