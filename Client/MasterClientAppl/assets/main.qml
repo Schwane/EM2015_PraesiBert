@@ -18,71 +18,100 @@ import bb.cascades 1.4
 import com.Client 1.0
 
 Page {
-    Container {
+     Container {
+         layout: StackLayout {
+
+        }
+        Label {
+             text: "IP-Address:"
+         }
+         TextField {
+             id: clientIPTextField
+             text: "192.168.1.151"
+             enabled: true
+         }
+         Label {
+             text: "CMD-Port:"
+         }
+         TextField {
+             id: clientCmdPortTextField
+             text: "1337"
+         } 
+         Label {
+             text: "Data-Port:"
+         }
+         TextField {
+             id: clientDataPortTextField
+             text: "1338"
+         }  
         ImageView {
             id: bild
             imageSource: "asset:///img/fuchs.jpg"
         }
 
-        Label {
-            id: label
-            // Localized text with the dynamic translation and locale updates support
-            text: qsTr("Hello World") + Retranslate.onLocaleOrLanguageChanged
-            textStyle.base: SystemDefaults.TextStyles.BigText
-        }
-
-        TextArea {
-            id: ta
-        }
         TextArea {
             id: loginstate
         }
-        Button {
-            id: button
-            onClicked: {
-                console.log("Before Invoke");
-                //cl.invokeRemote(_testmsg, false);
-                ta.text = _ptyMap.msg;
-                cl.simulateSocketReceive(_ptyMap.msg);
+        TextArea {
+            id: acmd
+            text: "request_praesentation"
+        }
+        
+        Container {
+            layout: StackLayout {
+                orientation: LayoutOrientation.LeftToRight
+            
             }
-            text: "Do It!!"
+            Button {
+                id: button3
+                onClicked: {
+                    cl.connectToServer(clientIPTextField.text, clientCmdPortTextField.text, clientDataPortTextField.text);
+                }
+                text: "Login"        
+            }
+            
+            Button {
+                id: button4
+                onClicked: {
+                    cl.sendArbitraryCommand(acmd.text);
+                }
+                text: "Send cmd"        
+            }
+            
+        }
 
-        }
-        Button {
-            id: button2
-            onClicked: {
-                console.log("Before Invoke");
-                //cl.invokeRemote(_testmsg, false);
-                cl.requestImage();
+        Container {
+            layout: StackLayout {
+                orientation: LayoutOrientation.LeftToRight
+
             }
-            text: "Remote!"        
-        }
-        Button {
-            id: button3
-            onClicked: {
-                console.log("Before Invoke");
-                //cl.invokeRemote(_testmsg, false);
-                //cl.connectToServer("192.168.1.144", "2000");
-                cl.connectToServer("192.168.0.101", "2000");
+            Button {
+                id: btnPrev
+                onClicked: {
+                    cl.requestSlideChange(-1);
+                }
+                text: "Prev"        
             }
-            text: "Login"        
+            Button {
+                id: btnNext
+                onClicked: {
+                    cl.requestSlideChange(1);
+                }
+                text: "Next"        
+            }
         }
+        
         attachedObjects: [
             MasterClient {
                 id: cl
                 onSlideChanged: {
+                    console.log("slide changed");
                     bild.image = cl.getSlide();
-                }
-                onMessageSent: {
-                    ta.text = cl.getLastSentMsg();
                 }
                 onLoginStateChanged: {
                     loginstate.text = cl.getLoginState();
                 }
             }
         ]
-    }
-    onCreationCompleted: {
-        console.log("Creation complete");
     }
 }

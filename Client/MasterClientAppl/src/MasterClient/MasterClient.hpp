@@ -12,6 +12,9 @@
 
 #include "Client.hpp"
 #include "MessageAuthenticator.h"
+#include "commands.hpp"
+#include "Redeanfrage.hpp"
+#include "RedeanfrageQueue.hpp"
 
 class MasterClient: public Client
 {
@@ -29,8 +32,13 @@ public:
     virtual ~MasterClient();
 public Q_SLOTS:
     Message* loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
+
+    Message* redeanfrage(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
+
     Q_INVOKABLE void authenticate();
     void connectionLostMaster();
+
+    Q_INVOKABLE void rejectAllRedeanfragen();
 private:
     QByteArray sym_key;
     QByteArray mac_key;
@@ -38,6 +46,8 @@ private:
     QString nonce2;
     MessageAuthenticator* msgAuth;
     AuthState auth_state;
+
+    RedeanfrageQueue *ranf_queue;
 };
 
 #endif /* MASTERCLIENT_HPP_ */

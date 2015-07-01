@@ -7,30 +7,26 @@
 
 #include "include/Client.hpp"
 
-
 Client::Client()
 {
     /*register remote functions*/
-    registerdFunctions.insert("slide",&Client::setSlide);
-    registerdFunctions.insert("praesentation",&Client::parsePraesentation);
-    //registerdFunctions.insert("login",&Client::loginResponse);
+    registerdFunctions.insert(CMD_SET_SLIDE,&Client::setSlide);
+    registerdFunctions.insert(CMD_SET_PRAESENTATION,&Client::parsePraesentation);
 
     xmlmp = new XMLMessageParser();
     xmlmw = new XMLMessageWriter();
-    //ds = new DummSocket();
     cs = new Network::ClientSocket(this);
     prs = new Praesentation();
 
-    //connectToServer("192.168.1.144", "2000");
+    id = "undefined_client";
 
-    //connect(ds,SIGNAL(received(QByteArray)),xmlmp,SLOT(parseMessage(QByteArray)));
-    connect(cs,SIGNAL(newData(QByteArray)),xmlmp,SLOT(parseMessage(QByteArray)));
+    login_state = IDLE;
+
+    connect(cs,SIGNAL(receivedCmd(QByteArray)),xmlmp,SLOT(parseMessage(QByteArray)));
     connect(xmlmp,SIGNAL(messageParsed(Message*)),this,SLOT(onMessageParsed(Message*)));
-    //connect(xmlmw,SIGNAL(messageWritten(QByteArray)),ds,SLOT(send(QByteArray)));
-    connect(xmlmw,SIGNAL(messageWritten(QByteArray)),cs,SLOT(sendData(QByteArray)));
-    //connect(ds,SIGNAL(sent(QString)),this,SLOT(simulateSocketSent(QString)));
-    connect(cs, SIGNAL(connected()),this,SLOT(login()));
-    connect(cs, SIGNAL(disconnected()),this,SLOT(connectionLost()));
+    connect(xmlmw,SIGNAL(messageWritten(QByteArray)),cs,SLOT(sendCmd(QByteArray)));
+    connect(cs, SIGNAL(connectedToCmdServer()),this,SLOT(login()));
+    connect(cs, SIGNAL(lostConnection()),this,SLOT(connectionLost()));
 }
 
 Client::~Client()
@@ -38,8 +34,8 @@ Client::~Client()
     delete xmlmp;
     delete xmlmw;
     delete prs;
-    //delete ds;
 }
+
 
 void
 Client::invokeRemote(Message *msg)
@@ -77,21 +73,36 @@ Client::getSlide()
 Message*
 Client::setSlide(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types)
 {
-    Message *resp = new Message("RESPONSE","cl","gui");
+    Message *resp = new Message(CMD_ACK_RESPONSE, id,"server");
 
-    if(!parameters.contains("image"))
+    if(!parameters.contains("slide"))
     {
         resp -> addParameter("status",QString("error"));
-        resp -> addParameter("message",QString("Parameter: image - NOT DEFINED"));
+        resp -> addParameter("message",QString("Parameter: slide number not defined"));
         return resp;
     }
 
-    if(!parameter_types.contains("image") || parameter_types.value("image") != "b64")
+    if(!parameter_types.contains("slide") || parameter_types.value("slide") != "integer")
     {
         resp -> addParameter("status",QString("error"));
-        resp -> addParameter("message",QString("Parameter: image - WRONG TYPE"));
+        resp -> addParameter("message",QString("Parameter: slide - WRONG TYPE"));
         return resp;
     }
+
+    int slide = parameters.value("slide").toInt();
+
+    if (prs->getTotalSlides() < slide)
+    {
+        resp -> addParameter("status",QString("error"));
+        resp -> addParameter("message",QString("Parameter: slide - bigger than total slides"));
+        return resp;
+    }
+
+    prs->setSlide(slide);
+    resp -> addParameter("status", QString("ok"));
+
+    return resp;
+    /*
     QVariant imgVar = parameters.value("image");
     QByteArray imgBytes;
     imgVar.convert(QVariant::String);
@@ -122,12 +133,13 @@ Client::setSlide(QMap<QString, QVariant> parameters, QMap<QString, QString> para
     }
 
     return resp;
+    */
 }
 
 Message*
 Client::parsePraesentation(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types)
 {
-    Message *resp = new Message("RESPONSE","cl","gui");
+    Message *resp = new Message(CMD_ACK_RESPONSE, id, "server");
     resp->addParameter("status", QString("ok"));
 
     prs->parsePraesentation(parameters, parameter_types);
@@ -138,14 +150,16 @@ Client::parsePraesentation(QMap<QString, QVariant> parameters, QMap<QString, QSt
 Message*
 Client::loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types)
 {
-    Message *resp = new Message("RESPONSE","client","server");
+    Message *resp = new Message(CMD_ACK_RESPONSE,"client","server");
 
-    if (parameters.contains("status"))
+    if (parameters.contains("status") && parameters.contains("id"))
     {
         QString status = parameters.value("status").toString();
+        QString id = parameters.value("id").toString();
         if (status == "ok")
         {
             login_state = ACCEPTED;
+            this -> id = id;
         }
         else
         {
@@ -161,23 +175,6 @@ Client::loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QString>
     }
 
     return resp;
-}
-
-
-void
-Client::simulateSocketReceive(QString message)
-{
-    QByteArray bytes;
-    bytes.append(message);
-    //ds->receive(bytes);
-}
-
-
-void
-Client::simulateSocketSent(QString message)
-{
-    lastSentMsg = message;
-    emit messageSent();
 }
 
 void
@@ -207,6 +204,10 @@ Client::getLoginState()
     {
         return QString("connecting...");
     }
+    if (login_state == CONNECTED)
+    {
+        return QString("connected");
+    }
     if (login_state == IDLE)
     {
         return QString("not connected");
@@ -233,17 +234,12 @@ Client::connectToServer(QString addr, QString cmd_port, QString data_port)
 void
 Client::login()
 {
-    Message* msg = new Message("login", "client", "server");
+    login_state = CONNECTED;
+    emit loginStateChanged();
+    Message* msg = new Message("login", id, "server");
     xmlmw -> writeMessage(msg);
     login_state = TRYING;
     emit loginStateChanged();
-}
-
-void
-Client::requestImage()
-{
-    Message* msg = new Message("test", "client", "server");
-    xmlmw -> writeMessage(msg);
 }
 
 void
@@ -251,4 +247,26 @@ Client::connectionLost()
 {
     login_state = IDLE;
     emit loginStateChanged();
+}
+
+void
+Client::onPraesiSlideChanged(bb::cascades::Image img)
+{
+    m_slide = img;
+    emit slideChanged();
+}
+
+void
+Client::requestSlideChange(int offset)
+{
+    Message *msg = new Message("setSlide", id, "server");
+    msg->addParameter("slide", prs->getCurrentSlide() + offset);
+    xmlmw->writeMessage(msg);
+}
+
+void
+Client::sendArbitraryCommand(QString cmd)
+{
+    Message *msg = new Message(cmd, id, "server");
+    xmlmw->writeMessage(msg);
 }
