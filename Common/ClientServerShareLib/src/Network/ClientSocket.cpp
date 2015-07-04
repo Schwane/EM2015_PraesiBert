@@ -10,6 +10,8 @@
 // Qt includes
 #include <QDebug>
 #include <QHostAddress>
+#include <QDataStream>
+#include <QIODevice>
 
 namespace Network
 {
@@ -19,7 +21,8 @@ namespace Network
      * Initializes the command and data socket and connects signals and slots for connection and data handling.<br>
      * Connects the signal <i>connected()</i> of the sockets with the handlers (<i>connectedToCmdServer()</i> and (<connectedToDataServer()</i>) of this class.<br>
      * Connects the signal <i>disconnected()</i> of the sockets with the slot <i>disconnectFromServer()</i> of this class.<br>
-     * Connects the signal <i>readyRead()</i> of the sockets with the slot <i>handleNewData()</i> of this class.
+     * Connects the signal <i>readyRead()</i> of the command socket with the slot <i>handleNewCmd()</i> of this class.
+     * Connects the signal <i>readyRead()</i> of the data socket with the slot <i>handleNewData()</i> of this class.
      */
     ClientSocket::ClientSocket(QObject* parent) : QObject(parent)
     {
@@ -32,7 +35,7 @@ namespace Network
         connect(m_cmdSocket, SIGNAL(disconnected()), this, SLOT(disconnectFromServer()));
         connect(m_dataSocket, SIGNAL(disconnected()), this, SLOT(disconnectFromServer()));
 
-        connect(m_cmdSocket, SIGNAL(readyRead()), this, SLOT(handleNewData()));
+        connect(m_cmdSocket, SIGNAL(readyRead()), this, SLOT(handleNewCmd()));
         connect(m_dataSocket, SIGNAL(readyRead()), this, SLOT(handleNewData()));
     }
 
@@ -112,7 +115,20 @@ namespace Network
      */
     int ClientSocket::sendCmd(QByteArray data)
     {
-        return m_cmdSocket->write(data);
+        // Use empty ByteArray "outputData"...
+        QByteArray outputData;
+        // ...and assign it to outputStream
+        QDataStream outputStream(&outputData, QIODevice::ReadWrite);
+        outputStream.setVersion(QDataStream::Qt_4_8);
+        // Add a 16 bit integer with value 0 to the beginning of the outputStream and add data
+        outputStream << quint32(0) << data;
+        // Jump to the beginning of the outputStream
+        outputStream.device()->seek(0);
+        // Add data size at the beginning of the outputStream
+        outputStream << (quint32)(outputData.size() - sizeof(quint32));
+
+        // Return value contains actual data size and the size of the quint32 for data length
+        return m_cmdSocket->write(outputData);
     }
 
     /**
@@ -126,40 +142,93 @@ namespace Network
      */
     int ClientSocket::sendData(QByteArray data)
     {
-        return m_dataSocket->write(data);
+        // Use empty ByteArray "outputData"...
+        QByteArray outputData;
+        // ... and add it to a the outputStream
+        QDataStream outputStream(&outputData, QIODevice::ReadWrite);
+        outputStream.setVersion(QDataStream::Qt_4_8);
+        // Add a 16 bit integer with value 0 to the beginning of the outputStream and add data
+        outputStream << quint32(0) << data;
+        // Jump to the beginning of the outputStream
+        outputStream.device()->seek(0);
+        // Add data size at the beginning of the outputStream
+        outputStream << (quint32)(outputData.size() - sizeof(quint32));
+
+        // Return value contains actual data size and the size of the quint32 for data length
+        return m_dataSocket->write(outputData);
+    }
+
+    /**
+     * @brief Handler for new command.
+     *
+     * This method is called, when a new command is available at the command socket.<br>
+     * Emits the signal <i>receivedCmd</i> with the received command in QByteArray format.
+     */
+    void ClientSocket::handleNewCmd()
+    {
+        QByteArray inputData;
+        // Assign command socket to inputStream
+        QDataStream inputStream(m_cmdSocket);
+
+        while(true)
+        {
+            if(!next_block_size_cmd)
+            {
+                // Check if block size was received already...
+                if(m_cmdSocket->bytesAvailable() < sizeof(quint32))
+                    break;
+                // ...and set the value to next_block_size_cmd, if so
+                inputStream >> next_block_size_cmd;
+            }
+
+            if(m_cmdSocket->bytesAvailable() < next_block_size_cmd)
+                break;
+
+            // If data is available completely, emit receivedCmd() signal
+            inputStream >> inputData;
+            emit receivedCmd(inputData);
+
+            next_block_size_cmd = 0;
+        }
+
+        qDebug() << "New command at client.\n";
+        return;
     }
 
     /**
      * @brief Handler for new data.
      *
-     * This method is called, when new data is available at the client socket.<br>
-     * The method determines which socket sent the signal and reads the data from that socket.<br>
-     * Depending on the socket that the data was read from, either the signal <i>receivedCmd</i> or <i>receivedData</i> is emitted.
+     * This method is called, when new data is available at the data socket.<br>
+     * Emits the signal <i>receivedData</i> with the received data in QByteArray format.
      */
     void ClientSocket::handleNewData()
     {
-        QTcpSocket* signalSender;
-        signalSender = qobject_cast<QTcpSocket*>(sender());
+        QByteArray inputData;
+        // Assign data socket to inputStream
+        QDataStream inputStream(m_dataSocket);
 
-        QByteArray data;
+        while(true)
+        {
+            if(!next_block_size_data)
+            {
+                // Check if block size was received already...
+                if(m_dataSocket->bytesAvailable() < sizeof(quint32))
+                    break;
+                // ...and set the value to next_block_size_data, if so
+                inputStream >> next_block_size_data;
+            }
 
-        if(m_cmdSocket == signalSender)
-        {
-            data = m_cmdSocket->readAll();
-            emit receivedCmd(data);
-            qDebug() << "New command at client.\n";
-            QString data_str(data);
-            qDebug() << data_str << ".\n";
-            return;
+            if(m_dataSocket->bytesAvailable() < next_block_size_data)
+                break;
+
+            // If data is available completely, emit receivedData() signal
+            inputStream >> inputData;
+            emit receivedData(inputData);
+
+            next_block_size_data = 0;
         }
-        if(m_dataSocket == signalSender)
-        {
-            data = m_cmdSocket->readAll();
-            emit receivedData(data);
-            qDebug() << "New data at client.\n";
-            QString data_str(data);
-            qDebug() << data_str << ".\n";
-            return;
-        }
+
+        qDebug() << "New data at client.\n";
+        return;
     }
 }

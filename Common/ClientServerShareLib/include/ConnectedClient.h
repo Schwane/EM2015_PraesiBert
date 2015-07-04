@@ -22,9 +22,8 @@ namespace Network
      * @brief Class for clients connected to the server.
      *
      * Class for clients that connect to the Server Socket (ServerSocket class).<br>
-     * All of the objects that are created from this class are stored in an individual thread that is started when a new connection is established.
-     * The static constants <i>cmdConnection</i> and <i>dataConnection</i> are used to define or determine the <i>connectionType</i> of the current method.<br>
-     * This means if a function is called with one of the static constants as <i>connectionType</i>, the function can determine which type of connection to use.<br>
+     * It uses 32bit unsigned integers for determining the length of sent and received data.<br>
+     * All of the objects that are created from this class are stored in an individual thread that is started when a new connection is established.<br>
      * The class provides several functions, signals and slots that are used to exchange data with a client:
      * <ul>
      *  <li>functions:</li>
@@ -79,6 +78,10 @@ namespace Network
         bool m_hasCmdSocket;
         /// Boolean that stores, whether the data socket has been set up.
         bool m_hasDataSocket;
+        /// Variable for storing the size of the received blocks of commands.
+        quint32 next_block_size_cmd;
+        /// Variable for storing the size of the received blocks of data.
+        quint32 next_block_size_data;
 
     signals:         /**
          * @brief Signal that is emitted, whe an newcommanda is available fromthe commanda socket of the client.

@@ -22,7 +22,7 @@ namespace Network
      * @brief Client Socket class.
      *
      * Instantiates two TCP Client Sockets (command and data) that can connect to servers.<br>
-     * This means if a function is called with one of the static constants as <i>connectionType</i>, the function can determine which type of connection to use.<br>
+     * It uses 32bit unsigned integers for determining the length of sent and received data.<br>
      * The class provides several signals and slots for connection and data handling:
      * <ul>
      *  <li>signals:</li>
@@ -53,6 +53,10 @@ namespace Network
         QTcpSocket* m_cmdSocket;
         /// QTcpSocket for data connection.
         QTcpSocket* m_dataSocket;
+        /// Variable for storing the size of the received blocks of commands.
+        quint32 next_block_size_cmd;
+        /// Variable for storing the size of the received blocks of data.
+        quint32 next_block_size_data;
 
     signals:
         /**
@@ -91,6 +95,7 @@ namespace Network
         int sendData(QByteArray data);
 
     private slots:
+        void handleNewCmd();
         void handleNewData();
     };
 }
