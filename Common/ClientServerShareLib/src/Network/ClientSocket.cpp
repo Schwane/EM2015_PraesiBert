@@ -59,7 +59,7 @@ namespace Network
      * @return Returns true, if the connection was established successfully. Otherwise returns false.
      *
      * This method tries to connect to the server sockets at the IP-Address and the ports that were given as parameters.<br>
-     * The method emits the <i>lostConnection</i>-Signal, when the connection could not be established.
+     * The method calls the disconnectFromServer() method, if the connection cannot be established.
      */
     bool ClientSocket::connectToServer(QString ipAddr_str, QString cmdPort_str, QString dataPort_str)
     {
@@ -76,7 +76,7 @@ namespace Network
         if(!m_cmdSocket->waitForConnected(5000) | !m_dataSocket->waitForConnected(5000))
         {
             qDebug() << "Connection to Server could not be established.\n";
-            emit lostConnection();
+            disconnectFromServer();
             return false;
         }
         else
