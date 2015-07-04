@@ -69,7 +69,11 @@ TabbedPane {
                         onClicked: {
                             clientDisconnectButton.enabled = true;
                             clientConnectButton.enabled = false;
-                            clientSocket.connectToServer(clientIPTextField.text, clientCmdPortTextField.text, clientDataPortTextField.text);
+                            if(clientSocket.connectToServer(clientIPTextField.text, clientCmdPortTextField.text, clientDataPortTextField.text))
+                            {
+                                clientSocket.sendCmd("Das ist ein Commando!!!");
+                                clientSocket.sendData("Das sind Dateien!!!");
+                            }
                         }
                     }
                     Button {
