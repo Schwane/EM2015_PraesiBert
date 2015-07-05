@@ -24,7 +24,16 @@ RedeanfrageQueue::enqueue(Redeanfrage *ranf)
     int ret = 1;
     int sc = 0;
     accessLock.lock();
-    if (queue.indexOf(ranf, 0) > -1)
+
+    bool alreadyContained = false;
+
+    for (int i = 0; i < queue.size(); i++)
+    {
+        if (queue.at(i)->getClientId() == ranf->getClientId())
+            alreadyContained = true;
+    }
+
+    if (alreadyContained)
         ret = 0;
     else
     {
@@ -57,6 +66,8 @@ void
 RedeanfrageQueue::clear()
 {
     accessLock.lock();
+    for (int i = 0; i < queue.size(); i++)
+        delete queue.at(i);
     queue.clear();
     accessLock.unlock();
     emit sizeChanged(queue.size());

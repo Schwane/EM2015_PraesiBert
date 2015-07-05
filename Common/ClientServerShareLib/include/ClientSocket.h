@@ -13,6 +13,7 @@
 #include <QtNetwork/QTcpSocket>
 #include <QString>
 #include <QByteArray>
+#include <QtCore>
 
 namespace Network
 {
@@ -54,9 +55,14 @@ namespace Network
         /// QTcpSocket for data connection.
         QTcpSocket* m_dataSocket;
         /// Variable for storing the size of the received blocks of commands.
-        quint32 next_block_size_cmd;
+        qint64 next_block_size_cmd;
         /// Variable for storing the size of the received blocks of data.
-        quint32 next_block_size_data;
+        qint64 next_block_size_data;
+
+        QMutex cmdLock;
+        QMutex dataLock;
+        QByteArray bufferCmd;
+        QByteArray bufferData;
 
     signals:
         /**

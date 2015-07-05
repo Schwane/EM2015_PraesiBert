@@ -59,6 +59,8 @@ Praesentation::setBasepath()
     basePath.append("/");
     basePath.append(praesentationId);
     basePath.append("/");
+    QDir dir(basePath);
+    dir.mkpath(dir.absolutePath());
 }
 
 void
@@ -94,13 +96,17 @@ Praesentation::parsePraesentation(QMap<QString, QVariant> params, QMap<QString, 
             QVariant imgVar = params.value(slideID);
             QByteArray imgBytes;
             //convert byte array from b64 to image
-            imgVar.convert(QVariant::String);
-            imgBytes.append(imgVar.toString());
-            imgBytes = QByteArray::fromBase64(imgBytes);
+            imgBytes = QByteArray::fromBase64(imgVar.toByteArray());
+
+            qDebug() << "bild in bytes: " << imgBytes;
+            qDebug() << "10 bytes: " << imgBytes.right(10);
 
             QImage img;
 
             img = QImage::fromData(imgBytes, "JPG");
+
+            bool valid = !img.isNull();
+
             QString path;
             //save slide and add to the reference
             path = basePath;
@@ -128,7 +134,7 @@ Praesentation::setSlide(int slide)
 
     QString path = slideReference.value(slide);
 
-    QImage img(path); /* Load image and convert it to cascades image for the gui */
+    QImage img(path, "JPG"); /* Load image and convert it to cascades image for the gui */
     QImage swappedImage = img.rgbSwapped();
     if(swappedImage.format() != QImage::Format_RGB32) {
         swappedImage = swappedImage.convertToFormat(QImage::Format_RGB32);

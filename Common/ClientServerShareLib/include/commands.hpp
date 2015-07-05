@@ -20,6 +20,7 @@
 
 #define CMD_RANF_ASK "redeanfrage"
 #define CMD_RANF_RESP "redeanfrage_antwort"
+#define CMD_RANF_RE_RESP "redeanfrage_finale_antwort"
 
 
 

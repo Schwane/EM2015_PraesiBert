@@ -27,6 +27,7 @@ Client::Client()
     connect(xmlmw,SIGNAL(messageWritten(QByteArray)),cs,SLOT(sendCmd(QByteArray)));
     connect(cs, SIGNAL(connectedToCmdServer()),this,SLOT(login()));
     connect(cs, SIGNAL(lostConnection()),this,SLOT(connectionLost()));
+    connect(prs, SIGNAL(slideChanged(bb::cascades::Image)), this, SIGNAL(slideChanged(bb::cascades::Image)));
 }
 
 Client::~Client()
@@ -91,7 +92,14 @@ Client::setSlide(QMap<QString, QVariant> parameters, QMap<QString, QString> para
 
     int slide = parameters.value("slide").toInt();
 
-    if (prs->getTotalSlides() < slide)
+    if (slide < 0)
+    {
+        resp -> addParameter("status",QString("error"));
+        resp -> addParameter("message",QString("Parameter: slide - smaller than 0"));
+        return resp;
+    }
+
+    if (prs->getTotalSlides() <= slide)
     {
         resp -> addParameter("status",QString("error"));
         resp -> addParameter("message",QString("Parameter: slide - bigger than total slides"));
@@ -102,38 +110,6 @@ Client::setSlide(QMap<QString, QVariant> parameters, QMap<QString, QString> para
     resp -> addParameter("status", QString("ok"));
 
     return resp;
-    /*
-    QVariant imgVar = parameters.value("image");
-    QByteArray imgBytes;
-    imgVar.convert(QVariant::String);
-    imgBytes.append(imgVar.toString());
-    imgBytes = QByteArray::fromBase64(imgBytes);
-
-    QImage img;
-
-    img = QImage::fromData(imgBytes, "JPG");
-
-    QImage swappedImage = img.rgbSwapped();
-    if(swappedImage.format() != QImage::Format_RGB32) {
-        swappedImage = swappedImage.convertToFormat(QImage::Format_RGB32);
-    }
-
-    const bb::ImageData imgData= bb::ImageData::fromPixels(swappedImage.bits(), bb::PixelFormat::RGBX, swappedImage.width(), swappedImage.height(), swappedImage.bytesPerLine());
-
-    if (imgData.isValid())
-    {
-        this->m_slide = bb::cascades::Image(imgData);
-        emit slideChanged();
-        resp -> addParameter("status", QString("ok"));
-    }
-    else
-    {
-        resp -> addParameter("status",QString("error"));
-        resp -> addParameter("message",QString("Parameter: image - ImageData conversion failed"));
-    }
-
-    return resp;
-    */
 }
 
 Message*
@@ -249,12 +225,14 @@ Client::connectionLost()
     emit loginStateChanged();
 }
 
+/*
 void
 Client::onPraesiSlideChanged(bb::cascades::Image img)
 {
     m_slide = img;
     emit slideChanged();
 }
+*/
 
 void
 Client::requestSlideChange(int offset)

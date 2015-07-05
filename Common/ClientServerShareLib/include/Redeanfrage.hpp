@@ -33,10 +33,11 @@ private:
 
 public Q_SLOTS:
     void queue(QString clientId);
+    void queue();
     void accept();
     void reject();
     Message* packRedeanfrage();
-
+    QString getClientId();
 
 
 Q_SIGNALS:

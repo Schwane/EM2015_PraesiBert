@@ -59,7 +59,7 @@ public Q_SLOTS:
     void connectionLost();
 
     /*Slots to handle praesentation signals*/
-    void onPraesiSlideChanged(bb::cascades::Image img);
+    //void onPraesiSlideChanged(bb::cascades::Image img);
 
 public:
     Q_INVOKABLE void invokeRemote(Message *msg);
@@ -68,7 +68,7 @@ public:
     Q_INVOKABLE void connectToServer(QString addr, QString cmd_port, QString data_port);
 
 Q_SIGNALS:
-    void slideChanged();
+    void slideChanged(bb::cascades::Image img);
     void messageSent();
     void loginStateChanged();
 

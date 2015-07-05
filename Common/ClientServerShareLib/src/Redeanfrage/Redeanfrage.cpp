@@ -33,6 +33,13 @@ Redeanfrage::queue(QString clientId)
 }
 
 void
+Redeanfrage::queue()
+{
+    state = QUEUED;
+    emit queued();
+}
+
+void
 Redeanfrage::accept()
 {
     state = ACCEPTED;
@@ -50,6 +57,13 @@ Redeanfrage::packRedeanfrage()
 {
     Message *msg = new Message(CMD_RANF_ASK, clientId, "master");
     state = QUEUED;
+    msg->addParameter("clientId", clientId);
     emit queued();
     return msg;
+}
+
+QString
+Redeanfrage::getClientId()
+{
+    return clientId;
 }
