@@ -8,6 +8,7 @@
 #ifndef PRAESENTATION_HPP_
 #define PRAESENTATION_HPP_
 
+#include <QtCore>
 #include <QObject>
 #include <bb/cascades/Image>
 
@@ -25,6 +26,7 @@ private:
     int totalSlides;
     QString praesentationId;
     QString basePath;
+    QMutex accessLock;
 public Q_SLOTS:
     void parsePraesentation(QMap<QString, QVariant> params, QMap<QString, QString> types);
     //Message* packPraesentation();

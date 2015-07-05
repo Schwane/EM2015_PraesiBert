@@ -11,6 +11,7 @@ MasterClient::MasterClient()
 {
     registerdFunctions.insert(CMD_AUTH_PHASE2,static_cast<remoteFunction>(&MasterClient::loginResponse));
     registerdFunctions.insert(CMD_RANF_ASK,static_cast<remoteFunction>(&MasterClient::redeanfrage));
+    registerdFunctions.insert(CMD_RANF_RE_RESP,static_cast<remoteFunction>(&MasterClient::redeanfrageFinal));
 
     /*Master client has to authenticate instead of login*/
     disconnect(cs, SIGNAL(connectedToCmdServer()),(Client*) this,SLOT(login()));
@@ -22,7 +23,7 @@ MasterClient::MasterClient()
 
     srand(123);
     char buf[64];
-    sprintf(buf, "%d", rand());
+    sprintf(buf, "%016X", rand());
     nonce1 = QString(buf);
     msgAuth = new MessageAuthenticator();
     auth_state = AUTH_IDLE;
@@ -32,7 +33,7 @@ MasterClient::MasterClient()
 
     ranf_queue = new RedeanfrageQueue();
     ranf_mute = false;
-
+    current_ranf = NULL;
     connect(ranf_queue, SIGNAL(sizeChanged(int)), this, SIGNAL(ranfSizeChanged(int)));
 }
 
@@ -52,13 +53,10 @@ MasterClient::loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QS
         {
             nonce2 = parameters.value("nonce2").toString();
             QByteArray cattedNonces;
+
             cattedNonces.append(nonce1);
             cattedNonces.append(nonce2);
             mac_key = msgAuth->hmacSha1(sym_key,cattedNonces);
-            /***
-             *  USE SESSION KEY !!!!!!!
-             *
-             */
             msgAuth -> setKey(mac_key);
             disconnect(xmlmw, SIGNAL(messageWritten(QByteArray)), cs, SLOT(sendCmd(QByteArray)));
             connect(xmlmw, SIGNAL(messageWritten(QByteArray)), msgAuth, SLOT(authenticateMessage(QByteArray)));
@@ -112,8 +110,49 @@ MasterClient::loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QS
 Message*
 MasterClient::redeanfrage(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types)
 {
-    return NULL;
+    Message *resp;
+    resp = new Message("ACK",id,"server");
+    if (parameters.contains("clientId") && parameter_types.contains("clientId") && parameter_types.value("clientId") == "string")
+    {
+         Redeanfrage *ranf = new Redeanfrage(parameters.value("clientId").toString());
+         ranf -> queue();
+         ranf_queue->enqueue(ranf);
+         resp -> addParameter("status", QString("ok"));
+    }
+    else
+    {
+        resp -> addParameter("status",QString("error"));
+        resp -> addParameter("message",QString("Parameter: clientId as string missing"));
+    }
+    return resp;
 }
+
+Message*
+MasterClient::redeanfrageFinal(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types)
+{
+    Message *resp;
+    resp = new Message("ACK",id,"server");
+    QString answ;
+    if (parameters.contains("status") && parameter_types.contains("status") && parameter_types.value("status") == "string" && parameters.value("status").toString() == "accepted")
+    {
+         resp -> addParameter("status", QString("ok"));
+         answ = "ACCEPTED";
+    }
+    else
+    {
+        resp -> addParameter("status",QString("error"));
+        resp -> addParameter("message",QString("Redenafrage rejected"));
+        answ = "REJECTED";
+    }
+    if (current_ranf != NULL)
+        delete current_ranf;
+    current_ranf = NULL;
+    emit ranfFinalAnswer(answ);
+    return resp;
+}
+
+
+
 void
 MasterClient::authenticate()
 {
@@ -166,7 +205,6 @@ MasterClient::dummyRanf()
 void
 MasterClient::acceptRanf()
 {
-    Redeanfrage *ranf = ranf_queue->dequeue();
-    if (ranf != NULL)
-        delete ranf;
+    if (current_ranf == NULL)
+        current_ranf = ranf_queue->dequeue();
 }

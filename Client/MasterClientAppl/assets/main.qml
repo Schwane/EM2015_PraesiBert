@@ -15,153 +15,89 @@
  */
 
 import bb.cascades 1.4
+import bb.system 1.0
 import com.Client 1.0
+import bb.vibrationController 1.0
 
-Page {
-     Container {
-         layout: StackLayout {
-
-        }
-        Label {
-             text: "IP-Address:"
-         }
-         TextField {
-             id: clientIPTextField
-             text: "192.168.1.151"
-             enabled: true
-         }
-         Label {
-             text: "CMD-Port:"
-         }
-         TextField {
-             id: clientCmdPortTextField
-             text: "1337"
-         } 
-         Label {
-             text: "Data-Port:"
-         }
-         TextField {
-             id: clientDataPortTextField
-             text: "1338"
-         }  
-        ImageView {
-            id: bild
-            imageSource: "asset:///img/fuchs.jpg"
-        }
-
-        TextArea {
-            id: loginstate
-        }
-        TextArea {
-            id: acmd
-            text: "request_praesentation"
-        }
-        
-        Container {
-            layout: StackLayout {
-                orientation: LayoutOrientation.LeftToRight
-            
-            }
-            Button {
-                id: button3
-                onClicked: {
-                    cl.connectToServer(clientIPTextField.text, clientCmdPortTextField.text, clientDataPortTextField.text);
-                }
-                text: "Login"        
-            }
-            
-            Button {
-                id: button4
-                onClicked: {
-                    cl.sendArbitraryCommand(acmd.text);
-                }
-                text: "Send cmd"        
-            }
-            
-            
-        }
-        Container {
-            layout: StackLayout {
-                orientation: LayoutOrientation.LeftToRight
-            
-            }
-            Button {
-                id: button5
-                onClicked: {
-                    cl.dummyRanf();
-                }
-                text: "RANF erzeugen"        
-            }
-            
-            Button {
-                id: button6
-                onClicked: {
-                    cl.acceptRanf();
-                }
-                text: "0"        
-            }
-            
-            Button {
-                id: button7
-                onClicked: {
-                    cl.clearRanf();
-                }
-                text: "clear"        
-            }
-            
-            Button {
-                id: button8
-                onClicked: {
-                    cl.muteRanf();
-                }
-                text: "mute"        
-            }
-        
-        
-        }
-
-        Container {
-            layout: StackLayout {
-                orientation: LayoutOrientation.LeftToRight
-
-            }
-            Button {
-                id: btnPrev
-                onClicked: {
-                    cl.requestSlideChange(-1);
-                }
-                text: "Prev"        
-            }
-            Button {
-                id: btnNext
-                onClicked: {
-                    cl.requestSlideChange(1);
-                }
-                text: "Next"        
-            }
-        }
-        
-        attachedObjects: [
-            MasterClient {
-                id: cl
-                onSlideChanged: {
-                    console.log("slide changed");
-                    bild.image = cl.getSlide();
-                }
-                onLoginStateChanged: {
-                    loginstate.text = cl.getLoginState();
-                }
-                onRanfMuteChanged: {
-                    if (mute)
-                        button8.text = "unmute";
-                    else 
-                        button8.text = "mute";
-                }
-                onRanfSizeChanged: {
-                    console.log("size:" + size);
-                    button6.text = "" + size;
-                }
-            }
-        ]
+TabbedPane {
+    id: pan_root
+    showTabsOnActionBar: true
+    
+    onCreationCompleted: {
+        OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
+        pan_root.activeTab = tab_login;
     }
+    
+    Tab {
+        id: tab_login
+        title: "Login"       
+        Login {
+            
+        }
+
+    }
+    Tab {
+        id: tab_praesi
+        title: "Präsentation"
+        Presentation {
+            id: praesi            
+        }
+
+    }
+    
+    attachedObjects: [
+        MasterClient {
+            id: cl
+            onSlideChanged: {
+                praesi.pic_slide.image = img;
+                
+            }
+            onLoginStateChanged: {
+                var stat = cl.getLoginState();
+                if (stat == "accepted")
+                {
+                    pan_root.activeTab = tab_praesi;
+                    pan_root.vibrate();
+                }
+                else if (stat == "not connected" || stat == "rejected")
+                {
+                    pan_root.activeTab = tab_login;
+                    pan_root.vibrate();
+                }
+                
+                toast.body = stat;
+                toast.show();
+                                    
+                //praesi.lab_loginstate_val.text = stat;
+            }
+            onRanfMuteChanged: {
+                if (mute)
+                    praesi.btn_mute_ranf.text = "unmute";
+                else 
+                    praesi.btn_mute_ranf.text = "mute";
+            }
+            onRanfSizeChanged: {
+                praesi.btn_accept_ranf.text = "Redeanfragen: " + size;
+                pan_root.vibrate();
+            }
+            onRanfFinalAnswer: {
+                toast.body = answ;
+                toast.show();
+            }
+        },
+        
+        SystemToast {
+            id: toast
+        },
+    
+        VibrationController {
+        id: vib
+        }
+    ]
+    
+    function vibrate() {
+        //first parameter intensity, second parameter duration for vibration
+        vib.start(80, 100);
+    }
+
 }

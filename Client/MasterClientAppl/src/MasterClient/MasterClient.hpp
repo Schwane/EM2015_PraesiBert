@@ -34,6 +34,7 @@ public Q_SLOTS:
     /*Remote execution functions*/
     Message* loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
     Message* redeanfrage(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
+    Message* redeanfrageFinal(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
 
     Q_INVOKABLE void authenticate();
     void connectionLostMaster();
@@ -45,6 +46,7 @@ public Q_SLOTS:
 Q_SIGNALS:
     void ranfMuteChanged(bool mute);
     void ranfSizeChanged(int size);
+    void ranfFinalAnswer(QString answ);
 private:
     QByteArray sym_key;
     QByteArray mac_key;
@@ -54,6 +56,7 @@ private:
     AuthState auth_state;
 
     RedeanfrageQueue *ranf_queue;
+    Redeanfrage *current_ranf;
     bool ranf_mute;
     int ranf_size;
 };

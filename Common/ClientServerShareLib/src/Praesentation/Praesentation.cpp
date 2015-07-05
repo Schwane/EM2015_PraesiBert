@@ -130,6 +130,7 @@ Praesentation::setSlide(int slide)
         return;
     if (slide < 0)
         return;
+    accessLock.lock();
     currentSlide = slide;
 
     QString path = slideReference.value(slide);
@@ -140,5 +141,6 @@ Praesentation::setSlide(int slide)
         swappedImage = swappedImage.convertToFormat(QImage::Format_RGB32);
     }
     const bb::ImageData imgData= bb::ImageData::fromPixels(swappedImage.bits(), bb::PixelFormat::RGBX, swappedImage.width(), swappedImage.height(), swappedImage.bytesPerLine());
+    accessLock.unlock();
     emit slideChanged(bb::cascades::Image(imgData));
 }

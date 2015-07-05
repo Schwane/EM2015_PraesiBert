@@ -22,11 +22,11 @@ MessageAuthenticator::hmacSha1(QByteArray key, QByteArray baseString)
 {
      int blockSize = 64; // HMAC-SHA-1 block size, defined in SHA-1 standard
      if (key.length() > blockSize) { // if key is longer than block size (64), reduce key length with SHA-1 compression
-     key = QCryptographicHash::hash(key, QCryptographicHash::Sha1);
+         key = QCryptographicHash::hash(key, QCryptographicHash::Sha1);
      }
 
     QByteArray innerPadding(blockSize, char(0x36)); // initialize inner padding with char "6"
-     QByteArray outerPadding(blockSize, char(0x5c)); // initialize outer padding with char "quot;
+    QByteArray outerPadding(blockSize, char(0x5c)); // initialize outer padding with char "quot;
      // ascii characters 0x36 ("6") and 0x5c ("quot;) are selected because they have large
      // Hamming distance (http://en.wikipedia.org/wiki/Hamming_distance)
 

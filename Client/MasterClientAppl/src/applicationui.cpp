@@ -21,6 +21,9 @@
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/LocaleHandler>
 #include <bb/cascades/Image>
+
+#include <bb/device/VibrationController>
+
 #include <QSettings>
 
 #include "Message.hpp"
@@ -50,6 +53,8 @@ ApplicationUI::ApplicationUI() :
     qmlRegisterType<Client>("com.Client",1,0,"Client");
     qmlRegisterType<MasterClient>("com.Client",1,0,"MasterClient");
     qmlRegisterType<Message>("com.Client",1,0,"Message");
+
+    qmlRegisterType<bb::device::VibrationController>("bb.vibrationController", 1, 0, "VibrationController");
 
     Message *msg = new Message("slide","gui","cl");
     QString path( "app/native/assets/img/test.jpg");
