@@ -67,10 +67,11 @@ public:
     Q_INVOKABLE void login();
     Q_INVOKABLE void connectToServer(QString addr, QString cmd_port, QString data_port);
 
-Q_SIGNALS:
+signals:
     void slideChanged(bb::cascades::Image img);
     void messageSent();
     void loginStateChanged();
+    void wait(bool active);
 
 protected:
     QMap<QString, remoteFunction> registerdFunctions;

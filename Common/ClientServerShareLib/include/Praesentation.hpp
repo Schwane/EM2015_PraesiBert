@@ -37,9 +37,10 @@ public Q_SLOTS:
     QString getPraesentationId();
 private:
     void setBasepath();
-Q_SIGNALS:
+signals:
     void slideChanged(bb::cascades::Image);
     void praesentationParsed(Message* response);
+    void parsing(bool active);
 
 };
 

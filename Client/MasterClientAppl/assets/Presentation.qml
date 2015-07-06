@@ -13,22 +13,21 @@ Page {
             imageSource: "asset:///img/before_start.png"
             scalingMethod: ScalingMethod.AspectFit
             enabled: true
-            onTouch: {
-                cl.requestSlideChange(1);
-            }
+            horizontalAlignment: HorizontalAlignment.Center
+
         }
-        
+
         Container {
             layout: StackLayout {
                 orientation: LayoutOrientation.LeftToRight
-            
+
             }
             Button {
                 id: btn_prev
                 onClicked: {
                     cl.requestSlideChange(-1);
                 }
-                text: "Prev"        
+                text: "Prev"
             }
             Button {
                 id: btn_next
@@ -54,6 +53,7 @@ Page {
         
         }
         */
+        
         TextArea {
             id: tex_cmd
             text: "request_praesentation"
@@ -109,8 +109,9 @@ Page {
                 text: "mute"        
             }
         }
+        
     
-    
-    }            
+    }   
+             
 
 }

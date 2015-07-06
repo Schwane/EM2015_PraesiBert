@@ -36,6 +36,7 @@ Page {
             id: but_login
             onClicked: {
                 cl.connectToServer(tex_ip.text, tex_cmdp.text, tex_datap.text);
+                waiting.open();
             }
             text: "Login"        
         } 

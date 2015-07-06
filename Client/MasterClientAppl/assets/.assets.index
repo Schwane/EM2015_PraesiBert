@@ -1,5 +1,5 @@
 1
-9
+10
 Copy of main.qm_
 example/msg.xml
 img/before_start.png
@@ -9,3 +9,4 @@ img/test.jpg
 Login.qml
 main.qml
 Presentation.qml
+WaitingDialog.qml

@@ -28,6 +28,7 @@ Client::Client()
     connect(cs, SIGNAL(connectedToCmdServer()),this,SLOT(login()));
     connect(cs, SIGNAL(lostConnection()),this,SLOT(connectionLost()));
     connect(prs, SIGNAL(slideChanged(bb::cascades::Image)), this, SIGNAL(slideChanged(bb::cascades::Image)));
+    connect(prs, SIGNAL(parsing(bool)), this, SIGNAL(wait(bool)));
 }
 
 Client::~Client()

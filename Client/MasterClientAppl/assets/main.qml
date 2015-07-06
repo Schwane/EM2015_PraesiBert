@@ -20,6 +20,7 @@ import com.Client 1.0
 import bb.vibrationController 1.0
 
 TabbedPane {
+    property bool waiting: false;
     id: pan_root
     showTabsOnActionBar: true
     
@@ -84,6 +85,9 @@ TabbedPane {
                 toast.body = answ;
                 toast.show();
             }
+            onWait: {
+                waiting = active;                    
+            }
         },
         
         SystemToast {
@@ -92,6 +96,14 @@ TabbedPane {
     
         VibrationController {
         id: vib
+        },
+        
+        SystemDialog {
+            id: diag_waiting
+            title: "Waiting"
+            body: "Waiting ..."
+            cancelButton.label: undefined
+            confirmButton.label: undefined
         }
     ]
     
@@ -99,5 +111,18 @@ TabbedPane {
         //first parameter intensity, second parameter duration for vibration
         vib.start(80, 100);
     }
+    onWaitingChanged: {
+        if (waiting == true)
+        {
+            console.log("WAITING");
+            diag_waiting.show();
+        }
+        else
+        {
+            console.log("NOT WAITING");
+            diag_waiting.cancel();
+        } 
+    }
+    
 
 }

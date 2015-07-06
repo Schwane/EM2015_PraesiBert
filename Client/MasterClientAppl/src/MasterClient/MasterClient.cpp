@@ -207,4 +207,5 @@ MasterClient::acceptRanf()
 {
     if (current_ranf == NULL)
         current_ranf = ranf_queue->dequeue();
+
 }

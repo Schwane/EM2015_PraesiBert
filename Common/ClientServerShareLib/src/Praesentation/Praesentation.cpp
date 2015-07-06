@@ -87,6 +87,7 @@ Praesentation::parsePraesentation(QMap<QString, QVariant> params, QMap<QString, 
     }
     QString slideID;
     QByteArray image;
+    emit parsing(true);
     for (int i = 0; i < totalSlides; i++)
     {
         slideID.clear();
@@ -121,6 +122,7 @@ Praesentation::parsePraesentation(QMap<QString, QVariant> params, QMap<QString, 
             //@TODO: Ausnahme wenn die Nachricht nicht gültig war
         }
     }
+    emit parsing(false);
 }
 
 void
