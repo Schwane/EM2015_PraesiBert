@@ -79,9 +79,13 @@ namespace Network
         /// Boolean that stores, whether the data socket has been set up.
         bool m_hasDataSocket;
         /// Variable for storing the size of the received blocks of commands.
-        quint32 next_block_size_cmd;
+        qint64 m_next_block_size_cmd;
         /// Variable for storing the size of the received blocks of data.
-        quint32 next_block_size_data;
+        qint64 m_next_block_size_data;
+        /// Buffer for commands received at the command socket.
+        QByteArray m_bufferCmd;
+        /// Buffer for data received at the data socket.
+        QByteArray m_bufferData;
 
     signals:         /**
          * @brief Signal that is emitted, whe an newcommanda is available fromthe commanda socket of the client.

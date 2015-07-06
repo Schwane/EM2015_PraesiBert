@@ -7,6 +7,10 @@
 
 #include "include/ConnectedClient.h"
 
+#include <QDebug>
+#include <QHostAddress>
+#include <QIODevice>
+
 namespace Network
 {
     /**
@@ -23,6 +27,8 @@ namespace Network
             , m_hasCmdSocket(false)
             , m_hasDataSocket(false)
     {
+        m_next_block_size_cmd = 0;
+        m_next_block_size_data = 0;
     }
 
     /**
@@ -105,20 +111,15 @@ namespace Network
      */
     int ConnectedClient::sendCmd(QByteArray data)
     {
-       // Use empty ByteArray "outputData"...
-       QByteArray outputData;
-       // ...and assign it to outputStream
-       QDataStream outputStream(&outputData, QIODevice::ReadWrite);
-       outputStream.setVersion(QDataStream::Qt_4_8);
-       // Add a 16 bit integer with value 0 to the beginning of the outputStream and add data
-       outputStream << quint32(0) << data;
-       // Jump to the beginning of the outputStream
-       outputStream.device()->seek(0);
-       // Add data size at the beginning of the outputStream
-       outputStream << (quint32)(outputData.size() - sizeof(quint32));
-
-       // Return value contains actual data size and the size of the quint32 for data length
-       return m_cmdSocket->write(outputData);
+        // Return value contains actual data size and the size of the quint32 for data length
+        quint32 size = data.size();
+        QByteArray size_arr;
+        for(int i = 0; i < 4; ++i)
+        {
+            size_arr.append((char)((size & (0xFF << (i*8))) >> (i*8)));
+        }
+        data.insert(0, size_arr);
+        return m_dataSocket->write(data);
     }
 
     /**
@@ -132,20 +133,15 @@ namespace Network
      */
     int ConnectedClient::sendData(QByteArray data)
     {
-        // Use empty ByteArray "outputData"...
-        QByteArray outputData;
-        // ... and add it to a the outputStream
-        QDataStream outputStream(&outputData, QIODevice::ReadWrite);
-        outputStream.setVersion(QDataStream::Qt_4_8);
-        // Add a 16 bit integer with value 0 to the beginning of the outputStream and add data
-        outputStream << quint32(0) << data;
-        // Jump to the beginning of the outputStream
-        outputStream.device()->seek(0);
-        // Add data size at the beginning of the outputStream
-        outputStream << (quint32)(outputData.size() - sizeof(quint32));
-
         // Return value contains actual data size and the size of the quint32 for data length
-        return m_dataSocket->write(outputData);
+        quint32 size = data.size();
+        QByteArray size_arr;
+        for(int i = 0; i < 4; ++i)
+        {
+            size_arr.append((char)((size & (0xFF << (i*8))) >> (i*8)));
+        }
+        data.insert(0, size_arr);
+        return m_dataSocket->write(data);
     }
 
     /**
@@ -230,29 +226,42 @@ namespace Network
     void ConnectedClient::handleCmdRead()
     {
         QByteArray inputData;
-        // Assign command socket to inputStream
-        QDataStream inputStream(m_cmdSocket);
 
-        while(true)
+        if (!m_next_block_size_cmd)
         {
-            if(!next_block_size_cmd)
+            int x = 4;
+
+            while (x > 0)
             {
-                // Check if block size was received already...
-                if(m_cmdSocket->bytesAvailable() < sizeof(quint32))
-                    break;
-                // ...and set the value to next_block_size_cmd, if so
-                inputStream >> next_block_size_cmd;
+                inputData = m_cmdSocket->read(x);
+                x -= inputData.size();
             }
 
-            if(m_cmdSocket->bytesAvailable() < next_block_size_cmd)
-                break;
-
-            // If data is available completely, emit newCmd() signal
-            inputStream >> inputData;
-            emit newCmd(inputData, m_clientID);
-
-            next_block_size_cmd = 0;
+            for(int i = 0; i < 4; ++i)
+            {
+                m_next_block_size_cmd |= ((quint8) inputData.at(i)) << i * 8;
+            }
         }
+
+        if (m_cmdSocket->bytesAvailable() < m_next_block_size_cmd)
+            return;
+        else
+        {
+            inputData.clear();
+            inputData = m_cmdSocket->read(qMin(m_next_block_size_cmd, m_cmdSocket->bytesAvailable()));
+            m_next_block_size_cmd = 0;
+            m_bufferCmd.append(inputData);
+            qDebug() << "data: " << m_bufferCmd;
+        }
+
+        if (m_next_block_size_cmd == 0)
+        {
+            emit newCmd(m_bufferCmd, m_clientID);
+            qDebug() << "New command at client.\n" << m_bufferCmd;
+            m_bufferCmd.clear();
+        }
+
+        return;
     }
 
     /**
@@ -264,29 +273,42 @@ namespace Network
     void ConnectedClient::handleDataRead()
     {
         QByteArray inputData;
-        // Assign data socket to inputStream
-        QDataStream inputStream(m_dataSocket);
 
-        while(true)
+        if (!m_next_block_size_data)
         {
-            if(!next_block_size_data)
+            int x = 4;
+
+            while (x > 0)
             {
-                // Check if block size was received already...
-                if(m_dataSocket->bytesAvailable() < sizeof(quint32))
-                    break;
-                // ...and set the value to next_block_size_data, if so
-                inputStream >> next_block_size_data;
+                inputData = m_dataSocket->read(x);
+                x -= inputData.size();
             }
 
-            if(m_dataSocket->bytesAvailable() < next_block_size_data)
-                break;
-
-            // If data is available completely, emit receivedData() signal
-            inputStream >> inputData;
-            emit newData(inputData, m_clientID);
-
-            next_block_size_data = 0;
+            for(int i = 0; i < 4; ++i)
+            {
+                m_next_block_size_data |= ((quint8) inputData.at(i)) << i * 8;
+            }
         }
+
+        if (m_dataSocket->bytesAvailable() < m_next_block_size_data)
+            return;
+        else
+        {
+            inputData.clear();
+            inputData = m_dataSocket->read(qMin(m_next_block_size_data, m_dataSocket->bytesAvailable()));
+            m_next_block_size_data = 0;
+            m_bufferData.append(inputData);
+            qDebug() << "data: " << m_bufferData;
+        }
+
+        if (m_next_block_size_data == 0)
+        {
+            emit newData(m_bufferData, m_clientID);
+            qDebug() << "New data at client.\n" << m_bufferData;
+            m_bufferCmd.clear();
+        }
+
+        return;
     }
 
     /**

@@ -55,14 +55,17 @@ namespace Network
         /// QTcpSocket for data connection.
         QTcpSocket* m_dataSocket;
         /// Variable for storing the size of the received blocks of commands.
-        qint64 next_block_size_cmd;
+        qint64 m_next_block_size_cmd;
         /// Variable for storing the size of the received blocks of data.
-        qint64 next_block_size_data;
+        qint64 m_next_block_size_data;
+        /// Buffer for commands received at the command socket.
+        QByteArray m_bufferCmd;
+        /// Buffer for data received at the data socket.
+        QByteArray m_bufferData;
 
-        QMutex cmdLock;
-        QMutex dataLock;
-        QByteArray bufferCmd;
-        QByteArray bufferData;
+        //QMutex cmdLock;
+        //QMutex dataLock;
+
 
     signals:
         /**
