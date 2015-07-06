@@ -1,7 +1,7 @@
 APP_NAME = ListenerClientAppl
 
 CONFIG += qt warn_on cascades10
-LIBS += -lbb
+LIBS += -lbb -lbbdevice -lbbsystem
 		+= -$$_PRO_FILE_PWD_/../../Common/OpenCV/lib -lopencv_core -lopencv_imgproc -lopencv_highgui
  		
 INCLUDEPATH += $$_PRO_FILE_PWD_/../../Common/OpenCV/include

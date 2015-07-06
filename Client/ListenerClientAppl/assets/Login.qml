@@ -31,21 +31,10 @@ Page {
             id: tex_datap
             text: "1338"
         } 
-        Label {
-            id: lab_pwd
-            text: "Passwort:"
-        }
-        TextField {
-            id: tex_pwd
-            text: ""
-            inputMode: TextFieldInputMode.Password
-        } 
-        
         
         Button {
             id: but_login
             onClicked: {
-                cl.setKey(tex_pwd.text);
                 cl.connectToServer(tex_ip.text, tex_cmdp.text, tex_datap.text);
             }
             text: "Login"        

@@ -27,7 +27,7 @@ MasterClient::MasterClient()
     nonce1 = QString(buf);
     msgAuth = new MessageAuthenticator();
     auth_state = AUTH_IDLE;
-    sym_key = "KATZE";
+    sym_key = NULL;
 
     id = "master";
 
@@ -179,6 +179,13 @@ MasterClient::connectionLostMaster()
 
 void
 MasterClient::clearRanf(){
+    Message *msg;
+    for (int i = 0; i < ranf_queue->getSize(); i++)
+    {
+        msg = new Message(CMD_RANF_RESP, id, ranf_queue->getClientIdAt(i));
+        msg->addParameter("status", QString("REJECTED"));
+        xmlmw->writeMessage(msg);
+    }
     ranf_queue -> clear();
 }
 
@@ -206,6 +213,33 @@ void
 MasterClient::acceptRanf()
 {
     if (current_ranf == NULL)
+    {
         current_ranf = ranf_queue->dequeue();
+        Message *msg = new Message(CMD_RANF_RESP, id, current_ranf->getClientId());
+        msg->addParameter("status", QString("ACCEPTED"));
+        xmlmw->writeMessage(msg);
+    }
 
+}
+
+
+void
+MasterClient::finishRanf()
+{
+    if (current_ranf != NULL)
+    {
+        Message *msg = new Message(CMD_RANF_FINISH, id, current_ranf->getClientId());
+        delete current_ranf;
+        current_ranf = NULL;
+        xmlmw->writeMessage(msg);
+    }
+
+}
+
+void
+MasterClient::setKey(QString key)
+{
+    QByteArray newKey;
+    newKey.append(key);
+    this-> sym_key = newKey;
 }

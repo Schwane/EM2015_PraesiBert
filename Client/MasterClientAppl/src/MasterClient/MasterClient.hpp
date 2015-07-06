@@ -43,6 +43,9 @@ public Q_SLOTS:
     Q_INVOKABLE void muteRanf();
     Q_INVOKABLE void acceptRanf();
     Q_INVOKABLE void dummyRanf();
+    Q_INVOKABLE void finishRanf();
+
+    Q_INVOKABLE void setKey(QString key);
 Q_SIGNALS:
     void ranfMuteChanged(bool mute);
     void ranfSizeChanged(int size);

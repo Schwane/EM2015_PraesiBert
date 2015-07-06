@@ -21,7 +21,8 @@ public:
             PREPARATION,
             QUEUED,
             ACCEPTED,
-            REJECTED
+            REJECTED,
+            FINISHED
         };
     Redeanfrage();
     Redeanfrage(QString clientId);
@@ -32,19 +33,24 @@ private:
     QString clientId;
 
 public Q_SLOTS:
+    void prepare();
     void queue(QString clientId);
     void queue();
     void accept();
     void reject();
+    void finish();
     Message* packRedeanfrage();
     QString getClientId();
+    void setClientId(QString clientId);
 
 
 Q_SIGNALS:
+/*
     void queued();
     void accepted();
     void rejected();
-
+*/
+    void stateChanged(QString state);
 
 
 };

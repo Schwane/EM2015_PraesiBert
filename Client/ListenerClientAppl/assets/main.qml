@@ -15,13 +15,117 @@
  */
 
 import bb.cascades 1.4
+import bb.system 1.0
+import com.Client 1.0
+import bb.vibrationController 1.0
 
-Page {
-    Container {
-        Label {
-            // Localized text with the dynamic translation and locale updates support
-            text: qsTr("Hello World") + Retranslate.onLocaleOrLanguageChanged
-            textStyle.base: SystemDefaults.TextStyles.BigText
-        }
+TabbedPane {
+    property bool waiting: false;
+    id: pan_root
+    showTabsOnActionBar: true
+    
+    onCreationCompleted: {
+        OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
+        pan_root.activeTab = tab_login;
     }
+    
+    Tab {
+        id: tab_login
+        title: "Login"       
+        Login {
+            
+        }
+
+    }
+    Tab {
+        id: tab_praesi
+        title: "Präsentation"
+        Presentation {
+            id: praesi            
+        }
+
+    }
+    
+    attachedObjects: [
+        ListenerClient {
+            id: cl
+            onSlideChanged: {
+                praesi.pic_slide.image = img;
+                
+            }
+            onLoginStateChanged: {
+                var stat = cl.getLoginState();
+                if (stat == "accepted")
+                {
+                    pan_root.activeTab = tab_praesi;
+                    pan_root.vibrate();
+                }
+                else if (stat == "not connected" || stat == "rejected")
+                {
+                    pan_root.activeTab = tab_login;
+                    pan_root.vibrate();
+                }
+                
+                toast.body = stat;
+                toast.show();
+                                    
+                //praesi.lab_loginstate_val.text = stat;
+            }
+            onRanfAnswer: {
+                tab_praesi.diag_ranfansw.show();
+            }
+            onRanfStateChanged: {
+                if (state == "ACCEPTED")
+                {
+                    //do everything on ranf accept
+                }
+                else if (state == "REJECTED")
+                {
+                    praesi.btn_do_ranf.enabled = true;
+                }
+                else if ( state == "QUEUED")
+                {
+                    praesi.btn_do_ranf.enabled = false;
+                }
+            }
+            onWait: {
+                waiting = active;                    
+            }
+        },
+        
+        SystemToast {
+            id: toast
+        },
+    
+        VibrationController {
+        id: vib
+        },
+        
+        SystemDialog {
+            id: diag_waiting
+            title: "Waiting"
+            body: "Waiting ..."
+            cancelButton.label: undefined
+            confirmButton.label: undefined
+        }
+    ]
+    
+    function vibrate() {
+        //first parameter intensity, second parameter duration for vibration
+        vib.start(80, 100);
+    }
+    onWaitingChanged: {
+        if (waiting == true)
+        {
+            console.log("WAITING");
+            diag_waiting.show();
+        }
+        else
+        {
+            console.log("NOT WAITING");
+            diag_waiting.cancel();
+        } 
+    }
+    
+
 }

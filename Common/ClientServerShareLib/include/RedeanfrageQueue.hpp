@@ -25,6 +25,8 @@ public Q_SLOTS:
     int enqueue(Redeanfrage *ranf);
     Redeanfrage* dequeue();
     void clear();
+    int getSize();
+    QString getClientIdAt(int i);
 Q_SIGNALS:
     void sizeChanged(int size);
 };

@@ -72,3 +72,23 @@ RedeanfrageQueue::clear()
     accessLock.unlock();
     emit sizeChanged(queue.size());
 }
+
+int
+RedeanfrageQueue::getSize()
+{
+    int ret = 0;
+    accessLock.lock();
+    ret = queue.size();
+    accessLock.unlock();
+    return ret;
+}
+
+QString
+RedeanfrageQueue::getClientIdAt(int i)
+{
+    QString ret = 0;
+    accessLock.lock();
+    ret = queue.at(i)->getClientId();
+    accessLock.unlock();
+    return ret;
+}

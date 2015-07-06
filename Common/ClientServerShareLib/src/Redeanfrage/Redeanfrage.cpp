@@ -25,40 +25,56 @@ Redeanfrage::~Redeanfrage()
 }
 
 void
+Redeanfrage::prepare()
+{
+    state = PREPARATION;
+    this -> clientId = clientId;
+    emit stateChanged("PREPARED");
+}
+
+void
 Redeanfrage::queue(QString clientId)
 {
     state = QUEUED;
     this -> clientId = clientId;
-    emit queued();
+    emit stateChanged("QUEUED");
 }
 
 void
 Redeanfrage::queue()
 {
     state = QUEUED;
-    emit queued();
+    emit stateChanged("QUEUED");
 }
 
 void
 Redeanfrage::accept()
 {
     state = ACCEPTED;
-    emit accepted();
+    emit stateChanged("ACCEPTED");
 }
 
 void
 Redeanfrage::reject()
 {
     state = REJECTED;
-    emit rejected();
+    emit stateChanged("REJECTED");
 }
+
+void
+Redeanfrage::finish()
+{
+    state = FINISHED;
+    emit stateChanged("FINISHED");
+}
+
 Message*
 Redeanfrage::packRedeanfrage()
 {
     Message *msg = new Message(CMD_RANF_ASK, clientId, "master");
     state = QUEUED;
     msg->addParameter("clientId", clientId);
-    emit queued();
+    emit stateChanged("QUEUED");
     return msg;
 }
 
@@ -66,4 +82,10 @@ QString
 Redeanfrage::getClientId()
 {
     return clientId;
+}
+
+void
+Redeanfrage::setClientId(QString clientId)
+{
+    this -> clientId = clientId;
 }

@@ -56,33 +56,17 @@ ApplicationUI::ApplicationUI() :
 
     qmlRegisterType<bb::device::VibrationController>("bb.vibrationController", 1, 0, "VibrationController");
 
-    Message *msg = new Message("slide","gui","cl");
-    QString path( "app/native/assets/img/test.jpg");
-
-    QImage img(path);
-    QByteArray imgBytes;
-    QBuffer b(&imgBytes);
-    b.open(QIODevice::WriteOnly);
-    img.save(&b, "JPG");
-    msg -> addParameter("image", imgBytes);
-
-    QFile xmlDoc("app/native/assets/example/msg.xml");
-    xmlDoc.open(QIODevice::ReadOnly | QIODevice::Text);
-    QString xmlMsg(xmlDoc.readAll());
-
-    xmlMsg.replace("$(MSG)", imgBytes.toBase64());
-
     // Create scene document from main.qml asset, the parent is set
     // to ensure the document gets destroyed properly at shut down.
     QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
-
+    /*
     QDeclarativePropertyMap* propertyMap = new QDeclarativePropertyMap;
 
     propertyMap->insert("msg", QVariant(xmlMsg));
 
     qml->setContextProperty("_testmsg", msg);
     qml->setContextProperty("_ptyMap", propertyMap);
-
+    */
     qDebug() << "Nach set context";
     // Create root object for the UI
     AbstractPane *root = qml->createRootObject<AbstractPane>();

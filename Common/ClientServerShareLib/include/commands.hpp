@@ -12,16 +12,17 @@
 #define CMD_SET_PRAESENTATION "praesentation"
 
 #define CMD_LOGIN "login"
+#define CMD_LOGIN_RESP "login_resp"
 
 #define CMD_AUTH_PHASE1 "auth_phase1"
 #define CMD_AUTH_PHASE2 "auth_phase2"
 #define CMD_AUTH_PHASE3 "auth_phase3"
 #define CMD_ACK_RESPONSE "ack"
 
-#define CMD_RANF_ASK "redeanfrage"
+#define CMD_RANF_ASK "redeanfrage_request"
 #define CMD_RANF_RESP "redeanfrage_antwort"
 #define CMD_RANF_RE_RESP "redeanfrage_finale_antwort"
-
+#define CMD_RANF_FINISH "redeanfrage_finish"
 
 
 #endif /* COMMANDS_HPP_ */

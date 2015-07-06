@@ -20,6 +20,16 @@
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/LocaleHandler>
+#include <bb/cascades/Image>
+
+#include <bb/device/VibrationController>
+
+#include <QSettings>
+
+#include "Message.hpp"
+#include "Client.hpp"
+#include "ListenerClient/ListenerClient.hpp"
+
 
 using namespace bb::cascades;
 
@@ -39,6 +49,13 @@ ApplicationUI::ApplicationUI() :
 
     // initial load
     onSystemLanguageChanged();
+
+
+    qmlRegisterType<Client>("com.Client",1,0,"Client");
+    qmlRegisterType<ListenerClient>("com.Client",1,0,"ListenerClient");
+    qmlRegisterType<Message>("com.Client",1,0,"Message");
+
+    qmlRegisterType<bb::device::VibrationController>("bb.vibrationController", 1, 0, "VibrationController");
 
     // Create scene document from main.qml asset, the parent is set
     // to ensure the document gets destroyed properly at shut down.
