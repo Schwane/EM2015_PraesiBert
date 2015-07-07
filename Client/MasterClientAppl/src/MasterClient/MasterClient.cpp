@@ -128,12 +128,30 @@ MasterClient::redeanfrage(QMap<QString, QVariant> parameters, QMap<QString, QStr
 }
 
 Message*
+MasterClient::redeanfrageAutoReject(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types)
+{
+    Message *resp;
+    if (parameters.contains("clientId") && parameter_types.contains("clientId") && parameter_types.value("clientId") == "string")
+    {
+        resp = new Message(CMD_RANF_RESP, "master", parameters.value("clientId").toString());
+        resp -> addParameter("status", QString("REJECTED"));
+    }
+    else
+    {
+        resp = new Message(CMD_ACK_RESPONSE, "master", "client");
+        resp -> addParameter("status",QString("error"));
+        resp -> addParameter("message",QString("Parameter: clientId as string missing"));
+    }
+    return resp;
+}
+
+Message*
 MasterClient::redeanfrageFinal(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types)
 {
     Message *resp;
     resp = new Message("ACK",id,"server");
     QString answ;
-    if (parameters.contains("status") && parameter_types.contains("status") && parameter_types.value("status") == "string" && parameters.value("status").toString() == "accepted")
+    if (parameters.contains("status") && parameter_types.contains("status") && parameter_types.value("status") == "string" && parameters.value("status").toString() == "ACCEPTED")
     {
          resp -> addParameter("status", QString("ok"));
          answ = "ACCEPTED";
@@ -144,9 +162,11 @@ MasterClient::redeanfrageFinal(QMap<QString, QVariant> parameters, QMap<QString,
         resp -> addParameter("message",QString("Redenafrage rejected"));
         answ = "REJECTED";
     }
-    if (current_ranf != NULL)
+    if (current_ranf != NULL && answ == "REJECTED")
+    {
         delete current_ranf;
-    current_ranf = NULL;
+        current_ranf = NULL;
+    }
     emit ranfFinalAnswer(answ);
     return resp;
 }
@@ -193,8 +213,9 @@ void
 MasterClient::muteRanf()
 {
     ranf_mute = !ranf_mute;
+    registerdFunctions.remove(CMD_RANF_ASK);
     if (ranf_mute)
-        registerdFunctions.remove(CMD_RANF_ASK);
+        registerdFunctions.insert(CMD_RANF_ASK, static_cast<remoteFunction>(&MasterClient::redeanfrageAutoReject));
     else
         registerdFunctions.insert(CMD_RANF_ASK, static_cast<remoteFunction>(&MasterClient::redeanfrage));
     emit ranfMuteChanged(ranf_mute);
@@ -215,9 +236,12 @@ MasterClient::acceptRanf()
     if (current_ranf == NULL)
     {
         current_ranf = ranf_queue->dequeue();
-        Message *msg = new Message(CMD_RANF_RESP, id, current_ranf->getClientId());
-        msg->addParameter("status", QString("ACCEPTED"));
-        xmlmw->writeMessage(msg);
+        if (current_ranf != NULL)
+        {
+            Message *msg = new Message(CMD_RANF_RESP, id, current_ranf->getClientId());
+            msg->addParameter("status", QString("ACCEPTED"));
+            xmlmw->writeMessage(msg);
+        }
     }
 
 }

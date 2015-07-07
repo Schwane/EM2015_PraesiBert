@@ -60,8 +60,6 @@ public Q_SLOTS:
 
     /*Slots to handle praesentation signals*/
     //void onPraesiSlideChanged(bb::cascades::Image img);
-
-public:
     Q_INVOKABLE void invokeRemote(Message *msg);
     Q_INVOKABLE void invokeRemote(Message *msg, bool cleanup);
     Q_INVOKABLE void login();
@@ -72,6 +70,7 @@ signals:
     void messageSent();
     void loginStateChanged();
     void wait(bool active);
+    void praesentationReady();
 
 protected:
     QMap<QString, remoteFunction> registerdFunctions;

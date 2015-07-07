@@ -12,6 +12,7 @@ Client::Client()
     /*register remote functions*/
     registerdFunctions.insert(CMD_SET_SLIDE,&Client::setSlide);
     registerdFunctions.insert(CMD_SET_PRAESENTATION,&Client::parsePraesentation);
+    registerdFunctions.insert(CMD_LOGIN_RESP, &Client::Client::loginResponse);
 
     xmlmp = new XMLMessageParser();
     xmlmw = new XMLMessageWriter();
@@ -29,6 +30,7 @@ Client::Client()
     connect(cs, SIGNAL(lostConnection()),this,SLOT(connectionLost()));
     connect(prs, SIGNAL(slideChanged(bb::cascades::Image)), this, SIGNAL(slideChanged(bb::cascades::Image)));
     connect(prs, SIGNAL(parsing(bool)), this, SIGNAL(wait(bool)));
+    connect(prs, SIGNAL(praesentationReady()), this, SIGNAL(praesentationReady()));
 }
 
 Client::~Client()

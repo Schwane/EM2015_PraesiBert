@@ -4,6 +4,7 @@ Page {
     //property alias lab_loginstate_val : lab_loginstate_val
     //property alias lab_ranf_state : lab_ranf_state
     property alias btn_accept_ranf : btn_accept_ranf
+    property alias btn_finish_ranf: btn_finish_ranf
     property alias btn_mute_ranf : btn_mute_ranf
     property alias pic_slide : pic_slide
     Container {
@@ -74,15 +75,30 @@ Page {
         
         }  
         */                 
-        
+        Container {
+            layout: StackLayout {
+                orientation: LayoutOrientation.LeftToRight
+            
+            }
         Button {
             id: btn_accept_ranf
             onClicked: {
                 cl.acceptRanf();
-                lab_ranf_state.text = "";
             }
             text: "Redeanfragen: 0"        
         }
+        
+        Button {
+            id: btn_finish_ranf
+            onClicked: {
+                cl.finishRanf();
+                btn_finish_ranf.visible = false;
+            }
+            visible: false
+            text: "beenden"        
+        }
+        
+        }    
         Container {
             layout: StackLayout {
                 orientation: LayoutOrientation.LeftToRight

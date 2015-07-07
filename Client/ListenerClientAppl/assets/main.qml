@@ -25,8 +25,9 @@ TabbedPane {
     showTabsOnActionBar: true
     
     onCreationCompleted: {
-        OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
+        //OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
         pan_root.activeTab = tab_login;
+        enablePraesitab(false);
     }
     
     Tab {
@@ -72,16 +73,26 @@ TabbedPane {
                 //praesi.lab_loginstate_val.text = stat;
             }
             onRanfAnswer: {
-                tab_praesi.diag_ranfansw.show();
+                praesi.diag_ranfansw.show();
             }
             onRanfStateChanged: {
                 if (state == "ACCEPTED")
                 {
                     //do everything on ranf accept
                 }
-                else if (state == "REJECTED")
+                else if (state == "PREPARED")
                 {
                     praesi.btn_do_ranf.enabled = true;
+                }
+                else if (state == "REJECTED")
+                {
+                    toast.body = "Redenanfrage abgelehnt";
+                    toast.show();
+                }
+                else if (state == "FINISHED")
+                {
+                    toast.body = "Redenanfrage beendet";
+                    toast.show();
                 }
                 else if ( state == "QUEUED")
                 {
@@ -90,6 +101,9 @@ TabbedPane {
             }
             onWait: {
                 waiting = active;                    
+            }
+            onPraesentationReady: {
+                enablePraesitab(true);
             }
         },
         
@@ -125,6 +139,11 @@ TabbedPane {
             console.log("NOT WAITING");
             diag_waiting.cancel();
         } 
+    }
+    
+    function enablePraesitab(stat)
+    {
+        praesi.btn_do_ranf.enabled = stat;
     }
     
 

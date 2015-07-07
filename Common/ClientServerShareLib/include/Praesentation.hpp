@@ -41,6 +41,7 @@ signals:
     void slideChanged(bb::cascades::Image);
     void praesentationParsed(Message* response);
     void parsing(bool active);
+    void praesentationReady();
 
 };
 

@@ -15,6 +15,7 @@ ListenerClient::ListenerClient()
 
     connect(ranf, SIGNAL(stateChanged(QString)), this, SIGNAL(ranfStateChanged(QString)));
     connect(ranf, SIGNAL(stateChanged(QString)), this, SLOT(onRanfStateChanged(QString)));
+    connect(cs, SIGNAL(connectedToCmdServer()),this,SLOT(onLogin()));
 }
 
 ListenerClient::~ListenerClient()
@@ -28,7 +29,7 @@ ListenerClient::redeanfrageResponse(QMap<QString, QVariant> parameters, QMap<QSt
     Message *msg = new Message(CMD_ACK_RESPONSE, id, "server");
     if (parameters.contains("status") && parameter_types.contains("status") && parameter_types.value("status") == "string")
     {
-        if (parameters.value("status") == "ACCETPED")
+        if (parameters.value("status") == "ACCEPTED")
         {
             ranf->accept();
             emit ranfAnswer();
@@ -58,19 +59,10 @@ ListenerClient::redeanfrageFinish(QMap<QString, QVariant> parameters, QMap<QStri
 }
 
 
-
-
 void
-ListenerClient::onLogin()
+ListenerClient::onRanfStateChanged(QString state)
 {
-    ranf -> setClientId(id);
-}
-
-
-void
-ListenerClient::onRanfstateChanged(QString state)
-{
-    if (state == "REJECTED")
+    if (state == "REJECTED" || state == "FINISHED")
     {
         ranf->prepare();
     }
@@ -80,6 +72,7 @@ ListenerClient::onRanfstateChanged(QString state)
 void
 ListenerClient::doRanf()
 {
+    ranf -> setClientId(id);
     Message *msg = ranf->packRedeanfrage();
     xmlmw->writeMessage(msg);
 }

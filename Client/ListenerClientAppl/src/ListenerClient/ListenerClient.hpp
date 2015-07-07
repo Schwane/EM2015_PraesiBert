@@ -28,8 +28,7 @@ public Q_SLOTS:
     Q_INVOKABLE void doRanf();
     Q_INVOKABLE void acceptRanf();
     Q_INVOKABLE void rejectRanf();
-    void onLogin();
-    void onRanfstateChanged(QString state);
+    void onRanfStateChanged(QString state);
 Q_SIGNALS:
     void ranfStateChanged(QString state);
     void ranfAnswer();

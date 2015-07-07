@@ -123,6 +123,7 @@ Praesentation::parsePraesentation(QMap<QString, QVariant> params, QMap<QString, 
         }
     }
     emit parsing(false);
+    emit praesentationReady();
 }
 
 void

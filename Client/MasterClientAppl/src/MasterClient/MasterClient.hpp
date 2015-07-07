@@ -34,6 +34,7 @@ public Q_SLOTS:
     /*Remote execution functions*/
     Message* loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
     Message* redeanfrage(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
+    Message* redeanfrageAutoReject(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
     Message* redeanfrageFinal(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
 
     Q_INVOKABLE void authenticate();
