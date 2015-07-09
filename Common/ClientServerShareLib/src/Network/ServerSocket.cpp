@@ -12,7 +12,6 @@
 #include <QtNetwork/QTcpSocket>
 #include <QtNetwork/QHostAddress>
 #include <QtNetwork/QNetworkInterface>
-#include <QList>
 #include <QThread>
 
 namespace Network
@@ -155,6 +154,44 @@ namespace Network
         for(int i = 0; i < m_clientList.size(); i++)
         {
             m_clientList.at(i)->sendData(data);
+        }
+    }
+
+    /**
+     * @brief Method for sending a command to a specified list of clients.
+     *
+     * @param[in] data Command that is send to the clients.
+     * @param[in] clientIDs QList with clientIDs to which the data is send.
+     *
+     * Sends a command to all clients whose clientIDs are specified in the QList.
+     */
+    void ServerSocket::sendCmdToMultClients(QByteArray data, QList<uint> clientIDs)
+    {
+        for(int i = 0; i < m_clientList.size(); i++)
+        {
+            if(clientIDs.contains(m_clientList.at(i)->getClientID()))
+            {
+                m_clientList.at(i)->sendCmd(data);
+            }
+        }
+    }
+
+    /**
+     * @brief Method for sending data to a specified list of clients.
+     *
+     * @param[in] data Data that is send to the clients.
+     * @param[in] clientIDs QList with clientIDs to which the data is send.
+     *
+     * Sends data to all clients whose clientIDs are specified in the QList.
+     */
+    void ServerSocket::sendDataToMultClients(QByteArray data, QList<uint> clientIDs)
+    {
+        for(int i = 0; i < m_clientList.size(); i++)
+        {
+            if(clientIDs.contains(m_clientList.at(i)->getClientID()))
+            {
+                m_clientList.at(i)->sendData(data);
+            }
         }
     }
 

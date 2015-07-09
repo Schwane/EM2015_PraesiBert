@@ -221,7 +221,9 @@ namespace Network
      * @brief Handler for new data from the command socket.
      *
      * This method is called when new data is available at the command socket.<br>
-     * It emits the signal <i>newCmd()</i> with the new data in QByteArray format and the clientID.
+     * A 64 bit integer is used to determine the length of the receiving data.<br>
+     * This method is returned without reading data from the socket, until the expected amount of data is available at the socket.<br>
+     * The function then emits the signal <i>newCmd</i> with the complete received command in QByteArray format.
      */
     void ConnectedClient::handleCmdRead()
     {
@@ -268,7 +270,9 @@ namespace Network
      * @brief Handler for new data from the data socket.
      *
      * This method is called when new data is available at the data socket.<br>
-     * It emits the signal <i>newData()</i> with the new data in QByteArray format and the clientID.
+     * A 64 bit integer is used to determine the length of the receiving data.<br>
+     * This method is returned without reading data from the socket, until the expected amount of data is available at the socket.<br>
+     * The function then emits the signal <i>newData</i> with the complete received command in QByteArray format.
      */
     void ConnectedClient::handleDataRead()
     {

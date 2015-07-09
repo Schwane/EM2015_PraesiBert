@@ -14,6 +14,7 @@
 #include <QtNetwork/QTcpSocket>
 #include <QString>
 #include <QByteArray>
+#include <QList>
 
 // Other includes
 #include "ConnectedClient.h"
@@ -115,6 +116,8 @@ namespace Network
         void closeServer();
         void sendCmdToAll(QByteArray data);
         void sendDataToAll(QByteArray data);
+        void sendCmdToMultClients(QByteArray data, QList<uint> clientIDs);
+        void sendDataToMultClients(QByteArray data, QList<uint> clientIDs);
         int sendCmdToID(QByteArray data, uint clientID);
         int sendDataToID(QByteArray data, uint clientID);
 

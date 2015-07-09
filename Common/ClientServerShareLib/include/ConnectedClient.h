@@ -22,7 +22,7 @@ namespace Network
      * @brief Class for clients connected to the server.
      *
      * Class for clients that connect to the Server Socket (ServerSocket class).<br>
-     * It uses 32bit unsigned integers for determining the length of sent and received data.<br>
+     * It uses 64 bit integers for determining the length of sent and received data.<br>
      * All of the objects that are created from this class are stored in an individual thread that is started when a new connection is established.<br>
      * The class provides several functions, signals and slots that are used to exchange data with a client:
      * <ul>

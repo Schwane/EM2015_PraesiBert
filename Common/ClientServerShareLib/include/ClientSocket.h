@@ -23,7 +23,7 @@ namespace Network
      * @brief Client Socket class.
      *
      * Instantiates two TCP Client Sockets (command and data) that can connect to servers.<br>
-     * It uses 32bit unsigned integers for determining the length of sent and received data.<br>
+     * It uses 64 bit integers for determining the length of sent and received data.<br>
      * The class provides several signals and slots for connection and data handling:
      * <ul>
      *  <li>signals:</li>
