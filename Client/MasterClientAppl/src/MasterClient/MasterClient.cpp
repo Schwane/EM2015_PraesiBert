@@ -205,6 +205,7 @@ MasterClient::clearRanf(){
         msg = new Message(CMD_RANF_RESP, id, ranf_queue->getClientIdAt(i));
         msg->addParameter("status", QString("REJECTED"));
         xmlmw->writeMessage(msg);
+        delete msg;
     }
     ranf_queue -> clear();
 }

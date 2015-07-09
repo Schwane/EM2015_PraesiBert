@@ -81,13 +81,18 @@ TabbedPane {
                     praesi.btn_mute_ranf.text = "mute";
             }
             onRanfSizeChanged: {
+                if (size > 0)
+                    praesi.incoming.play();
                 praesi.btn_accept_ranf.text = "Redeanfragen: " + size;
                 pan_root.vibrate();
             }
             onRanfFinalAnswer: {
                 toast.body = answ;
                 if (answ == "ACCEPTED")
+                {
                     praesi.btn_finish_ranf.visible = true;
+                    praesi.btn_accept_ranf.visible = false;
+                }
                 toast.show();
             }
             onWait: {

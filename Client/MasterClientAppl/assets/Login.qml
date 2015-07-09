@@ -3,6 +3,8 @@ import bb.cascades 1.4
 Page {
     id: pag_login
     Container {
+        
+    Container {
         layout: StackLayout {
         
         }
@@ -34,25 +36,41 @@ Page {
             text: "1338"
             inputMode: TextFieldInputMode.NumbersAndPunctuation
         } 
-        Label {
-            id: lab_pwd
-            text: "Passwort:"
-        }
-        TextField {
-            id: tex_pwd
-            text: ""
-            inputMode: TextFieldInputMode.Password
-        } 
         
         
-        Button {
+        
+        
+        
+    }
+    Container {
+            horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Top
+            topPadding: 40.0
+            layout: StackLayout {
+                orientation: LayoutOrientation.TopToBottom
+
+            }
+            Label {
+                id: lab_pwd
+                text: "Passwort:"
+            }
+            TextField {
+                id: tex_pwd
+                text: ""
+                inputMode: TextFieldInputMode.Password
+            } 
+            Button {
             id: but_login
             onClicked: {
                 cl.setKey(tex_pwd.text);
                 cl.connectToServer(tex_ip.text, tex_cmdp.text, tex_datap.text);
             }
-            text: "Login"        
-        } 
+            text: "Login"
+                verticalAlignment: VerticalAlignment.Center
+                horizontalAlignment: HorizontalAlignment.Center
+                appearance: ControlAppearance.Primary
+            } 
     }
+}
 
 }
