@@ -5,7 +5,7 @@
  *      Author: Inga
  */
 
-#include "CameraProcessor.hpp"
+#include "include/CameraProcessor.hpp"
 
 //Constructor
 CameraProcessor::CameraProcessor(QObject* parent) :
