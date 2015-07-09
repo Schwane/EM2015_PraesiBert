@@ -11,6 +11,10 @@
 #include <QObject>
 #include <camera/camera_api.h>
 #include <QDebug>
+#include <bb/cascades/Application>
+#include <bb/cascades/AbstractPane>
+#include <bb/cascades/Window>
+#include <bb/cascades/ForeignWindowControl>
 #include "opencv2/core/core.hpp"
 
 class CameraProcessor: public QObject
@@ -18,7 +22,7 @@ class CameraProcessor: public QObject
     Q_OBJECT
 
 public:
-    CameraProcessor(QObject* parent = 0);
+    CameraProcessor(QObject* parent = NULL);
     virtual ~CameraProcessor();
 
     //Enumeration that indicates the status during frame processing
@@ -39,20 +43,27 @@ signals:
 private:
     //member variables
     camera_handle_t m_handle;
+    camera_frametype_t m_frametype;
     camera_res_t m_resolution;
     double m_framerate;
+    unsigned int m_rotation;
     int m_threshold;
-    cv::Mat m_previous_frame, m_actual_frame, m_difference;
-    int m_previous_position;
+    cv::Mat m_actual_frame, m_previous_frame;
+    cv::Mat m_difference;
+    unsigned int m_reset_counter;
+    unsigned int m_previous_position;
     Status m_status;
 
     //member functions
-    void setLowestResolution();
-    void setFramerate();
     void openCamera();
     void closeCamera();
     void startVf();
     void stopVf();
+    void setFrametype();
+    void setLowestResolution();
+    void setFramerate();
+    void setRotation();
+    void initMatrices();
     static void viewfinder_callback(camera_handle_t handle, camera_buffer_t* buffer, void* arg);
 
 };

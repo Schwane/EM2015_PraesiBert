@@ -5,25 +5,24 @@
  *      Author: Inga
  */
 
-#include <include/CameraController.hpp>
+#include "CameraController.hpp"
 
 //Constructor
 CameraController::CameraController(QObject* parent) :
-        QObject(parent)
+        QObject(parent),
+        m_thread(new QThread(this)),
+        m_processor(NULL)
 {
     qDebug() << "CameraController object created";
-    m_thread = new QThread(this);
-    m_started = false;
-    //connect(this, SIGNAL(error(QString)), parent, SLOT(WHATEVER());
     if (!hasFrontCamera()) {
-        emit error("No front camera available");
+        emit error("Error: No front camera available");
     }
 }
 
 //Destructor
 CameraController::~CameraController()
 {
-
+    stop();
 }
 
 //Checks if the device has a front camera
@@ -47,7 +46,7 @@ bool CameraController::hasFrontCamera()
 void CameraController::start()
 {
     qDebug() << "Slot CameraController::start() called";
-    if (!m_started) {
+    if (!m_thread->isRunning()) {
         //Instantiate a CameraProcessor object (without parent so you can move it to a thread)
         m_processor = new CameraProcessor(NULL);
 
@@ -69,9 +68,9 @@ void CameraController::start()
         //Start the thread with high priority
         m_thread->start(QThread::HighPriority);
         qDebug() << "CameraControllar::start(): thread started with high priority";
-
-        //Set the control variable
-        m_started = true;
+    }
+    else {
+        qDebug() << "CameraController::start(): Thread is already running";
     }
 }
 
@@ -79,19 +78,33 @@ void CameraController::start()
 void CameraController::stop()
 {
     qDebug() << "Slot CameraController::stop() called";
-    //Stop the thread
-    m_thread->quit();
+    //If a CameraProcessor instance was created, delete it
+    if(m_processor != NULL) {
+        //disconnect the signals
+        disconnect(m_processor, SIGNAL(error(QString)), this, SLOT(onError(QString)));
+        disconnect(m_thread, SIGNAL(started()), m_processor, SLOT(start()));
+        disconnect(m_processor, SIGNAL(gestureDetected(int)), this, SLOT(onGestureDetected(int)));
+        //call the destructor
+        delete m_processor;
+        m_processor = NULL;
+    }
+    qDebug() << "CameraController::stop(): CameraProcessor object deleted";
+    //If the thread is running, stop it
+    if(m_thread->isRunning()) {
+        m_thread->quit();
+    }
     qDebug() << "Slot CameraController::stop(): thread stopped";
-    //Set the control variable
-    m_started = false;
 }
 
+//If a gesture is identified by the CameraProcessor a signal is emitted
 void CameraController::onGestureDetected(int value) {
-    //TODO
+    emit gestureDetected(value);
 }
 
+//If an error occurs, the stop() function gets called and an error signal is emitted
 void CameraController::onError(QString e)
 {
+    stop();
     emit error(e);
 }
 

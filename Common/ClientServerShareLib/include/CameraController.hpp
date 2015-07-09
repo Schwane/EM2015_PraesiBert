@@ -1,4 +1,4 @@
-/*
+ /*
  * CameraController.hpp
  *
  *  Created on: 15.06.2015
@@ -16,7 +16,7 @@ class CameraController: public QObject
     Q_OBJECT
 
 public:
-    CameraController(QObject* parent = 0);
+    CameraController(QObject* parent = NULL);
     virtual ~CameraController();
 
 public slots:
@@ -24,7 +24,7 @@ public slots:
     void start();
     //Stops scanning
     void stop();
-    //If a gesture has been detected
+    //If a gesture has been detected, this slot transfers the signal to the application
     void onGestureDetected(int value);
     //Error handling
     void onError(QString e);
@@ -32,12 +32,13 @@ public slots:
 signals:
     //Emitted if something is not working (e. g. no front camera available)
     void error(QString e);
+    //Emitted if a gesture is detected
+    void gestureDetected(int value);
 
 private:
     //member variables
     QThread* m_thread;
     CameraProcessor* m_processor;
-    bool m_started;
 
     //member functions
     bool hasFrontCamera();
