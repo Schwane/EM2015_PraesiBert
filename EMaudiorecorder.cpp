@@ -21,8 +21,13 @@ EMaudiorecorder::EMaudiorecorder()
     current_file = 0;
     record_running = false;
 
-
     recfile="file:///accounts/1000/shared/voice/recording.m4a";
+
+    bb::system::InvokeDateTime ivdt();
+
+    QTime global_time();
+
+
     err=0;
 }
 
@@ -32,42 +37,72 @@ EMaudiorecorder::~EMaudiorecorder()
 {
     bbrecorder.~AudioRecorder();
     rec_led.~Led();
+    ivdt.~InvokeDateTime();
+    global_time.~QTime();
 }
 
-
-
-void EMaudiorecorder::initalize()
+char* EMaudiorecorder::record()
 {
-   bbrecorder.reset();
-  err = bbrecorder.setAudioChannelConfiguration(bb::multimedia::AudioChannelConfiguration::Mono);
-  bbrecorder.setOutputUrl(recfile);
-  err = bbrecorder.prepare();
-
-  if(err==0)
-    initalized=true;
 
 
-}
+        bool err;
+
+        int hour;
+        int mins;
+        int secs;
+        int len;
+        char address[] = "file:///accounts/1000/shared/voice/";
+        char fformat[] = ".m4a";
+
+        bbrecorder.reset();
+
+        global_time = ivdt.time();
+        global_time.start();
+
+        hour = global_time.hour();
+        mins = global_time.minute();
+        secs = global_time.second();
+
+        char timestamp_h [sizeof(hour)];
+        char timestamp_m [sizeof(mins)];
+        char timestamp_s [sizeof(secs)];
+        itoa(hour, timestamp_h, 10);
+        itoa(mins, timestamp_m, 10);
+        itoa(secs, timestamp_s, 10);
 
 
+        len = strlen(address) + strlen(timestamp_h) + strlen(timestamp_m) + strlen(timestamp_s) + strlen(fformat);
 
-void EMaudiorecorder::record()
-{
-    if(initalized)
-    {
+        char timestamp [len];
+
+        strcpy(timestamp, address);
+        strcat(timestamp, timestamp_h);
+        strcat(timestamp, timestamp_m);
+        strcat(timestamp, timestamp_s);
+        strcat(timestamp, fformat);
+
         rec_led.setColor(bb::device::LedColor::Red);
         rec_led.flash();
 
+        recfile.setUrl(timestamp);
+
+        err=recfile.isValid();
+
+        err = bbrecorder.setAudioChannelConfiguration(bb::multimedia::AudioChannelConfiguration::Mono);
+        bbrecorder.setOutputUrl(recfile);
+        err = bbrecorder.prepare();
         bbrecorder.record();
 
-    }
+        return timestamp;
 
 
 }
 
 unsigned int EMaudiorecorder::stop()
 {
-    bbrecorder.reset();
+    bbrecorder.pause();
+
+    //bbrecorder.reset();
 
     rec_led.setColor(bb::device::LedColor::None);
     rec_led.cancel();
@@ -75,7 +110,6 @@ unsigned int EMaudiorecorder::stop()
     initalized = false;
 
     return bbrecorder.duration();
-    return 0;
 }
 
 void EMaudiorecorder::LED_TEST()
@@ -84,8 +118,8 @@ void EMaudiorecorder::LED_TEST()
 
     rec_led.flash();
 
-
 }
+
 
 
 }

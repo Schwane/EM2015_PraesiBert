@@ -11,10 +11,14 @@
 
 #include <QUrl>
 #include <QTime>
+#include <bb/system/InvokeDateTime>
 #include <bb/multimedia/AudioChannelConfiguration.hpp>
+#include <string.h>
 
 
 #include <QObject>
+
+#include <stdlib.h>
 
 namespace bb
 {
@@ -39,10 +43,12 @@ private:
     int err;
 
     QUrl recfile;
+    QTime global_time;
 
    bb::multimedia::AudioRecorder bbrecorder;   /*Initalize recorder*/
    bb::device::Led rec_led;                    /*Initalize LED     */
 
+   bb::system::InvokeDateTime ivdt;
 
 public:
     EMaudiorecorder();
@@ -59,8 +65,7 @@ public:
      */
 
 
-    void initalize();
-    void record();
+    char* record();
     unsigned int stop();
 
     void LED_TEST();
