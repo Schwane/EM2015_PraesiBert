@@ -1,12 +1,21 @@
 1
-10
-Copy of main.qm_
+19
+Login.qml
+Presentation.qml
+WaitingDialog.qml
 example/msg.xml
 img/before_start.png
 img/fuchs.jpg
 img/mute.png
 img/test.jpg
-Login.qml
+img/next.png
+img/previous.png
+img/previous_clicked.png
+img/next_clicked.png
+img/speaker_on.png
+img/speaker_off.png
+img/wifi.png
+img/screen.png
+img/podcast.png
+img/podcast_clicked.png
 main.qml
-Presentation.qml
-WaitingDialog.qml
