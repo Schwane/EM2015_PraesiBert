@@ -8,12 +8,13 @@ Page {
         }
         Label {
             id: lab_ip
-            text: "IP-Address:"
+            text: "IP-Addresse:"
         }
         TextField {
             id: tex_ip
             text: "192.168.1.151"
             enabled: true
+            inputMode: TextFieldInputMode.NumbersAndPunctuation
         }
         Label {
             id: lab_cmdp
@@ -22,6 +23,7 @@ Page {
         TextField {
             id: tex_cmdp
             text: "1337"
+            inputMode: TextFieldInputMode.NumbersAndPunctuation
         } 
         Label {
             id: lab_datap
@@ -30,6 +32,7 @@ Page {
         TextField {
             id: tex_datap
             text: "1338"
+            inputMode: TextFieldInputMode.NumbersAndPunctuation
         } 
         
         Button {

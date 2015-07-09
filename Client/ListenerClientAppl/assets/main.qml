@@ -32,7 +32,8 @@ TabbedPane {
     
     Tab {
         id: tab_login
-        title: "Login"       
+        title: "Login"
+        imageSource: "asset:///img/wifi.png"
         Login {
             
         }
@@ -41,6 +42,7 @@ TabbedPane {
     Tab {
         id: tab_praesi
         title: "Präsentation"
+        imageSource: "asset:///img/screen.png"
         Presentation {
             id: praesi            
         }
