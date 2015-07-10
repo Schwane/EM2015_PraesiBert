@@ -309,7 +309,7 @@ namespace Network
         {
             emit newData(m_bufferData, m_clientID);
             qDebug() << "New data at client.\n" << m_bufferData;
-            m_bufferCmd.clear();
+            m_bufferData.clear();
         }
 
         return;
