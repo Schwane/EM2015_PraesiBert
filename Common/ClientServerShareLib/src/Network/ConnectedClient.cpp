@@ -205,6 +205,7 @@ namespace Network
     void ConnectedClient::process()
     {
         // Check if socket is established already and connect signals and slots
+        /*
         if(m_hasCmdSocket)
         {
             connect(m_cmdSocket, SIGNAL(readyRead()), this, SLOT(handleCmdRead()));
@@ -215,6 +216,7 @@ namespace Network
             connect(m_dataSocket, SIGNAL(readyRead()), this, SLOT(handleDataRead()));
             connect(m_dataSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
         }
+        */
     }
 
     /**
