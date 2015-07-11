@@ -32,6 +32,8 @@ public:
         void writeDataMessage(Message* msg);
         void writeCmdMessage(Message* msg, uint clientId);
         void writeDataMessage(Message* msg, uint clientId);
+        void writeCmdMessage(Message* msg, QList<uint> clientIDs);
+        void writeDataMessage(Message* msg, QList<uint> clientIDs);
 
     Q_SIGNALS:
         void messageWritten(QByteArray msg);    //TODO: needs to be replaced because Server/Client-sockets have different slots for cmd-/data-messages.
@@ -40,6 +42,8 @@ public:
         void dataMessageWritten(QByteArray msg);
         void cmdMessageWritten(QByteArray msg, uint clientId);
         void dataMessageWritten(QByteArray msg, uint clientId);
+        void cmdMessageWritten(QByteArray msg, QList<uint> clientIDs);
+        void dataMessageWritten(QByteArray msg, QList<uint> clientIDs);
 };
 
 #endif /* XMLMESSAGEWRITER_HPP_ */
