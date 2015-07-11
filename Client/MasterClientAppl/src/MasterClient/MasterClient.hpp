@@ -19,13 +19,14 @@
 class MasterClient: public Client
 {
     enum AuthState
-        {
-            AUTH_IDLE,
-            AUTH_RCV_NONCE,
-            AUTH_PROOF,
-            AUTH_ACCEPTED,
-            AUTH_REJECTED
-        };
+    {
+        AUTH_IDLE,
+        AUTH_RCV_NONCE,
+        AUTH_PROOF,
+        AUTH_ACCEPTED,
+        AUTH_REJECTED
+    };
+
     Q_OBJECT
 public:
     MasterClient();

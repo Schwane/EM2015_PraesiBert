@@ -10,6 +10,7 @@
 #include <QDebug>
 #include <QHostAddress>
 #include <QIODevice>
+uint counter = 0;
 
 namespace Network
 {
@@ -205,16 +206,16 @@ namespace Network
     void ConnectedClient::process()
     {
         // Check if socket is established already and connect signals and slots
-        if(m_hasCmdSocket)
-        {
-            connect(m_cmdSocket, SIGNAL(readyRead()), this, SLOT(handleCmdRead()));
-            connect(m_cmdSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
-        }
-        if(m_hasDataSocket)
-        {
-            connect(m_dataSocket, SIGNAL(readyRead()), this, SLOT(handleDataRead()));
-            connect(m_dataSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
-        }
+//        if(m_hasCmdSocket)
+//        {
+//            connect(m_cmdSocket, SIGNAL(readyRead()), this, SLOT(handleCmdRead()));
+//            connect(m_cmdSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
+//        }
+//        if(m_hasDataSocket)
+//        {
+//            connect(m_dataSocket, SIGNAL(readyRead()), this, SLOT(handleDataRead()));
+//            connect(m_dataSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
+//        }
     }
 
     /**
@@ -253,13 +254,17 @@ namespace Network
             inputData = m_cmdSocket->read(qMin(m_next_block_size_cmd, m_cmdSocket->bytesAvailable()));
             m_next_block_size_cmd = 0;
             m_bufferCmd.append(inputData);
-            qDebug() << "data: " << m_bufferCmd;
+//            qDebug() << "data: " << m_bufferCmd;
+            qDebug() << "### " << counter << " # data: " << m_bufferCmd;
+            counter++;
         }
 
         if (m_next_block_size_cmd == 0)
         {
+//            qDebug() << "New command at client.\n" << m_bufferCmd;
+            qDebug() << "### " << counter << " # New command at client.\n" << m_bufferCmd;
+            counter++;
             emit newCmd(m_bufferCmd, m_clientID);
-            qDebug() << "New command at client.\n" << m_bufferCmd;
             m_bufferCmd.clear();
         }
 

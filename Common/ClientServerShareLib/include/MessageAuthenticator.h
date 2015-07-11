@@ -17,6 +17,7 @@ class MessageAuthenticator: public QObject
 public:
     MessageAuthenticator();
     virtual ~MessageAuthenticator();
+    QByteArray hmacSha1(QByteArray baseString);
     QByteArray hmacSha1(QByteArray key, QByteArray baseString);
 public Q_SLOTS:
     void authenticateMessage(QByteArray msg);

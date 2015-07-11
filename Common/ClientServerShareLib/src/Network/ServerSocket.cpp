@@ -205,11 +205,14 @@ namespace Network
      */
     int ServerSocket::sendCmdToID(QByteArray data, uint clientID)
     {
+        qDebug() << "ServerSocket: sendToID called.";
+
         for(int i = 0; i < m_clientList.size(); i++)
         {
             if(m_clientList.at(i)->getClientID() == clientID)
             {
                 // Send data and return amount of sent data in bytes
+                qDebug() << "ServerSocket: sendCmd(data) was called.";
                 return m_clientList.at(i)->sendCmd(data);
             }
         }

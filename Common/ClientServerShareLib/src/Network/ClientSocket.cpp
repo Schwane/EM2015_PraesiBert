@@ -125,6 +125,7 @@ namespace Network
             size_arr.append((char)((size & (0xFF << (i*8))) >> (i*8)));
         }
         data.insert(0, size_arr);
+        qDebug() << "Transmit cmd: " << data;
         return m_cmdSocket->write(data);
     }
 
@@ -147,6 +148,7 @@ namespace Network
             size_arr.append((char)((size & (0xFF << (i*8))) >> (i*8)));
         }
         data.insert(0, size_arr);
+        qDebug() << "Transmit cmd: " << data;
         return m_dataSocket->write(data);
     }
 

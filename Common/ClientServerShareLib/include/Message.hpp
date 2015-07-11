@@ -35,6 +35,8 @@ public:
     QString getReceiver();
     const QMap<QString, QVariant>* getParameters();
     const QMap<QString, QString>* getParameterTypes();
+    void setParameterList(QMap<QString, QVariant> list);
+    void setParameterTypeList(QMap<QString, QString> types);
 
 private:
     QString command;

@@ -18,6 +18,12 @@ MessageAuthenticator::~MessageAuthenticator()
 }
 
 QByteArray
+MessageAuthenticator::hmacSha1(QByteArray baseString)
+{
+    return hmacSha1(this->key, baseString);
+}
+
+QByteArray
 MessageAuthenticator::hmacSha1(QByteArray key, QByteArray baseString)
 {
      int blockSize = 64; // HMAC-SHA-1 block size, defined in SHA-1 standard

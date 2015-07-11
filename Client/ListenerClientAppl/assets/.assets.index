@@ -1,8 +1,10 @@
 1
-6
+8
+Presentation.qml
 img/before_start.png
+img/screen.png
 img/ranf.png
+img/wifi.png
 Login.qml
 main.qml
-Presentation.qml
 WaitingDialog.qml

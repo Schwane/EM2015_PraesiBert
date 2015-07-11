@@ -7,8 +7,11 @@
 
 #include <src/backend/UnspecifiedClient.h>
 
+#include <commands.hpp>
 #include <Message.hpp>
 
+#include <src/backend/Logger.h>
+#include <src/backend/Master.h>
 #include <src/backend/Server.h>
 
 namespace ServerAppl
@@ -45,29 +48,36 @@ namespace ServerAppl
     Message* UnspecifiedClient::handleLoginMessages(QString commandName, Message* msg)
     {
         Message * responseMessage;
-
-        if(IS_COMMAND(commandName, "login"))
+        WRITE_DEBUG("handleLoginMessages called.")
+        if(IS_COMMAND(commandName, CMD_LOGIN))
         {
-            Listener * newListener;
-
-            responseMessage = new Message(QString("login_RESPONSE"), QString("server"), QString("client"));
-
-            if(Listener::createListener(this, newListener))
+            WRITE_DEBUG("Received CMD_LOGIN")
+            Listener * newListener = Listener::createListener(this);
+            WRITE_DEBUG("newListener created. Now Build message.")
+            responseMessage = new Message(QString(CMD_ACK_RESPONSE), QString("server"), QString("client"));
+            WRITE_DEBUG("Message was builded.")
+            if(newListener)
             {
                 if(this->server->registerListener(newListener))
                 {
+                    WRITE_DEBUG("New Listener successfully registered.")
                     responseMessage->addParameter(QString("status"), QString("ok"));
                 }
                 else
                 {
+                    WRITE_DEBUG("Registration failed.")
                     delete(newListener);
                     responseMessage->addParameter(QString("status"), QString("rejected"));
                 }
             }
+            else
+            {
+                WRITE_DEBUG("NewListener was not created due to some reason.")
+            }
         }
         else
         {
-            responseMessage = new Message(QString("unknown_message"),QString("server"), QString("client"));
+            responseMessage = new Message(QString(CMD_UNKNOWN),QString("server"), QString("client"));
             responseMessage->addParameter(QString("receivedCommand"), commandName);
         }
 
@@ -76,27 +86,31 @@ namespace ServerAppl
         return responseMessage;
     }
 
-    Message* UnspecifiedClient::handleLoginNonceMessage(QString commandName, Message * msg)
+    Message* UnspecifiedClient::handleAuthPhase1(QString commandName, Message * msg)
     {
         Message * responseMessage;
 
-        if(IS_COMMAND(commandName, "LOGIN_NONCE"))
+        if(IS_COMMAND(commandName, CMD_AUTH_PHASE1))
         {
-            Master * newMaster;
             const QMap<QString, QVariant>* parameters = msg->getParameters();
 
-            responseMessage = new Message(QString("login_RESPONSE"), QString("server"), QString("client"));
+            WRITE_DEBUG("handle auth phase 1")
 
-            if(parameters->contains(QString("nonce")))
+            responseMessage = new Message(CMD_AUTH_PHASE2, QString("server"), QString("client"));
+
+            if(parameters->contains(QString("nonce1")))
             {
-                QString nonce1 = parameters->value(QString("nonce")).toString();
+                QString nonce1 = parameters->value(QString("nonce1")).toString();
+                Master * newMaster = Master::createMaster(this, nonce1);
 
-                if(Master::createMaster(this, newMaster, nonce1))
+                if( newMaster )
                 {
                     if(this->server->registerMaster(newMaster))
                     {
                         NONCE nonce = newMaster->getNonce();
                         responseMessage->addParameter(QString("nonce2"), nonce.part_2);
+                        newMaster->authenticationStm(TransmittedPhase2Message);
+                        WRITE_DEBUG(responseMessage->getParameters()->value(QString("nonce2")).toString())
                     }
                     else
                     {
@@ -121,7 +135,7 @@ namespace ServerAppl
         }
 
         delete(msg);
-
+        WRITE_DEBUG(responseMessage->getCommand())
         return responseMessage;
     }
 

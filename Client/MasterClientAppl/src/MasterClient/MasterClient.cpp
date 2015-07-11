@@ -4,7 +4,7 @@
  *  Created on: 01.06.2015
  *      Author: JCB
  */
-
+#include <QDebug>
 #include "MasterClient.hpp"
 
 MasterClient::MasterClient()
@@ -46,11 +46,14 @@ Message*
 MasterClient::loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types)
 {
     Message *resp;
+    qDebug() << "loginResp";
     if (auth_state == AUTH_RCV_NONCE)
     {
+        qDebug() << "loginResp: state = AUTH_RCV_NONCE";
         resp = new Message(CMD_AUTH_PHASE3,id,"server");
         if (parameters.contains("nonce2"))
         {
+            qDebug() << "loginResp: parameter nonce2 existing.";
             nonce2 = parameters.value("nonce2").toString();
             QByteArray cattedNonces;
 
@@ -65,6 +68,7 @@ MasterClient::loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QS
         }
         else
         {
+            qDebug() << "loginResp: parameter nonce2 NOT existing.";
             resp -> addParameter("status",QString("error"));
             resp -> addParameter("message",QString("Parameter: nonce2 - no nonce2 delivered"));
             auth_state = AUTH_IDLE;

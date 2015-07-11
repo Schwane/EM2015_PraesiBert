@@ -26,6 +26,17 @@ Message::~Message()
     // TODO Auto-generated destructor stub
 }
 
+void
+Message::setParameterList(QMap<QString, QVariant> list)
+{
+    this->parameters = list;
+}
+
+void
+Message::setParameterTypeList(QMap<QString, QString> types)
+{
+    this->parameter_types = types;
+}
 
 int
 Message::addParameter(QString name, QString value)

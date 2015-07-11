@@ -35,6 +35,7 @@ namespace ServerAppl
         bool registerMessageHandler(uint clientId, QString command, MessageHandlerInterface * object, handleReceivedMessageFunction function);
         bool registerMessageHandler(uint clientId, QString command, messageHandler handler);
         bool unregisterMessageHandler(uint clientId, QString command);
+        bool unregisterMessageHandlers(uint clientId);
 
     signals:
         void writeMessage(Message * message, uint clientId);
