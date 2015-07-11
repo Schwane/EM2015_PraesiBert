@@ -119,7 +119,7 @@ namespace Network
             size_arr.append((char)((size & (0xFF << (i*8))) >> (i*8)));
         }
         data.insert(0, size_arr);
-        return m_dataSocket->write(data);
+        return m_cmdSocket->write(data);
     }
 
     /**
@@ -260,8 +260,8 @@ namespace Network
 
         if (m_next_block_size_cmd == 0)
         {
-            emit newCmd(m_bufferCmd, m_clientID);
             qDebug() << "New command at client.\n" << m_bufferCmd;
+            emit newCmd(m_bufferCmd, m_clientID);
             m_bufferCmd.clear();
         }
 
