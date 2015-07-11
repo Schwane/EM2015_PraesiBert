@@ -296,7 +296,7 @@ namespace Network
                     m_clientList.at(i)->setDataSocket(newSocket);
                     qDebug() << "Added new Data-Socket to Client with ID " << m_clientList.at(i)->getClientID() << ".\n";
                 }
-                emit (newClient(i));
+                emit (newClient(m_clientList.at(i)->getClientID()));
                 return;
             }
         }
