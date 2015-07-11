@@ -18,6 +18,9 @@ import bb.cascades 1.4
 import bb.system 1.0
 import com.Client 1.0
 import bb.vibrationController 1.0
+import bb.device 1.0
+import bb.multimedia 1.0
+import bb.cascades.pickers 1.0
 
 TabbedPane {
     property bool waiting: false;
@@ -49,6 +52,14 @@ TabbedPane {
 
     }
     
+    Tab {
+        id: tab_settings
+        title: "Einstellungen"
+        Settings {
+            id: settings
+        }
+    }
+    
     attachedObjects: [
         MasterClient {
             id: cl
@@ -74,15 +85,26 @@ TabbedPane {
                                     
                 //praesi.lab_loginstate_val.text = stat;
             }
+            /*
             onRanfMuteChanged: {
                 if (mute)
                     praesi.btn_mute_ranf.text = "unmute";
                 else 
                     praesi.btn_mute_ranf.text = "mute";
             }
+            */
             onRanfSizeChanged: {
                 if (size > 0)
+                {
+                    praesi.incoming.proceed = true;
                     praesi.incoming.play();
+                    praesi.btn_accept_ranf.color = Color.Red;
+                }
+                else 
+                {
+                    praesi.incoming.proceed = false;
+                    praesi.btn_accept_ranf.color = Color.Green;
+                }
                 praesi.btn_accept_ranf.text = "Redeanfragen: " + size;
                 pan_root.vibrate();
             }
@@ -92,14 +114,40 @@ TabbedPane {
                 {
                     praesi.btn_finish_ranf.visible = true;
                     praesi.btn_accept_ranf.visible = false;
+                    praesi.btn_mute_ranf.visible = false;
+                    praesi.btn_clear_ranf.visible = false;
                 }
                 toast.show();
             }
             onWait: {
                 waiting = active;                    
             }
+            onPraesentationRunning:
+             {
+                 if (active)
+                 {
+                     var p = "file:///accounts/1000/shared/voice/" + Qt.formatDateTime(new Date(), "yyMMdd_HH_mm_ss") + ".m4a";
+                     console.log("Recording to: " + p);
+                     recorder.outputUrl = p;
+                     recorder.current_path = p;
+                     recorder.record();
+                     redLED.flash();
+                 }
+                 else 
+                 {
+                     recorder.pause();
+                     recorder.reset();
+                     recorder.outputUrl = "file:///accounts/1000/shared/voice/dummy.m4a";
+                     redLED.cancel();
+                     cl.deliverRecording(recorder.current_path);
+                 }
+                 
+             }
         },
-        
+        Led {
+            id: redLED
+            color: LedColor.Red
+        },
         SystemToast {
             id: toast
         },
@@ -110,10 +158,29 @@ TabbedPane {
         
         SystemDialog {
             id: diag_waiting
-            title: "Waiting"
-            body: "Waiting ..."
+            title: "Bitte warten"
+            body: "Es wird gewarted..."
             cancelButton.label: undefined
             confirmButton.label: undefined
+        },
+        AudioRecorder {
+            id: recorder
+            property string current_path : ""
+            outputUrl: "file:///accounts/1000/shared/voice/recording.m4a"
+        },
+        FilePicker {
+            id:filePicker
+            mode: FilePickerMode.SaverMultiple
+            title : "Präsentationsordner wählen"
+            directories : ["/accounts/1000/shared/misc"]
+            onFileSelected : {
+                cl.selectPraesentation(selectedFiles);
+                cl.deliverPraesentation();
+                praesi.btn_praesi_stat.defaultImageSource = "asset:///img/stop.png"
+                praesi.btn_praesi_stat.selection = true;
+                console.log("FileSelected signal received : " + selectedFiles);
+                            
+            }
         }
     ]
     

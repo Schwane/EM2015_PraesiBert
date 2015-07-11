@@ -20,6 +20,7 @@
 #include "ClientSocket.h"
 #include "Praesentation.hpp"
 #include "commands.hpp"
+#include "EMaudiorecorder.hpp"
 
 class Client;
 class XMLMessageParser;
@@ -55,10 +56,12 @@ public Q_SLOTS:
     Q_INVOKABLE void requestSlideChange(int offset);
     Q_INVOKABLE void sendArbitraryCommand(QString cmd);
     /* Slots to handle signals from socket */
-    void onMessageParsed(Message* msg);
+    //void onMessageParsed(Message* msg);
     void connectionLost();
 
     /*Slots to handle praesentation signals*/
+    Q_INVOKABLE void deliverRecording(QString path);
+
     //void onPraesiSlideChanged(bb::cascades::Image img);
     Q_INVOKABLE void invokeRemote(Message *msg);
     Q_INVOKABLE void invokeRemote(Message *msg, bool cleanup);
@@ -75,14 +78,18 @@ signals:
 protected:
     QMap<QString, remoteFunction> registerdFunctions;
     bb::cascades::Image m_slide;
+
     XMLMessageParser* xmlmp;
     XMLMessageWriter* xmlmw;
+
+    XMLMessageParser* xmlmp_data;
+    XMLMessageWriter* xmlmw_data;
+
     QString lastSentMsg;
     Network::ClientSocket *cs;
     LoginState login_state;
     Praesentation *prs;
     QString id;
-
 };
 
 #endif /* CLIENT_HPP_ */

@@ -1,20 +1,27 @@
 import bb.cascades 1.4
 
+
 Page {
     //property alias lab_loginstate_val : lab_loginstate_val
     //property alias lab_ranf_state : lab_ranf_state
     property alias btn_accept_ranf : btn_accept_ranf
     property alias btn_finish_ranf: btn_finish_ranf
     property alias btn_mute_ranf : btn_mute_ranf
+    property alias btn_clear_ranf : btn_clear_ranf
+    property alias btn_praesi_stat : btn_praesi_stat
     property alias pic_slide : pic_slide
     property alias incoming : incoming
-    onCreationCompleted: {
-        incoming.play();
+    paneProperties: NavigationPaneProperties {
+
     }
     Container {
         horizontalAlignment: HorizontalAlignment.Left
-        verticalAlignment: VerticalAlignment.Fill
-        
+        verticalAlignment: VerticalAlignment.Bottom
+
+        layout: StackLayout {
+            orientation: LayoutOrientation.TopToBottom
+
+        }
         ImageView {
             id: pic_slide
             imageSource: "asset:///img/before_start.png"
@@ -24,57 +31,7 @@ Page {
 
         }
 
-        Container {
-            layout: DockLayout {
-
-            }
-            horizontalAlignment: HorizontalAlignment.Fill
-            
-            ImageButton {
-                id: btn_prev
-                onClicked: {
-                    cl.requestSlideChange(-1);
-                }
-                defaultImageSource: "asset:///img/previous.png"
-                pressedImageSource: "asset:///img/previous_clicked.png"
-                horizontalAlignment: HorizontalAlignment.Left
-                minWidth: 200.0
-                minHeight: 200.0
-
-            }
-            ImageToggleButton {
-                id: btn_mute_ranf
-                onCheckedChanged: {
-                    if(!checked)
-                    {
-                        cl.muteRanf(true);
-                    }
-                    else
-                    {
-                        cl.muteRanf(false);
-                    }
-                }
-                imageSourceDefault: "asset:///img/speaker_on.png"
-                imageSourceChecked: "asset:///img/speaker_off.png"
-                minWidth: 150.0
-                minHeight: 150.0
-                horizontalAlignment: HorizontalAlignment.Center
-                verticalAlignment: VerticalAlignment.Center
-            }
-
-            ImageButton {
-                id: btn_next
-                onClicked: {
-                    cl.requestSlideChange(1);
-                }
-                defaultImageSource: "asset:///img/next.png"
-                pressedImageSource: "asset:///img/next_clicked.png"
-                horizontalAlignment: HorizontalAlignment.Right
-                minWidth: 200.0
-                minHeight: 200.0
-
-            }
-        }
+        
         /*
          * Container {
          * layout: GridLayout {
@@ -115,6 +72,28 @@ Page {
          */
 
         Container {
+            layout: DockLayout {
+            
+            }
+            verticalAlignment: VerticalAlignment.Bottom
+            horizontalAlignment: HorizontalAlignment.Center
+            topMargin: 40.0
+            Button {
+                id: btn_clear_ranf
+                onClicked: {
+                    cl.clearRanf();
+                    lab_ranf_state.text = "";
+                }
+                text: "Alle ablehnen"
+                horizontalAlignment: HorizontalAlignment.Left
+                verticalAlignment: VerticalAlignment.Bottom
+                appearance: ControlAppearance.Primary
+            
+            }
+        
+        }
+        
+        Container {
             id: con_accept
             horizontalAlignment: HorizontalAlignment.Center
             layout: StackLayout {
@@ -123,6 +102,7 @@ Page {
             }
             animations: [
                 SequentialAnimation {
+                    property bool proceed : false;
                     id: incoming
                     ScaleTransition {
                         toX: 1.1
@@ -142,31 +122,22 @@ Page {
 
                     }
                     onEnded: {
-                        incoming.play();
+                        if (proceed)
+                            incoming.play();
                     }
                 }
             ]
-            preferredWidth: 400.0
-            preferredHeight: 200.0
-            maxWidth: 400.0
-            maxHeight: 200.0
-            minHeight: 200.0
-            minWidth: 400.0
+            
             clipContentToBounds: true
             verticalAlignment: VerticalAlignment.Top
+            topMargin: 40.0
             Button {
                 id: btn_accept_ranf
                 onClicked: {
                     cl.acceptRanf();
                 }
                 text: "Redeanfragen: 0"
-                preferredWidth: 400.0
-                preferredHeight: 200.0
-                maxWidth: 400.0
-                maxHeight: 200.0
                 horizontalAlignment: HorizontalAlignment.Center
-                minWidth: 400.0
-                minHeight: 200.0
                 appearance: ControlAppearance.Primary
                 color: Color.Green
                 verticalAlignment: VerticalAlignment.Center
@@ -189,6 +160,8 @@ Page {
             }*/
             
         }
+        
+        
         Container {
             horizontalAlignment: HorizontalAlignment.Center
             Button {
@@ -197,36 +170,114 @@ Page {
                     cl.finishRanf();
                     btn_finish_ranf.visible = false;
                     btn_accept_ranf.visible = true;
+                    btn_mute_ranf.visible = true;
+                    btn_clear_ranf.visible = true;
                 }
-                visible: false
-                text: "beenden"
+                visible: true
+                text: "Beenden"
                 horizontalAlignment: HorizontalAlignment.Center
-                maxWidth: 400.0
-                maxHeight: 200.0
-                preferredWidth: 400.0
-                preferredHeight: 200.0
+
+                verticalAlignment: VerticalAlignment.Center
+                appearance: ControlAppearance.Primary
+                color: Color.DarkMagenta
+
+            }
+        }
+        /*
+         * Button {
+         * text: "Record"
+         * property bool r : false
+         * onClicked: {
+         * r = !r;
+         * cl.onRunning(r);
+         * /*
+         * if (r)
+         * recorder.record();
+         * else
+         * recorder.reset();
+         * 
+         * }
+         * }
+         */
+        Container {
+            layout: DockLayout {
+
+            }
+            horizontalAlignment: HorizontalAlignment.Fill
+
+            ImageToggleButton {
+                id: btn_mute_ranf
+                onCheckedChanged: {
+                    if (! checked) {
+                        cl.muteRanf(true);
+                    } else {
+                        cl.muteRanf(false);
+                    }
+                }
+                imageSourceDefault: "asset:///img/speaker_on.png"
+                imageSourceChecked: "asset:///img/speaker_off.png"
+                minWidth: 150.0
+                minHeight: 150.0
+                horizontalAlignment: HorizontalAlignment.Center
                 verticalAlignment: VerticalAlignment.Center
             }
+
         }
         Container {
             layout: DockLayout {
 
             }
+            horizontalAlignment: HorizontalAlignment.Fill
+
             verticalAlignment: VerticalAlignment.Bottom
-            horizontalAlignment: HorizontalAlignment.Center
-            Button {
-                id: btn_clear_ranf
+
+            ImageButton {
+                id: btn_prev
                 onClicked: {
-                    cl.clearRanf();
-                    lab_ranf_state.text = "";
+                    cl.requestSlideChange(-1);
                 }
-                text: "clear"
+                defaultImageSource: "asset:///img/previous.png"
+                pressedImageSource: "asset:///img/previous_clicked.png"
                 horizontalAlignment: HorizontalAlignment.Left
-                verticalAlignment: VerticalAlignment.Bottom
-                appearance: ControlAppearance.Primary
+                minWidth: 200.0
+                minHeight: 200.0
+
+            }
+            ImageButton {
+                id: btn_praesi_stat
+                property bool selection: false
+                onClicked: {
+                    if (! selection) {
+                        filePicker.open();
+                    } else {
+                        cl.stopPraesentation();
+                        //cl.resetPraesentation();
+                        selection = false;
+                        btn_praesi_stat.defaultImageSource = "asset:///img/select.png";
+                    }
+
+                }
+                defaultImageSource: "asset:///img/select.png"
+                horizontalAlignment: HorizontalAlignment.Center
+                minWidth: 200.0
+                minHeight: 200.0
+                verticalAlignment: VerticalAlignment.Center
 
             }
 
+            ImageButton {
+                id: btn_next
+                onClicked: {
+                    cl.requestSlideChange(1);
+                }
+                defaultImageSource: "asset:///img/next.png"
+                pressedImageSource: "asset:///img/next_clicked.png"
+                horizontalAlignment: HorizontalAlignment.Right
+                minWidth: 200.0
+                minHeight: 200.0
+                verticalAlignment: VerticalAlignment.Center
+
+            }
         }
     }
 }

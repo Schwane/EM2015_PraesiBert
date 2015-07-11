@@ -10,6 +10,7 @@
 MasterClient::MasterClient()
 {
     registerdFunctions.insert(CMD_AUTH_PHASE2,static_cast<remoteFunction>(&MasterClient::loginResponse));
+    registerdFunctions.insert(CMD_AUTH_PHASE4,static_cast<remoteFunction>(&MasterClient::loginResponse));
     registerdFunctions.insert(CMD_RANF_ASK,static_cast<remoteFunction>(&MasterClient::redeanfrage));
     registerdFunctions.insert(CMD_RANF_RE_RESP,static_cast<remoteFunction>(&MasterClient::redeanfrageFinal));
 
@@ -19,13 +20,16 @@ MasterClient::MasterClient()
 
     connect(cs, SIGNAL(lostConnection()),this,SLOT(connectionLostMaster()));
 
-
+    connect(prs, SIGNAL(isRunning(bool)), this, SIGNAL(praesentationRunning(bool)));
 
     srand(123);
     char buf[64];
     sprintf(buf, "%016X", rand());
     nonce1 = QString(buf);
-    msgAuth = new MessageAuthenticator();
+
+    msgAuthCmd = new MessageAuthenticator();
+    msgAuthData = new MessageAuthenticator();
+
     auth_state = AUTH_IDLE;
     sym_key = NULL;
 
@@ -39,7 +43,8 @@ MasterClient::MasterClient()
 
 MasterClient::~MasterClient()
 {
-    delete msgAuth;
+    delete msgAuthCmd;
+    delete msgAuthData;
 }
 
 Message*
@@ -56,11 +61,19 @@ MasterClient::loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QS
 
             cattedNonces.append(nonce1);
             cattedNonces.append(nonce2);
-            mac_key = msgAuth->hmacSha1(sym_key,cattedNonces);
-            msgAuth -> setKey(mac_key);
+            mac_key = msgAuthCmd->hmacSha1(sym_key,cattedNonces);
+
+            msgAuthCmd -> setKey(mac_key);
+            msgAuthData -> setKey(mac_key);
+
             disconnect(xmlmw, SIGNAL(messageWritten(QByteArray)), cs, SLOT(sendCmd(QByteArray)));
-            connect(xmlmw, SIGNAL(messageWritten(QByteArray)), msgAuth, SLOT(authenticateMessage(QByteArray)));
-            connect(msgAuth, SIGNAL(messageAuthenticated(QByteArray)),cs, SLOT(sendCmd(QByteArray)));
+            connect(xmlmw, SIGNAL(messageWritten(QByteArray)), msgAuthCmd, SLOT(authenticateMessage(QByteArray)));
+            connect(msgAuthCmd, SIGNAL(messageAuthenticated(QByteArray)),cs, SLOT(sendCmd(QByteArray)));
+
+            disconnect(xmlmw_data, SIGNAL(messageWritten(QByteArray)), cs, SLOT(sendData(QByteArray)));
+            connect(xmlmw_data, SIGNAL(messageWritten(QByteArray)), msgAuthData, SLOT(authenticateMessage(QByteArray)));
+            connect(msgAuthData, SIGNAL(messageAuthenticated(QByteArray)),cs, SLOT(sendData(QByteArray)));
+
             auth_state = AUTH_PROOF;
         }
         else
@@ -192,8 +205,12 @@ MasterClient::connectionLostMaster()
     auth_state = AUTH_IDLE;
 
     connect(xmlmw, SIGNAL(messageWritten(QByteArray)), cs, SLOT(sendCmd(QByteArray)));
-    disconnect(xmlmw, SIGNAL(messageWritten(QByteArray)), msgAuth, SLOT(authenticateMessage(QByteArray)));
-    disconnect(msgAuth, SIGNAL(messageAuthenticated(QByteArray)),cs, SLOT(sendCmd(QByteArray)));
+    disconnect(xmlmw, SIGNAL(messageWritten(QByteArray)), msgAuthCmd, SLOT(authenticateMessage(QByteArray)));
+    disconnect(msgAuthCmd, SIGNAL(messageAuthenticated(QByteArray)),cs, SLOT(sendCmd(QByteArray)));
+
+    connect(xmlmw_data, SIGNAL(messageWritten(QByteArray)), cs, SLOT(sendData(QByteArray)));
+    disconnect(xmlmw_data, SIGNAL(messageWritten(QByteArray)), msgAuthData, SLOT(authenticateMessage(QByteArray)));
+    disconnect(msgAuthData, SIGNAL(messageAuthenticated(QByteArray)),cs, SLOT(sendData(QByteArray)));
 }
 
 
@@ -205,7 +222,6 @@ MasterClient::clearRanf(){
         msg = new Message(CMD_RANF_RESP, id, ranf_queue->getClientIdAt(i));
         msg->addParameter("status", QString("REJECTED"));
         xmlmw->writeMessage(msg);
-        delete msg;
     }
     ranf_queue -> clear();
 }
@@ -220,15 +236,6 @@ MasterClient::muteRanf()
     else
         registerdFunctions.insert(CMD_RANF_ASK, static_cast<remoteFunction>(&MasterClient::redeanfrage));
     emit ranfMuteChanged(ranf_mute);
-}
-
-void
-MasterClient::dummyRanf()
-{
-    Redeanfrage *ranf1 = new Redeanfrage("xxx" + rand());
-    Redeanfrage *ranf2 = new Redeanfrage("yyy" + rand());
-    ranf_queue->enqueue(ranf1);
-    ranf_queue->enqueue(ranf2);
 }
 
 void
@@ -267,4 +274,57 @@ MasterClient::setKey(QString key)
     QByteArray newKey;
     newKey.append(key);
     this-> sym_key = newKey;
+}
+
+void
+MasterClient::selectPraesentation(QString path)
+{
+    prs -> reset();
+    char slidename[8];
+    int slide = 0;
+
+    QList<QString> supported_exts = QList<QString>() << "jpg" << "JPG";
+
+
+    QString current_path;
+    QFile F(current_path);
+
+    bool proceed = false;
+
+    while (1)
+    {
+        sprintf(slidename, "%03d.", slide);
+        for (int i = 0; i < supported_exts.size(); i++)
+        {
+            current_path = path;
+            current_path.append("/");
+            current_path.append(slidename);
+            current_path.append(supported_exts.at(i));
+            F.setFileName(current_path);
+            if (F.exists())
+            {
+                qDebug() << "slide found: " << current_path << endl;
+                proceed = true;
+                break;
+            }
+        }
+        if (!proceed)
+            break;
+        prs->appendSlide(current_path);
+        slide++;
+        proceed = false;
+    }
+}
+
+void
+MasterClient::deliverPraesentation()
+{
+    Message *msg = prs->packPraesentation();
+    xmlmw_data -> writeMessage(msg);
+}
+
+void
+MasterClient::stopPraesentation()
+{
+    prs->stop();
 }

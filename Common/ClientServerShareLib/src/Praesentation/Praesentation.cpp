@@ -9,15 +9,7 @@
 
 Praesentation::Praesentation()
 {
-    currentSlide = -1;
-    totalSlides = 0;
-    praesentationId = QDate::currentDate().toString("dd_MM_yyyy_");
-    QString randTag;
-    qsrand(QDateTime::currentMSecsSinceEpoch());
-    randTag.sprintf("%08X", qrand()*RAND_MAX + qrand());
-    praesentationId.append(randTag);
-    setBasepath();
-
+    reset();
 }
 
 Praesentation::~Praesentation()
@@ -30,6 +22,31 @@ Praesentation::getPraesentationId()
 {
     return praesentationId;
 }
+
+void
+Praesentation::reset()
+{
+    slideReference.clear();
+    currentSlide = -1;
+    totalSlides = 0;
+    running = false;
+    praesentationId = QDate::currentDate().toString("dd_MM_yyyy_");
+    QString randTag;
+    qsrand(QDateTime::currentMSecsSinceEpoch());
+    randTag.sprintf("%08X", qrand()*RAND_MAX + qrand());
+    praesentationId.append(randTag);
+    setBasepath();
+}
+
+
+void
+Praesentation::stop()
+{
+    running = false;
+    emit isRunning(false);
+}
+
+
 
 int
 Praesentation::getCurrentSlide()
@@ -46,7 +63,6 @@ Praesentation::getTotalSlides()
 void
 Praesentation::appendSlide(QString path)
 {
-
     slideReference.insert(totalSlides, path);
     totalSlides += 1;
 }
@@ -66,7 +82,7 @@ Praesentation::setBasepath()
 void
 Praesentation::parsePraesentation(QMap<QString, QVariant> params, QMap<QString, QString> types)
 {
-
+    reset();
     if (params.contains("praesentationID") && types.contains("praesentationID") && types.value("praesentationID") == "string")
     {
         praesentationId = params.value("praesentationID").toString();
@@ -98,9 +114,6 @@ Praesentation::parsePraesentation(QMap<QString, QVariant> params, QMap<QString, 
             QByteArray imgBytes;
             //convert byte array from b64 to image
             imgBytes = QByteArray::fromBase64(imgVar.toByteArray());
-
-            qDebug() << "bild in bytes: " << imgBytes;
-            qDebug() << "10 bytes: " << imgBytes.right(10);
 
             QImage img;
 
@@ -145,5 +158,36 @@ Praesentation::setSlide(int slide)
     }
     const bb::ImageData imgData= bb::ImageData::fromPixels(swappedImage.bits(), bb::PixelFormat::RGBX, swappedImage.width(), swappedImage.height(), swappedImage.bytesPerLine());
     accessLock.unlock();
+    if (!running & slide >= 0)
+    {
+        running = true;
+        emit isRunning(true);
+    }
     emit slideChanged(bb::cascades::Image(imgData));
+}
+
+
+Message*
+Praesentation::packPraesentation()
+{
+    Message *msg = new Message(DATA_PRAESENTATION, "master", "server");
+
+    msg->addParameter("praesentationID", praesentationId);
+    msg->addParameter("totalSlides", totalSlides);
+
+    QString slideID;
+
+    for (int i = 0; i < totalSlides; i++)
+    {
+        slideID.clear();
+        slideID.sprintf("%03u", i); /*Check if the slide is contained in the message*/
+
+        QByteArray imgBytes;
+        QFile F(slideReference.value(i));
+        F.open(QIODevice::ReadOnly);
+        imgBytes = F.readAll();
+
+        msg->addParameter(slideID, imgBytes);
+    }
+    return msg;
 }

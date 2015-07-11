@@ -1,5 +1,5 @@
 1
-20
+23
 Copy of main.qm_
 example/msg.xml
 img/before_start.png
@@ -12,11 +12,14 @@ img/podcast_clicked.png
 img/previous.png
 img/previous_clicked.png
 img/screen.png
+img/select.png
 img/speaker_off.png
 img/speaker_on.png
+img/stop.png
 img/test.jpg
 img/wifi.png
 Login.qml
 main.qml
 Presentation.qml
+Settings.qml
 WaitingDialog.qml

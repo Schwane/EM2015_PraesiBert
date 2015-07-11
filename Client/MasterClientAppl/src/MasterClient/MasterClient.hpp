@@ -43,20 +43,25 @@ public Q_SLOTS:
     Q_INVOKABLE void clearRanf();
     Q_INVOKABLE void muteRanf();
     Q_INVOKABLE void acceptRanf();
-    Q_INVOKABLE void dummyRanf();
     Q_INVOKABLE void finishRanf();
 
     Q_INVOKABLE void setKey(QString key);
+
+    Q_INVOKABLE void selectPraesentation(QString path);
+    Q_INVOKABLE void deliverPraesentation();
+    Q_INVOKABLE void stopPraesentation();
 Q_SIGNALS:
     void ranfMuteChanged(bool mute);
     void ranfSizeChanged(int size);
     void ranfFinalAnswer(QString answ);
+    void praesentationRunning(bool active);
 private:
     QByteArray sym_key;
     QByteArray mac_key;
     QString nonce1;
     QString nonce2;
-    MessageAuthenticator* msgAuth;
+    MessageAuthenticator* msgAuthCmd;
+    MessageAuthenticator* msgAuthData;
     AuthState auth_state;
 
     RedeanfrageQueue *ranf_queue;

@@ -13,6 +13,7 @@
 #include <bb/cascades/Image>
 
 #include "Message.hpp"
+#include "commands.hpp"
 
 class Praesentation: public QObject
 {
@@ -29,19 +30,23 @@ private:
     QMutex accessLock;
 public Q_SLOTS:
     void parsePraesentation(QMap<QString, QVariant> params, QMap<QString, QString> types);
-    //Message* packPraesentation();
+    Message* packPraesentation();
     void appendSlide(QString path);
     int getCurrentSlide();
     int getTotalSlides();
     void setSlide(int slide);
     QString getPraesentationId();
+    void reset();
+    void stop();
 private:
     void setBasepath();
+    bool running;
 signals:
     void slideChanged(bb::cascades::Image);
     void praesentationParsed(Message* response);
     void parsing(bool active);
     void praesentationReady();
+    void isRunning(bool active);
 
 };
 
