@@ -16,6 +16,11 @@ Client::Client()
 
     xmlmp = new XMLMessageParser();
     xmlmw = new XMLMessageWriter();
+
+    xmlmp_data = new XMLMessageParser();
+    xmlmw_data = new XMLMessageWriter();
+
+
     cs = new Network::ClientSocket(this);
     prs = new Praesentation();
 
@@ -24,10 +29,17 @@ Client::Client()
     login_state = IDLE;
 
     connect(cs,SIGNAL(receivedCmd(QByteArray)),xmlmp,SLOT(parseMessage(QByteArray)));
-    connect(xmlmp,SIGNAL(messageParsed(Message*)),this,SLOT(onMessageParsed(Message*)));
+    connect(cs,SIGNAL(receivedData(QByteArray)),xmlmp_data,SLOT(parseMessage(QByteArray)));
+
+    connect(xmlmp,SIGNAL(messageParsed(Message*)),this,SLOT(invokeRemote(Message*)));
     connect(xmlmw,SIGNAL(messageWritten(QByteArray)),cs,SLOT(sendCmd(QByteArray)));
+
+    connect(xmlmp_data,SIGNAL(messageParsed(Message*)),this,SLOT(invokeRemote(Message*)));
+    connect(xmlmw_data,SIGNAL(messageWritten(QByteArray)),cs,SLOT(sendData(QByteArray)));
+
     connect(cs, SIGNAL(connectedToCmdServer()),this,SLOT(login()));
     connect(cs, SIGNAL(lostConnection()),this,SLOT(connectionLost()));
+
     connect(prs, SIGNAL(slideChanged(bb::cascades::Image)), this, SIGNAL(slideChanged(bb::cascades::Image)));
     connect(prs, SIGNAL(parsing(bool)), this, SIGNAL(wait(bool)));
     connect(prs, SIGNAL(praesentationReady()), this, SIGNAL(praesentationReady()));
@@ -37,6 +49,10 @@ Client::~Client()
 {
     delete xmlmp;
     delete xmlmw;
+
+    delete xmlmp_data;
+    delete xmlmw_data;
+
     delete prs;
 }
 
@@ -155,12 +171,13 @@ Client::loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QString>
 
     return resp;
 }
-
+/*
 void
 Client::onMessageParsed(Message* msg)
 {
     invokeRemote(msg);
 }
+*/
 
 QString
 Client::getLastSentMsg()
@@ -250,4 +267,40 @@ Client::sendArbitraryCommand(QString cmd)
 {
     Message *msg = new Message(cmd, id, "server");
     xmlmw->writeMessage(msg);
+}
+
+/*
+void
+Client::onRunning(bool active)
+{
+    if (active)
+    {
+       ar_path = ar.record();
+    }
+    else
+    {
+       ar_length = ar.stop();
+       deliverRecording();
+    }
+
+}
+*/
+
+void
+Client::deliverRecording(QString path)
+{
+    Message *msg = new Message(DATA_AUDIO, id, "server");
+    path = path.replace("file://", "");
+    QFile recording(path);
+
+    if(!recording.open(QIODevice::ReadOnly))
+    {
+        delete msg;
+        return;
+    }
+    QByteArray content;
+    content = recording.readAll();
+
+    msg->addParameter("audio", content);
+    xmlmw_data -> writeMessage(msg);
 }
