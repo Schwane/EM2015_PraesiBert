@@ -109,7 +109,6 @@ XMLMessageWriter::writeCmdMessage(Message* msg, uint clientId)
     QByteArray msgBytes;
 
     createMessageByteArray(msg, &msgBytes);
-    qDebug() << "Message Writer wirte command: " << msg->getCommand();
     delete(msg);
     emit cmdMessageWritten(msgBytes, clientId);
 }

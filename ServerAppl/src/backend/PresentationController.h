@@ -32,13 +32,15 @@ namespace ServerAppl
         unsigned short countSlides();
         Message* handleReceivedMessage(QString commandName, Message* msg);
 
+        /* message handlers */
+        Message* handleSetSlide(QString commandName, Message* msg);
+
         signals:
             void showSlide(unsigned short number, QList<QHostAddress> *ipAddresses);
             void transmitSlidesResponse(bool accepted);
 
         public slots:
         /* slots */
-            void onReceivedShowSlide(unsigned short number);
             void onReceivedTransmitSlidesRequest(unsigned int transmitterIdentifier);
             void onReceivedSlides();
             void onReceivedStartPresentation();

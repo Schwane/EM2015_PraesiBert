@@ -69,7 +69,8 @@
     <!-- <copyright></copyright> -->
 
     <!--  Name of author which is used for signing. Must match the developer name of your development certificate. -->
-    <author>Example Inc.</author>
+    <authorId>gYAAgGyf86dHIRXd4ntznQg9-A0</authorId>
+    <author>Ruhr-Universitaet Bochum</author>
 
     <!--  Unique author ID assigned by signing authority. Required if using debug tokens. -->
     <!-- <authorId>ABC1234YjsnUk235h</authorId> -->

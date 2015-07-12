@@ -10,7 +10,9 @@
 
 #include <QByteArray>
 #include <QObject>
+#include <QTimer>
 
+#include <Praesentation.hpp>
 #include <MessageAuthenticator.h>
 
 #include <src/backend/UnspecifiedClient.h>
@@ -21,6 +23,24 @@ typedef struct{
     QString part_2;
 }NONCE;
 
+enum MasterAuthenticationState
+{
+    PHASE_1,    /* received nonce 1 */
+    PHASE_2,    /* transmitted nonce 2 */
+    PHASE_3,    /* received message to proof working authentication */
+    ACCEPTED,   /* received acknowledge */
+    REJECTED
+};
+
+enum MasterAuthenticationEvent
+{
+    ReceivedPhase1Message,
+    TransmittedPhase2Message,
+    ReceivedPhase3Message,
+    ReceivedAcknowledgeMessage,
+    ReceivedCorruptAuthenticationMessage
+};
+
 namespace ServerAppl
 {
     class Server;
@@ -30,24 +50,32 @@ namespace ServerAppl
         Q_OBJECT
 
     public:
-        static bool createMaster(UnspecifiedClient * client, Master * master, QString nonce1);
+        static Master* createMaster(UnspecifiedClient * client, QString nonce1);
         static QString generateNonce(uint seed);
 
         Master();
         Master(UnspecifiedClient * priorClientObject, QString nonce1);
         virtual ~Master();
         NONCE getNonce();
+        MessageAuthenticator * getMessageAuthenticator();
+        ClientType getClientType();
+        MasterAuthenticationState authenticationStm(MasterAuthenticationEvent event);
 
         Message* handleReceivedMessage(QString commandName, Message* msg);
-        Message* handleProofResponse(QString commandName, Message* msg);
-        Message* handleLoginResponse(QString commandName, Message* msg);
+        Message* handleAuthenticationPhase3(QString commandName, Message* msg);
+        Message* handleAuthenticationAcknowledge(QString commandName, Message* msg);
+        Message* handleDataPresentation(QString commandName, Message* msg);
 
     signals:
         void receivedSlides();
+        void authenticationFailed();
+        void authenticationSuccessfull();
+        void receivedPresentation(Praesentation * presentation, QMap<QString, QVariant> presentationParameterList, QMap<QString, QString> presentationParameterTypeList);
 
     public slots:
         void onReceivedData(unsigned int receiverIdentifier);
         void onTransmitSlidesResponse(bool accepted);
+        void authenticationTimeout();
 
     private:
         UnspecifiedClient * priorClientObject;
@@ -55,7 +83,10 @@ namespace ServerAppl
         QByteArray symmetricKey;
         QByteArray macKey;
         MessageAuthenticator * messageAuthenticator;
+        MasterAuthenticationState currentAuthState;
         bool acceptSlides;
+        QTimer * authenticationTimer;
+
     };
 } /* namespace ServerAppl */
 

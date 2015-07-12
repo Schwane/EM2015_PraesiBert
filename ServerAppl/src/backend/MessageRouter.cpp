@@ -104,6 +104,9 @@ namespace ServerAppl
         QMap<QString, messageHandler> * clientCommands;
         Message * responseMessage = NULL;
 
+        WRITE_DEBUG("onMessageParsed: received Message")
+        WRITE_DEBUG(message->getCommand())
+
         if(registeredMessageHandlers->contains(clientId))
         {
             clientCommands = registeredMessageHandlers->value(clientId);
@@ -116,8 +119,8 @@ namespace ServerAppl
             {
                 WRITE_DEBUG("MessageRouter: Received unknown message.")
                 WRITE_DEBUG(command)
-                responseMessage = new Message(QString("RESPONSE"), message->getReceiver(), message->getSender());
-                responseMessage->addParameter(QString("status"), QString("unknown command"));
+//                responseMessage = new Message(QString("RESPONSE"), message->getReceiver(), message->getSender());
+//                responseMessage->addParameter(QString("status"), QString("unknown command"));
             }
         }
         else
@@ -145,6 +148,7 @@ namespace ServerAppl
         else
         {
             WRITE_DEBUG("emit write message signal..")
+            WRITE_DEBUG(responseMessage->getCommand());
             emit writeMessage(responseMessage, clientId);
         }
     }
