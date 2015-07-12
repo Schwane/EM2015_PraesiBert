@@ -5,20 +5,41 @@
  *      Author: Inga
  */
 
-#include "include/CameraProcessor.hpp"
+#include "CameraProcessor.hpp"
+
+//Initialize the static control variable m_busy
+bool CameraProcessor::m_busy = false;
+
+//Initialize the static counter for not processed frames
+unsigned int CameraProcessor::m_not_processed_counter = 0;
 
 //Constructor
+/* To optimize the performance, try changing the following parameters:
+ * m_framerate: With a framerate of 16 (or less) frames per second every frame gets reliably processed,
+ *              but maybe it could be set higher for better results.
+ * m_threshold: The threshold determines when a change in pixel value is deemed significant.
+ *              The pixel values range from 255 (white) to 0 (black). Too small changes from one
+ *              frame to the next may be caused by shadows etc., so they should be ignored.
+ * m_interval_percentage: Determines the percentage of a frame that counts as left or right (where
+ *                        gestures start and finish) and the interval in which a gesture is regarded
+ *                        continued from one frame to the next.
+ */
 CameraProcessor::CameraProcessor(QObject* parent) :
         QObject(parent),
         m_handle(CAMERA_HANDLE_INVALID),
         m_frametype(CAMERA_FRAMETYPE_NV12),
-        m_framerate(8.0),
+        m_framerate(20.0),
         m_rotation(90),
-        m_threshold(10),
+        m_threshold(20),
         m_reset_counter(0),
         m_previous_position(0),
-        m_status(NOTHING)
+        m_status(NOTHING),
+        m_interval_percentage(0.05)
 {
+    //Connect the imageReady signal, emitted during the viewfinder_callback(), to the process() function
+    //ConnectionType is QueuedConnection, which means the slot will be executed in the receiver's thread
+    QObject::connect(this, SIGNAL(imageReady()), this, SLOT(process()), Qt::QueuedConnection);
+    qDebug() << "CameraProcessor: signal imageReady() connected to slot process()";
     qDebug() << "CameraProcessor object created";
 }
 
@@ -43,6 +64,7 @@ void CameraProcessor::start()
 void CameraProcessor::stop()
 {
     qDebug() << "Slot CameraProcessor::stop() called";
+    qDebug() << "Number of frames that were not processed: " << m_not_processed_counter;
     stopVf();
     closeCamera();
 }
@@ -76,37 +98,33 @@ void CameraProcessor::startVf()
         return;
     }
     qDebug() << "CameraProcessor::startVf(): viewfinder mode set to CAMERA_VFMODE_PHOTO";
+
     //Check if CAMERA_FRAMETYPE_NV12 is supported
     //setFrametype();
+
     //Get the lowest supported resolution
     setLowestResolution();
+    /* It would have been nice to use the lowest supported resolution, but for some unknown
+     * reason, on the Blackberry Z10 the viewfinder only starts with 3 of the 12 supported
+     * resolutions, although all 12 resolutions can be set.
+     * The lowest working resolution is 288 x 512
+     */
     m_resolution.width = 288;
     m_resolution.height = 512;
     qDebug() << "CameraProcessor::startVf(): m_resolution set to " << m_resolution.width << " x "
             << m_resolution.height;
     //Set the framerate
     setFramerate();
-    //Set the rotation
-    setRotation();
     qDebug() << "CameraProcessor::startVf(): m_framerate set to " << m_framerate;
+    //Set the rotation
+    /* The Blackberry Z10 only supports a rotation of 90 degrees, so for this device this
+     * function call is quite useless, but in general this code although supports any other
+     * square(!) rotation
+     */
+    setRotation();
+    qDebug() << "CameraProcessor::startVf(): m_rotation set to " << m_rotation;
 
     //Set properties for the viewfinder (separately for more precise errors)
-
-    /*
-    //window
-    // find the ForeignWindowControl (defined in main.qml) for the viewfinder
-    bb::cascades::AbstractPane* current_root = bb::cascades::Application::instance()->scene();
-    bb::cascades::ForeignWindowControl* fwc = current_root->findChild<bb::cascades::ForeignWindowControl*>("vf_foreign_window");
-    const char* win_groupid = fwc->windowGroup().toStdString().c_str();
-    const char* win_id = fwc->windowId().toStdString().c_str();
-    err = camera_set_vf_property(m_handle,
-            CAMERA_IMGPROP_WIN_GROUPID, win_groupid,
-            CAMERA_IMGPROP_WIN_ID, win_id);
-    if (err != CAMERA_EOK) {
-        emit error("Error: Could not set viewfinder property: window");
-        return;
-    }
-    */
 
     //frametype = CAMERA_FRAMETYPE_NV12
     err = camera_set_vf_property(m_handle, CAMERA_IMGPROP_FORMAT, m_frametype);
@@ -135,7 +153,6 @@ void CameraProcessor::startVf()
         return;
     }
 
-
     //no window creation
     err = camera_set_vf_property(m_handle, CAMERA_IMGPROP_CREATEWINDOW, 0);
     if (err != CAMERA_EOK) {
@@ -149,7 +166,6 @@ void CameraProcessor::startVf()
     initMatrices();
 
     //Start the viewfinder with the callback function viewfinder_callback() as parameter
-    //err = camera_start_viewfinder(m_handle, NULL, NULL, NULL);
     err = camera_start_viewfinder(m_handle, &viewfinder_callback, NULL, (void*) this);
     if (err != CAMERA_EOK) {
         emit error("Error: Could not start viewfinder");
@@ -215,11 +231,8 @@ void CameraProcessor::setLowestResolution()
     }
 
     //Search the lowest resolution
-    qDebug() << num << " supported resolutions found (width x height):";
     camera_res_t lowest = resolutions[0];
-    qDebug() << resolutions[0].width << " x " << resolutions[0].height;
     for (unsigned int i = 1; i < num; i++) {
-        qDebug() << resolutions[i].width << " x " << resolutions[i].height;
         if (resolutions[i].width <= lowest.width && resolutions[i].height <= lowest.height) {
             lowest = resolutions[i];
         }
@@ -311,11 +324,9 @@ void CameraProcessor::setRotation() {
         return;
     }
 
-    //Check if the preferred rotation is supported, if not, set it to 0
+    //Check if the preferred rotation is supported, if not, set it to the default value stored in rotations[0]
     bool supported = false;
-    qDebug() << num << " supported rotations:";
     for (unsigned int i = 0; i < num; i++) {
-        qDebug() << rotations[i];
         if (m_rotation == rotations[i]) {
             supported = true;
             break;
@@ -326,24 +337,17 @@ void CameraProcessor::setRotation() {
     }
 }
 
-//Initializes the matrices m_previous_frame, m_actual_frame, m_previous_difference and m_actual difference
-//with the correct size and sets all elements to zero
+//Initializes the matrices m_previous_frame, m_actual_frame and m_difference
+//with the correct size
 void CameraProcessor::initMatrices()
 {
-    //Set number of rows and columns for all matrices
-    //Since they should all only contain the middle row of a frame, number of rows is always 1
+    //Since the matrices will only contain the middle row of a frame, number of rows is 1
     unsigned int rows = 1;
-    //Number of columns equals either height or width of the set resolution depending on the rotation
-    unsigned int cols;
-    if(m_rotation == 90 || m_rotation == 270) {
-        cols = m_resolution.height;
-    }
-    else {
-        cols = m_resolution.width;
-    }
+    unsigned int cols = m_resolution.width;
 
-    m_actual_frame = cv::Mat(rows, cols, CV_8UC1, cv::Scalar(0));
-    m_previous_frame = cv::Mat(rows, cols, CV_8UC1, cv::Scalar(0));
+    //Initialize the matrices with 255 (= white) for each element for the frames and 0 for the difference
+    m_actual_frame = cv::Mat(rows, cols, CV_8UC1, cv::Scalar(255));
+    m_previous_frame = cv::Mat(rows, cols, CV_8UC1, cv::Scalar(255));
     m_difference = cv::Mat(rows, cols, CV_8UC1, cv::Scalar(0));
 }
 
@@ -357,208 +361,251 @@ void CameraProcessor::stopVf()
 void CameraProcessor::viewfinder_callback(camera_handle_t handle, camera_buffer_t* buffer,
         void* arg)
 {
-    //Set a pointer to the CameraProcessor instance (normally "this", but the viewfinder callback function needs to be static)
-    CameraProcessor* inst = (CameraProcessor*) arg;
+    //qDebug() << "viewfinder_callback started";
+    //To avoid memory conflicts only proceed if the control variable m_busy is not set
+    if(!m_busy) {
+        //Set a pointer to the CameraProcessor instance
+        CameraProcessor* inst = (CameraProcessor*) arg;
+        //Read the buffer into an opencv matrix (deep copy)
+        inst->m_image = cv::Mat(buffer->framedesc.nv12.height, buffer->framedesc.nv12.width, CV_8UC1, (void *) buffer->framebuf, buffer->framedesc.nv12.stride).clone();
+        //Emit a signal that a new image is ready for processing
+        inst->emit imageReady();
+    }
+    //Else increase the not-processed-counter
+    else  {
+        m_not_processed_counter++;
+    }
+    //qDebug() << "viewfinder_callback finished";
+}
 
-    unsigned int height = buffer->framedesc.nv12.height;
-    unsigned int width = buffer->framedesc.nv12.width;
+void CameraProcessor::process()
+{
+    //Set control variable to prevent another function call while a previous frame is still processed
+    m_busy = true;
+    //qDebug() << "CameraProcessor:process() started";
 
-    //Check if height and width are equal to m_resolution
-    unsigned int rotation = inst->m_rotation;
-    if(rotation == 0 || rotation == 180) {
-        if (height != inst->m_resolution.height || width != inst->m_resolution.width) {
-            qDebug() << "CameraProcessor::viewfinder_callback(): height or width of the buffered image don't match m_resolution";
+    //Check if height and width of the image are equal to m_resolution
+    if(m_rotation == 0 || m_rotation == 180) {
+        if (m_image.rows != (int) m_resolution.height || m_image.cols != (int) m_resolution.width) {
+            emit error("Error: height or width of the buffered image don't match m_resolution");
+            return;
         }
     }
-    if(rotation == 90 || rotation == 270) {
-        if (height != inst->m_resolution.width || width != inst->m_resolution.height) {
-            qDebug() << "CameraProcessor::viewfinder_callback(): height or width of the buffered image don't match m_resolution";
+    if(m_rotation == 90 || m_rotation == 270) {
+        if (m_image.rows != (int) m_resolution.width || m_image.cols != (int) m_resolution.height) {
+            emit error("Error: height or width of the buffered image don't match m_resolution");
+            return;
         }
     }
 
-    //Create an OpenCv matrix from the buffer (deep copy)
-    cv::Mat image = cv::Mat(height, width, CV_8UC1, (void *) buffer->framebuf,
-            buffer->framedesc.nv12.stride).clone();
+    //If necessary rotate the image
+    cv::Mat image_r;
+    if(m_rotation == 90) {
+        cv::flip(m_image, image_r, 0); //flipcode 0 = flip horizontally
+        cv::transpose(image_r, m_image);
+    }
+    if(m_rotation == 180) {
+        cv::flip(m_image, image_r, -1); //flipcode -1 = flip horizontally and vertically
+        m_image = image_r;
+    }
+    if(m_rotation == 270) {
+        cv::flip(m_image, image_r, 1); //flipcode 1 = flip vertically
+        cv::transpose(image_r, m_image);
+    }
+    image_r.release();
+    //qDebug() << "CameraProcessor:process(): image rotation done";
 
-    //qDebug() << "Read buffer into cv::Mat, resolution is now: width = " << image.cols << "height = " << image.rows;
+    //Reduce the image to the middle row (this references still the same data)
+    m_actual_frame = m_image.row((int) (m_image.rows / 2) );
 
-    /*//Reduce it to the middle row (this references still the same data)
-    inst->m_actual_frame = image.row((int) height / 2);
+    //Compare the image to the previous frame
+    m_difference = m_previous_frame - m_actual_frame;
 
-    //Compare it to the previous frame
-    inst->m_difference = inst->m_actual_frame - inst->m_previous_frame;
+    /* Regarding the values:
+     * The frames have pixel values between 0 and 255 - stored in unsigned chars - where 255 is white
+     * and 0 is black.
+     * If m_difference is > 0, the previous frame was lighter at that pixel than the actual frame
+     * If m_difference equals 0, the previous frame was either darker or the same at that pixel
+     */
 
-    //Save it as the new previous frame (deep copy)
-    inst->m_previous_frame = inst->m_actual_frame.clone();
+    //qDebug() << "m_difference =" << m_difference.at<uchar>(0) << m_difference.at<uchar>(36) << m_difference.at<uchar>(72) << m_difference.at<uchar>(108) << m_difference.at<uchar>(144) << m_difference.at<uchar>(180) << m_difference.at<uchar>(216) << m_difference.at<uchar>(252) << m_difference.at<uchar>(287);
 
-    //Check each pixel in the difference image if the change exceeds the threshold
+    //Save the image as the new previous frame (deep copy)
+    m_previous_frame = m_actual_frame.clone();
+
+    //qDebug() << "CameraProcessor:process(): all matrices updated";
+
+    //Check each pixel in the difference matrix
     bool changed = false;
-    for(int i = 0; i < inst->m_difference.cols; i++) {
-        //If pixels are significantly darker than before, set them to 1
-        if(inst->m_difference.at<int>(i) >= inst->m_threshold) {
-            inst->m_difference.at<int>(i) = 1;
-            changed = true;
+    for(int i = 0; i < m_difference.cols; i++) {
+        //If the pixel's value exceeds the threshold, it is significantly darker than before - set it to 1
+        if(m_difference.at<uchar>(i) >= m_threshold) {
+            m_difference.at<uchar>(i) = 1;
+            if(!changed)
+                changed = true;
         }
-        //Else if pixels are significantly lighter, set them to -1
-        else if(inst->m_difference.at<int>(i) <= -(inst->m_threshold)) {
-            inst->m_difference.at<int>(i) = -1;
-            changed = true;
-        }
-        //Else there was no significant change - set those pixels to 0
+        //Else set it to 0
         else {
-            inst->m_difference.at<int>(i) = 0;
+            m_difference.at<uchar>(i) = 0;
         }
     }
+    //qDebug() << "CameraProcess:process(): evaluation of difference done, changed =" << changed;
 
     //If there was no change detected, check the status, maybe change it, and return
     if(!changed) {
-        //If the status is LEFT or RIGHT, it should only be kept for 2 frames without changes
-        if(inst->m_status != NOTHING) {
-            if(inst->m_reset_counter >= 2) {
-                inst->m_status = NOTHING;
-                inst->m_reset_counter = 0;
+        //If the status is LEFT or RIGHT, it should only be kept for a few frames without changes
+        if(m_status != NOTHING) {
+            int max = (int) m_framerate / 8;
+            if(m_reset_counter >= max) {
+                m_status = NOTHING;
+                m_reset_counter = 0;
             }
             else {
-                inst->m_reset_counter++;
+                m_reset_counter++;
             }
         }
+        //Set control variable and return
+        m_busy = false;
         return;
     }
-    //Else analyse the changes to the previous frame that have occurred
 
-    //The interval serves the following functions:
+    //Else analyse the changes
+
+    //The interval serves the following purposes:
     // - One interval from the start of the row counts as "left"
     // - One interval from the end of the row counts as "right"
     // - One interval from a previous position of an object counts as "continuous move"
-    //TODO: Set to 5% of the total width, maybe another value is better
-    unsigned int interval = inst->m_difference.cols / 20;
+    int interval = (int) (m_difference.cols * m_interval_percentage);
 
-    //Depending on the state (NOTHING, LEFT or RIGHT)
-    switch (inst->m_status) {
+    //Depending on the status (NOTHING, LEFT or RIGHT)
+    switch (m_status) {
 
-        //If there were no prior indications of any gesture
-        case NOTHING:
-            {
-                bool left = false;
-                bool right = false;
-                //For each pixel
-                for(int i = 0; i < inst->m_difference.cols; i++) {
-                    //If it's 1, there was an object/movement detected
-                    if(inst->m_difference.at<int>(i) == 1) {
-                        //If the 1 is in the left part, note that
-                        if((unsigned int)i < interval)
-                            left = true;
-                        //If in the right part, note that
-                        if(i > (inst->m_difference.cols - 1 - interval) )
-                            right = true;
-                    }
-                }
+       //If there were no prior indications of any gesture
+       case NOTHING:
+       {
+           bool left = false;
+           bool right = false;
+           //For each pixel
+           for(int i = 0; i < m_difference.cols; i++) {
+               //If it's 1, there was an object/movement detected
+               if(m_difference.at<uchar>(i) == 1) {
+                   //If the 1 is in the left part, set left = true
+                   if(i < interval)
+                       left = true;
+                   //If it's in the right part, set right = true
+                   if(i > (m_difference.cols - 1 - interval) )
+                       right = true;
+               }
+           }
 
-                //If both left and right are true, something is odd and the status should not change
-                if(left && right) {
-                    return;
-                }
+           //If both left and right are true, something is odd and the status should not change
+/*           if(left && right) {
+               qDebug() << "left & right both true!";
+               m_busy = false;
+               return;
+           }*/
 
-                //Else set status to LEFT or RIGHT
-                if(left) {
-                    inst->m_status = RIGHT;
-                }
-                if(right) {
-                    inst->m_status = LEFT;
-                }
+           //Else set status to LEFT or RIGHT
+           if(left) {
+               m_status = RIGHT;
+           }
+           if(right) {
+               m_status = LEFT;
+           }
 
-                //If there are indications of a gesture, save the index of the leftmost or rightmost 1
-                switch(inst->m_status) {
-                    case RIGHT:
-                        for(int i = 0; i < inst->m_difference.cols - 1; i++) {
-                            if(inst->m_difference.at<int>(i) == 1 && inst->m_difference.at<int>(i+1) == 0)
-                                inst->m_previous_position = i;
-                        }
-                        break;
-                    case LEFT:
-                        for(int i = inst->m_difference.cols - 1; i >= 1; i--) {
-                            if(inst->m_difference.at<int>(i) == 1 && inst->m_difference.at<int>(i-1) == 0)
-                                inst->m_previous_position = i;
-                        }
-                        break;
-                    case NOTHING:
-                        break;
-                }
-            }
-            break;
+           //If there are indications of a gesture, save the index of the leftmost or rightmost 1
+           switch(m_status) {
+               case RIGHT:
+                   for(int i = 0; i < m_difference.cols - 1; i++) {
+                       if(m_difference.at<uchar>(i) == 1 && m_difference.at<uchar>(i+1) == 0)
+                           m_previous_position = i;
+                   }
+                   break;
+               case LEFT:
+                   for(int i = m_difference.cols - 1; i >= 1; i--) {
+                       if(m_difference.at<uchar>(i) == 1 && m_difference.at<uchar>(i-1) == 0)
+                           m_previous_position = i;
+                   }
+                   break;
+               case NOTHING:
+                   break;
+           }
+       }
+       break;
 
-        //If an assumed gesture to the right is in process
-        case RIGHT:
-            {
-                bool continued = false;
-                //Start at the previous position of the rightmost 1 and check if there is a new 1 to the right
-                for(unsigned int i = inst->m_previous_position; i <= (inst->m_previous_position + interval); i++) {
-                    if(inst->m_difference.at<int>(i) == 1)
-                        continued = true;
-                }
-                //If no 1 was found, change status to NOTHING
-                if(!continued) {
-                    inst->m_status = NOTHING;
-                    inst->m_previous_position = 0;
-                }
-                //Else keep the status and check if the gesture is finished
-                //If not, save the position of the rightmost 1
-                else {
-                    for(int i = inst->m_previous_position; i < inst->m_difference.cols - 1; i++) {
-                        //If there is a 1 in the right interval of the row, the gesture is complete
-                        if(inst->m_difference.at<int>(i) == 1 && i >= (inst->m_difference.cols - interval) ) {
-                            //Emit the signal (parameter +1 means a gesture to the right)
-                            inst->gestureDetected(1);
-                            //Reset status, previous position and previous frame and break
-                            inst->m_status = NOTHING;
-                            inst->m_previous_position = 0;
-                            inst->m_previous_frame.operator=(cv::Scalar(0));
-                            break;
-                        }
-                        //Else save the new previous position
-                        if(inst->m_difference.at<int>(i) == 1 && inst->m_difference.at<int>(i+1) == 0)
-                            inst->m_previous_position = i;
-                    }
-                }
-            }
-            break;
+       //If an assumed gesture to the right is in process
+       case RIGHT:
+       {
+           bool continued = false;
+           //Start at the previous position of the rightmost 1 and check if there is a new 1 to the right
+           for(int i = m_previous_position; i <= (m_previous_position + interval) && i < m_difference.cols; i++) {
+               if(m_difference.at<uchar>(i) == 1)
+                   continued = true;
+           }
+           //If no 1 was found, change status to NOTHING
+           if(!continued) {
+               m_status = NOTHING;
+               m_previous_position = 0;
+           }
+           //Else keep the status and check if the gesture is finished
+           //If not, save the position of the rightmost 1
+           else {
+               for(int i = m_previous_position; i < m_difference.cols - 1; i++) {
+                   //If there is a 1 in the right interval of the row, the gesture is complete
+                   if(m_difference.at<uchar>(i) == 1 && i >= (m_difference.cols - interval) ) {
+                       //Emit the signal (parameter +1 means a gesture to the right)
+                       emit gestureDetected(1);
+                       //Reset status, previous position and previous frame and break
+                       m_status = NOTHING;
+                       m_previous_position = 0;
+                       //m_previous_frame.operator=(cv::Scalar(255));
+                       break;
+                   }
+                   //Else save the new previous position
+                   if(m_difference.at<uchar>(i) == 1 && m_difference.at<uchar>(i+1) == 0)
+                       m_previous_position = i;
+               }
+           }
+       }
+       break;
 
-        //If an assumed gesture to the left is in process
-        case LEFT:
-            {
-                bool continued = false;
-                //Start at the previous position of the leftmost 1 and check if there is a new 1 to the left
-                for(unsigned int i = inst->m_previous_position; i >= (inst->m_previous_position - interval); i--) {
-                    if(inst->m_difference.at<int>(i) == 1)
-                        continued = true;
-                }
-                //If no 1 was found, change status to NOTHING
-                if(!continued) {
-                    inst->m_status = NOTHING;
-                    inst->m_previous_position = 0;
-                }
-                //Else keep the status and check if the gesture is finished
-                //If not, save the position of the leftmost 1
-                else {
-                    for(unsigned int i = inst->m_previous_position; i >= 1; i--) {
-                        //If there is a 1 in the left interval of the row, the gesture is complete
-                        if(inst->m_difference.at<int>(i) == 1 && i <= interval) {
-                            //Emit the signal (parameter -1 means a gesture to the left)
-                            inst->gestureDetected(-1);
-                            //Reset status, previous position and previous frame and break
-                            inst->m_status = NOTHING;
-                            inst->m_previous_position = 0;
-                            inst->m_previous_frame.operator=(cv::Scalar(0));
-                            break;
-                        }
-                        //Else save the new previous position
-                        if(inst->m_difference.at<int>(i) == 1 && inst->m_difference.at<int>(i-1) == 0)
-                            inst->m_previous_position = i;
-                    }
-                }
-            }
-            break;
-    }*/
+       //If an assumed gesture to the left is in process
+       case LEFT:
+           {
+               bool continued = false;
+               //Start at the previous position of the leftmost 1 and check if there is a new 1 to the left
+               for(int i = m_previous_position; i >= (m_previous_position - interval) && i >= 0; i--) {
+                   if(m_difference.at<uchar>(i) == 1)
+                       continued = true;
+               }
+               //If no 1 was found, change status to NOTHING
+               if(!continued) {
+                   m_status = NOTHING;
+                   m_previous_position = 0;
+               }
+               //Else keep the status and check if the gesture is finished
+               //If not, save the position of the leftmost 1
+               else {
+                   for(int i = m_previous_position; i >= 1; i--) {
+                       //If there is a 1 in the left interval of the row, the gesture is complete
+                       if(m_difference.at<uchar>(i) == 1 && i <= interval) {
+                           //Emit the signal (parameter -1 means a gesture to the left)
+                           emit gestureDetected(-1);
+                           //Reset status, previous position and previous frame and break
+                           m_status = NOTHING;
+                           m_previous_position = 0;
+                           //m_previous_frame.operator=(cv::Scalar(255));
+                           break;
+                       }
+                       //Else save the new previous position
+                       if(m_difference.at<uchar>(i) == 1 && m_difference.at<uchar>(i-1) == 0)
+                           m_previous_position = i;
+                   }
+               }
+           }
+           break;
+    }
 
+    //qDebug() << "CameraProcessor:process() finished";
+    m_busy = false;
 }
-

@@ -5,7 +5,7 @@
  *      Author: Inga
  */
 
-#include "include/CameraController.hpp"
+#include "CameraController.hpp"
 
 //Constructor
 CameraController::CameraController(QObject* parent) :
@@ -14,6 +14,7 @@ CameraController::CameraController(QObject* parent) :
         m_processor(NULL)
 {
     qDebug() << "CameraController object created";
+    m_thread->setObjectName("ProcessorThread");
     if (!hasFrontCamera()) {
         emit error("Error: No front camera available");
     }
@@ -87,13 +88,20 @@ void CameraController::stop()
         //call the destructor
         delete m_processor;
         m_processor = NULL;
+        qDebug() << "CameraController::stop(): CameraProcessor object deleted";
     }
-    qDebug() << "CameraController::stop(): CameraProcessor object deleted";
+    else {
+        qDebug() << "CameraController::stop(): CameraProcessor object was already deleted";
+    }
+
     //If the thread is running, stop it
     if(m_thread->isRunning()) {
         m_thread->quit();
+        qDebug() << "Slot CameraController::stop(): thread stopped";
     }
-    qDebug() << "Slot CameraController::stop(): thread stopped";
+    else {
+        qDebug() << "Slot CameraController::stop(): thread was already stopped";
+    }
 }
 
 //If a gesture is identified by the CameraProcessor a signal is emitted

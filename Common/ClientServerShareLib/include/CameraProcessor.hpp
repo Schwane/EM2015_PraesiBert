@@ -11,10 +11,6 @@
 #include <QObject>
 #include <camera/camera_api.h>
 #include <QDebug>
-#include <bb/cascades/Application>
-#include <bb/cascades/AbstractPane>
-#include <bb/cascades/Window>
-#include <bb/cascades/ForeignWindowControl>
 #include "opencv2/core/core.hpp"
 
 class CameraProcessor: public QObject
@@ -35,10 +31,13 @@ public:
 public slots:
     void start();
     void stop();
+    void process();
+
 
 signals:
     void gestureDetected(int value);
     void error(QString e);
+    void imageReady();
 
 private:
     //member variables
@@ -47,12 +46,16 @@ private:
     camera_res_t m_resolution;
     double m_framerate;
     unsigned int m_rotation;
-    int m_threshold;
+    cv::Mat m_image;
+    uchar m_threshold;
     cv::Mat m_actual_frame, m_previous_frame;
     cv::Mat m_difference;
     unsigned int m_reset_counter;
-    unsigned int m_previous_position;
+    int m_previous_position;
     Status m_status;
+    double m_interval_percentage;
+    static bool m_busy;
+    static unsigned int m_not_processed_counter;
 
     //member functions
     void openCamera();
@@ -65,7 +68,6 @@ private:
     void setRotation();
     void initMatrices();
     static void viewfinder_callback(camera_handle_t handle, camera_buffer_t* buffer, void* arg);
-
 };
 
 #endif /* CAMERAPROCESSOR_HPP_ */
