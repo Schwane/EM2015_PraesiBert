@@ -5,14 +5,12 @@ Page {
         horizontalAlignment: HorizontalAlignment.Center
 
         verticalAlignment: VerticalAlignment.Top
-
-        leftMargin: ui.du(25.0)
-        rightMargin: ui.du(25.0)
         maxWidth: ui.du(50.0)
         layout: StackLayout {
 
         }
         clipContentToBounds: true
+        
         CheckBox {
             text: "HDMI Ausgabe"
             onCheckedChanged: {
@@ -26,10 +24,21 @@ Page {
             text: "Gestensteuerung"
             onCheckedChanged: {
                 if (checked)
-                    cl.gesture(true);
+                    cl.activateGesture(true);
                 else
-                    cl.gesture(false);
+                    cl.activateGesture(false);
             }
+            checked: true
+        }
+        CheckBox {
+            text: "Vibration"
+            onCheckedChanged: {
+                if (checked)
+                    vibration_time = 100;
+                else
+                    vibration_time = 0;
+            }
+            checked: true
         }
 
     }

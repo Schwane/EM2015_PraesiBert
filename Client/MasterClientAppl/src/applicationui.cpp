@@ -31,7 +31,6 @@
 #include "Client.hpp"
 #include "MasterClient/MasterClient.hpp"
 
-
 using namespace bb::cascades;
 
 ApplicationUI::ApplicationUI() :

@@ -122,6 +122,7 @@ Client::setSlide(QMap<QString, QVariant> parameters, QMap<QString, QString> para
     {
         resp -> addParameter("status",QString("error"));
         resp -> addParameter("message",QString("Parameter: slide - bigger than total slides"));
+        emit noMoreSlides();
         return resp;
     }
 
@@ -303,4 +304,10 @@ Client::deliverRecording(QString path)
 
     msg->addParameter("audio", content);
     xmlmw_data -> writeMessage(msg);
+}
+
+void
+Client::logout()
+{
+    cs -> disconnectFromServer();
 }

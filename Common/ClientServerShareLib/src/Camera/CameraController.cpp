@@ -5,7 +5,7 @@
  *      Author: Inga
  */
 
-#include "CameraController.hpp"
+#include "include/CameraController.hpp"
 
 //Constructor
 CameraController::CameraController(QObject* parent) :

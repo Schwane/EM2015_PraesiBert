@@ -23,6 +23,7 @@
 #include <bb/cascades/Image>
 
 #include <bb/device/VibrationController>
+#include <bb/device/Led>
 
 #include <QSettings>
 
@@ -55,7 +56,12 @@ ApplicationUI::ApplicationUI() :
     qmlRegisterType<ListenerClient>("com.Client",1,0,"ListenerClient");
     qmlRegisterType<Message>("com.Client",1,0,"Message");
 
-    qmlRegisterType<bb::device::VibrationController>("bb.vibrationController", 1, 0, "VibrationController");
+    qmlRegisterType<bb::device::Led>("bb.device", 1, 0, "Led");
+   qmlRegisterUncreatableType<bb::device::LedColor>("bb.device", 1, 0, "LedColor", "");
+
+
+   qmlRegisterType<bb::device::VibrationController>("bb.vibrationController", 1, 0, "VibrationController");
+
 
     // Create scene document from main.qml asset, the parent is set
     // to ensure the document gets destroyed properly at shut down.

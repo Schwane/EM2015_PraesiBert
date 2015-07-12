@@ -97,6 +97,7 @@
     <permission>record_audio</permission>
     <permission>access_shared</permission>
     <permission>access_led_control</permission>
+    <permission>use_camera</permission>
     <env var="LD_LIBRARY_PATH" value="app/native/lib:/usr/lib/qt4/lib"/>
 
 </qnx>

@@ -21,9 +21,11 @@ import bb.vibrationController 1.0
 import bb.device 1.0
 import bb.multimedia 1.0
 import bb.cascades.pickers 1.0
+import com.Gesture 1.0
 
 TabbedPane {
     property bool waiting: false;
+    property int vibration_time: 100
     id: pan_root
     showTabsOnActionBar: true
     
@@ -38,7 +40,7 @@ TabbedPane {
         title: "Login"
         imageSource: "asset:///img/wifi.png"
         Login {
-            
+            id: login
         }
 
     }
@@ -73,11 +75,15 @@ TabbedPane {
                 {
                     pan_root.activeTab = tab_praesi;
                     pan_root.vibrate();
+                    login.btn_login.visible = false;
+                    login.btn_logout.visible = true;                    
                 }
                 else if (stat == "not connected" || stat == "rejected")
                 {
                     pan_root.activeTab = tab_login;
                     pan_root.vibrate();
+                    login.btn_login.visible = true;
+                    login.btn_logout.visible = false;   
                 }
                 
                 toast.body = stat;
@@ -132,6 +138,9 @@ TabbedPane {
                      recorder.current_path = p;
                      recorder.record();
                      redLED.flash();
+                     praesi.btn_praesi_stat.defaultImageSource = "asset:///img/stop.png"
+                     praesi.btn_praesi_stat.pressedImageSource = "asset:///img/stop_clicked.png"
+                     praesi.btn_praesi_stat.selection = true;
                  }
                  else 
                  {
@@ -143,6 +152,11 @@ TabbedPane {
                  }
                  
              }
+           onNoMoreSlides:
+           {
+              toast.body = "Keine weitere Folie";
+              toast.show();
+           }
         },
         Led {
             id: redLED
@@ -182,11 +196,19 @@ TabbedPane {
                             
             }
         }
+        /*,
+        CameraController {
+            onGestureDetected:
+                {
+                    cl.requestSlideChange(value);
+                }
+        }
+        */
     ]
     
     function vibrate() {
         //first parameter intensity, second parameter duration for vibration
-        vib.start(80, 100);
+        vib.start(80, vibration_time);
     }
     onWaitingChanged: {
         if (waiting == true)

@@ -8,7 +8,7 @@ CONFIG += staticlib
 # uncomment for generating separate debug info
 # CONFIG += separate_debug_info
 
-LIBS += -L$$_PRO_FILE_PWD_/../../Common/OpenCV/lib -lopencv_core -lopencv_imgproc -lopencv_highgui
+LIBS += -L$$_PRO_FILE_PWD_/../../Common/OpenCV/lib -lopencv_core -lopencv_imgproc -lopencv_highgui -lcamapi -lcamerafeatures
 
 INCLUDEPATH += $$_PRO_FILE_PWD_/../../Common/OpenCV/include
 

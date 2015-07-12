@@ -15,6 +15,7 @@
 #include "commands.hpp"
 #include "Redeanfrage.hpp"
 #include "RedeanfrageQueue.hpp"
+#include "CameraController.hpp"
 
 class MasterClient: public Client
 {
@@ -50,6 +51,8 @@ public Q_SLOTS:
     Q_INVOKABLE void selectPraesentation(QString path);
     Q_INVOKABLE void deliverPraesentation();
     Q_INVOKABLE void stopPraesentation();
+
+    //Q_INVOKABLE void activateGesture(bool active);
 Q_SIGNALS:
     void ranfMuteChanged(bool mute);
     void ranfSizeChanged(int size);
@@ -68,6 +71,8 @@ private:
     Redeanfrage *current_ranf;
     bool ranf_mute;
     int ranf_size;
+
+    //CameraController *cc;
 };
 
 #endif /* MASTERCLIENT_HPP_ */

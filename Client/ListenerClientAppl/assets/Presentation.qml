@@ -13,7 +13,7 @@ Page {
             imageSource: "asset:///img/before_start.png"
             scalingMethod: ScalingMethod.AspectFit
             enabled: true
-            horizontalAlignment: HorizontalAlignment.Center
+            horizontalAlignment: HorizontalAlignment.Fill
 
         }
 
@@ -65,8 +65,9 @@ Page {
             }
             horizontalAlignment: HorizontalAlignment.Center
             defaultImageSource: "asset:///img/ranf.png"
-            preferredWidth: 120.0
-            preferredHeight: 140.0
+            pressedImageSource: "asset:///img/ranf_clicked.png"
+            minWidth: 200.0
+            minHeight: 200.0
             onEnabledChanged: {
                 if (btn_do_ranf.enabled == false)
                 {
@@ -80,16 +81,16 @@ Page {
                 }
                     
             }
-            verticalAlignment: VerticalAlignment.Center
+            verticalAlignment: VerticalAlignment.Bottom
         }
         ActivityIndicator {
             id: act_ranf_active
             running: false
             visible: false
             horizontalAlignment: HorizontalAlignment.Center
-            preferredWidth: 140.0
-            preferredHeight: 140.0
-            verticalAlignment: VerticalAlignment.Center
+            preferredWidth: 200
+            preferredHeight: 200
+            verticalAlignment: VerticalAlignment.Bottom
 
         }
         
@@ -123,9 +124,7 @@ Page {
                 
             }
         ]
-        layout: StackLayout {
-            id: layo
-            orientation: LayoutOrientation.TopToBottom
+        layout: DockLayout {
 
         }
 

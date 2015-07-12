@@ -66,6 +66,7 @@ public Q_SLOTS:
     Q_INVOKABLE void invokeRemote(Message *msg);
     Q_INVOKABLE void invokeRemote(Message *msg, bool cleanup);
     Q_INVOKABLE void login();
+    Q_INVOKABLE void logout();
     Q_INVOKABLE void connectToServer(QString addr, QString cmd_port, QString data_port);
 
 signals:
@@ -74,6 +75,7 @@ signals:
     void loginStateChanged();
     void wait(bool active);
     void praesentationReady();
+    void noMoreSlides();
 
 protected:
     QMap<QString, remoteFunction> registerdFunctions;

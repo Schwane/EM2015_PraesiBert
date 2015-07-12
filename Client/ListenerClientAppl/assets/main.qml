@@ -18,7 +18,7 @@ import bb.cascades 1.4
 import bb.system 1.0
 import com.Client 1.0
 import bb.vibrationController 1.0
-
+import bb.multimedia 1.0
 TabbedPane {
     property bool waiting: false;
     id: pan_root
@@ -62,16 +62,20 @@ TabbedPane {
                 {
                     pan_root.activeTab = tab_praesi;
                     pan_root.vibrate();
+                    login.btn_login.visible = false;
+                    login.btn_logout.visible = true;                    
                 }
                 else if (stat == "not connected" || stat == "rejected")
                 {
                     pan_root.activeTab = tab_login;
                     pan_root.vibrate();
+                    login.btn_login.visible = true;
+                    login.btn_logout.visible = false;   
                 }
                 
                 toast.body = stat;
                 toast.show();
-                                    
+                
                 //praesi.lab_loginstate_val.text = stat;
             }
             onRanfAnswer: {
@@ -123,6 +127,15 @@ TabbedPane {
             body: "Waiting ..."
             cancelButton.label: undefined
             confirmButton.label: undefined
+        },
+        Led {
+                    id: redLED
+                    color: LedColor.Red
+        },
+        AudioRecorder {
+            id: recorder
+            property string current_path : ""
+            outputUrl: "file:///accounts/1000/shared/voice/recording.m4a"
         }
     ]
     

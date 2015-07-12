@@ -39,6 +39,14 @@ MasterClient::MasterClient()
     ranf_mute = false;
     current_ranf = NULL;
     connect(ranf_queue, SIGNAL(sizeChanged(int)), this, SIGNAL(ranfSizeChanged(int)));
+
+    //qDebug() << "Camera init";
+
+    //cc = new CameraController(this);
+    //connect(cc, SIGNAL(gestureDetected(int)), this, SLOT(requestSlideChange(int)));
+
+    //cc -> start();
+
 }
 
 MasterClient::~MasterClient()
@@ -328,3 +336,15 @@ MasterClient::stopPraesentation()
 {
     prs->stop();
 }
+
+/*
+void
+MasterClient::activateGesture(bool active)
+{
+    if(active)
+        cc -> start();
+    else
+        cc -> stop();
+
+}
+*/

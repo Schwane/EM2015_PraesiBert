@@ -158,7 +158,7 @@ Praesentation::setSlide(int slide)
     }
     const bb::ImageData imgData= bb::ImageData::fromPixels(swappedImage.bits(), bb::PixelFormat::RGBX, swappedImage.width(), swappedImage.height(), swappedImage.bytesPerLine());
     accessLock.unlock();
-    if (!running & slide >= 0)
+    if (!running && slide >= 0)
     {
         running = true;
         emit isRunning(true);
