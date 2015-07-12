@@ -99,7 +99,7 @@ namespace ServerAppl
 
     Message* Master::handleAuthenticationAcknowledge(QString commandName, Message* msg)
     {
-        Message * responseMessage;
+        Message * responseMessage = NULL;
 
         if(IS_COMMAND(commandName, CMD_ACK_RESPONSE))
         {
@@ -161,6 +161,11 @@ namespace ServerAppl
             emit receivedSlides();
         }
 
+    }
+
+    ClientType Master::getClientType()
+    {
+        return ClientType_Master;
     }
 
     NONCE Master::getNonce()

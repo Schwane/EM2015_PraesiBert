@@ -28,6 +28,7 @@ namespace ServerAppl
         virtual ~Listener();
         void setHasPresentation(bool hasPresentation);
         bool getHasPresentation();
+        ClientType getClientType();
 
         /* Message handlers */
         Message* handleReceivedMessage(QString commandName, Message* msg);

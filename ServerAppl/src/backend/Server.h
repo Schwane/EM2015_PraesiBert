@@ -59,6 +59,7 @@ namespace ServerAppl
         void onMasterAuthenticationFailed();
         void onMasterAuthentificationSuccessfull();
         void onReceivedPresentation(Praesentation * presentation, QMap<QString, QVariant> presentationParameterList, QMap<QString, QString> presentationParameterTypeList);
+        void onClientDisconnected(unsigned int clientId);
 
     private:
         void deleteCommandRouter();

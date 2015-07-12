@@ -138,6 +138,11 @@ namespace ServerAppl
         return responseMessage;
     }
 
+    ClientType UnspecifiedClient::getClientType()
+    {
+        return ClientType_Unspecified;
+    }
+
     unsigned int UnspecifiedClient::getClientId()
     {
         return clientId;

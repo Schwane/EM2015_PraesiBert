@@ -323,7 +323,7 @@ namespace Network
         // Connect signals and slots for thread start and stop
         connect(thread, SIGNAL(started()), newClient, SLOT(process())); // Call process() on thread start
         connect(newClient, SIGNAL(finished()), thread, SLOT(quit())); // Quit thread when client socket is finished
-        connect(newClient, SIGNAL(finished()), newClient, SLOT(deleteLater())); // Delete client socket when it's finished
+//        connect(newClient, SIGNAL(finished()), newClient, SLOT(deleteLater())); // Delete client socket when it's finished
         connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater())); // Delete thread when it is finished
 
         // Append client thread to thread list.

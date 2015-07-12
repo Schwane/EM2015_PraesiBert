@@ -58,6 +58,7 @@ namespace ServerAppl
         virtual ~Master();
         NONCE getNonce();
         MessageAuthenticator * getMessageAuthenticator();
+        ClientType getClientType();
         MasterAuthenticationState authenticationStm(MasterAuthenticationEvent event);
 
         Message* handleReceivedMessage(QString commandName, Message* msg);

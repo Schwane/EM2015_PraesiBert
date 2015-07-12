@@ -38,6 +38,11 @@ namespace ServerAppl
                         serverSocket, SIGNAL(newClient(uint)),
                         this, SLOT(onNewClient(uint))
                         );
+
+            QObject::connect(
+                    serverSocket, SIGNAL(clientDisconnect(uint)),
+                    this, SLOT(onClientDisconnected(unsigned int))
+                    );
             /* connect signals to command-router */
             QObject::connect(
                     serverSocket, SIGNAL(receivedCmdFromClient(QByteArray , uint)),
@@ -197,6 +202,41 @@ namespace ServerAppl
 
         this->transmitPresentationToClients();
     }
+
+    void Server::onClientDisconnected(unsigned int clientId)
+    {
+        if(connectedClients.contains(clientId))
+        {
+            UnspecifiedClient * disconnectedClient = connectedClients.value(clientId);
+
+            connectedClients.remove(clientId);
+            commandRouter->unregisterMessageHandlers(clientId);
+            dataRouter->unregisterMessageHandlers(clientId);
+
+            switch(disconnectedClient->getClientType())
+            {
+                case ClientType_Unspecified:
+                    WRITE_DEBUG("UnspecifiedClient disconnected.")
+                    break;
+                case ClientType_Listener:
+                    WRITE_DEBUG("ListenerClient disconnected.")
+                    listenerClients.remove(clientId);
+                    break;
+
+                case ClientType_Master:
+                    WRITE_DEBUG("MasterClient disconnected.")
+                    masterClient = NULL;
+                    break;
+                default:
+
+                    break;
+            }
+
+            delete(disconnectedClient);
+            WRITE_DEBUG("Client deleted.")
+        }
+    }
+
 
     QList<unsigned int>* Server::getAllClientIdentifiers()
     {
