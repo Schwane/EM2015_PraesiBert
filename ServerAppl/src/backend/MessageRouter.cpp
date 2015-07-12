@@ -42,6 +42,8 @@ namespace ServerAppl
 
     bool MessageRouter::registerMessageHandler(uint clientId, QString command, messageHandler handler)
     {
+        WRITE_DEBUG("registerMessageHandler called")
+
         bool registeredMessageHandlerSuccessfull = FALSE;
         QMap<QString, messageHandler> * clientCommands;
 
@@ -79,6 +81,20 @@ namespace ServerAppl
                 unregisteredMessageHandlerSuccessfull = TRUE;
             }
         }
+
+        return unregisteredMessageHandlerSuccessfull;
+    }
+
+    bool MessageRouter::unregisterMessageHandlers(uint clientId)
+    {
+        bool unregisteredMessageHandlerSuccessfull = FALSE;
+
+        if(registeredMessageHandlers->contains(clientId))
+        {
+            delete(registeredMessageHandlers->value(clientId));
+            registeredMessageHandlers->remove(clientId);
+        }
+
         return unregisteredMessageHandlerSuccessfull;
     }
 
@@ -86,32 +102,33 @@ namespace ServerAppl
     {
         QString command = message->getCommand();
         QMap<QString, messageHandler> * clientCommands;
-        Message * responseMessage;
+        Message * responseMessage = NULL;
 
         if(registeredMessageHandlers->contains(clientId))
         {
             clientCommands = registeredMessageHandlers->value(clientId);
-
             if(clientCommands->contains(command))
             {
                 messageHandler handlerFunction = clientCommands->value(command);
                 responseMessage = ((handlerFunction.object)->*(handlerFunction.function))(command, message);
-                WRITE_DEBUG("MessageRouter: Handled received message.")
             }
             else
             {
+                WRITE_DEBUG("MessageRouter: Received unknown message.")
+                WRITE_DEBUG(command)
                 responseMessage = new Message(QString("RESPONSE"), message->getReceiver(), message->getSender());
                 responseMessage->addParameter(QString("status"), QString("unknown command"));
-                WRITE_DEBUG("MessageRouter: Received unknown message.")
             }
         }
         else
         {
+            WRITE_DEBUG("No client found with this id.")
             //TODO: client not registered. Maybe thrown an exception or emit error-signal?
         }
 
         if(!responseMessage)
         {
+            WRITE_DEBUG("response message is null")
             //TODO when is a returned null-pointer for responseMessage an error?
 //            if(message)
 //            {
@@ -127,6 +144,7 @@ namespace ServerAppl
         }
         else
         {
+            WRITE_DEBUG("emit write message signal..")
             emit writeMessage(responseMessage, clientId);
         }
     }

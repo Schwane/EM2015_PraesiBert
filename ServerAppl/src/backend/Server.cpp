@@ -14,28 +14,39 @@
 
 namespace ServerAppl
 {
-    const char Server::serverCommandPort[] = "1000";
-    const char Server::serverDataPort[] = "1001";
+    const char Server::serverCommandPort[] = "1337";
+    const char Server::serverDataPort[] = "1338";
 
     Server::Server()
     {
         WRITE_DEBUG("Entered server-construtor.")
         serverSocket = new Network::ServerSocket(this);
+        byteStreamVerifier = new ByteStreamVerifier();
         messageParser = new XMLMessageParser();
         messageWriter = new XMLMessageWriter();
         commandRouter =  new MessageRouter();
         dataRouter = new MessageRouter();
-        listenerClients = QMap <unsigned int, Listener *>();
         presentationController = new PresentationController(this);
         masterClient = NULL;
 
         if(serverSocket->beginListening(QString(serverCommandPort),QString(serverDataPort)))
         {
+            WRITE_DEBUG("Server-socket is listening.")
+            QObject::connect(
+                        serverSocket, SIGNAL(newClient(uint)),
+                        this, SLOT(onNewClient(uint))
+                        );
             /* connect signals to command-router */
             QObject::connect(
                     serverSocket, SIGNAL(receivedCmdFromClient(QByteArray , uint)),
+                    byteStreamVerifier, SLOT(verifyCmdByteStream(QByteArray, uint))
+                    );
+
+            QObject::connect(
+                    byteStreamVerifier, SIGNAL(cmdByteStreamVerified(QByteArray, uint)),
                     messageParser, SLOT(parseCmdMessage(QByteArray, uint))
                     );
+
             QObject::connect(
                     messageParser, SIGNAL(cmdMessageParsed(Message*, uint)),
                     commandRouter, SLOT(onMessageParsed(Message*, uint))
@@ -45,11 +56,27 @@ namespace ServerAppl
                     messageWriter, SLOT(writeCmdMessage(Message*, uint))
                     );
 
+            QObject::connect(
+                    messageWriter, SIGNAL(cmdMessageWritten(QByteArray, uint)),
+                    serverSocket, SLOT(sendCmdToID(QByteArray , uint ))
+                    );
+
+            QObject::connect(
+                    messageWriter, SIGNAL(cmdMessageWritten(QByteArray, QList<uint>)),
+                    serverSocket, SLOT(sendCmdToMultClients(QByteArray, QList<uint>))
+                    );
+
             /* connect signals to data-router */
             QObject::connect(
                     serverSocket, SIGNAL(receivedDataFromClient(QByteArray , uint)),
+                    byteStreamVerifier, SLOT(verifyCmdByteStream(QByteArray, uint))
+                    );
+
+            QObject::connect(
+                    byteStreamVerifier, SIGNAL(dataByteStreamVerified(QByteArray, uint)),
                     messageParser, SLOT(parseDataMessage(QByteArray, uint))
                     );
+
             QObject::connect(
                     messageParser, SIGNAL(dataMessageParsed(Message*, uint)),
                     dataRouter, SLOT(onMessageParsed(Message*, uint))
@@ -58,6 +85,22 @@ namespace ServerAppl
                     dataRouter, SIGNAL(writeMessage(Message*, uint)),
                     messageWriter, SLOT(writeDataMessage(Message*, uint))
                     );
+
+            QObject::connect(
+                    messageWriter, SIGNAL(dataMessageWritten(QByteArray, uint)),
+                    serverSocket, SLOT(sendDataToID(QByteArray , uint ))
+                    );
+
+            QObject::connect(
+                    this, SIGNAL(sendDataMessageToMultClients(QByteArray, QList<uint>)),
+                    messageWriter, SLOT(writeDataMessage(Message*, QList<uint>))
+                    );
+
+            QObject::connect(
+                    messageWriter, SIGNAL(dataMessageWritten(QByteArray, QList<uint>)),
+                    serverSocket, SLOT(dataCmdToMultClients(QByteArray, QList<uint>))
+                    );
+
         }
 
         WRITE_DEBUG("Server-constructor finished.")
@@ -76,6 +119,7 @@ namespace ServerAppl
         delete(commandRouter);
         delete(messageWriter);
         delete(messageParser);
+        delete(byteStreamVerifier);
         delete(serverSocket);
 
         WRITE_DEBUG("Server-destructor finished.")

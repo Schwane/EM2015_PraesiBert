@@ -18,6 +18,7 @@
 #include <XMLMessageParser.hpp>
 #include <XMLMessageWriter.hpp>
 
+#include <src/backend/ByteStreamVerifier.h>
 #include <src/backend/Listener.h>
 #include <src/backend/Master.h>
 #include <src/backend/MessageHandlerInterface.h>
@@ -65,6 +66,7 @@ namespace ServerAppl
     private:
         MessageRouter * commandRouter;
         MessageRouter * dataRouter;
+        ByteStreamVerifier * byteStreamVerifier;
         XMLMessageParser * messageParser;
         XMLMessageWriter * messageWriter;
         Network::ServerSocket * serverSocket;
