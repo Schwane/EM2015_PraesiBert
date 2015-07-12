@@ -8,6 +8,8 @@
 #include <QHostAddress>
 #include <QList>
 
+#include <commands.hpp>
+
 #include <src/backend/PresentationController.h>
 #include <src/backend/Server.h>
 
@@ -30,22 +32,32 @@ namespace ServerAppl
         return NULL;
     }
 
-
-    void PresentationController::onReceivedShowSlide(unsigned short number)
+    Message* PresentationController::handleSetSlide(QString commandName, Message* msg)
     {
-        if(0 <= number
-                && countSlides() > number
-                && presentationStm(ShowOtherSlide)
-        )
+        Message* responseMessage = NULL;
+        const QMap<QString, QVariant> * params = msg->getParameters();
+
+        if(IS_COMMAND(commandName, CMD_SET_SLIDE)
+                && params->contains("slide")
+                && "integer" == msg->getParameterTypes()->value("slide")
+            )
         {
-            /* accepted */
-//            QList<unsigned int> * identifiers = server->getAllClientIdentifiers();
-//            emit transmitShowSlide(number, addresses);
+            int slideNumber = params->value("slide").toInt();
+
+            if(0 <= slideNumber
+                    && countSlides() > slideNumber
+                    && presentationStm(ShowOtherSlide)
+                )
+            {
+//                emit writeCmdMessage(setSlideMessage);
+            }
+            else
+            {
+                /* rejected */
+            }
         }
-        else
-        {
-            /* rejected */
-        }
+
+        return responseMessage;
     }
 
     void PresentationController::onReceivedStartPresentation()
@@ -72,7 +84,8 @@ namespace ServerAppl
     void PresentationController::onReceivedTransmitSlidesRequest(unsigned int transmitterIdentifier)
     {
         if(server->getMasterClientIdentifier() == transmitterIdentifier
-                && presentationStm(TransmitSlidesRequest))
+                && presentationStm(TransmitSlidesRequest)
+            )
         {
             /* accepted */
             //TODO transmit response to master

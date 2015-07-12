@@ -14,6 +14,7 @@
 #include <QObject>
 
 #include <Message.hpp>
+#include <Praesentation.hpp>
 #include <ServerSocket.h>
 #include <XMLMessageParser.hpp>
 #include <XMLMessageWriter.hpp>
@@ -45,12 +46,19 @@ namespace ServerAppl
         unsigned int getMasterClientIdentifier();
         bool registerMaster(Master * master);
         bool registerListener(Listener * listener);
+        void transmitPresentationToClients();
 
         /* Message handlers */
         Message* handleReceivedMessage(QString commandName, Message* msg);
 
+    signals:
+        void sendDataMessageToMultClients(Message* data, QList<uint> clientIDs);
+
     public slots:
         void onNewClient(uint clientId);
+        void onMasterAuthenticationFailed();
+        void onMasterAuthentificationSuccessfull();
+        void onReceivedPresentation(Praesentation * presentation, QMap<QString, QVariant> presentationParameterList, QMap<QString, QString> presentationParameterTypeList);
 
     private:
         void deleteCommandRouter();
@@ -74,8 +82,9 @@ namespace ServerAppl
         Master * masterClient;
         QMap <unsigned int, UnspecifiedClient *> connectedClients;
         QMap <unsigned int, Listener *> listenerClients;
-
-
+        Praesentation * presentation;
+        QMap<QString, QVariant> presentationParameterList;
+        QMap<QString, QString> presentationParameterTypeList;
     };
 
 } /* namespace ServerAppl */

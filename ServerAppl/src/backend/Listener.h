@@ -22,14 +22,16 @@ namespace ServerAppl
         Q_OBJECT
 
     public:
-        static bool createListener( UnspecifiedClient * client, Listener * listener);
+        static Listener*  createListener(UnspecifiedClient* client);
         Listener(UnspecifiedClient * priorClientObject);
         Listener();
         virtual ~Listener();
+        void setHasPresentation(bool hasPresentation);
+        bool getHasPresentation();
 
         /* Message handlers */
         Message* handleReceivedMessage(QString commandName, Message* msg);
-        Message* handleLoginResponseMessage(QString commandName, Message* msg);
+//        Message* handleLoginAcknowledge(QString commandName, Message* msg);
 
         /* data types */
         enum ListenerConnectionStmState
@@ -56,6 +58,8 @@ namespace ServerAppl
     private:
         UnspecifiedClient * priorClientObject;
         bool connectionStm(ListenerConnectionStmEvent);
+
+        bool hasPresentation;
     };
 } /* namespace ServerAppl */
 

@@ -34,7 +34,7 @@ namespace ServerAppl
         /* Message handlers */
         Message* handleReceivedMessage(QString commandName, Message* msg);
         Message* handleLoginMessages(QString commandName, Message* msg);
-        Message* handleLoginNonceMessage(QString commandName, Message * msg);
+        Message* handleAuthPhase1(QString commandName, Message * msg);
 
         QString getName();
         QTime getLastTimestamp();
