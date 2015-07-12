@@ -326,6 +326,10 @@ namespace Network
     void ConnectedClient::handleDisconnect()
     {
         // Close BOTH socket types, if one connection is lost!
+
+//        disconnect(m_cmdSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
+//        disconnect(m_dataSocket, SIGNAL(disconnected()), this, SLOT(handleDisconnect()));
+
         m_cmdSocket->close();
         m_dataSocket->close();
 
