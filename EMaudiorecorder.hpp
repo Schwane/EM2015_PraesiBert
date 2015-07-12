@@ -65,7 +65,7 @@ public:
      */
 
 
-    char* record();
+    QUrl record();
     unsigned int stop();
 
     void LED_TEST();

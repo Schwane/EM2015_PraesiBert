@@ -41,7 +41,7 @@ EMaudiorecorder::~EMaudiorecorder()
     global_time.~QTime();
 }
 
-char* EMaudiorecorder::record()
+QUrl EMaudiorecorder::record()
 {
 
 
@@ -93,7 +93,7 @@ char* EMaudiorecorder::record()
         err = bbrecorder.prepare();
         bbrecorder.record();
 
-        return timestamp;
+        return recfile;
 
 
 }
