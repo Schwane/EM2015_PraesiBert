@@ -60,7 +60,7 @@ namespace ServerAppl
                 {
                     WRITE_DEBUG("New Listener successfully registered.")
                     responseMessage->addParameter("status", QString("ok"));
-                    responseMessage->addParameter("id", QString(newListener->getClientId()) );
+                    responseMessage->addParameter("id", QString::number(newListener->getClientId()) );
                 }
                 else
                 {
@@ -136,6 +136,11 @@ namespace ServerAppl
         delete(msg);
         WRITE_DEBUG(responseMessage->getCommand())
         return responseMessage;
+    }
+
+    ClientType UnspecifiedClient::getClientType()
+    {
+        return ClientType_Unspecified;
     }
 
     unsigned int UnspecifiedClient::getClientId()

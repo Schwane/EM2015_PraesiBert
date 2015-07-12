@@ -1,5 +1,5 @@
 1
-21
+22
 Presentation.qml
 img/before_start.png
 img/podcast_clicked.png
@@ -18,6 +18,7 @@ img/previous.png
 img/stop.png
 img/wifi.png
 Login.qml
+Settings.qml
 main.qml
 example/msg.xml
 WaitingDialog.qml

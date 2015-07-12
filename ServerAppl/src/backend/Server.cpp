@@ -38,6 +38,11 @@ namespace ServerAppl
                         serverSocket, SIGNAL(newClient(uint)),
                         this, SLOT(onNewClient(uint))
                         );
+
+            QObject::connect(
+                    serverSocket, SIGNAL(clientDisconnect(uint)),
+                    this, SLOT(onClientDisconnected(unsigned int))
+                    );
             /* connect signals to command-router */
             QObject::connect(
                     serverSocket, SIGNAL(receivedCmdFromClient(QByteArray , uint)),
@@ -197,6 +202,46 @@ namespace ServerAppl
 
         this->transmitPresentationToClients();
     }
+
+    void Server::onClientDisconnected(unsigned int clientId)
+    {
+        if(connectedClients.contains(clientId))
+        {
+            commandRouter->unregisterMessageHandlers(clientId);
+            dataRouter->unregisterMessageHandlers(clientId);
+
+            if(listenerClients.contains(clientId))
+            {
+                Listener * disconnectedClient = listenerClients.value(clientId);
+                connectedClients.remove(clientId);
+                listenerClients.remove(clientId);
+                delete(disconnectedClient);
+
+                WRITE_DEBUG("ListenerClient disconnected.")
+            }
+            else if(NULL != masterClient
+                    && masterClient->getClientId() == clientId
+                    )
+
+            {
+                this->byteStreamVerifier->removeMessageAuthenticator(clientId);
+                connectedClients.remove(clientId);
+                delete(masterClient);
+                masterClient = NULL;
+
+                WRITE_DEBUG("MasterClient disconnected.")
+            }
+            else
+            {
+                UnspecifiedClient * disconnectedClient = connectedClients.value(clientId);
+                connectedClients.remove(clientId);
+                delete(disconnectedClient);
+
+                WRITE_DEBUG("UnspecifiedClient disconnected.")
+            }
+        }
+    }
+
 
     QList<unsigned int>* Server::getAllClientIdentifiers()
     {

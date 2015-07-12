@@ -49,7 +49,8 @@ namespace ServerAppl
 
     Master::~Master()
     {
-        this->authenticationTimer = new QTimer(this);
+        delete(authenticationTimer);
+        delete(messageAuthenticator);
         // TODO Auto-generated destructor stub
     }
 
@@ -99,7 +100,7 @@ namespace ServerAppl
 
     Message* Master::handleAuthenticationAcknowledge(QString commandName, Message* msg)
     {
-        Message * responseMessage;
+        Message * responseMessage = NULL;
 
         if(IS_COMMAND(commandName, CMD_ACK_RESPONSE))
         {
@@ -133,7 +134,7 @@ namespace ServerAppl
             {
                 responseMessage = new Message(CMD_AUTH_PHASE4, "server", "master");
                 responseMessage->addParameter("status", QString("ok"));
-                responseMessage->addParameter("id", QString(this->getClientId()));
+                responseMessage->addParameter("id", QString::number(this->getClientId()));
                 this->authenticationTimer->stop();
                 WRITE_DEBUG("Master authentication successfully finished.")
             }
@@ -161,6 +162,11 @@ namespace ServerAppl
             emit receivedSlides();
         }
 
+    }
+
+    ClientType Master::getClientType()
+    {
+        return ClientType_Master;
     }
 
     NONCE Master::getNonce()

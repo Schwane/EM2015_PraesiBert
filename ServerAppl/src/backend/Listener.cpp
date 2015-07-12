@@ -8,6 +8,7 @@
 #include <src/backend/Listener.h>
 
 #include <src/backend/Logger.h>
+#include <src/backend/UnspecifiedClient.h>
 
 namespace ServerAppl
 {
@@ -90,6 +91,10 @@ namespace ServerAppl
         return this->hasPresentation;
     }
 
+    ClientType Listener::getClientType()
+    {
+        return ClientType_Listener;
+    }
 //    Message* Listener::handleLoginAcknowledge(QString commandName, Message* msg)
 //    {
 //        Message * responseMessage = NULL;

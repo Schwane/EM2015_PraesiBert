@@ -16,6 +16,13 @@
 
 #include <src/backend/MessageHandlerInterface.h>
 
+enum ClientType
+{
+    ClientType_Unspecified,
+    ClientType_Listener,
+    ClientType_Master
+};
+
 namespace ServerAppl
 {
     /* Forward-Declaration */
@@ -30,6 +37,7 @@ namespace ServerAppl
         UnspecifiedClient(Server * server, uint clientId, QString name);
         virtual ~UnspecifiedClient();
         unsigned int getClientId();
+        virtual ClientType getClientType();
 
         /* Message handlers */
         Message* handleReceivedMessage(QString commandName, Message* msg);
@@ -39,6 +47,7 @@ namespace ServerAppl
         QString getName();
         QTime getLastTimestamp();
         Server * getServer();
+
 
     protected:
         Server * server;
