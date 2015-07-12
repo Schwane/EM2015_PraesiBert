@@ -28,7 +28,6 @@ Page {
                 else
                     cl.activateGesture(false);
             }
-            checked: true
         }
         CheckBox {
             text: "Vibration"

@@ -151,12 +151,22 @@ Praesentation::setSlide(int slide)
 
     QString path = slideReference.value(slide);
 
-    QImage img(path, "JPG"); /* Load image and convert it to cascades image for the gui */
+    /*
+    QFile f(path);
+    if (!f.open(QIODevice::ReadOnly))
+        qDebug() << "Slide could not be opened: " << path;
+    QByteArray imgBytes;
+    imgBytes = f.readAll();
+
+    QImage img = QImage::fromData(imgBytes);
+    //img.load((QIODevice*) &f);//(path);//, "JPG"); // Load image and convert it to cascades image for the gui
     QImage swappedImage = img.rgbSwapped();
     if(swappedImage.format() != QImage::Format_RGB32) {
         swappedImage = swappedImage.convertToFormat(QImage::Format_RGB32);
     }
     const bb::ImageData imgData= bb::ImageData::fromPixels(swappedImage.bits(), bb::PixelFormat::RGBX, swappedImage.width(), swappedImage.height(), swappedImage.bytesPerLine());
+    */
+    const bb::ImageData imgData = bb::utility::ImageConverter::decode(QUrl(path));
     accessLock.unlock();
     if (!running && slide >= 0)
     {

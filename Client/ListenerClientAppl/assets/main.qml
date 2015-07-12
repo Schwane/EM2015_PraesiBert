@@ -19,11 +19,13 @@ import bb.system 1.0
 import com.Client 1.0
 import bb.vibrationController 1.0
 import bb.multimedia 1.0
+import bb.device 1.0
+
 TabbedPane {
     property bool waiting: false;
     id: pan_root
     showTabsOnActionBar: true
-    
+
     onCreationCompleted: {
         //OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
         pan_root.activeTab = tab_login;
@@ -35,6 +37,7 @@ TabbedPane {
         title: "Login"
         imageSource: "asset:///img/wifi.png"
         Login {
+            id: login
             
         }
 
@@ -71,6 +74,7 @@ TabbedPane {
                     pan_root.vibrate();
                     login.btn_login.visible = true;
                     login.btn_logout.visible = false;   
+                    enablePraesitab(false);
                 }
                 
                 toast.body = stat;
@@ -84,7 +88,16 @@ TabbedPane {
             onRanfStateChanged: {
                 if (state == "ACCEPTED")
                 {
-                    //do everything on ranf accept
+                        var p = "file:///accounts/1000/shared/voice/" + Qt.formatDateTime(new Date(), "yyMMdd_HH_mm_ss") + ".m4a";
+                        console.log("Recording to: " + p);
+                        recorder.outputUrl = p;
+                        recorder.current_path = p;
+                        recorder.record();
+                        redLED.flash();
+                        praesi.btn_praesi_stat.defaultImageSource = "asset:///img/stop.png"
+                        praesi.btn_praesi_stat.pressedImageSource = "asset:///img/stop_clicked.png"
+                        praesi.btn_praesi_stat.selection = true;
+
                 }
                 else if (state == "PREPARED")
                 {
@@ -97,6 +110,11 @@ TabbedPane {
                 }
                 else if (state == "FINISHED")
                 {
+                    recorder.pause();
+                    recorder.reset();
+                    recorder.outputUrl = "file:///accounts/1000/shared/voice/dummy.m4a";
+                    redLED.cancel();
+                    cl.deliverRecording(recorder.current_path);
                     toast.body = "Redenanfrage beendet";
                     toast.show();
                 }

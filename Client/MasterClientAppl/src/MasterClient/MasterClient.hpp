@@ -52,7 +52,7 @@ public Q_SLOTS:
     Q_INVOKABLE void deliverPraesentation();
     Q_INVOKABLE void stopPraesentation();
 
-    //Q_INVOKABLE void activateGesture(bool active);
+    Q_INVOKABLE void activateGesture(bool active);
 Q_SIGNALS:
     void ranfMuteChanged(bool mute);
     void ranfSizeChanged(int size);
@@ -72,7 +72,7 @@ private:
     bool ranf_mute;
     int ranf_size;
 
-    //CameraController *cc;
+    CameraController *cc;
 };
 
 #endif /* MASTERCLIENT_HPP_ */

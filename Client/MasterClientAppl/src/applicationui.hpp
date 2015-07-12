@@ -18,7 +18,7 @@
 #define ApplicationUI_HPP_
 
 #include <QObject>
-
+//#include "CameraController.hpp"
 namespace bb
 {
     namespace cascades
@@ -43,6 +43,7 @@ public:
 private slots:
     void onSystemLanguageChanged();
 private:
+    //CameraController* m_controller;
     QTranslator* m_pTranslator;
     bb::cascades::LocaleHandler* m_pLocaleHandler;
 };

@@ -21,6 +21,8 @@
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/LocaleHandler>
 #include <bb/cascades/Image>
+#include <bb/cascades/AbstractPane>
+#include <bb/cascades/Window>
 
 #include <bb/device/VibrationController>
 #include <bb/device/Led>
@@ -50,6 +52,10 @@ ApplicationUI::ApplicationUI() :
     // initial load
     onSystemLanguageChanged();
 
+    //Create an CameraController object
+    //m_controller = new CameraController(this);
+
+
     qmlRegisterType<Client>("com.Client",1,0,"Client");
     qmlRegisterType<MasterClient>("com.Client",1,0,"MasterClient");
     qmlRegisterType<Message>("com.Client",1,0,"Message");
@@ -71,12 +77,17 @@ ApplicationUI::ApplicationUI() :
     qml->setContextProperty("_testmsg", msg);
     qml->setContextProperty("_ptyMap", propertyMap);
     */
+
+    //qml->setContextProperty("_controller", m_controller);
+
     qDebug() << "Nach set context";
     // Create root object for the UI
     AbstractPane *root = qml->createRootObject<AbstractPane>();
 
     // Set created root object as the application scene
     Application::instance()->setScene(root);
+
+    Application::instance()->mainWindow()->setScreenIdleMode(bb::cascades::ScreenIdleMode::KeepAwake);
 }
 
 void ApplicationUI::onSystemLanguageChanged()

@@ -53,15 +53,6 @@ Page {
                     orientation: LayoutOrientation.TopToBottom
                 
                 }
-                Label {
-                    id: lab_pwd
-                    text: "Passwort:"
-                }
-                TextField {
-                    id: tex_pwd
-                    text: ""
-                    inputMode: TextFieldInputMode.Password
-                } 
                 Button {
                     id: btn_login
                     onClicked: {
@@ -77,6 +68,7 @@ Page {
                     id: btn_logout
                     onClicked: {
                         cl.logout();
+                        praesi.btn_do_ranf.visible = false;
                     }
                     text: "Logout"
                     verticalAlignment: VerticalAlignment.Center

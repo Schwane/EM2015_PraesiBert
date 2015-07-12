@@ -21,7 +21,6 @@ import bb.vibrationController 1.0
 import bb.device 1.0
 import bb.multimedia 1.0
 import bb.cascades.pickers 1.0
-import com.Gesture 1.0
 
 TabbedPane {
     property bool waiting: false;

@@ -11,6 +11,8 @@
 #include <QtCore>
 #include <QObject>
 #include <bb/cascades/Image>
+#include <bb/utility/ImageConverter>
+#include <bb/ImageData>
 
 #include "Message.hpp"
 #include "commands.hpp"

@@ -14,6 +14,7 @@ Page {
             scalingMethod: ScalingMethod.AspectFit
             enabled: true
             horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
 
         }
 
@@ -81,16 +82,16 @@ Page {
                 }
                     
             }
-            verticalAlignment: VerticalAlignment.Bottom
+            verticalAlignment: VerticalAlignment.Center
         }
         ActivityIndicator {
             id: act_ranf_active
             running: false
             visible: false
             horizontalAlignment: HorizontalAlignment.Center
-            preferredWidth: 200
-            preferredHeight: 200
-            verticalAlignment: VerticalAlignment.Bottom
+            minWidth: 200
+            minHeight: 200
+            verticalAlignment: VerticalAlignment.Center
 
         }
         
@@ -117,15 +118,22 @@ Page {
                 // Call update function to set new orientation
                 onOrientationAboutToChange: {
                     if (orientation == UIOrientation.Landscape)
+                    {
                         layo.orientation = LayoutOrientation.RightToLeft;
+                        pan_root.showTabsOnActionBar = false;
+                    }
                     else 
+                    {
                         layo.orientation = LayoutOrientation.TopToBottom;
+                        pan_root.showTabsOnActionBar = true;
+                    }
+                        
                 }
                 
             }
         ]
-        layout: DockLayout {
-
+        layout: StackLayout {
+            id: layo
         }
 
     }   

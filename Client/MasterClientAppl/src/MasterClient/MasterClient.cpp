@@ -37,15 +37,15 @@ MasterClient::MasterClient()
 
     ranf_queue = new RedeanfrageQueue();
     ranf_mute = false;
+    ranf_size = 0;
     current_ranf = NULL;
     connect(ranf_queue, SIGNAL(sizeChanged(int)), this, SIGNAL(ranfSizeChanged(int)));
 
     //qDebug() << "Camera init";
 
-    //cc = new CameraController(this);
-    //connect(cc, SIGNAL(gestureDetected(int)), this, SLOT(requestSlideChange(int)));
+    cc = new CameraController(this);
+    connect(cc, SIGNAL(gestureDetected(int)), this, SLOT(requestSlideChange(int)));
 
-    //cc -> start();
 
 }
 
@@ -232,6 +232,8 @@ MasterClient::clearRanf(){
         xmlmw->writeMessage(msg);
     }
     ranf_queue -> clear();
+    delete current_ranf;
+    current_ranf = NULL;
 }
 
 void
@@ -337,7 +339,6 @@ MasterClient::stopPraesentation()
     prs->stop();
 }
 
-/*
 void
 MasterClient::activateGesture(bool active)
 {
@@ -347,4 +348,3 @@ MasterClient::activateGesture(bool active)
         cc -> stop();
 
 }
-*/
