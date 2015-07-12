@@ -7,6 +7,8 @@
 
 #include <src/backend/Server.h>
 
+#include <commands.hpp>
+
 #include <src/backend/Listener.h>
 #include <src/backend/Master.h>
 #include <src/backend/PresentationController.h>
@@ -36,6 +38,11 @@ namespace ServerAppl
                         serverSocket, SIGNAL(newClient(uint)),
                         this, SLOT(onNewClient(uint))
                         );
+
+            QObject::connect(
+                    serverSocket, SIGNAL(clientDisconnect(uint)),
+                    this, SLOT(onClientDisconnected(unsigned int))
+                    );
             /* connect signals to command-router */
             QObject::connect(
                     serverSocket, SIGNAL(receivedCmdFromClient(QByteArray , uint)),
@@ -141,23 +148,100 @@ namespace ServerAppl
 
             commandRouter->registerMessageHandler(
                     clientId,
-                    QString("login"),
+                    QString(CMD_LOGIN),
                     HANDLER_OBJ(newClient),
                     HANDLER_FUNC(UnspecifiedClient::handleLoginMessages)
                     );
 
             commandRouter->registerMessageHandler(
                     clientId,
-                    QString("LOGIN_NONCE"),
+                    QString(CMD_AUTH_PHASE1),
                     HANDLER_OBJ(newClient),
-                    HANDLER_FUNC(UnspecifiedClient::handleLoginNonceMessage)
+                    HANDLER_FUNC(UnspecifiedClient::handleAuthPhase1)
                     );
+            WRITE_DEBUG("Added new client to connected clients.")
+            WRITE_DEBUG(clientId)
         }
         else
         {
             //TODO: handle double-occurence of clientId!
+            WRITE_DEBUG("New client tried to connect with existing clientId.")
         }
     }
+
+    void Server::onMasterAuthenticationFailed()
+    {
+        WRITE_DEBUG("onMasterAuthenticationFailed called.")
+        commandRouter->unregisterMessageHandlers(masterClient->getClientId());
+        connectedClients.remove(masterClient->getClientId());
+        delete(masterClient);
+        masterClient = NULL;
+    }
+
+    void Server::onMasterAuthentificationSuccessfull()
+    {
+        QObject::connect(
+                masterClient, SIGNAL(receivedPresentation(Praesentation *, QMap<QString, QVariant>, QMap<QString, QString>)),
+                this, SLOT(onReceivedPresentation(Praesentation *, QMap<QString, QVariant>, QMap<QString, QString>))
+                );
+        dataRouter->registerMessageHandler(
+                masterClient->getClientId(),
+                DATA_PRAESENTATION,
+                HANDLER_OBJ(masterClient),
+                HANDLER_FUNC(Master::handleDataPresentation)
+                );
+    }
+
+    void Server::onReceivedPresentation(Praesentation* presentation,
+            QMap<QString, QVariant> presentationParameterList,
+            QMap<QString, QString> presentationParameterTypeList)
+    {
+        this->presentation = presentation;
+        this->presentationParameterList = presentationParameterList;
+        this->presentationParameterTypeList = presentationParameterTypeList;
+
+        this->transmitPresentationToClients();
+    }
+
+    void Server::onClientDisconnected(unsigned int clientId)
+    {
+        if(connectedClients.contains(clientId))
+        {
+            commandRouter->unregisterMessageHandlers(clientId);
+            dataRouter->unregisterMessageHandlers(clientId);
+
+            if(listenerClients.contains(clientId))
+            {
+                Listener * disconnectedClient = listenerClients.value(clientId);
+                connectedClients.remove(clientId);
+                listenerClients.remove(clientId);
+                delete(disconnectedClient);
+
+                WRITE_DEBUG("ListenerClient disconnected.")
+            }
+            else if(NULL != masterClient
+                    && masterClient->getClientId() == clientId
+                    )
+
+            {
+                this->byteStreamVerifier->removeMessageAuthenticator(clientId);
+                connectedClients.remove(clientId);
+                delete(masterClient);
+                masterClient = NULL;
+
+                WRITE_DEBUG("MasterClient disconnected.")
+            }
+            else
+            {
+                UnspecifiedClient * disconnectedClient = connectedClients.value(clientId);
+                connectedClients.remove(clientId);
+                delete(disconnectedClient);
+
+                WRITE_DEBUG("UnspecifiedClient disconnected.")
+            }
+        }
+    }
+
 
     QList<unsigned int>* Server::getAllClientIdentifiers()
     {
@@ -209,20 +293,33 @@ namespace ServerAppl
             {
                 masterClient = master;
 
-                commandRouter->unregisterMessageHandler(clientId, QString("LOGIN_NONCE"));
-                commandRouter->registerMessageHandler(
-                        clientId,
-                        QString("LOGIN_RESPONSE"),
-                        HANDLER_OBJ(master),
-                        HANDLER_FUNC(Master::handleLoginResponse)
+                QObject::connect(
+                        master, SIGNAL(authenticationFailed()),
+                        this, SLOT(onMasterAuthenticationFailed())
                         );
-                commandRouter->registerMessageHandler(
-                        clientId,
-                        QString("PROOF_RESPONSE"),
-                        HANDLER_OBJ(master),
-                        HANDLER_FUNC(Master::handleProofResponse)
+                QObject::connect(
+                        master, SIGNAL(authenticationSuccessfull()),
+                        this, SLOT(onMasterAuthentificationSuccessfull())
                         );
 
+                commandRouter->unregisterMessageHandler(clientId, CMD_LOGIN);
+                commandRouter->unregisterMessageHandler(clientId, CMD_AUTH_PHASE1);
+                commandRouter->registerMessageHandler(
+                        clientId,
+                        CMD_AUTH_PHASE3,
+                        HANDLER_OBJ(master),
+                        HANDLER_FUNC(Master::handleAuthenticationPhase3)
+                        );
+                commandRouter->registerMessageHandler(
+                        clientId,
+                        CMD_ACK_RESPONSE,
+                        HANDLER_OBJ(master),
+                        HANDLER_FUNC(Master::handleAuthenticationAcknowledge)
+                        );
+
+                this->byteStreamVerifier->addMessageAuthenticator(master->getClientId(), master->getMessageAuthenticator());
+
+                WRITE_DEBUG("Registered master client successfully.")
                 registrationSuccessfull = TRUE;
             }
         }
@@ -237,6 +334,7 @@ namespace ServerAppl
         if(listener)
         {
             uint clientId = listener->getClientId();
+            WRITE_DEBUG("registerListener: listener NOT null")
 
             if(connectedClients.contains(clientId)
                     && !listenerClients.contains(clientId)
@@ -245,18 +343,44 @@ namespace ServerAppl
                 listenerClients.insert(clientId, listener);
                 connectedClients.insert(clientId, (UnspecifiedClient*) listener);
 
-                commandRouter->unregisterMessageHandler(clientId, QString("login"));
-                commandRouter->registerMessageHandler(
-                        clientId,
-                        QString("login_RESPONSE"),
-                        HANDLER_OBJ(listener),
-                        HANDLER_FUNC(Listener::handleLoginResponseMessage)
-                        );
+                commandRouter->unregisterMessageHandler(clientId, CMD_AUTH_PHASE1);
+                commandRouter->unregisterMessageHandler(clientId, CMD_LOGIN);
+//                commandRouter->registerMessageHandler(
+//                        clientId,
+//                        QString(CMD_LOGIN_ACK),
+//                        HANDLER_OBJ(listener),
+//                        HANDLER_FUNC(Listener::handleLoginAcknowledge)
+//                        );
                 registrationSuccessfull = TRUE;
             }
         }
-
+        WRITE_DEBUG("leaving registerListener.")
         return registrationSuccessfull;
+    }
+
+    void Server::transmitPresentationToClients()
+    {
+        Message * presentationMessage = new Message(DATA_PRAESENTATION, "server", "client");
+        QList<Listener* > allListeners = listenerClients.values();
+        int listenerCounter = allListeners.length() - 1;
+        QList<uint> clientIds;
+
+        this->presentation = presentation;
+
+        presentationMessage->setParameterList(this->presentationParameterList);
+        presentationMessage->setParameterTypeList(this->presentationParameterTypeList);
+
+        while(0 <= listenerCounter)
+        {
+            if(!allListeners.value(listenerCounter)->getHasPresentation())
+            {
+                clientIds.append(allListeners.value(listenerCounter)->getClientId());
+                allListeners.value(listenerCounter)->setHasPresentation(true);
+            }
+        }
+
+        emit sendDataMessageToMultClients(presentationMessage, clientIds);
+
     }
 
     void Server::initDataRouter()

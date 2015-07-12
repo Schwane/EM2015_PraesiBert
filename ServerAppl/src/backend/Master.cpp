@@ -5,6 +5,9 @@
  *      Author: sebastian
  */
 
+#include <commands.hpp>
+
+#include <src/backend/Logger.h>
 #include <src/backend/Master.h>
 
 namespace ServerAppl
@@ -18,7 +21,7 @@ namespace ServerAppl
     Master::Master(UnspecifiedClient * priorClientObject, QString nonce1 )
     {
         QByteArray concatenatedNonce;
-
+        this->currentAuthState = PHASE_1;
         this->priorClientObject = priorClientObject;
         this->server = priorClientObject->getServer();
         this->clientId = priorClientObject->getClientId();
@@ -29,23 +32,31 @@ namespace ServerAppl
         this->nonce.part_2 = generateNonce(456);
         this->symmetricKey = "KATZE";
         this->messageAuthenticator = new MessageAuthenticator();
-
         concatenatedNonce.append(this->nonce.part_1);
         concatenatedNonce.append(this->nonce.part_2);
-        this->messageAuthenticator->hmacSha1(this->symmetricKey,concatenatedNonce);
-        this->messageAuthenticator->setKey(this->symmetricKey);
+//        this->messageAuthenticator->hmacSha1(this->symmetricKey,concatenatedNonce);
+        this->messageAuthenticator->setKey(messageAuthenticator->hmacSha1(this->symmetricKey, concatenatedNonce));
+
+        this->authenticationTimer = new QTimer(this);
+
+        QObject::connect(
+                authenticationTimer, SIGNAL(timeout()),
+                this, SLOT(authenticationTimeout())
+                );
+
+        authenticationTimer->start(5000); /* ms */
     }
 
     Master::~Master()
     {
+        delete(authenticationTimer);
+        delete(messageAuthenticator);
         // TODO Auto-generated destructor stub
     }
 
-    bool Master::createMaster(UnspecifiedClient * client, Master* master, QString nonce1)
+    Master* Master::createMaster(UnspecifiedClient * client, QString nonce1)
     {
-        master = new Master(client, nonce1);
-
-        return true;
+        return new Master(client, nonce1);
     }
 
     QString Master::generateNonce(uint seed)
@@ -58,50 +69,81 @@ namespace ServerAppl
         return QString(buf);
     }
 
-    Message* Master::handleReceivedMessage(QString commandName, Message* msg)
+    Message* Master::handleDataPresentation(QString commandName, Message* msg)
     {
-        Message * responseMessage;
+        Praesentation * presentation = new Praesentation();
+        QMap<QString, QVariant> presentationParameterList = *(msg->getParameters());
+        QMap<QString, QString> presentationParameterTypeList = *(msg->getParameterTypes());
 
-        if(IS_COMMAND(commandName, "PROOF_RESPONSE"))
-        {
-            responseMessage = handleProofResponse(commandName, msg);
-        }
-        else if(IS_COMMAND(commandName, "LOGIN_RESPONSE"))
-        {
-            responseMessage = handleLoginResponse(commandName, msg);
-        }
-        else
-        {
+        presentation->parsePraesentation(presentationParameterList, presentationParameterTypeList);
 
-        }
-
-        return responseMessage;
-    }
-
-    Message* Master::handleProofResponse(QString commandName, Message* msg)
-    {
-        Message * responseMessage;
-
-        if(IS_COMMAND(commandName, "PROOF_RESPONSE"))
-        {
-            responseMessage = new Message(QString("login"), QString("server"), QString("client"));
-        }
-
-        delete(msg);
-
-        return responseMessage;
-    }
-
-    Message* Master::handleLoginResponse(QString commandName, Message* msg)
-    {
-        if(IS_COMMAND(commandName, "LOGIN_RESPONSE"))
-        {
-            delete(this->priorClientObject);
-        }
+        emit receivedPresentation(presentation, presentationParameterList, presentationParameterTypeList);
 
         delete(msg);
 
         return NULL;
+    }
+
+    void Master::authenticationTimeout()
+    {
+        WRITE_DEBUG("Master authentication timed out.")
+        authenticationTimer->stop();
+        emit authenticationFailed();
+    }
+
+    Message* Master::handleReceivedMessage(QString commandName, Message* msg)
+    {
+        Message * responseMessage = NULL;
+
+        return responseMessage;
+    }
+
+    Message* Master::handleAuthenticationAcknowledge(QString commandName, Message* msg)
+    {
+        Message * responseMessage = NULL;
+
+        if(IS_COMMAND(commandName, CMD_ACK_RESPONSE))
+        {
+            if(ACCEPTED == authenticationStm(ReceivedAcknowledgeMessage))
+            {
+                delete(this->priorClientObject);
+            }
+        }
+
+        delete(msg);
+
+        return responseMessage;
+    }
+
+    Message* Master::handleAuthenticationPhase3(QString commandName, Message* msg)
+    {
+        Message * responseMessage = NULL;
+
+        if(IS_COMMAND(commandName, CMD_AUTH_PHASE3))
+        {
+            if(
+                    (
+                        !msg->getParameters()->contains(QString("status"))
+                        ||(
+                            msg->getParameters()->contains(QString("status"))
+                            && "error" != msg->getParameterTypes()->value(QString("status"))
+                        )
+                    )
+                    && PHASE_3 == authenticationStm(ReceivedPhase3Message)
+                )
+            {
+                responseMessage = new Message(CMD_AUTH_PHASE4, "server", "master");
+                responseMessage->addParameter("status", QString("ok"));
+                responseMessage->addParameter("id", QString::number(this->getClientId()));
+                this->authenticationTimer->stop();
+                WRITE_DEBUG("Master authentication successfully finished.")
+            }
+
+        }
+
+        delete(msg);
+
+        return responseMessage;
     }
 
     void Master::onReceivedData(unsigned int receiverIdentifier)
@@ -122,9 +164,19 @@ namespace ServerAppl
 
     }
 
+    ClientType Master::getClientType()
+    {
+        return ClientType_Master;
+    }
+
     NONCE Master::getNonce()
     {
         return this->nonce;
+    }
+
+    MessageAuthenticator* Master::getMessageAuthenticator()
+    {
+        return messageAuthenticator;
     }
 
     void Master::onTransmitSlidesResponse(bool accepted)
@@ -132,4 +184,52 @@ namespace ServerAppl
         acceptSlides = accepted;
     }
 
+    MasterAuthenticationState Master::authenticationStm(MasterAuthenticationEvent event)
+    {
+        MasterAuthenticationState newState = currentAuthState;
+
+        switch(currentAuthState)
+        {
+            case PHASE_1:
+                if(TransmittedPhase2Message == event)
+                {
+                    newState = PHASE_2;
+                }
+                break;
+            case PHASE_2:
+                if(ReceivedPhase3Message == event)
+                {
+                    newState = PHASE_3;
+                }
+                break;
+            case PHASE_3:
+                if(ReceivedAcknowledgeMessage == event)
+                {
+                    newState = ACCEPTED;
+                }
+                break;
+            case ACCEPTED:
+
+                break;
+            case REJECTED:
+                if(ReceivedPhase1Message == event)
+                {
+                    newState = PHASE_1;
+                }
+                break;
+            default:
+                if(ReceivedCorruptAuthenticationMessage == event)
+                {
+                    newState = REJECTED;
+                }
+                break;
+        }
+
+        currentAuthState = newState;
+
+        return newState;
+    }
+
 } /* namespace ServerAppl */
+
+

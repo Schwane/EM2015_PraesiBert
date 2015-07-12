@@ -7,6 +7,9 @@
 
 #include <src/backend/Listener.h>
 
+#include <src/backend/Logger.h>
+#include <src/backend/UnspecifiedClient.h>
+
 namespace ServerAppl
 {
     Listener::Listener()
@@ -16,11 +19,15 @@ namespace ServerAppl
 
     Listener::Listener(UnspecifiedClient * priorClientObject)
     {
+        WRITE_DEBUG("Listener constructor called.")
         this->priorClientObject = priorClientObject;
         this->clientId = priorClientObject->getClientId();
         this->name = priorClientObject->getName();
         this->lastTimestamp = priorClientObject->getLastTimestamp();
+        this->hasPresentation = FALSE;
         connectionStm(Init);
+//        delete(this->priorClientObject);
+        WRITE_DEBUG("Listener constructor finished.")
     }
 
     Listener::~Listener()
@@ -28,11 +35,20 @@ namespace ServerAppl
         // TODO Auto-generated destructor stub
     }
 
-    bool Listener::createListener(UnspecifiedClient* client, Listener* listener)
+    Listener*  Listener::createListener(UnspecifiedClient* client)
     {
-        listener = new Listener(client);
-
-        return true;
+        Listener* newListener;
+        WRITE_DEBUG("createListener called.")
+        newListener = new Listener(client);
+        if(newListener)
+        {
+            WRITE_DEBUG("createListener: newListener created.")
+        }
+        else
+        {
+            WRITE_DEBUG("createListener: newListener is NULL.")
+        }
+        return newListener;
     }
 
 
@@ -65,22 +81,36 @@ namespace ServerAppl
         return NULL;
     }
 
-    Message* Listener::handleLoginResponseMessage(QString commandName, Message* msg)
+    void Listener::setHasPresentation(bool hasPresentation)
     {
-        Message * responseMessage = NULL;
-
-        if("login_RESPONSE" == commandName)
-        {
-            if(connectionStm(Login))
-            {
-                delete(this->priorClientObject);
-            }
-        }
-
-        delete msg;
-
-        return responseMessage;
+        this->hasPresentation = hasPresentation;
     }
+
+    bool Listener::getHasPresentation()
+    {
+        return this->hasPresentation;
+    }
+
+    ClientType Listener::getClientType()
+    {
+        return ClientType_Listener;
+    }
+//    Message* Listener::handleLoginAcknowledge(QString commandName, Message* msg)
+//    {
+//        Message * responseMessage = NULL;
+//
+//        if(IS_COMMAND(commandName, CMD_LOGIN_ACK))
+//        {
+//            if(connectionStm(Login))
+//            {
+//                delete(this->priorClientObject);
+//            }
+//        }
+//
+//        delete msg;
+//
+//        return responseMessage;
+//    }
 
     bool Listener::connectionStm(ListenerConnectionStmEvent event)
     {

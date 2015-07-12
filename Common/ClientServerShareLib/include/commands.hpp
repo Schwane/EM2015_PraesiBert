@@ -8,6 +8,8 @@
 #ifndef COMMANDS_HPP_
 #define COMMANDS_HPP_
 
+#define CMD_UNKNOWN "unknown_command"
+
 #define CMD_SET_SLIDE "slide"
 #define CMD_SET_PRAESENTATION "praesentation"
 #define DATA_PRAESENTATION "deliver_praesentation"
@@ -25,6 +27,7 @@
 #define CMD_RANF_RESP "redeanfrage_antwort"
 #define CMD_RANF_RE_RESP "redeanfrage_finale_antwort"
 #define CMD_RANF_FINISH "redeanfrage_finish"
+
 
 #define DATA_AUDIO "deliver_audio"
 
