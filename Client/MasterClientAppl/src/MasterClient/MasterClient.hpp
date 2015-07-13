@@ -50,7 +50,7 @@ public Q_SLOTS:
 
     Q_INVOKABLE void selectPraesentation(QString path);
     Q_INVOKABLE void deliverPraesentation();
-    Q_INVOKABLE void reqeustStopPraesentation();
+    Q_INVOKABLE void requestStopPraesentation();
 
     Q_INVOKABLE void activateGesture(bool active);
 Q_SIGNALS:
