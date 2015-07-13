@@ -10,7 +10,7 @@
 
 #define CMD_UNKNOWN "unknown_command"
 
-#define CMD_SET_SLIDE "slide"
+#define CMD_SET_SLIDE "set_slide"
 #define CMD_SET_PRAESENTATION "praesentation"
 #define DATA_PRAESENTATION "deliver_praesentation"
 
