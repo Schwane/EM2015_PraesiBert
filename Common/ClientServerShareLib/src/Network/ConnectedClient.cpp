@@ -284,7 +284,8 @@ namespace Network
     void ConnectedClient::handleDataRead()
     {
         QByteArray inputData;
-
+        while(1)
+        {
         if (!m_next_block_size_data)
         {
             int x = 4;
@@ -318,7 +319,9 @@ namespace Network
             qDebug() << "New data at client.\n" << m_bufferData;
             m_bufferData.clear();
         }
-
+        if (m_dataSocket -> bytesAvailable() == 0)
+                    break;
+        }
         return;
     }
 
