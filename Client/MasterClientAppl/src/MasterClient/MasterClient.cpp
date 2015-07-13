@@ -334,9 +334,10 @@ MasterClient::deliverPraesentation()
 }
 
 void
-MasterClient::stopPraesentation()
+MasterClient::reqeustStopPraesentation()
 {
-    prs->stop();
+    Message *msg = new Message(CMD_STOP_PRAESENTATION, id, "server");
+    xmlmw->writeMessage(msg);
 }
 
 void

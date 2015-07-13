@@ -261,7 +261,7 @@ Page {
                         if (! selection) {
                             filePicker.open();
                         } else {
-                            cl.stopPraesentation();
+                            cl.requestStopPraesentation();
                             //cl.resetPraesentation();
                             selection = false;
                             btn_praesi_stat.defaultImageSource = "asset:///img/select.png";

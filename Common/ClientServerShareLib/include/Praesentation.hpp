@@ -45,10 +45,12 @@ private:
     bool running;
 signals:
     void slideChanged(bb::cascades::Image);
+    void slideChangedUrl(QUrl url);
     void praesentationParsed(Message* response);
     void parsing(bool active);
     void praesentationReady();
     void isRunning(bool active);
+
 
 };
 

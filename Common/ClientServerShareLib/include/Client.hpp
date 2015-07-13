@@ -13,6 +13,7 @@
 #include <QtCore>
 #include <bb/ImageData>
 #include <bb/cascades/Image>
+#include <bb/utility/ImageConverter>
 
 #include "Message.hpp"
 #include "XMLMessageParser.hpp"
@@ -21,6 +22,7 @@
 #include "Praesentation.hpp"
 #include "commands.hpp"
 #include "EMaudiorecorder.hpp"
+#include "HDMI.hpp"
 
 class Client;
 class XMLMessageParser;
@@ -48,7 +50,7 @@ public Q_SLOTS:
     Message* setSlide(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
     Message* parsePraesentation(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
     Message* loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
-
+    Message* stopPraesentation(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
     /* Routines for access from UI */
     Q_INVOKABLE bb::cascades::Image getSlide();
     Q_INVOKABLE QString getLastSentMsg();
@@ -69,8 +71,11 @@ public Q_SLOTS:
     Q_INVOKABLE void logout();
     Q_INVOKABLE void connectToServer(QString addr, QString cmd_port, QString data_port);
 
+    /*HDMI slots*/
+    void onNewSlideUrl(QUrl url);
 signals:
     void slideChanged(bb::cascades::Image img);
+    void slideChangedUrl(QUrl url);
     void messageSent();
     void loginStateChanged();
     void wait(bool active);
@@ -92,6 +97,8 @@ protected:
     LoginState login_state;
     Praesentation *prs;
     QString id;
+
+    bb::EM2015::HDMI *hdmi;
 };
 
 #endif /* CLIENT_HPP_ */

@@ -115,19 +115,21 @@ Praesentation::parsePraesentation(QMap<QString, QVariant> params, QMap<QString, 
             //convert byte array from b64 to image
             imgBytes = QByteArray::fromBase64(imgVar.toByteArray());
 
-            QImage img;
 
-            img = QImage::fromData(imgBytes, "JPG");
-
-            bool valid = !img.isNull();
 
             QString path;
             //save slide and add to the reference
             path = basePath;
             path.append(slideID);
             path.append(".jpg");
-            img.save(path,"JPG",10);
+            QFile f(path);
 
+            if(f.open(QIODevice::WriteOnly))
+            {
+                qDebug() << "Error opening File: " << path;
+                break;
+            }
+            f.write(imgBytes);
             slideReference.insert(i, path);
         }
         else
@@ -174,6 +176,7 @@ Praesentation::setSlide(int slide)
         emit isRunning(true);
     }
     emit slideChanged(bb::cascades::Image(imgData));
+    emit slideChangedUrl(QUrl(path));
 }
 
 

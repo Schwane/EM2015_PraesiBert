@@ -12,6 +12,7 @@
 
 #define CMD_SET_SLIDE "set_slide"
 #define CMD_SET_PRAESENTATION "praesentation"
+#define CMD_STOP_PRAESENTATION "stop_praesentation"
 #define DATA_PRAESENTATION "deliver_praesentation"
 
 #define CMD_LOGIN "login"

@@ -11,6 +11,7 @@ Client::Client()
 {
     /*register remote functions*/
     registerdFunctions.insert(CMD_SET_SLIDE,&Client::setSlide);
+    registerdFunctions.insert(CMD_STOP_PRAESENTATION,&Client::stopPraesentation);
     registerdFunctions.insert(CMD_SET_PRAESENTATION,&Client::parsePraesentation);
     registerdFunctions.insert(CMD_LOGIN_RESP, &Client::Client::loginResponse);
 
@@ -41,12 +42,17 @@ Client::Client()
     connect(cs, SIGNAL(lostConnection()),this,SLOT(connectionLost()));
 
     connect(prs, SIGNAL(slideChanged(bb::cascades::Image)), this, SIGNAL(slideChanged(bb::cascades::Image)));
+    connect(prs, SIGNAL(slideChangedUrl(QUrl)), this, SIGNAL(slideChangedUrl(QUrl)));
+    connect(prs, SIGNAL(slideChangedUrl(QUrl)), this, SLOT(onNewSlideUrl(QUrl)));
     connect(prs, SIGNAL(parsing(bool)), this, SIGNAL(wait(bool)));
     connect(prs, SIGNAL(praesentationReady()), this, SIGNAL(praesentationReady()));
+
+    hdmi = new bb::EM2015::HDMI(RES1280x720);
 }
 
 Client::~Client()
 {
+    delete hdmi;
     delete xmlmp;
     delete xmlmw;
 
@@ -141,6 +147,18 @@ Client::parsePraesentation(QMap<QString, QVariant> parameters, QMap<QString, QSt
     prs->parsePraesentation(parameters, parameter_types);
     //TODO correct response needs to be generated! This is only a quick-fix (Sebastian).
     return resp;
+}
+
+Message*
+Client::stopPraesentation(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types)
+{
+    prs->stop();
+    bb::ImageData imgData = bb::utility::ImageConverter::decode(QUrl("assets:///img/before_start.png"));
+    bb::cascades::Image img = imgData;
+    emit slideChanged(img);
+    emit slideChangedUrl(QUrl("assets:///img/before_start.png"));
+    Message *msg = new Message(CMD_ACK_RESPONSE, id, "server");
+    return msg;
 }
 
 Message*
@@ -258,7 +276,7 @@ Client::onPraesiSlideChanged(bb::cascades::Image img)
 void
 Client::requestSlideChange(int offset)
 {
-    Message *msg = new Message("setSlide", id, "server");
+    Message *msg = new Message(CMD_SET_SLIDE, id, "server");
     msg->addParameter("slide", prs->getCurrentSlide() + offset);
     xmlmw->writeMessage(msg);
 }
@@ -310,4 +328,10 @@ void
 Client::logout()
 {
     cs -> disconnectFromServer();
+}
+
+void
+Client::onNewSlideUrl(QUrl url)
+{
+    hdmi -> show_slide(url);
 }

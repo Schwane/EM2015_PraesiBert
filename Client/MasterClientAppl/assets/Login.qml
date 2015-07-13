@@ -17,7 +17,7 @@ Page {
                 }
                 TextField {
                     id: tex_ip
-                    text: "192.168.1.151"
+                    text: "192.168.178.35"
                     enabled: true
                     inputMode: TextFieldInputMode.NumbersAndPunctuation
                 }
@@ -59,7 +59,7 @@ Page {
                 }
                 TextField {
                     id: tex_pwd
-                    text: ""
+                    text: "KATZE"
                     inputMode: TextFieldInputMode.Password
                 } 
                 Button {

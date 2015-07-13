@@ -162,6 +162,8 @@ namespace Network
     {
         QByteArray inputData;
 
+        while (1)
+        {
         if (!m_next_block_size_cmd)
         {
             int x = 4;
@@ -195,7 +197,9 @@ namespace Network
             qDebug() << "New command at client.\n" << m_bufferCmd;
             m_bufferCmd.clear();
         }
-
+        if (m_cmdSocket -> bytesAvailable() == 0)
+            break;
+        }
         return;
     }
 

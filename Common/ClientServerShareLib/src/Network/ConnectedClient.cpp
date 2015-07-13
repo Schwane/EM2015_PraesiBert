@@ -231,6 +231,8 @@ namespace Network
     {
         QByteArray inputData;
 
+        while (1)
+        {
         if (!m_next_block_size_cmd)
         {
             int x = 4;
@@ -265,6 +267,9 @@ namespace Network
             m_bufferCmd.clear();
         }
 
+            if (m_cmdSocket -> bytesAvailable() == 0)
+                break;
+        }
         return;
     }
 

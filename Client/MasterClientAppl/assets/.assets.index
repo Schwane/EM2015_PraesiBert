@@ -3,12 +3,10 @@
 Copy of main.qm_
 example/msg.xml
 img/before_start.png
-img/podcast_clicked.png
-img/select.png
 img/fuchs.jpg
-img/speaker_off.png
-img/next.png
 img/mute.png
+img/next.png
+img/next_clicked.png
 img/podcast.png
 img/podcast_clicked.png
 img/previous.png
@@ -20,14 +18,12 @@ img/select.png
 img/select_clicked.png
 img/speaker_off.png
 img/speaker_on.png
-img/next_clicked.png
-img/previous.png
 img/stop.png
 img/stop_clicked.png
 img/test.jpg
 img/wifi.png
 Login.qml
-Settings.qml
 main.qml
-example/msg.xml
+Presentation.qml
+Settings.qml
 WaitingDialog.qml
