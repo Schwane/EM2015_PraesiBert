@@ -124,7 +124,7 @@ Praesentation::parsePraesentation(QMap<QString, QVariant> params, QMap<QString, 
             path.append(".jpg");
             QFile f(path);
 
-            if(f.open(QIODevice::WriteOnly))
+            if(!f.open(QIODevice::WriteOnly))
             {
                 qDebug() << "Error opening File: " << path;
                 break;
