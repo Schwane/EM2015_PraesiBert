@@ -37,6 +37,7 @@ namespace bb
             virtual ~HDMI();
 
             void show_slide(QUrl img_url);
+            void show_slide(bb::ImageData img_data);
             void show_last_slide();
 
             /*

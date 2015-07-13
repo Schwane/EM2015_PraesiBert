@@ -42,6 +42,18 @@ namespace bb
 
         }
 
+        void HDMI::show_slide(bb::ImageData img_data)
+        {
+            if(disp_open == false)
+            {
+                extbert.setResolution(hdmires);
+                extbert.open();
+                disp_open = true;
+            }
+
+            extbert.showImage(img_data);
+        }
+
     /*    void HDMI::preload_slide(QUrl img_url)
         {
             slide_img_preload = bb::utility::ImageConverter::decode(QUrl(img_url));
