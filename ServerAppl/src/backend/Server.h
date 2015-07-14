@@ -47,6 +47,9 @@ namespace ServerAppl
         bool registerMaster(Master * master);
         bool unregisterMaster(Master * master);
         bool registerListener(Listener * listener);
+        QString getIpAddress();
+        QString getCommandPort();
+        QString getDataPort();
 
         /* Message handlers */
         Message* handleUnknownMessage(QString commandName, Message* msg);
@@ -56,6 +59,7 @@ namespace ServerAppl
         void sendCmdMessageToMultClients(Message* data, QList<uint> clientIDs);
         void sendDataMessageToMultClients(Message* data, QList<uint> clientIDs);
         void sendCmdMessageToAll(Message* msg);
+        void gotIpAddress(QString ipAddress);
 
     public slots:
         void onStopPresentation();
@@ -68,6 +72,7 @@ namespace ServerAppl
         void onReceivedPresentation(Praesentation * presentation, QMap<QString, QVariant> presentationParameterList, QMap<QString, QString> presentationParameterTypeList);
         void onDeliverPresentationToClient(unsigned int clientId);
         void onClientDisconnected(unsigned int clientId);
+        void onNewIP(QString newIP);
 
     private:
         void deleteCommandRouter();
@@ -97,6 +102,9 @@ namespace ServerAppl
         QMap<QString, QVariant> presentationParameterList;
         QMap<QString, QString> presentationParameterTypeList;
         int currentSlide;
+        QString ipAddress;
+        QString dataPort;
+        QString commandPort;
     };
 
 } /* namespace ServerAppl */

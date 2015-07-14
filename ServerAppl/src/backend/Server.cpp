@@ -33,18 +33,32 @@ namespace ServerAppl
         presentation = NULL;
         currentSlide = 0;
 
+        QObject::connect(
+                serverSocket, SIGNAL(newIP(QString)),
+                this, SLOT(onNewIP(QString))
+                );
+        QObject::connect(
+                serverSocket, SIGNAL(newIP(QString)),
+                this, SLOT(gotIpAddress(QString))
+                );
+
         if(serverSocket->beginListening(QString(serverCommandPort),QString(serverDataPort)))
         {
+            this->commandPort = QString(serverCommandPort);
+            this->dataPort = QString(serverDataPort);
+
             WRITE_DEBUG("Server-socket is listening.")
+
             QObject::connect(
-                        serverSocket, SIGNAL(newClient(uint)),
-                        this, SLOT(onNewClient(uint))
-                        );
+                    serverSocket, SIGNAL(newClient(uint)),
+                    this, SLOT(onNewClient(uint))
+                    );
 
             QObject::connect(
                     serverSocket, SIGNAL(clientDisconnect(uint)),
                     this, SLOT(onClientDisconnected(unsigned int))
                     );
+
             /* connect signals to command-router */
             QObject::connect(
                     serverSocket, SIGNAL(receivedCmdFromClient(QByteArray , uint)),
@@ -391,6 +405,22 @@ namespace ServerAppl
         return masterClient->getClientId();
     }
 
+    QString Server::getIpAddress()
+    {
+        return this->ipAddress;
+    }
+
+    QString Server::getCommandPort()
+    {
+        return this->commandPort;
+    }
+
+    QString Server::getDataPort()
+    {
+        return this->dataPort;
+    }
+
+
     void Server::deleteCommandRouter()
     {
     }
@@ -568,6 +598,11 @@ namespace ServerAppl
         }
         WRITE_DEBUG("leaving registerListener.")
         return registrationSuccessfull;
+    }
+
+    void Server::onNewIP(QString newIP)
+    {
+        this->ipAddress = newIP;
     }
 
     void Server::transmitPresentationToClients()
