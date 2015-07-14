@@ -55,6 +55,7 @@ namespace Network
     public:
         ServerSocket(QObject* parent);
         virtual ~ServerSocket();
+        bool disconnectFromClient(uint clientID);
 
     private:
         /// QTcpServer for command connections
@@ -113,7 +114,6 @@ namespace Network
 
     public slots:
         bool beginListening(QString cmdPort_str, QString dataPort_str);
-        void disconnectFromClient(uint clientID);
         void closeServer();
         void sendCmdToAll(QByteArray data);
         void sendDataToAll(QByteArray data);
