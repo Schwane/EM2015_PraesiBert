@@ -30,7 +30,7 @@ namespace ServerAppl
         PresentationController(Server * server);
         virtual ~PresentationController();
         unsigned short countSlides();
-        Message* handleReceivedMessage(QString commandName, Message* msg);
+        Message* handleUnknownMessage(QString commandName, Message* msg);
 
         /* message handlers */
         Message* handleSetSlide(QString commandName, Message* msg);

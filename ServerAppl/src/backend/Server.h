@@ -45,27 +45,42 @@ namespace ServerAppl
         QList<unsigned int> * getListenerClientIdentifiers();
         unsigned int getMasterClientIdentifier();
         bool registerMaster(Master * master);
+        bool unregisterMaster(Master * master);
         bool registerListener(Listener * listener);
-        void transmitPresentationToClients();
+        QString getIpAddress();
+        QString getCommandPort();
+        QString getDataPort();
 
         /* Message handlers */
-        Message* handleReceivedMessage(QString commandName, Message* msg);
+        Message* handleUnknownMessage(QString commandName, Message* msg);
 
     signals:
+        void sendCmdToID(Message* msg, uint clientID);
+        void sendCmdMessageToMultClients(Message* data, QList<uint> clientIDs);
         void sendDataMessageToMultClients(Message* data, QList<uint> clientIDs);
+        void sendCmdMessageToAll(Message* msg);
+        void gotIpAddress(QString ipAddress);
 
     public slots:
+        void onStopPresentation();
+        void onForwardMessageToClient(Message * msg, unsigned int clientId);
+        void onForwaredMessageToMaster(Message * msg, unsigned int clientId);
+        void onReceivedSetSlide(int slideNumber);
         void onNewClient(uint clientId);
         void onMasterAuthenticationFailed();
         void onMasterAuthentificationSuccessfull();
         void onReceivedPresentation(Praesentation * presentation, QMap<QString, QVariant> presentationParameterList, QMap<QString, QString> presentationParameterTypeList);
+        void onDeliverPresentationToClient(unsigned int clientId);
         void onClientDisconnected(unsigned int clientId);
+        void onNewIP(QString newIP);
 
     private:
         void deleteCommandRouter();
         void deleteDataRouter();
         void initCommandRouter();
         void initDataRouter();
+        void transmitStopCommand(bool transmitToMaster);
+        void transmitPresentationToClients();
 
     /* properties */
     public:
@@ -86,6 +101,10 @@ namespace ServerAppl
         Praesentation * presentation;
         QMap<QString, QVariant> presentationParameterList;
         QMap<QString, QString> presentationParameterTypeList;
+        int currentSlide;
+        QString ipAddress;
+        QString dataPort;
+        QString commandPort;
     };
 
 } /* namespace ServerAppl */

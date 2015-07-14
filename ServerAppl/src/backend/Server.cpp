@@ -30,19 +30,35 @@ namespace ServerAppl
         dataRouter = new MessageRouter();
         presentationController = new PresentationController(this);
         masterClient = NULL;
+        presentation = NULL;
+        currentSlide = 0;
+
+        QObject::connect(
+                serverSocket, SIGNAL(newIP(QString)),
+                this, SLOT(onNewIP(QString))
+                );
+        QObject::connect(
+                serverSocket, SIGNAL(newIP(QString)),
+                this, SLOT(gotIpAddress(QString))
+                );
 
         if(serverSocket->beginListening(QString(serverCommandPort),QString(serverDataPort)))
         {
+            this->commandPort = QString(serverCommandPort);
+            this->dataPort = QString(serverDataPort);
+
             WRITE_DEBUG("Server-socket is listening.")
+
             QObject::connect(
-                        serverSocket, SIGNAL(newClient(uint)),
-                        this, SLOT(onNewClient(uint))
-                        );
+                    serverSocket, SIGNAL(newClient(uint)),
+                    this, SLOT(onNewClient(uint))
+                    );
 
             QObject::connect(
                     serverSocket, SIGNAL(clientDisconnect(uint)),
                     this, SLOT(onClientDisconnected(unsigned int))
                     );
+
             /* connect signals to command-router */
             QObject::connect(
                     serverSocket, SIGNAL(receivedCmdFromClient(QByteArray , uint)),
@@ -64,8 +80,33 @@ namespace ServerAppl
                     );
 
             QObject::connect(
+                    this, SIGNAL(sendCmdToID(Message*, uint)),
+                    messageWriter, SLOT(writeCmdMessage(Message*, uint))
+                    );
+
+            QObject::connect(
                     messageWriter, SIGNAL(cmdMessageWritten(QByteArray, uint)),
                     serverSocket, SLOT(sendCmdToID(QByteArray , uint ))
+                    );
+
+//            QObject::connect(
+//                    this, SIGNAL(sendCmdToID(Message*, uint)),
+//                    messageWriter, SLOT(writeCmdMessage(Message*, uint))
+//                    );
+
+            QObject::connect(
+                    this, SIGNAL(sendCmdMessageToAll(Message*)),
+                    messageWriter, SLOT(writeCmdMessage(Message*))
+                    );
+
+            QObject::connect(
+                    messageWriter, SIGNAL(cmdMessageWritten(QByteArray)),
+                    serverSocket, SLOT(sendCmdToAll(QByteArray))
+                    );
+
+            QObject::connect(
+                    this, SIGNAL(sendCmdMessageToMultClients(Message*, QList<uint>)),
+                    messageWriter, SLOT(writeCmdMessage(Message*, QList<uint>))
                     );
 
             QObject::connect(
@@ -76,7 +117,7 @@ namespace ServerAppl
             /* connect signals to data-router */
             QObject::connect(
                     serverSocket, SIGNAL(receivedDataFromClient(QByteArray , uint)),
-                    byteStreamVerifier, SLOT(verifyCmdByteStream(QByteArray, uint))
+                    byteStreamVerifier, SLOT(verifyDataByteStream(QByteArray, uint))
                     );
 
             QObject::connect(
@@ -99,13 +140,13 @@ namespace ServerAppl
                     );
 
             QObject::connect(
-                    this, SIGNAL(sendDataMessageToMultClients(QByteArray, QList<uint>)),
+                    this, SIGNAL(sendDataMessageToMultClients(Message*, QList<uint>)),
                     messageWriter, SLOT(writeDataMessage(Message*, QList<uint>))
                     );
 
             QObject::connect(
                     messageWriter, SIGNAL(dataMessageWritten(QByteArray, QList<uint>)),
-                    serverSocket, SLOT(dataCmdToMultClients(QByteArray, QList<uint>))
+                    serverSocket, SLOT(sendDataToMultClients(QByteArray, QList<uint>))
                     );
 
         }
@@ -115,6 +156,11 @@ namespace ServerAppl
 
     Server::~Server()
     {
+        if(presentation)
+        {
+            delete(presentation);
+        }
+
         if(masterClient)
         {
             delete(masterClient);
@@ -132,9 +178,27 @@ namespace ServerAppl
         WRITE_DEBUG("Server-destructor finished.")
     }
 
-    Message* Server::handleReceivedMessage(QString commandName, Message* msg)
+    Message* Server::handleUnknownMessage(QString commandName, Message* msg)
     {
         return NULL;
+    }
+
+    void Server::onForwardMessageToClient(Message* msg, unsigned int clientId)
+    {
+        if(connectedClients.contains(clientId))
+        {
+            emit sendCmdToID(msg, clientId);
+        }
+    }
+
+    void Server::onForwaredMessageToMaster(Message* msg, unsigned int clientId)
+    {
+        if(connectedClients.contains(clientId)
+                && NULL != masterClient
+                )
+        {
+            emit sendCmdToID(msg, masterClient->getClientId());
+        }
     }
 
     void Server::onNewClient(uint clientId)
@@ -172,8 +236,9 @@ namespace ServerAppl
     void Server::onMasterAuthenticationFailed()
     {
         WRITE_DEBUG("onMasterAuthenticationFailed called.")
-        commandRouter->unregisterMessageHandlers(masterClient->getClientId());
+//        commandRouter->unregisterMessageHandlers(masterClient->getClientId());
         connectedClients.remove(masterClient->getClientId());
+        this->unregisterMaster(masterClient);
         delete(masterClient);
         masterClient = NULL;
     }
@@ -203,6 +268,35 @@ namespace ServerAppl
         this->transmitPresentationToClients();
     }
 
+    void Server::onReceivedSetSlide(int slideNumber)
+    {
+        Message * setSlideMessage = NULL;
+        int listenerCounter = listenerClients.count() - 1;
+        QList<Listener* > allListeners = listenerClients.values();
+        QList<uint> clientIds;
+
+        while(0 <= listenerCounter)
+        {
+            if(allListeners.value(listenerCounter)->getHasPresentation())
+            {
+                clientIds.append(allListeners.value(listenerCounter)->getClientId());
+            }
+            listenerCounter--;
+        }
+
+        if(masterClient)
+        {
+            clientIds.append(masterClient->getClientId());
+        }
+
+        this->currentSlide = slideNumber;
+
+        setSlideMessage = new Message(CMD_SET_SLIDE, "server", "client");
+        setSlideMessage->addParameter("slide", slideNumber);
+
+        emit sendCmdMessageToMultClients(setSlideMessage, clientIds);
+    }
+
     void Server::onClientDisconnected(unsigned int clientId)
     {
         if(connectedClients.contains(clientId))
@@ -215,6 +309,17 @@ namespace ServerAppl
                 Listener * disconnectedClient = listenerClients.value(clientId);
                 connectedClients.remove(clientId);
                 listenerClients.remove(clientId);
+
+                QObject::disconnect(
+                        disconnectedClient, SIGNAL(forwaredMessageToMaster(Message *, unsigned int)),
+                    this, SLOT(onForwaredMessageToMaster(Message *, unsigned int))
+                    );
+
+                QObject::disconnect(
+                        disconnectedClient, SIGNAL(requestDeliverPresentation( unsigned int)),
+                    this, SLOT(onDeliverPresentationToClient(unsigned int))
+                    );
+
                 delete(disconnectedClient);
 
                 WRITE_DEBUG("ListenerClient disconnected.")
@@ -224,8 +329,17 @@ namespace ServerAppl
                     )
 
             {
-                this->byteStreamVerifier->removeMessageAuthenticator(clientId);
-                connectedClients.remove(clientId);
+//                this->byteStreamVerifier->removeMessageAuthenticator(clientId);
+//                connectedClients.remove(clientId);
+                this->transmitStopCommand(false);
+
+                if(this->presentation)
+                {
+                    delete(this->presentation);
+                    this->presentation = NULL;
+                }
+
+                unregisterMaster(masterClient);
                 delete(masterClient);
                 masterClient = NULL;
 
@@ -242,6 +356,30 @@ namespace ServerAppl
         }
     }
 
+    void Server::onStopPresentation()
+    {
+        this->transmitStopCommand(true);
+
+    }
+
+    void Server::onDeliverPresentationToClient(unsigned int clientId)
+    {
+        if(this->listenerClients.contains(clientId)
+                && NULL != presentation
+                )
+        {
+            Message * presentationMessage = new Message(CMD_SET_PRAESENTATION, "server", "client");
+            Message * setSlideMessage = new Message(CMD_SET_SLIDE, "server", "client");
+
+            presentationMessage = this->presentation->packPraesentation(presentationMessage);
+            setSlideMessage->addParameter("slide", this->currentSlide);
+
+            emit sendCmdToID(presentationMessage, clientId);
+            emit sendCmdToID(setSlideMessage, clientId);
+
+            this->listenerClients.value(clientId)->setHasPresentation(true);
+        }
+    }
 
     QList<unsigned int>* Server::getAllClientIdentifiers()
     {
@@ -266,6 +404,22 @@ namespace ServerAppl
     {
         return masterClient->getClientId();
     }
+
+    QString Server::getIpAddress()
+    {
+        return this->ipAddress;
+    }
+
+    QString Server::getCommandPort()
+    {
+        return this->commandPort;
+    }
+
+    QString Server::getDataPort()
+    {
+        return this->dataPort;
+    }
+
 
     void Server::deleteCommandRouter()
     {
@@ -301,6 +455,26 @@ namespace ServerAppl
                         master, SIGNAL(authenticationSuccessfull()),
                         this, SLOT(onMasterAuthentificationSuccessfull())
                         );
+                QObject::connect(
+                        master, SIGNAL(receivedPresentation(Praesentation *, QMap<QString, QVariant>, QMap<QString, QString>)),
+                        this, SLOT(onReceivedPresentation(Praesentation *, QMap<QString, QVariant>, QMap<QString, QString>))
+                        );
+                QObject::connect(
+                        master, SIGNAL(receivedSetSlide(int)),
+                        this, SLOT(onReceivedSetSlide(int))
+                        );
+
+                QObject::connect(
+                        master, SIGNAL(forwardMessageToClient(Message *, unsigned int)),
+                        this, SLOT(onForwardMessageToClient(Message*, unsigned int))
+                        );
+
+                QObject::connect(
+                        master, SIGNAL(stopPresentation()),
+                        this, SLOT(onStopPresentation())
+                        );
+
+
 
                 commandRouter->unregisterMessageHandler(clientId, CMD_LOGIN);
                 commandRouter->unregisterMessageHandler(clientId, CMD_AUTH_PHASE1);
@@ -310,11 +484,30 @@ namespace ServerAppl
                         HANDLER_OBJ(master),
                         HANDLER_FUNC(Master::handleAuthenticationPhase3)
                         );
+//                commandRouter->registerMessageHandler(
+//                        clientId,
+//                        CMD_ACK_RESPONSE,
+//                        HANDLER_OBJ(master),
+//                        HANDLER_FUNC(Master::handleAuthenticationAcknowledge)
+//                        );
                 commandRouter->registerMessageHandler(
                         clientId,
-                        CMD_ACK_RESPONSE,
+                        CMD_SET_SLIDE,
                         HANDLER_OBJ(master),
-                        HANDLER_FUNC(Master::handleAuthenticationAcknowledge)
+                        HANDLER_FUNC(Master::handleSetSlide)
+                        );
+                commandRouter->registerMessageHandler(
+                        clientId,
+                        CMD_STOP_PRAESENTATION,
+                        HANDLER_OBJ(master),
+                        HANDLER_FUNC(Master::handleStopPresentation)
+                        );
+
+                dataRouter->registerMessageHandler(
+                        clientId,
+                        DATA_PRAESENTATION,
+                        HANDLER_OBJ(master),
+                        HANDLER_FUNC(Master::handleDataPresentation)
                         );
 
                 this->byteStreamVerifier->addMessageAuthenticator(master->getClientId(), master->getMessageAuthenticator());
@@ -325,6 +518,43 @@ namespace ServerAppl
         }
 
         return registrationSuccessfull;
+    }
+
+    bool Server::unregisterMaster(Master * master)
+    {
+        QObject::disconnect(
+                master, SIGNAL(authenticationFailed()),
+                this, SLOT(onMasterAuthenticationFailed())
+                );
+        QObject::disconnect(
+                master, SIGNAL(authenticationSuccessfull()),
+                this, SLOT(onMasterAuthentificationSuccessfull())
+                );
+        QObject::disconnect(
+                master, SIGNAL(receivedPresentation(Praesentation *, QMap<QString, QVariant>, QMap<QString, QString>)),
+                this, SLOT(onReceivedPresentation(Praesentation *, QMap<QString, QVariant>, QMap<QString, QString>))
+                );
+        QObject::disconnect(
+                master, SIGNAL(receivedSetSlide(int)),
+                this, SLOT(onReceivedSetSlide(int))
+                );
+
+        QObject::connect(
+                master, SIGNAL(forwardMessageToClient(Message *, unsigned int)),
+                this, SLOT(onForwardMessageToClient(Message*, unsigned int))
+                );
+
+        QObject::connect(
+                master, SIGNAL(stopPresentation()),
+                this, SLOT(onStopPresentation())
+                );
+
+        this->byteStreamVerifier->removeMessageAuthenticator(master->getClientId());
+
+        commandRouter->unregisterMessageHandlers(master->getClientId());
+        dataRouter->unregisterMessageHandlers(master->getClientId());
+
+        return true;
     }
 
     bool Server::registerListener(Listener* listener)
@@ -343,14 +573,26 @@ namespace ServerAppl
                 listenerClients.insert(clientId, listener);
                 connectedClients.insert(clientId, (UnspecifiedClient*) listener);
 
+                QObject::connect(
+                    listener, SIGNAL(forwaredMessageToMaster(Message *, unsigned int)),
+                    this, SLOT(onForwaredMessageToMaster(Message *, unsigned int))
+                    );
+
+                QObject::connect(
+                    listener, SIGNAL(requestDeliverPresentation( unsigned int)),
+                    this, SLOT(onDeliverPresentationToClient(unsigned int))
+                    );
+
                 commandRouter->unregisterMessageHandler(clientId, CMD_AUTH_PHASE1);
                 commandRouter->unregisterMessageHandler(clientId, CMD_LOGIN);
-//                commandRouter->registerMessageHandler(
-//                        clientId,
-//                        QString(CMD_LOGIN_ACK),
-//                        HANDLER_OBJ(listener),
-//                        HANDLER_FUNC(Listener::handleLoginAcknowledge)
-//                        );
+
+                commandRouter->registerMessageHandler(
+                        clientId,
+                        QString(CMD_ACK_RESPONSE),
+                        HANDLER_OBJ(listener),
+                        HANDLER_FUNC(Listener::handleAcknowledge)
+                        );
+
                 registrationSuccessfull = TRUE;
             }
         }
@@ -358,29 +600,62 @@ namespace ServerAppl
         return registrationSuccessfull;
     }
 
+    void Server::onNewIP(QString newIP)
+    {
+        this->ipAddress = newIP;
+    }
+
     void Server::transmitPresentationToClients()
     {
-        Message * presentationMessage = new Message(DATA_PRAESENTATION, "server", "client");
+        Message * presentationMessage = new Message(CMD_SET_PRAESENTATION, "server", "client");
         QList<Listener* > allListeners = listenerClients.values();
         int listenerCounter = allListeners.length() - 1;
         QList<uint> clientIds;
 
-        this->presentation = presentation;
+//        this->presentation = presentation;
 
-        presentationMessage->setParameterList(this->presentationParameterList);
-        presentationMessage->setParameterTypeList(this->presentationParameterTypeList);
+//        presentationMessage->setParameterList(this->presentationParameterList);
+//        presentationMessage->setParameterTypeList(this->presentationParameterTypeList);
+
+        presentationMessage = this->presentation->packPraesentation(presentationMessage);
 
         while(0 <= listenerCounter)
         {
-            if(!allListeners.value(listenerCounter)->getHasPresentation())
-            {
+//            if(!allListeners.value(listenerCounter)->getHasPresentation())
+//            {
                 clientIds.append(allListeners.value(listenerCounter)->getClientId());
                 allListeners.value(listenerCounter)->setHasPresentation(true);
-            }
+//            }
+
+            listenerCounter--;
         }
 
-        emit sendDataMessageToMultClients(presentationMessage, clientIds);
+//        if(masterClient)
+//        {
+//
+//        }
 
+        emit sendDataMessageToMultClients(presentationMessage, clientIds);
+//        emit sendDataMessageToMultClients(presentationMessage, *(this->getAllClientIdentifiers()));
+
+    }
+
+    void Server::transmitStopCommand(bool transmitToMaster)
+    {
+        Message * stopMessage = new Message(CMD_STOP_PRAESENTATION, "server", "clients");
+
+        if(transmitToMaster)
+        {
+            emit sendCmdMessageToAll(stopMessage);
+        }
+        else
+        {
+            QList<unsigned int> * listenerClients = this->getListenerClientIdentifiers();
+
+            emit sendCmdMessageToMultClients(stopMessage, *listenerClients);
+
+            delete(listenerClients);
+        }
     }
 
     void Server::initDataRouter()

@@ -107,6 +107,30 @@ namespace Network
     }
 
     /**
+     * @brief Method to close the connection to a client.
+     *
+     * @param[in] clientID
+     *
+     * This method terminates the connection to a client that is connected to the server.
+     */
+    bool ServerSocket::disconnectFromClient(uint clientID)
+    {
+        bool disconnectedSuccessfully = FALSE;
+
+        for(int i = 0; i < m_clientList.size(); i++)
+        {
+            if(m_clientList.at(i)->getClientID() == clientID)
+            {
+                // Disconnect from server
+                m_clientList.at(i)->disconnectFromServer();
+                disconnectedSuccessfully = TRUE;
+            }
+        }
+
+        return disconnectedSuccessfully;
+    }
+
+    /**
      * @brief Signal to close the server.
      *
      * Disconnects from all of the clients in <i>m_clientList</i> and closes both servers.

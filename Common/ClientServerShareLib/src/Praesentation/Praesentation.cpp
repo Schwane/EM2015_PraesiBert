@@ -77,6 +77,8 @@ Praesentation::setBasepath()
     basePath.append("/");
     QDir dir(basePath);
     dir.mkpath(dir.absolutePath());
+    QDir voiceDir(basePath + "voice/");
+    voiceDir.mkpath(voiceDir.absolutePath());
 }
 
 void
@@ -154,6 +156,7 @@ Praesentation::setSlide(int slide)
     QString path = slideReference.value(slide);
 
     //const bb::ImageData imgData = bb::utility::ImageConverter::decode(QUrl(path));
+
     accessLock.unlock();
     if (!running && slide >= 0)
     {
@@ -164,12 +167,9 @@ Praesentation::setSlide(int slide)
     emit slideChangedUrl(QUrl(path));
 }
 
-
 Message*
-Praesentation::packPraesentation()
+Praesentation::packPraesentation(Message * msg)
 {
-    Message *msg = new Message(DATA_PRAESENTATION, "master", "server");
-
     msg->addParameter("praesentationID", praesentationId);
     msg->addParameter("totalSlides", totalSlides);
 
@@ -188,6 +188,14 @@ Praesentation::packPraesentation()
         msg->addParameter(slideID, imgBytes);
     }
     return msg;
+}
+
+Message*
+Praesentation::packPraesentation()
+{
+    Message *msg = new Message(DATA_PRAESENTATION, "master", "server");
+
+    return packPraesentation(msg);
 }
 
 QString

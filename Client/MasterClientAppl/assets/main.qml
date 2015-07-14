@@ -140,7 +140,7 @@ TabbedPane {
              {
                  if (active)
                  {
-                     var p = "file://" + cl.getBasepath() + "/voice/" + Qt.formatDateTime(new Date(), "yyMMdd_HH_mm_ss") + ".m4a";
+                     var p = "file://" + cl.getBasepath() + "voice/" + Qt.formatDateTime(new Date(), "yyMMdd_HH_mm_ss") + ".m4a";
                      console.log("Recording to: " + p);
                      recorder.outputUrl = p;
                      recorder.current_path = p;

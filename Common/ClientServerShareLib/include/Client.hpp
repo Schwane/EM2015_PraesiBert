@@ -57,6 +57,7 @@ public Q_SLOTS:
     Q_INVOKABLE QString getLoginState();
     Q_INVOKABLE QString getBasepath();
     Q_INVOKABLE void requestSlideChange(int offset);
+    Q_INVOKABLE void requestSlideChangeAbsolute(int slide);
     Q_INVOKABLE void sendArbitraryCommand(QString cmd);
     /* Slots to handle signals from socket */
     //void onMessageParsed(Message* msg);

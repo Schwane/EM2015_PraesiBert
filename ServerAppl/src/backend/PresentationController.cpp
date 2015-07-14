@@ -27,7 +27,7 @@ namespace ServerAppl
 
     }
 
-    Message* PresentationController::handleReceivedMessage(QString commandName, Message* msg)
+    Message* PresentationController::handleUnknownMessage(QString commandName, Message* msg)
     {
         return NULL;
     }

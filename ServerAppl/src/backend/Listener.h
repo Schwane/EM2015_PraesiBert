@@ -31,8 +31,8 @@ namespace ServerAppl
         ClientType getClientType();
 
         /* Message handlers */
-        Message* handleReceivedMessage(QString commandName, Message* msg);
-//        Message* handleLoginAcknowledge(QString commandName, Message* msg);
+        Message* handleUnknownMessage(QString commandName, Message* msg);
+        Message* handleAcknowledge(QString commandName, Message* msg);
 
         /* data types */
         enum ListenerConnectionStmState
@@ -55,12 +55,15 @@ namespace ServerAppl
             ShowOtherSlide
         };
 
+        signals:
+            void forwaredMessageToMaster(Message * msg, unsigned int clientId);
+            void requestDeliverPresentation(unsigned int clientId);
 
     private:
         UnspecifiedClient * priorClientObject;
         bool connectionStm(ListenerConnectionStmEvent);
-
         bool hasPresentation;
+        bool loginAcknowledged;
     };
 } /* namespace ServerAppl */
 

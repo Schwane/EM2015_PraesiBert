@@ -20,25 +20,48 @@ Page {
     Container {
         Label {
             // Localized text with the dynamic translation and locale updates support
-            text: qsTr("Hello World") + Retranslate.onLocaleOrLanguageChanged
+            text: qsTr("PräsiBert - Server") + Retranslate.onLocaleOrLanguageChanged
             textStyle.base: SystemDefaults.TextStyles.BigText
         }
-        Button{
-            id: triggerAction1
-            objectName: "butTriggerAction1"
-            text: "New Client"
-        }
         
-        Button{
-            id: triggerAction2
-            objectName: "butTriggerAction2"
-            text: "Transmit Slides Request"
-        }
-        
-        Button{
-            id: triggerAction3
-            objectName: "butTriggerAction3"
-            text: "Received Data"
+        Container {
+            layout: StackLayout {
+            }
+            Label {
+                id: lab_ip
+                text: "IP-Addresse:"
+            }
+            TextField {
+                id: tex_ip
+                objectName: "textIpAddress"
+                text: ""
+                enabled: false
+                inputMode: TextFieldInputMode.NumbersAndPunctuation
+            }
+            
+            Label {
+                id: lab_cmd_port
+                text: "Command Port:"
+            }
+            TextField {
+                id: tex_cmd_port
+                objectName: "textCmdPort"
+                text: ""
+                enabled: false
+                inputMode: TextFieldInputMode.NumbersAndPunctuation
+            }
+            
+            Label {
+                id: lab_data_port
+                text: "Data Port:"
+            }
+            TextField {
+                id: tex_data_port
+                objectName: "textDataPort"
+                text: ""
+                enabled: false
+                inputMode: TextFieldInputMode.NumbersAndPunctuation
+            }
         }
     }
 }

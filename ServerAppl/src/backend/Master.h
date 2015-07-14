@@ -61,13 +61,18 @@ namespace ServerAppl
         ClientType getClientType();
         MasterAuthenticationState authenticationStm(MasterAuthenticationEvent event);
 
-        Message* handleReceivedMessage(QString commandName, Message* msg);
+        Message* handleUnknownMessage(QString commandName, Message* msg);
         Message* handleAuthenticationPhase3(QString commandName, Message* msg);
         Message* handleAuthenticationAcknowledge(QString commandName, Message* msg);
         Message* handleDataPresentation(QString commandName, Message* msg);
+        Message* handleSetSlide(QString commandName, Message* msg);
+        Message* handleStopPresentation(QString commandName, Message* msg);
 
     signals:
+        void stopPresentation();
+        void forwardMessageToClient(Message * msg, unsigned int clientId);
         void receivedSlides();
+        void receivedSetSlide(int slideNumber);
         void authenticationFailed();
         void authenticationSuccessfull();
         void receivedPresentation(Praesentation * presentation, QMap<QString, QVariant> presentationParameterList, QMap<QString, QString> presentationParameterTypeList);

@@ -283,6 +283,14 @@ Client::requestSlideChange(int offset)
 }
 
 void
+Client::requestSlideChangeAbsolute(int slide)
+{
+    Message *msg = new Message(CMD_SET_SLIDE, id, "server");
+    msg->addParameter("slide", slide);
+    xmlmw->writeMessage(msg);
+}
+
+void
 Client::sendArbitraryCommand(QString cmd)
 {
     Message *msg = new Message(cmd, id, "server");

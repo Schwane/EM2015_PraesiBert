@@ -34,7 +34,6 @@ namespace ServerAppl
         this->messageAuthenticator = new MessageAuthenticator();
         concatenatedNonce.append(this->nonce.part_1);
         concatenatedNonce.append(this->nonce.part_2);
-//        this->messageAuthenticator->hmacSha1(this->symmetricKey,concatenatedNonce);
         this->messageAuthenticator->setKey(messageAuthenticator->hmacSha1(this->symmetricKey, concatenatedNonce));
 
         this->authenticationTimer = new QTimer(this);
@@ -84,6 +83,19 @@ namespace ServerAppl
         return NULL;
     }
 
+    Message* Master::handleSetSlide(QString commandName, Message* msg)
+    {
+        if(IS_COMMAND(commandName, CMD_SET_SLIDE))
+        {
+            if(msg->getParameters()->contains("slide"))
+            {
+                emit receivedSetSlide(msg->getParameters()->value("slide").toInt());
+            }
+        }
+
+        return NULL;
+    }
+
     void Master::authenticationTimeout()
     {
         WRITE_DEBUG("Master authentication timed out.")
@@ -91,28 +103,35 @@ namespace ServerAppl
         emit authenticationFailed();
     }
 
-    Message* Master::handleReceivedMessage(QString commandName, Message* msg)
+    Message* Master::handleUnknownMessage(QString commandName, Message* msg)
     {
         Message * responseMessage = NULL;
+        bool uIntConversionSuccessfull = FALSE;
+        QString receiver = msg->getReceiver();
+        unsigned int receiverId = 0;
 
+        receiverId = msg->getReceiver().toUInt(&uIntConversionSuccessfull, 10);
+
+        if("master" == msg->getSender() && uIntConversionSuccessfull)
+        {
+            emit forwardMessageToClient(msg, receiverId);
+        }
+        else
+        {
+            delete(msg);
+        }
         return responseMessage;
     }
 
     Message* Master::handleAuthenticationAcknowledge(QString commandName, Message* msg)
     {
-        Message * responseMessage = NULL;
-
-        if(IS_COMMAND(commandName, CMD_ACK_RESPONSE))
-        {
-            if(ACCEPTED == authenticationStm(ReceivedAcknowledgeMessage))
-            {
-                delete(this->priorClientObject);
-            }
-        }
-
-        delete(msg);
-
-        return responseMessage;
+//        if(IS_COMMAND(commandName, CMD_ACK_RESPONSE))
+//        {
+//            if(ACCEPTED == authenticationStm(ReceivedAcknowledgeMessage))
+//            {
+//                delete(this->priorClientObject);
+//            }
+//        }
     }
 
     Message* Master::handleAuthenticationPhase3(QString commandName, Message* msg)
@@ -142,6 +161,18 @@ namespace ServerAppl
         }
 
         delete(msg);
+
+        return responseMessage;
+    }
+
+    Message* Master::handleStopPresentation(QString commandName, Message* msg)
+    {
+        Message * responseMessage = NULL;
+
+        if(IS_COMMAND(commandName, CMD_STOP_PRAESENTATION))
+        {
+            emit stopPresentation();
+        }
 
         return responseMessage;
     }
@@ -231,5 +262,3 @@ namespace ServerAppl
     }
 
 } /* namespace ServerAppl */
-
-

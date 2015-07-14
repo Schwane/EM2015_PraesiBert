@@ -21,7 +21,7 @@ namespace ServerAppl
     class MessageHandlerInterface
     {
     public:
-        virtual Message* handleReceivedMessage(QString commandName, Message* msg) = 0;
+        virtual Message* handleUnknownMessage(QString commandName, Message* msg) = 0;
     };
 }
 

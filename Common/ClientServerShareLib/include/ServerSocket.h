@@ -55,6 +55,7 @@ namespace Network
     public:
         ServerSocket(QObject* parent);
         virtual ~ServerSocket();
+        bool disconnectFromClient(uint clientID);
 
     private:
         /// QTcpServer for command connections

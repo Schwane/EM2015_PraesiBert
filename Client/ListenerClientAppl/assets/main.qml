@@ -60,11 +60,12 @@ TabbedPane {
                 
             }
             onSlideChangedUrl: {
-                var p = url;
-                if (url.indexOf("://") == - 1)
+                var p = "" + url;
+                var pat = /^asset/;
+                if (!pat.test(p))
                     p = "file://" + url
                 console.log("Setze Slide auf: " + p);
-                praesi.pic_slide.imageSource = p;            
+                praesi.pic_slide.imageSource = p;          
             }
             onLoginStateChanged: {
                 var stat = cl.getLoginState();
@@ -95,16 +96,7 @@ TabbedPane {
             onRanfStateChanged: {
                 if (state == "ACCEPTED")
                 {
-                        var p = "file://" + cl.getBasepath() + "/voice/"+ Qt.formatDateTime(new Date(), "yyMMdd_HH_mm_ss") + ".m4a";
-                        console.log("Recording to: " + p);
-                        recorder.outputUrl = p;
-                        recorder.current_path = p;
-                        recorder.record();
-                        redLED.flash();
-                        praesi.btn_praesi_stat.defaultImageSource = "asset:///img/stop.png"
-                        praesi.btn_praesi_stat.pressedImageSource = "asset:///img/stop_clicked.png"
-                        praesi.btn_praesi_stat.selection = true;
-
+                       
                 }
                 else if (state == "PREPARED")
                 {
@@ -112,10 +104,6 @@ TabbedPane {
                 }
                 else if (state == "REJECTED")
                 {
-                    recorder.pause();
-                    recorder.reset();
-                    recorder.outputUrl = "file:///accounts/1000/shared/voice/dummy.m4a";
-                    redLED.cancel();
                     toast.body = "Redenanfrage abgelehnt";
                     toast.show();
                 }

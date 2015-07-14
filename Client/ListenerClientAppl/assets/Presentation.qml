@@ -106,6 +106,12 @@ Page {
                 onFinished: {
                     if (diag_ranfansw.result != SystemUiResult.CancelButtonSelection) {
                         cl.acceptRanf();
+                        var p = "file://" + cl.getBasepath() + "voice/"+ Qt.formatDateTime(new Date(), "yyMMdd_HH_mm_ss") + ".m4a";
+                        console.log("Recording to: " + p);
+                        recorder.outputUrl = p;
+                        recorder.current_path = p;
+                        recorder.record();
+                        redLED.flash();
                     }
                     else 
                     {
