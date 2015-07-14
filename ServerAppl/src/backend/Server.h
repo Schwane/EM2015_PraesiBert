@@ -73,6 +73,7 @@ namespace ServerAppl
         void onDeliverPresentationToClient(unsigned int clientId);
         void onClientDisconnected(unsigned int clientId);
         void onNewIP(QString newIP);
+        void onWriteAudioRecording(QString fileName, const QByteArray & recording);
 
     private:
         void deleteCommandRouter();

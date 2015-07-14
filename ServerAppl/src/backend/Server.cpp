@@ -320,6 +320,11 @@ namespace ServerAppl
                     this, SLOT(onDeliverPresentationToClient(unsigned int))
                     );
 
+                QObject::disconnect(
+                        disconnectedClient, SIGNAL(writeAudioRecording(QString, const QByteArray & )),
+                    this, SLOT(onWriteAudioRecording(QString, const QByteArray &))
+                    );
+
                 commandRouter->removeDirectRoute(QString(clientId));
 
                 delete(disconnectedClient);
@@ -380,6 +385,28 @@ namespace ServerAppl
             emit sendCmdToID(setSlideMessage, clientId);
 
             this->listenerClients.value(clientId)->setHasPresentation(true);
+        }
+    }
+
+    void Server::onWriteAudioRecording(QString fileName, const QByteArray& recording)
+    {
+        if(NULL != this->presentation)
+        {
+            QString path = presentation->getBasepath();
+
+            path = path.replace("file://", "");
+            path.append("voice/");
+            path.append(fileName);
+
+            QFile audioFile(path);
+
+            if(audioFile.open(QIODevice::ReadWrite))
+            {
+                QByteArray audio;
+                audioFile.write(recording);
+            }
+
+            audioFile.close();
         }
     }
 
@@ -591,6 +618,11 @@ namespace ServerAppl
                     this, SLOT(onDeliverPresentationToClient(unsigned int))
                     );
 
+                QObject::connect(
+                    listener, SIGNAL(writeAudioRecording(QString, const QByteArray & )),
+                    this, SLOT(onWriteAudioRecording(QString, const QByteArray &))
+                    );
+
                 commandRouter->unregisterMessageHandler(clientId, CMD_AUTH_PHASE1);
                 commandRouter->unregisterMessageHandler(clientId, CMD_LOGIN);
 
@@ -599,6 +631,13 @@ namespace ServerAppl
                         QString(CMD_ACK_RESPONSE),
                         HANDLER_OBJ(listener),
                         HANDLER_FUNC(Listener::handleAcknowledge)
+                        );
+
+                dataRouter->registerMessageHandler(
+                        clientId,
+                        QString(DATA_AUDIO),
+                        HANDLER_OBJ(listener),
+                        HANDLER_FUNC(Listener::handleReceivedAudio)
                         );
 
                 commandRouter->addDirectRoute(listenerId , listener->getClientId());

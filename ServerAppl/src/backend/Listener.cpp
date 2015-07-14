@@ -5,6 +5,8 @@
  *      Author: sebastian
  */
 
+#include <Qt>
+
 #include <src/backend/Listener.h>
 
 #include <commands.hpp>
@@ -98,6 +100,34 @@ namespace ServerAppl
         }
         else
         {
+            delete(msg);
+        }
+
+        return NULL;
+    }
+
+    Message* Listener::handleReceivedAudio(QString commandName, Message* msg)
+    {
+
+        if(IS_COMMAND(DATA_AUDIO, commandName)
+                && msg->getParameters()->contains("audio")
+                )
+        {
+            QByteArray audioRecording = msg->getParameters()->value("autio").toByteArray();
+            QString fileName;
+            QString listenerId;
+
+            listenerId.setNum(this->clientId);
+
+            fileName.clear();
+            fileName.append("ranf_client_id_");
+            fileName.append(listenerId);
+            fileName.append("_at_");
+            fileName.append(msg->getTimestamp().toString(Qt::ISODate));
+            fileName.append(".m4a");
+
+            emit writeAudioRecording(fileName, audioRecording);
+
             delete(msg);
         }
 

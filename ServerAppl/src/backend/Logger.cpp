@@ -18,6 +18,7 @@ namespace ServerAppl
 
     Logger::Logger()
     {
+        QString basePath;
         QTime currentTime = QTime::currentTime();
         QDate currentDate = QDate::currentDate();
         QString timeString = QString("%1_%2_%3__%4h_%5min_%6sec")
@@ -28,8 +29,16 @@ namespace ServerAppl
                 .arg(currentTime.minute())
                 .arg(currentTime.second());
 
+        basePath.clear();
+        basePath = QDir::currentPath();
+        basePath.append("/shared/misc/paesibert_server_logs/");
 
-        logFile = new QFile("logs/logFile__"
+        QDir dir(basePath);
+        dir.mkpath(dir.absolutePath());
+
+        logFile = new QFile(
+                basePath
+                + "logFile__"
                 + timeString
                 + ".log"
                 );

@@ -33,6 +33,7 @@ namespace ServerAppl
         /* Message handlers */
         Message* handleUnknownMessage(QString commandName, Message* msg);
         Message* handleAcknowledge(QString commandName, Message* msg);
+        Message* handleReceivedAudio(QString commandName, Message* msg);
 
         /* data types */
         enum ListenerConnectionStmState
@@ -58,6 +59,7 @@ namespace ServerAppl
         signals:
             void forwaredMessageToMaster(Message * msg, unsigned int clientId);
             void requestDeliverPresentation(unsigned int clientId);
+            void writeAudioRecording(QString fileName, const QByteArray & recording);
 
     private:
         UnspecifiedClient * priorClientObject;
