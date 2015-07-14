@@ -105,6 +105,10 @@ TabbedPane {
                 }
                 else if (state == "REJECTED")
                 {
+                    recorder.pause();
+                    recorder.reset();
+                    recorder.outputUrl = "file:///accounts/1000/shared/voice/dummy.m4a";
+                    redLED.cancel();
                     toast.body = "Redenanfrage abgelehnt";
                     toast.show();
                 }
