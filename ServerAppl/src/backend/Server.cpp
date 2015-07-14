@@ -320,6 +320,8 @@ namespace ServerAppl
                     this, SLOT(onDeliverPresentationToClient(unsigned int))
                     );
 
+                commandRouter->removeDirectRoute(QString(clientId));
+
                 delete(disconnectedClient);
 
                 WRITE_DEBUG("ListenerClient disconnected.")
@@ -502,6 +504,7 @@ namespace ServerAppl
                         HANDLER_OBJ(master),
                         HANDLER_FUNC(Master::handleStopPresentation)
                         );
+                commandRouter->addDirectRoute(QString("master") , master->getClientId());
 
                 dataRouter->registerMessageHandler(
                         clientId,
@@ -551,6 +554,7 @@ namespace ServerAppl
 
         this->byteStreamVerifier->removeMessageAuthenticator(master->getClientId());
 
+        commandRouter->removeDirectRoute(QString(master->getClientId()));
         commandRouter->unregisterMessageHandlers(master->getClientId());
         dataRouter->unregisterMessageHandlers(master->getClientId());
 
@@ -570,6 +574,10 @@ namespace ServerAppl
                     && !listenerClients.contains(clientId)
                     )
             {
+                QString listenerId;
+
+                listenerId.setNum(clientId);
+
                 listenerClients.insert(clientId, listener);
                 connectedClients.insert(clientId, (UnspecifiedClient*) listener);
 
@@ -592,6 +600,8 @@ namespace ServerAppl
                         HANDLER_OBJ(listener),
                         HANDLER_FUNC(Listener::handleAcknowledge)
                         );
+
+                commandRouter->addDirectRoute(listenerId , listener->getClientId());
 
                 registrationSuccessfull = TRUE;
             }
