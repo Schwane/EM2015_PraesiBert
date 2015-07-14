@@ -7,6 +7,8 @@
 
 #include <src/backend/Listener.h>
 
+#include <commands.hpp>
+
 #include <src/backend/Logger.h>
 #include <src/backend/UnspecifiedClient.h>
 
@@ -25,6 +27,8 @@ namespace ServerAppl
         this->name = priorClientObject->getName();
         this->lastTimestamp = priorClientObject->getLastTimestamp();
         this->hasPresentation = FALSE;
+        this->loginAcknowledged = FALSE;
+
         connectionStm(Init);
 //        delete(this->priorClientObject);
         WRITE_DEBUG("Listener constructor finished.")
@@ -76,8 +80,27 @@ namespace ServerAppl
 //        return responseMessage;
 //    }
 
-    Message* Listener::handleReceivedMessage(QString commandName, Message* msg)
+    Message* Listener::handleUnknownMessage(QString commandName, Message* msg)
     {
+        Message * responseMessage = NULL;
+        bool uIntConversionSuccessfull = FALSE;
+        QString receiver = msg->getReceiver();
+        unsigned int senderId = 0;
+
+        senderId = msg->getReceiver().toUInt(&uIntConversionSuccessfull, 10);
+
+        if("master" == msg->getReceiver()
+                && uIntConversionSuccessfull
+                && this->getClientId() == senderId
+                )
+        {
+            emit forwaredMessageToMaster(msg, senderId);
+        }
+        else
+        {
+            delete(msg);
+        }
+
         return NULL;
     }
 
@@ -95,22 +118,26 @@ namespace ServerAppl
     {
         return ClientType_Listener;
     }
-//    Message* Listener::handleLoginAcknowledge(QString commandName, Message* msg)
-//    {
-//        Message * responseMessage = NULL;
-//
-//        if(IS_COMMAND(commandName, CMD_LOGIN_ACK))
-//        {
-//            if(connectionStm(Login))
-//            {
-//                delete(this->priorClientObject);
-//            }
-//        }
-//
-//        delete msg;
-//
-//        return responseMessage;
-//    }
+
+    Message* Listener::handleAcknowledge(QString commandName, Message* msg)
+    {
+        Message * responseMessage = NULL;
+
+        if(IS_COMMAND(commandName, CMD_ACK_RESPONSE))
+        {
+            if(!this->loginAcknowledged && !this->hasPresentation)
+            {
+                this->loginAcknowledged = TRUE;
+                this->hasPresentation = TRUE;
+
+                emit requestDeliverPresentation(this->clientId);
+            }
+        }
+
+        delete msg;
+
+        return responseMessage;
+    }
 
     bool Listener::connectionStm(ListenerConnectionStmEvent event)
     {

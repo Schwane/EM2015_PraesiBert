@@ -33,7 +33,7 @@ namespace ServerAppl
     {
     }
 
-    Message* UnspecifiedClient::handleReceivedMessage(QString commandName, Message* msg)
+    Message* UnspecifiedClient::handleUnknownMessage(QString commandName, Message* msg)
     {
         Message * responseMessage;
 

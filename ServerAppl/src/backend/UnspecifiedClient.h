@@ -40,7 +40,7 @@ namespace ServerAppl
         virtual ClientType getClientType();
 
         /* Message handlers */
-        Message* handleReceivedMessage(QString commandName, Message* msg);
+        Message* handleUnknownMessage(QString commandName, Message* msg);
         Message* handleLoginMessages(QString commandName, Message* msg);
         Message* handleAuthPhase1(QString commandName, Message * msg);
 

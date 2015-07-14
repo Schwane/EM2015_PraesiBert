@@ -45,20 +45,28 @@ namespace ServerAppl
         QList<unsigned int> * getListenerClientIdentifiers();
         unsigned int getMasterClientIdentifier();
         bool registerMaster(Master * master);
+        bool unregisterMaster(Master * master);
         bool registerListener(Listener * listener);
-        void transmitPresentationToClients();
 
         /* Message handlers */
-        Message* handleReceivedMessage(QString commandName, Message* msg);
+        Message* handleUnknownMessage(QString commandName, Message* msg);
 
     signals:
+        void sendCmdToID(Message* msg, uint clientID);
+        void sendCmdMessageToMultClients(Message* data, QList<uint> clientIDs);
         void sendDataMessageToMultClients(Message* data, QList<uint> clientIDs);
+        void sendCmdMessageToAll(Message* msg);
 
     public slots:
+        void onStopPresentation();
+        void onForwardMessageToClient(Message * msg, unsigned int clientId);
+        void onForwaredMessageToMaster(Message * msg, unsigned int clientId);
+        void onReceivedSetSlide(int slideNumber);
         void onNewClient(uint clientId);
         void onMasterAuthenticationFailed();
         void onMasterAuthentificationSuccessfull();
         void onReceivedPresentation(Praesentation * presentation, QMap<QString, QVariant> presentationParameterList, QMap<QString, QString> presentationParameterTypeList);
+        void onDeliverPresentationToClient(unsigned int clientId);
         void onClientDisconnected(unsigned int clientId);
 
     private:
@@ -66,6 +74,8 @@ namespace ServerAppl
         void deleteDataRouter();
         void initCommandRouter();
         void initDataRouter();
+        void transmitStopCommand(bool transmitToMaster);
+        void transmitPresentationToClients();
 
     /* properties */
     public:
@@ -86,6 +96,7 @@ namespace ServerAppl
         Praesentation * presentation;
         QMap<QString, QVariant> presentationParameterList;
         QMap<QString, QString> presentationParameterTypeList;
+        int currentSlide;
     };
 
 } /* namespace ServerAppl */

@@ -49,7 +49,14 @@ namespace ServerAppl
 
         if(!registeredMessageHandlers->contains(clientId))
         {
+            messageHandler unkownCommandHandler;
+
+            unkownCommandHandler.object = handler.object;
+            unkownCommandHandler.function = HANDLER_FUNC(MessageHandlerInterface::handleUnknownMessage);
+
             clientCommands = new QMap<QString, messageHandler>();
+            clientCommands->insert("unknown_command", unkownCommandHandler);
+
             registeredMessageHandlers->insert(clientId, clientCommands);
         }
         else
@@ -117,8 +124,22 @@ namespace ServerAppl
             }
             else
             {
-                WRITE_DEBUG("MessageRouter: Received unknown message.")
-                WRITE_DEBUG(command)
+                bool uIntConversionSuccessfull = FALSE;
+                unsigned int receiverId = 0;
+
+                receiverId = message->getReceiver().toUInt(&uIntConversionSuccessfull, 10);
+
+                if("master" == message->getReceiver())
+                {
+                    emit writeMessage(message, 0);
+                }
+                else if( uIntConversionSuccessfull)
+                {
+                    emit writeMessage(message, receiverId);
+                }
+//                messageHandler handlerFunction = clientCommands->value(QString("unknown_command"));
+//                responseMessage = ((handlerFunction.object)->*(handlerFunction.function))(command, message);
+//                WRITE_DEBUG("MessageRouter: Received unknown message.")
 //                responseMessage = new Message(QString("RESPONSE"), message->getReceiver(), message->getSender());
 //                responseMessage->addParameter(QString("status"), QString("unknown command"));
             }
