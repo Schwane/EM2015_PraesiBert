@@ -153,10 +153,11 @@ Message*
 Client::stopPraesentation(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types)
 {
     prs->stop();
-    bb::ImageData imgData = bb::utility::ImageConverter::decode(QUrl("assets:///img/before_start.png"));
-    bb::cascades::Image img = imgData;
-    emit slideChanged(img);
-    emit slideChangedUrl(QUrl("assets:///img/before_start.png"));
+    //bb::ImageData imgData = bb::utility::ImageConverter::decode(QUrl("assets:///img/before_start.png"));
+    //bb::cascades::Image img = imgData;
+    //emit slideChanged(img);
+    emit slideChangedUrl(QUrl("asset:///img/before_start.png"));
+    hdmi->show_slide(QUrl("asset:///img/before_start.png"));
     Message *msg = new Message(CMD_ACK_RESPONSE, id, "server");
     return msg;
 }
@@ -334,4 +335,10 @@ void
 Client::onNewSlideUrl(QUrl url)
 {
     hdmi -> show_slide(url);
+}
+
+QString
+Client::getBasepath()
+{
+    return prs->getBasepath();
 }

@@ -17,7 +17,7 @@ Page {
                 }
                 TextField {
                     id: tex_ip
-                    text: "192.168.178.35"
+                    text: "192.168.1.210"
                     enabled: true
                     inputMode: TextFieldInputMode.NumbersAndPunctuation
                 }

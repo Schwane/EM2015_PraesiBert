@@ -24,12 +24,16 @@ Page {
             text: "Gestensteuerung"
             onCheckedChanged: {
                 if (checked)
+                {
                     cl.activateGesture(true);
+                    vib.checked = false;   
+                }
                 else
                     cl.activateGesture(false);
             }
         }
         CheckBox {
+            id: vib
             text: "Vibration"
             onCheckedChanged: {
                 if (checked)

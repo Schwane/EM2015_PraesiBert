@@ -38,6 +38,7 @@ public Q_SLOTS:
     int getTotalSlides();
     void setSlide(int slide);
     QString getPraesentationId();
+    QString getBasepath();
     void reset();
     void stop();
 private:

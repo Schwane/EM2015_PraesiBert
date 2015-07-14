@@ -33,6 +33,7 @@ Page {
                 enabled: true
                 horizontalAlignment: HorizontalAlignment.Center
                 verticalAlignment: VerticalAlignment.Top
+                loadEffect: ImageViewLoadEffect.None
 
             }
         }

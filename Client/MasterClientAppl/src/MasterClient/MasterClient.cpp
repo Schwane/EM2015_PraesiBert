@@ -210,15 +210,18 @@ MasterClient::authenticate()
 void
 MasterClient::connectionLostMaster()
 {
-    auth_state = AUTH_IDLE;
+    if (auth_state != AUTH_IDLE && auth_state != AUTH_RCV_NONCE)
+    {
+        auth_state = AUTH_IDLE;
 
-    connect(xmlmw, SIGNAL(messageWritten(QByteArray)), cs, SLOT(sendCmd(QByteArray)));
-    disconnect(xmlmw, SIGNAL(messageWritten(QByteArray)), msgAuthCmd, SLOT(authenticateMessage(QByteArray)));
-    disconnect(msgAuthCmd, SIGNAL(messageAuthenticated(QByteArray)),cs, SLOT(sendCmd(QByteArray)));
+        connect(xmlmw, SIGNAL(messageWritten(QByteArray)), cs, SLOT(sendCmd(QByteArray)));
+        disconnect(xmlmw, SIGNAL(messageWritten(QByteArray)), msgAuthCmd, SLOT(authenticateMessage(QByteArray)));
+        disconnect(msgAuthCmd, SIGNAL(messageAuthenticated(QByteArray)),cs, SLOT(sendCmd(QByteArray)));
 
-    connect(xmlmw_data, SIGNAL(messageWritten(QByteArray)), cs, SLOT(sendData(QByteArray)));
-    disconnect(xmlmw_data, SIGNAL(messageWritten(QByteArray)), msgAuthData, SLOT(authenticateMessage(QByteArray)));
-    disconnect(msgAuthData, SIGNAL(messageAuthenticated(QByteArray)),cs, SLOT(sendData(QByteArray)));
+        connect(xmlmw_data, SIGNAL(messageWritten(QByteArray)), cs, SLOT(sendData(QByteArray)));
+        disconnect(xmlmw_data, SIGNAL(messageWritten(QByteArray)), msgAuthData, SLOT(authenticateMessage(QByteArray)));
+        disconnect(msgAuthData, SIGNAL(messageAuthenticated(QByteArray)),cs, SLOT(sendData(QByteArray)));
+    }
 }
 
 

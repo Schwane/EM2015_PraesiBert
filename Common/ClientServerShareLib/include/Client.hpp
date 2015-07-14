@@ -55,6 +55,7 @@ public Q_SLOTS:
     Q_INVOKABLE bb::cascades::Image getSlide();
     Q_INVOKABLE QString getLastSentMsg();
     Q_INVOKABLE QString getLoginState();
+    Q_INVOKABLE QString getBasepath();
     Q_INVOKABLE void requestSlideChange(int offset);
     Q_INVOKABLE void sendArbitraryCommand(QString cmd);
     /* Slots to handle signals from socket */

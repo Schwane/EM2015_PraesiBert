@@ -59,6 +59,13 @@ TabbedPane {
                 praesi.pic_slide.image = img;
                 
             }
+            onSlideChangedUrl: {
+                var p = url;
+                if (url.indexOf("://") == - 1)
+                    p = "file://" + url
+                console.log("Setze Slide auf: " + p);
+                praesi.pic_slide.imageSource = p;            
+            }
             onLoginStateChanged: {
                 var stat = cl.getLoginState();
                 if (stat == "accepted")
@@ -88,7 +95,7 @@ TabbedPane {
             onRanfStateChanged: {
                 if (state == "ACCEPTED")
                 {
-                        var p = "file:///accounts/1000/shared/voice/" + Qt.formatDateTime(new Date(), "yyMMdd_HH_mm_ss") + ".m4a";
+                        var p = "file://" + cl.getBasepath() + "/voice/"+ Qt.formatDateTime(new Date(), "yyMMdd_HH_mm_ss") + ".m4a";
                         console.log("Recording to: " + p);
                         recorder.outputUrl = p;
                         recorder.current_path = p;
