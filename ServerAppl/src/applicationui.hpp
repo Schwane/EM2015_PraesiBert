@@ -18,6 +18,7 @@
 #define ApplicationUI_HPP_
 
 #include <QObject>
+#include <bb/cascades/AbstractPane>
 
 #include <src/backend/PresentationController.h>
 #include <src/backend/Server.h>
@@ -45,15 +46,13 @@ public:
     virtual ~ApplicationUI() {}
 private slots:
     void onSystemLanguageChanged();
-    void onButtonClicked1();
-    void onButtonClicked2();
-    void onButtonClicked3();
+    void onGotIpAddress(QString ipAddress);
 
 private:
     QTranslator* m_pTranslator;
     bb::cascades::LocaleHandler* m_pLocaleHandler;
     ServerAppl::Server * server;
-    ServerAppl::PresentationController * presentation;
+    bb::cascades::AbstractPane * root;
 };
 
 #endif /* ApplicationUI_HPP_ */

@@ -18,9 +18,8 @@
 
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
-#include <bb/cascades/AbstractPane>
 #include <bb/cascades/LocaleHandler>
-#include <bb/cascades/Button>
+#include <bb/cascades/TextField>
 
 using namespace bb::cascades;
 
@@ -33,6 +32,11 @@ ApplicationUI::ApplicationUI() :
 
     // Initialize server
     server = new ServerAppl::Server();
+
+    QObject::connect(
+        server, SIGNAL(gotIpAddress(QString)),
+        this, SLOT(onGotIpAddress(QString))
+        );
 
     bool res = QObject::connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()), this, SLOT(onSystemLanguageChanged()));
     // This is only available in Debug builds
@@ -49,11 +53,19 @@ ApplicationUI::ApplicationUI() :
     QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
 
     // Create root object for the UI
-    AbstractPane *root = qml->createRootObject<AbstractPane>();
+    root = qml->createRootObject<AbstractPane>();
 
-    connect( root->findChild<Button *>("butTriggerAction1"), SIGNAL(clicked()), this, SLOT(onButtonClicked1()));
-    connect( root->findChild<Button *>("butTriggerAction2"), SIGNAL(clicked()), this, SLOT(onButtonClicked2()));
-    connect( root->findChild<Button *>("butTriggerAction3"), SIGNAL(clicked()), this, SLOT(onButtonClicked3()));
+    TextField * tfIpAddress = root->findChild<TextField *>("textIpAddress");
+    TextField * tfCmdPort = root->findChild<TextField *>("textCmdPort");
+    TextField * tfDataPort = root->findChild<TextField *>("textDataPort");
+
+    tfIpAddress->setText(server->getIpAddress());
+    tfCmdPort->setText(server->getCommandPort());
+    tfDataPort->setText(server->getDataPort());
+
+//    connect( this, SIGNAL(setIp(QString)), root->findChild<TextField *>("tex_ip"), SLOT(onButtonClicked1()));
+//    connect( root->findChild<Button *>("butTriggerAction2"), SIGNAL(clicked()), this, SLOT(onButtonClicked2()));
+//    connect( root->findChild<Button *>("butTriggerAction3"), SIGNAL(clicked()), this, SLOT(onButtonClicked3()));
 
     // Set created root object as the application scene
     Application::instance()->setScene(root);
@@ -70,17 +82,9 @@ void ApplicationUI::onSystemLanguageChanged()
     }
 }
 
-void ApplicationUI::onButtonClicked1()
+void ApplicationUI::onGotIpAddress(QString ipAddress)
 {
-    // trigger test-action
-}
+    TextField * tfIpAddress = root->findChild<TextField *>("textIpAddress");
 
-void ApplicationUI::onButtonClicked2()
-{
-    // trigger test-action
-}
-
-void ApplicationUI::onButtonClicked3()
-{
-    // trigger test-action
+    tfIpAddress->setText(server->getIpAddress());
 }
