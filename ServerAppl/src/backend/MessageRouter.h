@@ -36,6 +36,8 @@ namespace ServerAppl
         bool registerMessageHandler(uint clientId, QString command, messageHandler handler);
         bool unregisterMessageHandler(uint clientId, QString command);
         bool unregisterMessageHandlers(uint clientId);
+        bool addDirectRoute(QString receiver, uint receiverId);
+        bool removeDirectRoute(QString receiver);
 
     signals:
         void writeMessage(Message * message, uint clientId);
@@ -45,6 +47,7 @@ namespace ServerAppl
 
     private:
         QMap<uint, QMap<QString, messageHandler> *> * registeredMessageHandlers;
+        QMap<QString, uint> directRoutingTable;
     };
 }
 

@@ -105,6 +105,32 @@ namespace ServerAppl
         return unregisteredMessageHandlerSuccessfull;
     }
 
+    bool MessageRouter::addDirectRoute(QString receiver, uint receiverId)
+    {
+        bool addedSuccessfully = FALSE;
+
+        if(!directRoutingTable.contains(receiver))
+        {
+            directRoutingTable.insert(receiver, receiverId);
+            addedSuccessfully = TRUE;
+        }
+
+        return addedSuccessfully;
+    }
+
+    bool MessageRouter::removeDirectRoute(QString receiver)
+    {
+        bool removedSuccessfully = FALSE;
+
+        if(directRoutingTable.contains(receiver))
+        {
+            directRoutingTable.remove(receiver);
+            removedSuccessfully = TRUE;
+        }
+
+        return removedSuccessfully;
+    }
+
     void MessageRouter::onMessageParsed(Message* message, uint clientId)
     {
         QString command = message->getCommand();
@@ -124,47 +150,28 @@ namespace ServerAppl
             }
             else
             {
-                bool uIntConversionSuccessfull = FALSE;
-                unsigned int receiverId = 0;
-
-                receiverId = message->getReceiver().toUInt(&uIntConversionSuccessfull, 10);
-
-                if("master" == message->getReceiver())
+                if(directRoutingTable.contains(message->getReceiver()))
                 {
-                    emit writeMessage(message, 0);
-                }
-                else if( uIntConversionSuccessfull)
-                {
+                    uint receiverId = directRoutingTable.value(message->getReceiver());
                     emit writeMessage(message, receiverId);
                 }
-//                messageHandler handlerFunction = clientCommands->value(QString("unknown_command"));
-//                responseMessage = ((handlerFunction.object)->*(handlerFunction.function))(command, message);
-//                WRITE_DEBUG("MessageRouter: Received unknown message.")
-//                responseMessage = new Message(QString("RESPONSE"), message->getReceiver(), message->getSender());
-//                responseMessage->addParameter(QString("status"), QString("unknown command"));
+                else
+                {
+                    WRITE_DEBUG("MessageRouter: Received unknown message.")
+                    delete(message);
+                }
             }
         }
         else
         {
             WRITE_DEBUG("No client found with this id.")
+            delete(message);
             //TODO: client not registered. Maybe thrown an exception or emit error-signal?
         }
 
         if(!responseMessage)
         {
             WRITE_DEBUG("response message is null")
-            //TODO when is a returned null-pointer for responseMessage an error?
-//            if(message)
-//            {
-//                responseMessage = new Message(QString("RESPONSE"), message->getReceiver(), message->getSender());
-//            }
-//            else
-//            {
-//                responseMessage = new Message(QString("RESPONSE"), "", "server");
-//            }
-//
-//            responseMessage->addParameter(QString("status"), QString("unknown server error"));
-//            WRITE_DEBUG("MessageRouter: Got Null-Pointer for response message.")
         }
         else
         {
