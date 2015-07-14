@@ -33,6 +33,7 @@ private:
 public Q_SLOTS:
     void parsePraesentation(QMap<QString, QVariant> params, QMap<QString, QString> types);
     Message* packPraesentation();
+    Message* packPraesentation(Message * msg);
     void appendSlide(QString path);
     int getCurrentSlide();
     int getTotalSlides();

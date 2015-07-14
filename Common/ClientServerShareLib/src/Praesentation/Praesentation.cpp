@@ -169,6 +169,7 @@ Praesentation::setSlide(int slide)
     const bb::ImageData imgData= bb::ImageData::fromPixels(swappedImage.bits(), bb::PixelFormat::RGBX, swappedImage.width(), swappedImage.height(), swappedImage.bytesPerLine());
     */
     const bb::ImageData imgData = bb::utility::ImageConverter::decode(QUrl(path));
+
     accessLock.unlock();
     if (!running && slide >= 0)
     {
@@ -179,12 +180,9 @@ Praesentation::setSlide(int slide)
     emit slideChangedUrl(QUrl(path));
 }
 
-
 Message*
-Praesentation::packPraesentation()
+Praesentation::packPraesentation(Message * msg)
 {
-    Message *msg = new Message(DATA_PRAESENTATION, "master", "server");
-
     msg->addParameter("praesentationID", praesentationId);
     msg->addParameter("totalSlides", totalSlides);
 
@@ -203,4 +201,12 @@ Praesentation::packPraesentation()
         msg->addParameter(slideID, imgBytes);
     }
     return msg;
+}
+
+Message*
+Praesentation::packPraesentation()
+{
+    Message *msg = new Message(DATA_PRAESENTATION, "master", "server");
+
+    return packPraesentation(msg);
 }
