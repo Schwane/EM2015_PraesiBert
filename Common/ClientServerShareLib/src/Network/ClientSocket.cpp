@@ -114,6 +114,7 @@ namespace Network
      * @return Returns the number of bytes that were actually send to the server.
      *
      * This method sends data from the command socket to the server.<br>
+	 * A 32 bit integer with information about the data length is send first. Then the actual data follows.
      */
     int ClientSocket::sendCmd(QByteArray data)
     {
@@ -136,6 +137,7 @@ namespace Network
      * @return Returns the number of bytes that were actually send to the server.
      *
      * This method sends data from the data socket to the server.<br>
+	 * A 32 bit integer with information about the data length is send first. Then the actual data follows.
      */
     int ClientSocket::sendData(QByteArray data)
     {
@@ -156,7 +158,8 @@ namespace Network
      * This method is called, when a new command is available at the command socket.<br>
      * A 64 bit integer is used to determine the length of the receiving data.<br>
      * This method is returned without reading data from the socket, until the expected amount of data is available at the socket.<br>
-     * The function then emits the signal <i>receivedCmd</i> with the complete received command in QByteArray format.
+     * The function then emits the signal <i>receivedCmd</i> with the complete received command in QByteArray format.<br>
+	 * It reads data from the socket, until there is no more data available.
      */
     void ClientSocket::handleNewCmd()
     {
@@ -209,7 +212,8 @@ namespace Network
      * This method is called, when new data is available at the data socket.<br>
      * A 64 bit integer is used to determine the length of the receiving data.<br>
      * This method is returned without reading data from the socket, until the expected amount of data is available at the socket.<br>
-     * The function then emits the signal <i>receivedData</i> with the complete received command in QByteArray format.
+     * The function then emits the signal <i>receivedData</i> with the complete received command in QByteArray format.<br>
+	 * It reads data from the socket, until there is no more data available.
      */
     void ClientSocket::handleNewData()
     {

@@ -108,6 +108,7 @@ namespace Network
      * @return Returns the amount of bytes that were actually sent to the client.
      *
      * This method is used to send a command to the connected client that is given in QByteArray format as parameter.<br>
+	 * A 32 bit integer with information about the data length is send first. Then the actual data follows.
      */
     int ConnectedClient::sendCmd(QByteArray data)
     {
@@ -130,6 +131,7 @@ namespace Network
      * @return Returns the amount of bytes that were actually sent to the client.
      *
      * This method is used to send data to the connected client that is given in QByteArray format as parameter.<br>
+	 * A 32 bit integer with information about the data length is send first. Then the actual data follows.
      */
     int ConnectedClient::sendData(QByteArray data)
     {
@@ -197,10 +199,9 @@ namespace Network
     }
 
     /**
-     * @brief This method initializes the sockets.
+     * @brief Method is called on start of the Thread.
      *
-     * This method is called on start of the QThread that the ConnectedClient object was moved to.<br>
-     * It initializes both sockets and connects the signals that are necessary for data handling and connection management.
+     * This method is called on start of the QThread that the ConnectedClient object was moved to.
      */
     void ConnectedClient::process()
     {
@@ -225,7 +226,8 @@ namespace Network
      * This method is called when new data is available at the command socket.<br>
      * A 64 bit integer is used to determine the length of the receiving data.<br>
      * This method is returned without reading data from the socket, until the expected amount of data is available at the socket.<br>
-     * The function then emits the signal <i>newCmd</i> with the complete received command in QByteArray format.
+     * The function then emits the signal <i>newCmd</i> with the complete received command in QByteArray format.<br>
+	 * It reads data from the socket, until there is no more data available.
      */
     void ConnectedClient::handleCmdRead()
     {
@@ -279,7 +281,8 @@ namespace Network
      * This method is called when new data is available at the data socket.<br>
      * A 64 bit integer is used to determine the length of the receiving data.<br>
      * This method is returned without reading data from the socket, until the expected amount of data is available at the socket.<br>
-     * The function then emits the signal <i>newData</i> with the complete received command in QByteArray format.
+     * The function then emits the signal <i>newData</i> with the complete received command in QByteArray format.<br>
+	 * It reads data from the socket, until there is no more data available.
      */
     void ConnectedClient::handleDataRead()
     {
