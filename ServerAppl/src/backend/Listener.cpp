@@ -113,7 +113,7 @@ namespace ServerAppl
                 && msg->getParameters()->contains("audio")
                 )
         {
-            QByteArray audioRecording = msg->getParameters()->value("autio").toByteArray();
+            QByteArray audioRecording = QByteArray::fromBase64(msg->getParameters()->value("audio").toByteArray());
             QString fileName;
             QString listenerId;
 

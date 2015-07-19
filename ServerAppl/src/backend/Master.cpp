@@ -177,6 +177,34 @@ namespace ServerAppl
         return responseMessage;
     }
 
+    Message* Master::handleReceivedAudio(QString commandName, Message* msg)
+    {
+
+        if(IS_COMMAND(DATA_AUDIO, commandName)
+                && msg->getParameters()->contains("audio")
+                )
+        {
+            QByteArray audioRecording = QByteArray::fromBase64(msg->getParameters()->value("audio").toByteArray());
+            QString fileName;
+            QString masterId;
+
+            masterId.setNum(this->clientId);
+
+            fileName.clear();
+            fileName.append("master_id_");
+            fileName.append(masterId);
+            fileName.append("_at_");
+            fileName.append(msg->getTimestamp().toString(Qt::ISODate));
+            fileName.append(".m4a");
+
+            emit writeAudioRecording(fileName, audioRecording);
+
+            delete(msg);
+        }
+
+        return NULL;
+    }
+
     void Master::onReceivedData(unsigned int receiverIdentifier)
     {
         /* TODO examine received data-packet, create presentation-data-object

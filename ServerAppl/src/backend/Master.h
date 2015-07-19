@@ -67,6 +67,7 @@ namespace ServerAppl
         Message* handleDataPresentation(QString commandName, Message* msg);
         Message* handleSetSlide(QString commandName, Message* msg);
         Message* handleStopPresentation(QString commandName, Message* msg);
+        Message* handleReceivedAudio(QString commandName, Message* msg);
 
     signals:
         void stopPresentation();
@@ -76,6 +77,7 @@ namespace ServerAppl
         void authenticationFailed();
         void authenticationSuccessfull();
         void receivedPresentation(Praesentation * presentation, QMap<QString, QVariant> presentationParameterList, QMap<QString, QString> presentationParameterTypeList);
+        void writeAudioRecording(QString fileName, const QByteArray & recording);
 
     public slots:
         void onReceivedData(unsigned int receiverIdentifier);

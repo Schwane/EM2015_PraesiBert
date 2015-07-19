@@ -128,7 +128,6 @@ TabbedPane {
                 {
                     praesi.btn_finish_ranf.visible = true;
                     praesi.btn_accept_ranf.visible = false;
-                    praesi.btn_mute_ranf.visible = false;
                     praesi.btn_clear_ranf.visible = false;
                 }
                 toast.show();

@@ -400,13 +400,14 @@ namespace ServerAppl
 
             QFile audioFile(path);
 
-            if(audioFile.open(QIODevice::ReadWrite))
+            if(audioFile.open(QIODevice::WriteOnly))
             {
                 QByteArray audio;
                 audioFile.write(recording);
+                audioFile.close();
             }
 
-            audioFile.close();
+
         }
     }
 
@@ -503,6 +504,11 @@ namespace ServerAppl
                         this, SLOT(onStopPresentation())
                         );
 
+                QObject::connect(
+                        master, SIGNAL(writeAudioRecording(QString, const QByteArray & )),
+                        this, SLOT(onWriteAudioRecording(QString, const QByteArray &))
+                        );
+
 
 
                 commandRouter->unregisterMessageHandler(clientId, CMD_LOGIN);
@@ -540,6 +546,13 @@ namespace ServerAppl
                         HANDLER_FUNC(Master::handleDataPresentation)
                         );
 
+                dataRouter->registerMessageHandler(
+                        clientId,
+                        DATA_AUDIO,
+                        HANDLER_OBJ(master),
+                        HANDLER_FUNC(Master::handleReceivedAudio)
+                        );
+
                 this->byteStreamVerifier->addMessageAuthenticator(master->getClientId(), master->getMessageAuthenticator());
 
                 WRITE_DEBUG("Registered master client successfully.")
@@ -569,19 +582,24 @@ namespace ServerAppl
                 this, SLOT(onReceivedSetSlide(int))
                 );
 
-        QObject::connect(
+        QObject::disconnect(
                 master, SIGNAL(forwardMessageToClient(Message *, unsigned int)),
                 this, SLOT(onForwardMessageToClient(Message*, unsigned int))
                 );
 
-        QObject::connect(
+        QObject::disconnect(
                 master, SIGNAL(stopPresentation()),
                 this, SLOT(onStopPresentation())
                 );
 
+        QObject::disconnect(
+                master, SIGNAL(writeAudioRecording(QString, const QByteArray & )),
+                this, SLOT(onWriteAudioRecording(QString, const QByteArray &))
+                );
+
         this->byteStreamVerifier->removeMessageAuthenticator(master->getClientId());
 
-        commandRouter->removeDirectRoute(QString(master->getClientId()));
+        commandRouter->removeDirectRoute(QString("master"));
         commandRouter->unregisterMessageHandlers(master->getClientId());
         dataRouter->unregisterMessageHandlers(master->getClientId());
 
