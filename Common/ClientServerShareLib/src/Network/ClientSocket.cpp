@@ -156,7 +156,7 @@ namespace Network
      * @brief Handler for new command.
      *
      * This method is called, when a new command is available at the command socket.<br>
-     * A 64 bit integer is used to determine the length of the receiving data.<br>
+     * A 32 bit integer is used to determine the length of the receiving data.<br>
      * This method is returned without reading data from the socket, until the expected amount of data is available at the socket.<br>
      * The function then emits the signal <i>receivedCmd</i> with the complete received command in QByteArray format.<br>
      * It reads data from the socket, until there is no more data available.
@@ -210,7 +210,7 @@ namespace Network
      * @brief Handler for new data.
      *
      * This method is called, when new data is available at the data socket.<br>
-     * A 64 bit integer is used to determine the length of the receiving data.<br>
+     * A 32 bit integer is used to determine the length of the receiving data.<br>
      * This method is returned without reading data from the socket, until the expected amount of data is available at the socket.<br>
      * The function then emits the signal <i>receivedData</i> with the complete received command in QByteArray format.<br>
      * It reads data from the socket, until there is no more data available.
