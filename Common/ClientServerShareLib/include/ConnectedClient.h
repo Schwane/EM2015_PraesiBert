@@ -22,28 +22,32 @@ namespace Network
      * @brief Class for clients connected to the server.
      *
      * Class for clients that connect to the Server Socket (ServerSocket class).<br>
-     * It uses 64 bit integers for determining the length of sent and received data.<br>
      * All of the objects that are created from this class are stored in an individual thread that is started when a new connection is established.<br>
+     * It uses 32 bit integers for determining the length of sent and received data.<br>
      * The class provides several functions, signals and slots that are used to exchange data with a client:
      * <ul>
      *  <li>functions:</li>
      *      <ul>
-     *          <li>setSocket(): Sets the socket that is given as parameter to either the command or data socket, depending on the connectionType.</li>
-     *          <li>hasSocket(): Returns true, if the socket that was requested as parameter in connectionType is set up.</li>
-     *          <li>sendData(): Sends ByteArray given as parameter to one of the client sockets, depending on the connectionType.</li>
+     *          <li>setCmdSocket(): Sets the socket that is given as parameter to the command socket.</li>
+     *          <li>setDataSocket(): Sets the socket that is given as parameter to the data socket.</li>
+     *          <li>hasCmdSocket(): Returns true, if the command socket is set up.</li>
+     *          <li>hasDataSocket(): Returns true, if the data socket is set up.</li>
+     *          <li>sendCmd(): Sends the ByteArray that is given as parameter to the clients command socket.</li>
+     *          <li>sendData(): Sends the ByteArray that is given as parameter to the clients data socket.</li>
      *          <li>disconnectFromServer(): Disconnects both sockets from the servers sockets.</li>
      *          <li>getClientID(): Returns the ID of the client.<li>
      *          <li>getPeerAddress(): Returns the peer address of the client.</li>
      *      </ul>
      *  <li>signals:</li>
      *      <ul>
-     *          <li>newData(): Emitted with the clientID, data and connection type, when new data is available from one of the clients sockets.</li>
+     *          <li>newCmd(): Emitted with the clientID and data when a new command is available from the clients command socket.</li>
+     *          <li>newData(): Emitted with the clientID and data when new data is available from the clients data socket.</li>
      *          <li>disconnected(): Emitted with the clientID, when the connection to one of the clients sockets is lost.</li>
      *          <li>finished(): Emitted, when the connection to the client is lost and the client socket can be destroyed.</li>
      *      </ul>
      *  <li>slots:</li>
      *      <ul>
-     *          <li>process(): Calling this slot sets up the client socket. This slot is connected to the start signal of the thread that stores the object.</li>
+     *          <li>process(): This slot is connected to the start signal of the thread that stores the ConnectedClient object.</li>
      *      </ul>
      *  </ul>
      */

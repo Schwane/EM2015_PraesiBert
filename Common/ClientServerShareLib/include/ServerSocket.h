@@ -41,13 +41,18 @@ namespace Network
      *      <ul>
      *          <li>beginListening(): Calling this slot makes the server start to listen for incoming connections (command and data) of the ports that are given as parameter.</li>
      *          <li>closeServer(): Shuts down the server.</li>
-     *          <li>sendToAll(): Sends the data that is given as parameter to all of its clients command or data socket, depending on connectionType.</li>
-     *          <li>sendToID(): Sends the data that is given as parameter to the client with the specified ID.</li>
+     *          <li>sendCmdToAll(): Sends the command that is given as parameter to all of its clients command sockets.</li>
+     *          <li>sendDataToAll(): Sends the data that is given as parameter to all of its clients data sockets.</li>
+     *          <li>sendCmdToID(): Sends the command that is given as parameter to the client with the specified ID.</li>
+     *          <li>sendDataToID(): Sends the data that is given as parameter to the client with the specified ID.</li>
+     *          <li>sendCmdToMultClients(): Sends the command that is given as parameter to the IDs of clients that are given in a QList as parameter.</li>
+     *          <li>sendCmdToMultClients(): Sends the data that is given as parameter to the IDs of clients that are given in a QList as parameter.</li>
+     *          <li>disconnectFromClient(): Closes the connection to the client whose ID is given as parameter.</li>
      *      </ul>
      *  </ul>
      * The ServerSocket manages all of the connected clients in a list (m_clientList) with a specific ID.
-     * For any client that establishes a connection to the server, an object of the <i>ConnectedClient</i>-class is created, pushed to an own thread and stored in m_clientList.<br>
-     * The <i>ConnectedClient</i>-class contains a QTcpSocket that the server can use to communicate with it's clients.
+     * For each client that establishes a connection to the server, an object of the <i>ConnectedClient</i>-class is created, pushed to an own thread and stored in m_clientList.<br>
+     * The <i>ConnectedClient</i>-class contains two QTcpSockets that the server can use to communicate with it's clients.
      */
     class ServerSocket : public QObject
     {
@@ -55,7 +60,6 @@ namespace Network
     public:
         ServerSocket(QObject* parent);
         virtual ~ServerSocket();
-        bool disconnectFromClient(uint clientID);
 
     private:
         /// QTcpServer for command connections
@@ -115,6 +119,7 @@ namespace Network
     public slots:
         bool beginListening(QString cmdPort_str, QString dataPort_str);
         void closeServer();
+        bool disconnectFromClient(uint clientID);
         void sendCmdToAll(QByteArray data);
         void sendDataToAll(QByteArray data);
         void sendCmdToMultClients(QByteArray data, QList<uint> clientIDs);

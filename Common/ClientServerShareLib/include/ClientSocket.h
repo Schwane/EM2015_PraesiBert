@@ -23,7 +23,7 @@ namespace Network
      * @brief Client Socket class.
      *
      * Instantiates two TCP Client Sockets (command and data) that can connect to servers.<br>
-     * It uses 64 bit integers for determining the length of sent and received data.<br>
+     * It uses 32 bit integers for determining the length of sent and received data.<br>
      * The class provides several signals and slots for connection and data handling:
      * <ul>
      *  <li>signals:</li>
@@ -37,7 +37,8 @@ namespace Network
      *  <li>slots:</li>
      *      <ul>
      *          <li>connectToServer(): Tries to establish a connection to a server with the IP and two ports (command and data port) that are given as parameter in QString format.</li>
-     *          <li>sendData(): Sends the data that is given as parameter to the server that is defined by <i>connectionType</i>.</li>
+     *          <li>sendCmd(): Sends the command that is given as parameter to the command socket of the server.</li>
+     *          <li>sendData(): Sends the data that is given as parameter to the data socket of the server.</li>
      *          <li>disconnectFromServer(): Disconnects the current connection to the server for both sockets.</li>
      *      </ul>
      *  </ul>
@@ -65,7 +66,6 @@ namespace Network
 
         //QMutex cmdLock;
         //QMutex dataLock;
-
 
     signals:
         /**

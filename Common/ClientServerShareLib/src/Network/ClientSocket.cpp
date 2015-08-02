@@ -107,7 +107,7 @@ namespace Network
     }
 
     /**
-     * @brief Method that is used to send data from one of the sockets.
+     * @brief Method that is used to send a command from the command socket.
      *
      * @param[in] data Command that is send to the server.
      *
@@ -130,7 +130,7 @@ namespace Network
     }
 
     /**
-     * @brief Method that is used to send data from one of the sockets.
+     * @brief Method that is used to send data from the data socket.
      *
      * @param[in] data Data that is send to the server.
      *

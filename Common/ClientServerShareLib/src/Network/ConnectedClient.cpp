@@ -19,7 +19,7 @@ namespace Network
      * @param[in] clientID ID of the client that is created.
      *
      * Initializes the variables <i>m_clientID</i> with the value that was given as parameter.<br>
-     * Also initializes the booleans <i>hasCmdSocket</i> and <i>hasDataSocket</i> with the value <i>false</i>.
+     * Also initializes the booleans <i>hasCmdSocket</i> and <i>hasDataSocket</i> with the value <i>false</i> and <i>m_next_block_size_cmd</i> and <i>m_next_block_size_data</i> with the value <i>0</i>.<br>
      * The constructor does not implement a parent object so that it can be moved into a QThread.
      */
     ConnectedClient::ConnectedClient(uint clientID)
@@ -47,7 +47,7 @@ namespace Network
     /**
      * @brief Method used to set the command socket.
      *
-     * @param[in] tcpSocket New socket object that one of the clients sockets is assigned to.
+     * @param[in] tcpSocket New socket object that the clients command socket is assigned to.
      *
      * Each time a new connection is established with the server, a new QTcpSocket object is created.<br>
      * This object is then passed to this function as parameter.<br>
@@ -65,7 +65,7 @@ namespace Network
     /**
      * @brief Method used to set the data socket.
      *
-     * @param[in] tcpSocket New socket object that one of the clients sockets is assigned to.
+     * @param[in] tcpSocket New socket object that the clients data socket is assigned to.
      *
      * Each time a new connection is established with the server, a new QTcpSocket object is created.<br>
      * This object is then passed to this function as parameter.<br>
