@@ -12,6 +12,10 @@
 #include <QtCore>
 #include "Redeanfrage.hpp"
 
+//! Thread safe implementation of a queue containing talk requests.
+/*! Thread safe implementation of a queue containing talk requests.
+ * Distinct enqueueing per default.
+ */
 class RedeanfrageQueue: public QObject
 {
 Q_OBJECT
@@ -22,6 +26,7 @@ private:
     QMutex accessLock;
     QQueue<Redeanfrage*> queue;
 public Q_SLOTS:
+    //! Only enqueue element if its not already contained.
     int enqueue(Redeanfrage *ranf);
     Redeanfrage* dequeue();
     void clear();

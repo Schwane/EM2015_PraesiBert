@@ -38,14 +38,16 @@ XMLMessageWriter::createMessageByteArray(Message* msg, QByteArray* outputMessage
 
     xmlw.writeStartElement("message");
 
+    //Build header with sender, receiver and timestamp
     xmlw.writeStartElement("header");
     xmlw.writeTextElement("sender",msg->sender);
     xmlw.writeTextElement("receiver",msg->receiver);
     xmlw.writeTextElement("timestamp",msg->getTimestamp().toString(MESSAGE_DATETIME_FORMAT));
     xmlw.writeEndElement();
-
+    // append command
     xmlw.writeTextElement("command", msg->command);
 
+    // add parameters ...
     xmlw.writeStartElement("parameters");
 
     for(QVariantMap::const_iterator iter = (msg->parameters).begin(); iter != (msg->parameters).end(); ++iter) {
@@ -53,15 +55,16 @@ XMLMessageWriter::createMessageByteArray(Message* msg, QByteArray* outputMessage
       QString data;
       QString type((msg->parameter_types).value(iter.key()));
 
+      //... with value, ...
       if (type == "date")
       {
-          data = iter.value().toDateTime().toString(MESSAGE_DATETIME_FORMAT);
+          data = iter.value().toDateTime().toString(MESSAGE_DATETIME_FORMAT); //convert date
       }
       else
       {
           data = iter.value().toString();
       }
-
+      // ... name and type.
       xmlw.writeStartElement("parameter");
       xmlw.writeAttribute("name",iter.key());
       xmlw.writeAttribute("type",type);

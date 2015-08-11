@@ -14,7 +14,6 @@ MessageAuthenticator::MessageAuthenticator()
 
 MessageAuthenticator::~MessageAuthenticator()
 {
-    // TODO Auto-generated destructor stub
 }
 
 QByteArray
@@ -26,6 +25,7 @@ MessageAuthenticator::hmacSha1(QByteArray baseString)
 QByteArray
 MessageAuthenticator::hmacSha1(QByteArray key, QByteArray baseString)
 {
+     //Note: taken from http://wiki.qt.io/HMAC-SHA1
      int blockSize = 64; // HMAC-SHA-1 block size, defined in SHA-1 standard
      if (key.length() > blockSize) { // if key is longer than block size (64), reduce key length with SHA-1 compression
          key = QCryptographicHash::hash(key, QCryptographicHash::Sha1);
@@ -49,6 +49,7 @@ MessageAuthenticator::hmacSha1(QByteArray key, QByteArray baseString)
      QByteArray hashed = QCryptographicHash::hash(total, QCryptographicHash::Sha1);
      QString b64 = hashed.toBase64();
      hashed.clear();
+     //return always base64 encoded hash
      hashed.append(b64);
      return hashed;
 }
@@ -56,6 +57,7 @@ MessageAuthenticator::hmacSha1(QByteArray key, QByteArray baseString)
 void
 MessageAuthenticator::authenticateMessage(QByteArray msg)
 {
+    //take raw message and hash with key
     QByteArray mac = hmacSha1(key, msg);
     msg.append(mac);
     emit messageAuthenticated(msg);
@@ -64,5 +66,6 @@ MessageAuthenticator::authenticateMessage(QByteArray msg)
 void
 MessageAuthenticator::setKey(QByteArray key)
 {
+    //set key to given key
     this -> key = key;
 }

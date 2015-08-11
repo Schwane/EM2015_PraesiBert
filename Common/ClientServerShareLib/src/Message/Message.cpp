@@ -23,7 +23,6 @@ Message::Message()
 
 Message::~Message()
 {
-    // TODO Auto-generated destructor stub
 }
 
 void
@@ -41,6 +40,9 @@ Message::setParameterTypeList(QMap<QString, QString> types)
 int
 Message::addParameter(QString name, QString value)
 {
+    //Adding a paramter is (nearly) always the same.
+    // - first check if the paremter is not already contained.
+    // - second add the paremeter payload and type respectively.
     if (parameters.contains(name))
     {
         return false;
@@ -97,8 +99,10 @@ Message::addParameter(QString name, QByteArray value)
     {
         return false;
     }
+    //slightly different.
+    //Check if data is b64 encoded already with reg exp.
     QRegExp rx("^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$");
-    if (rx.indexIn(QString(value)) == -1)
+    if (rx.indexIn(QString(value)) == -1) //Only convert to b64 if data is not b64.
     {
         QString b64(value.toBase64());
         parameters.insert(name, b64);
@@ -107,7 +111,7 @@ Message::addParameter(QString name, QByteArray value)
     {
         parameters.insert(name, QString(value));
     }
-
+    //at this point we can be sure that data is base 64 encoded
     parameter_types.insert(name, "b64");
     return 1;
 }
@@ -115,6 +119,7 @@ Message::addParameter(QString name, QByteArray value)
 QDateTime
 Message::getTimestamp()
 {
+    //If timestamp is requested but not stamped, stamp it now!
     if (timestamp.isNull())
     {
         timestamp = QDateTime::currentDateTime();

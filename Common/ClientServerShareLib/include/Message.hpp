@@ -42,7 +42,7 @@ class XMLMessageParser;
  * - date/time
  * - raw byte array (is converted to base64 automatically; has to be converted from base64 _manually_)
  *
- * Member can either be accesd from friend classes or by getters and setter (payload is only accessible by friendclasses).
+ * Member can either be accessed from friend classes or by getters and setter (payload is only accessible by friendclasses).
  * If timestamp is requested and no timestamp is set yet the timestamp will be set to the time it is requested.
  *
  */

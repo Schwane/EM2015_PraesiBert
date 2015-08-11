@@ -9,16 +9,9 @@
 
 XMLMessageParser::XMLMessageParser()
 {
-    //xmlr = QXmlStreamReader();
-    //cl = NULL;
+
 }
-/*
-XMLMessageParser::XMLMessageParser(Client *cl)
-{
-    this -> cl = cl;
-    //xmlr = QXmlStreamReader();
-}
-*/
+
 XMLMessageParser::~XMLMessageParser()
 {
 }
@@ -55,9 +48,11 @@ XMLMessageParser::parseDataMessage(QByteArray bytes, uint clientId)
 Message*
 XMLMessageParser::messageParser(QByteArray& bytes)
 {
+    //Xml stream
     QXmlStreamReader *xmlr = new QXmlStreamReader(bytes);
     QString command, sender, receiver, parameter, type, data, name;
 
+    //Flags for fields
     bool inHeader, inParameters, inParameter;
     bool okConv, okAdd;
     QDateTime dataDate;
@@ -65,6 +60,7 @@ XMLMessageParser::messageParser(QByteArray& bytes)
 
     QXmlStreamAttributes attrs;
 
+    //Initial message
     Message *msg = new Message("not set", "not set", "not set");
 
     inHeader = false;
@@ -73,32 +69,30 @@ XMLMessageParser::messageParser(QByteArray& bytes)
     okConv = false;
     okAdd = false;
 
-    //xmlr.clear();
-    //xmlr.addData(bytes);
     xmlr->readNext();
 
-    while (!xmlr->isEndDocument() && !xmlr->hasError())
+    while (!xmlr->isEndDocument() && !xmlr->hasError()) //For whole XML
     {
         if (xmlr->isStartElement())
         {
             name = xmlr->name().toString();
             if ( name ==  "header"){
-                inHeader = true;
+                inHeader = true; //if in header
             }
             else if ( name ==  "sender"){
-                if (inHeader)
+                if (inHeader) //sender is always in header
                 {
-                    msg -> sender = xmlr->readElementText().trimmed();
+                    msg -> sender = xmlr->readElementText().trimmed(); //get \wo whitespaces
                 }
             }
             else if ( name ==  "receiver"){
-                if (inHeader)
+                if (inHeader) //receiver is always in header
                 {
                     msg -> receiver = xmlr->readElementText().trimmed();
                 }
             }
             else if ( name == "timestamp"){
-                if (inHeader)
+                if (inHeader)//time stamp is always in header
                 {
                     msg -> timestamp = QDateTime::fromString(xmlr->readElementText().trimmed(), MESSAGE_DATETIME_FORMAT);
                 }
@@ -113,9 +107,10 @@ XMLMessageParser::messageParser(QByteArray& bytes)
                 if (inParameters)
                 {
                     attrs = xmlr->attributes();
+                    //paremters must have namer/type
                     if (attrs.hasAttribute("name") && attrs.hasAttribute("type"))
                     {
-                       parameter = attrs.value("name").toString();
+                       parameter = attrs.value("name").toString(); //set name and type for later
                        type = attrs.value("type").toString();
                     }
                     inParameter = true;
@@ -125,6 +120,7 @@ XMLMessageParser::messageParser(QByteArray& bytes)
                 if (inParameter && inParameters)
                 {
                     data = xmlr->readElementText().trimmed();
+                    //parse allowed types and convert data by adding it to the message object
                     if (type == "integer"){
                             okAdd = msg->addParameter(parameter, data.toInt(&okConv, 10));
                     }
@@ -154,6 +150,7 @@ XMLMessageParser::messageParser(QByteArray& bytes)
         {
             name = xmlr->name().toString();
 
+            //reset flags on close tag
             if ( name ==  "header"){
                 inHeader = false;
             }
@@ -168,6 +165,7 @@ XMLMessageParser::messageParser(QByteArray& bytes)
         xmlr->readNext();
     }
 
+    //For now, errors are silently ignored
     if (xmlr->hasError())
     {
         qDebug() << "XML error: " << xmlr->errorString().data();

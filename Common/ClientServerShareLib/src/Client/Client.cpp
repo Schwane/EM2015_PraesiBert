@@ -15,17 +15,18 @@ Client::Client()
     registerdFunctions.insert(CMD_SET_PRAESENTATION,&Client::parsePraesentation);
     registerdFunctions.insert(CMD_LOGIN_RESP, &Client::Client::loginResponse);
 
+    /* create XML objects for both data and command port */
     xmlmp = new XMLMessageParser();
     xmlmw = new XMLMessageWriter();
 
     xmlmp_data = new XMLMessageParser();
     xmlmw_data = new XMLMessageWriter();
 
-
+    /* create network layer */
     cs = new Network::ClientSocket(this);
     prs = new Praesentation();
 
-    id = "undefined_client";
+    id = "undefined_client"; // ID is undefined until log in to server
 
     login_state = IDLE;
 
@@ -47,11 +48,13 @@ Client::Client()
     connect(prs, SIGNAL(parsing(bool)), this, SIGNAL(wait(bool)));
     connect(prs, SIGNAL(praesentationReady()), this, SIGNAL(praesentationReady()));
 
+    //Instance of HDMI display for all clients
     hdmi = new bb::EM2015::HDMI(RES1280x720);
 }
 
 Client::~Client()
 {
+    //clean up
     delete hdmi;
     delete xmlmp;
     delete xmlmw;
@@ -66,24 +69,26 @@ Client::~Client()
 void
 Client::invokeRemote(Message *msg)
 {
+    //invoke with clean up by default
     invokeRemote(msg, true);
 }
 
 void Client::invokeRemote(Message *msg, bool cleanup)
 {
-    qDebug() << "Invoke";
     QString cmd(msg -> command);
-    qDebug() << "check if function is contained";
 
     Message *response;
 
+    //whitelisting by command
     if((registerdFunctions.contains(cmd)))
     {
         remoteFunction rmt;
         rmt = registerdFunctions.value(cmd);
-        response = (this->*rmt)(msg -> parameters, msg -> parameter_types);
+        //Execute remote function with parameters from message object
+        response = (this->*rmt)(msg -> parameters, msg -> parameter_types); //Note that a repsonse should always be generated either as error or as ack or containing data for the next step.
         xmlmw -> writeMessage(response);
     }
+    //only clean up if needed
     if(cleanup)
     {
         delete msg;
@@ -100,7 +105,7 @@ Message*
 Client::setSlide(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types)
 {
     Message *resp = new Message(CMD_ACK_RESPONSE, id,"server");
-
+    //Check if all parameters are contained and send error if not.
     if(!parameters.contains("slide"))
     {
         resp -> addParameter("status",QString("error"));
@@ -115,6 +120,7 @@ Client::setSlide(QMap<QString, QVariant> parameters, QMap<QString, QString> para
         return resp;
     }
 
+    //Check boundaries of slide and either set slide or emit error.
     int slide = parameters.value("slide").toInt();
 
     if (slide < 0)
@@ -143,19 +149,17 @@ Client::parsePraesentation(QMap<QString, QVariant> parameters, QMap<QString, QSt
 {
     Message *resp = new Message(CMD_ACK_RESPONSE, id, "server");
     resp->addParameter("status", QString("ok"));
-
+    //Parse presentation from message
     prs->parsePraesentation(parameters, parameter_types);
-    //TODO correct response needs to be generated! This is only a quick-fix (Sebastian).
+
     return resp;
 }
 
 Message*
 Client::stopPraesentation(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types)
 {
+    //Stop presentation and emit default slide which should be shown at stop.
     prs->stop();
-    //bb::ImageData imgData = bb::utility::ImageConverter::decode(QUrl("assets:///img/before_start.png"));
-    //bb::cascades::Image img = imgData;
-    //emit slideChanged(img);
     emit slideChangedUrl(QUrl("asset:///img/before_start.png"));
     hdmi->show_slide(QUrl("asset:///img/before_start.png"));
     Message *msg = new Message(CMD_ACK_RESPONSE, id, "server");
@@ -166,12 +170,12 @@ Message*
 Client::loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types)
 {
     Message *resp = new Message(CMD_ACK_RESPONSE,"client","server");
-
+    //Check if parameters are contained
     if (parameters.contains("status") && parameters.contains("id"))
     {
         QString status = parameters.value("status").toString();
         QString id = parameters.value("id").toString();
-        if (status == "ok")
+        if (status == "ok") //if status is ok then login is done and client id is set to that from server
         {
             login_state = ACCEPTED;
             this -> id = id;
@@ -180,10 +184,10 @@ Client::loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QString>
         {
             login_state = REJECTED;
         }
-        emit loginStateChanged();
+        emit loginStateChanged(); //inform that state has changed
         resp -> addParameter("status", QString("ok"));
     }
-    else
+    else //error
     {
         resp -> addParameter("status",QString("error"));
         resp -> addParameter("message",QString("Parameter: status - no status contained"));
@@ -191,13 +195,6 @@ Client::loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QString>
 
     return resp;
 }
-/*
-void
-Client::onMessageParsed(Message* msg)
-{
-    invokeRemote(msg);
-}
-*/
 
 QString
 Client::getLastSentMsg()
@@ -208,6 +205,7 @@ Client::getLastSentMsg()
 QString
 Client::getLoginState()
 {
+    //Return human readable string of current state
     if (login_state == TRYING)
     {
         return QString("trying...");
@@ -239,6 +237,7 @@ Client::getLoginState()
 void
 Client::connectToServer(QString addr, QString cmd_port, QString data_port)
 {
+    //Only connect if not already connected
     if (login_state != ACCEPTED)
     {
         cs -> connectToServer(addr, cmd_port, data_port);
@@ -250,6 +249,7 @@ Client::connectToServer(QString addr, QString cmd_port, QString data_port)
 void
 Client::login()
 {
+    //after connection (on tcp layer) we attempt a login
     login_state = CONNECTED;
     emit loginStateChanged();
     Message* msg = new Message("login", id, "server");
@@ -261,22 +261,15 @@ Client::login()
 void
 Client::connectionLost()
 {
+    //if connection lost, set to idle
     login_state = IDLE;
     emit loginStateChanged();
 }
 
-/*
-void
-Client::onPraesiSlideChanged(bb::cascades::Image img)
-{
-    m_slide = img;
-    emit slideChanged();
-}
-*/
-
 void
 Client::requestSlideChange(int offset)
 {
+    //request the server to set slide to given offset with respect to current slide
     Message *msg = new Message(CMD_SET_SLIDE, id, "server");
     msg->addParameter("slide", prs->getCurrentSlide() + offset);
     xmlmw->writeMessage(msg);
@@ -285,6 +278,7 @@ Client::requestSlideChange(int offset)
 void
 Client::requestSlideChangeAbsolute(int slide)
 {
+    //request server to set slide to give slide no
     Message *msg = new Message(CMD_SET_SLIDE, id, "server");
     msg->addParameter("slide", slide);
     xmlmw->writeMessage(msg);
@@ -293,43 +287,31 @@ Client::requestSlideChangeAbsolute(int slide)
 void
 Client::sendArbitraryCommand(QString cmd)
 {
+    //only for debug purposes, send arbitrary command to server.
     Message *msg = new Message(cmd, id, "server");
     xmlmw->writeMessage(msg);
 }
 
-/*
-void
-Client::onRunning(bool active)
-{
-    if (active)
-    {
-       ar_path = ar.record();
-    }
-    else
-    {
-       ar_length = ar.stop();
-       deliverRecording();
-    }
-
-}
-*/
-
 void
 Client::deliverRecording(QString path)
 {
+    //with give path ...
     Message *msg = new Message(DATA_AUDIO, id, "server");
     path = path.replace("file://", "");
     QFile recording(path);
 
+    //.. try to open, ...
     if(!recording.open(QIODevice::ReadOnly))
     {
         delete msg;
         return;
     }
     QByteArray content;
+    // ... read content of audio file ...
     content = recording.readAll();
 
     msg->addParameter("audio", content);
+    //... and send it to the server.
     xmlmw_data -> writeMessage(msg);
 }
 
@@ -342,11 +324,13 @@ Client::logout()
 void
 Client::onNewSlideUrl(QUrl url)
 {
+    //Because hdmi doesnt have slots we have to wrap the functions here.
     hdmi -> show_slide(url);
 }
 
 QString
 Client::getBasepath()
 {
+    //Wrapper for access from QML.
     return prs->getBasepath();
 }
