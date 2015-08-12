@@ -1,11 +1,11 @@
 /*
- * CameraProcessor.cpp
+ * CameraProcessor.hpp
  *
- *  Created on: 15.06.2015
- *      Author: Inga
+ * Created on: 15.06.2015
+ * Author: Inga Quatuor
  */
 
-#include "include/CameraProcessor.hpp"
+#include "CameraProcessor.hpp"
 
 //Initialize the static control variable m_busy
 bool CameraProcessor::m_busy = false;

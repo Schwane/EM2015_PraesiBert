@@ -1,11 +1,11 @@
 /*
- * CameraController.cpp
+ * CameraController.hpp
  *
- *  Created on: 15.06.2015
- *      Author: Inga
+ * Created on: 15.06.2015
+ * Author: Inga Quatuor
  */
 
-#include "include/CameraController.hpp"
+#include "CameraController.hpp"
 
 //Constructor
 CameraController::CameraController(QObject* parent) :
