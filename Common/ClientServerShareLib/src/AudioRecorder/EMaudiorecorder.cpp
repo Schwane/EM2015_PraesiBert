@@ -14,6 +14,9 @@ namespace bb
     {
 
 
+/*
+ * TEST-COMMENT
+ */
 EMaudiorecorder::EMaudiorecorder()
 {
     initalized = false;
