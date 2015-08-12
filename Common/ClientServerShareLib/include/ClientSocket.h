@@ -20,7 +20,7 @@ namespace Network
     /**
      * @class ClientSocket ClientSocket.h "Network/ClientSocket.h".
      *
-     * @brief Client Socket class.
+     * @brief ClientSocket class.
      *
      * Instantiates two TCP Client Sockets (command and data) that can connect to servers.<br>
      * It uses 32 bit integers for determining the length of sent and received data.<br>

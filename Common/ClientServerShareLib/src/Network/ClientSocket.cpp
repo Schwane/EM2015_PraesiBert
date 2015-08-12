@@ -18,7 +18,7 @@ namespace Network
      * @brief Constructor of the ClientSocket class.
      *
      * Initializes the command and data socket and connects signals and slots for connection and data handling.<br>
-     * Connects the signal <i>connected()</i> of the sockets with the handlers (<i>connectedToCmdServer()</i> and (<connectedToDataServer()</i>) of this class.<br>
+     * Connects the signal <i>connected()</i> of the sockets with the handlers (<i>connectedToCmdServer()</i> and (<i>connectedToDataServer()</i>) of this class.<br>
      * Connects the signal <i>disconnected()</i> of the sockets with the slot <i>disconnectFromServer()</i> of this class.<br>
      * Connects the signal <i>readyRead()</i> of the command socket with the slot <i>handleNewCmd()</i> of this class.
      * Connects the signal <i>readyRead()</i> of the data socket with the slot <i>handleNewData()</i> of this class.

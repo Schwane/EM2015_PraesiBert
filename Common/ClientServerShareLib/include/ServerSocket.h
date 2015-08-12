@@ -24,7 +24,7 @@ namespace Network
     /**
      * @class ServerSocket ServerSocket.h "Network/ServerSocket.h".
      *
-     * @brief Server Socket class.
+     * @brief ServerSocket class.
      *
      * Instantiates two TCP Server Sockets (command and data) that clients can connect to for communication.<br>
      * The class provides several signals and slots for connection and data handling:
