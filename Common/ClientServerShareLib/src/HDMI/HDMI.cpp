@@ -12,6 +12,16 @@ namespace bb
     namespace EM2015
     {
 
+        /*!
+         * @brief Initalizes the HDMI
+         *
+         * @details Initalizes the HDMI: global variables and classes.
+         *
+         * @arg Screen resolution (RESOLUTIONS_T)
+         *
+         */
+
+
         HDMI::HDMI(RESOLUTIONS_T hdmi_resolution)
         {
            ExternalDisplay extbert();
@@ -27,6 +37,16 @@ namespace bb
         {
             // TODO Auto-generated destructor stub
         }
+
+        /*!
+         * @brief Show slide
+         *
+         * @details Update the output of HDMI, link to the picture in argument.
+         *
+         * @arg QUrl img_url
+         * @return -none-
+         *
+         */
 
         void HDMI::show_slide(QUrl img_url)
         {
@@ -57,6 +77,15 @@ namespace bb
         }
 
         */
+
+        /*!
+         * @brief Show last slide
+         *
+         * @details Show the last slide ("Presentation finished")
+         *
+         * @return -none-
+         *
+         */
 
         void HDMI::show_last_slide()
         {

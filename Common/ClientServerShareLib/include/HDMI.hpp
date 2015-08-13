@@ -33,6 +33,8 @@ namespace bb
         class HDMI
         {
         public:
+
+
             HDMI(RESOLUTIONS_T hdmi_resolution);
             virtual ~HDMI();
 
@@ -51,8 +53,6 @@ namespace bb
             bb::ImageData slide_img_preload, last_slight;
 
             RESOLUTIONS_T hdmires;
-
-
         };
 
     } /* namespace EM2015 */
