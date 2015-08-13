@@ -31,9 +31,6 @@ namespace bb
 #ifndef EMAUDIORECORDER_HPP_
 #define EMAUDIORECORDER_HPP_
 
-
-
-
 class bb::EM2015::EMaudiorecorder : public QObject
 {
 private:
@@ -45,25 +42,14 @@ private:
     QUrl recfile;
     QTime global_time;
 
-   bb::multimedia::AudioRecorder bbrecorder;   /*Initalize recorder*/
-   bb::device::Led rec_led;                    /*Initalize LED     */
+    bb::multimedia::AudioRecorder bbrecorder;   /*Initalize recorder*/
+    bb::device::Led rec_led;                    /*Initalize LED     */
 
-   bb::system::InvokeDateTime ivdt;
+    bb::system::InvokeDateTime ivdt;
 
 public:
     EMaudiorecorder();
     ~EMaudiorecorder();
-
-    /*!
-     * @brief Initalizes the EMaudiorecorder.
-     *
-     * @details Initalizes the EMaudiorecorder: global variables and classes.
-     *
-     * @param -none-
-     * @return -none-
-     *
-     */
-
 
     char* record();
     unsigned int stop();
@@ -73,10 +59,6 @@ public:
     bool armed;
     bool record_running;
     int current_file;
-
-
-
-
 };
 
 
