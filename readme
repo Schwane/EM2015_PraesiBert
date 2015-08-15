@@ -11,13 +11,13 @@ EM2015_PraesiBert
     |
     |----> Common
     |    |----> ClientServerShareLib (Verzeichnis mit Momentics-API-Projekt)
-    |    |        Library-Projekt für die von den Applikationen gemeinsam genutzten Komponenten.
+    |    |        Library-Projekt für die von den Applikationen genutzten Komponenten.
     |    |
     |    |----> OpenCV
     |             Ordner mit Quellcode für OpenCV.
     |
     |----> Doc
-    |    |   Enthält Dokumentation des Projekts in .PDF und .DOCX sowie die Präsentation in .PPTX
+    |    |   Dokumentation des Projekts in .PDF und .DOCX sowie die Präsentation in .PPTX
     |    |----> Doxygen
     |    |        Ordner mit Doxygen Dokumentation (Sowohl HTML als auch PDF [Latex]).
     |    |
