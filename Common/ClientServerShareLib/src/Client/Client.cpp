@@ -95,12 +95,6 @@ void Client::invokeRemote(Message *msg, bool cleanup)
     }
 }
 
-bb::cascades::Image
-Client::getSlide()
-{
-    return m_slide;
-}
-
 Message*
 Client::setSlide(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types)
 {
