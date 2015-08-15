@@ -22,7 +22,7 @@
 namespace Network
 {
     /**
-     * @class ServerSocket ServerSocket.h "Network/ServerSocket.h".
+     * @class ServerSocket ServerSocket.h "Network/ServerSocket.h"
      *
      * @brief ServerSocket class.
      *

@@ -148,7 +148,7 @@ public Q_SLOTS:
      */
     Q_INVOKABLE void deliverRecording(QString path);
     /*! Remote procedure call.
-     * \param Message from Server.
+     * \param msg Message from Server.
      * \sa invokeRemote
      */
     Q_INVOKABLE void invokeRemote(Message *msg);

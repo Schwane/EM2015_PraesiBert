@@ -19,8 +19,6 @@ namespace bb
          *
          * @details Initalizes the EMaudiorecorder: global variables and classes.
          *
-         * @param -none-
-         * @return -none-
          *
          */
 
@@ -60,7 +58,6 @@ namespace bb
          *
          * @details This method implements the whole process of setting the file name, turning on the LED, preparing the recorder and starting it.
          *
-         * @param -none-
          * @return Adress of recording location as char array.
          *
          */
@@ -179,8 +176,6 @@ namespace bb
          * @brief LED test.
          *
          * @details This method toggles the green LED on. Unused in program, for testing purpose.
-         *
-         * @return -none-
          *
          */
 

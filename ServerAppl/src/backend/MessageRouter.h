@@ -134,7 +134,7 @@ namespace ServerAppl
          * @brief   This slot handles received Message-objects
          *
          * @param[in]   message     Pointer to the Message-object which was received (will be deleted whithin the function!)
-         * @param[in]   cliendId    ID of the client from which the Message-object was transmitted.
+         * @param[in]   clientId    ID of the client from which the Message-object was transmitted.
          *
          * This slot will try to find a message-handler (basing on the clientId and the command-name of the Message-object).
          * If no message-handler was found it will try to forward it on a direct-route (basing on the receiver-string

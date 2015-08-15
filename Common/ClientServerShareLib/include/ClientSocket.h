@@ -18,7 +18,7 @@
 namespace Network
 {
     /**
-     * @class ClientSocket ClientSocket.h "Network/ClientSocket.h".
+     * @class ClientSocket ClientSocket.h "Network/ClientSocket.h"
      *
      * @brief ClientSocket class.
      *

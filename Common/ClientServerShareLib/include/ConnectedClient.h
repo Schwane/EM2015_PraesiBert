@@ -17,7 +17,7 @@
 namespace Network
 {
     /**
-     * @class ConnectedClient ConnectedClient.h "Network/ConnectedClient.h".
+     * @class ConnectedClient ConnectedClient.h "Network/ConnectedClient.h"
      *
      * @brief Class for clients connected to the server.
      *
