@@ -13,20 +13,17 @@
 #include "Message.hpp"
 
 class Message;
-
+//! Serializes Message object to XML. Capable of separating between data an command/seperation by parent class. Throws signal if message was written.
 class XMLMessageWriter: public QObject
 {
     Q_OBJECT
 public:
     XMLMessageWriter();
-    //XMLMessageWriter(Client *cl);
     virtual ~XMLMessageWriter();
     private:
         void createMessageByteArray(Message* msg, QByteArray* outputMessageBytes);
-        //QXmlStreamReader xmlr;
-        //Client* cl;
     public Q_SLOTS:
-        void writeMessage(Message* msg);    //TODO: needs to be replaced because Server/Client-sockets have different signals for cmd-/data-messages.
+        void writeMessage(Message* msg);
 
         void writeCmdMessage(Message* msg);
         void writeDataMessage(Message* msg);
@@ -36,7 +33,7 @@ public:
         void writeDataMessage(Message* msg, QList<uint> clientIDs);
 
     Q_SIGNALS:
-        void messageWritten(QByteArray msg);    //TODO: needs to be replaced because Server/Client-sockets have different slots for cmd-/data-messages.
+        void messageWritten(QByteArray msg);
 
         void cmdMessageWritten(QByteArray msg);
         void dataMessageWritten(QByteArray msg);

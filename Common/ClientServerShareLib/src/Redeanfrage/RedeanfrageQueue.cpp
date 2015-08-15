@@ -24,7 +24,7 @@ RedeanfrageQueue::enqueue(Redeanfrage *ranf)
     int ret = 1;
     int sc = 0;
     accessLock.lock();
-
+    //check if already contained (by client id)
     bool alreadyContained = false;
 
     for (int i = 0; i < queue.size(); i++)
@@ -33,6 +33,7 @@ RedeanfrageQueue::enqueue(Redeanfrage *ranf)
             alreadyContained = true;
     }
 
+    //only enqueue if not already contained (only one request per user!!!)
     if (alreadyContained)
         ret = 0;
     else
@@ -42,7 +43,7 @@ RedeanfrageQueue::enqueue(Redeanfrage *ranf)
     }
     accessLock.unlock();
     if (sc)
-        emit sizeChanged(queue.size());
+        emit sizeChanged(queue.size()); //only emit if size changed
     return ret;
 }
 Redeanfrage*
@@ -51,6 +52,7 @@ RedeanfrageQueue::dequeue()
     Redeanfrage *ret = NULL;
     int sc = 0;
     accessLock.lock();
+    //only dequeue if queue is not empty
     if (!queue.isEmpty())
     {
         ret = queue.dequeue();
@@ -66,8 +68,10 @@ void
 RedeanfrageQueue::clear()
 {
     accessLock.lock();
+    //clean up the queue first
     for (int i = 0; i < queue.size(); i++)
         delete queue.at(i);
+    //clear it afterwards
     queue.clear();
     accessLock.unlock();
     emit sizeChanged(queue.size());
@@ -78,6 +82,7 @@ RedeanfrageQueue::getSize()
 {
     int ret = 0;
     accessLock.lock();
+    //return size of the queue
     ret = queue.size();
     accessLock.unlock();
     return ret;
@@ -88,6 +93,7 @@ RedeanfrageQueue::getClientIdAt(int i)
 {
     QString ret = 0;
     accessLock.lock();
+    //return client id at position i in the queue
     ret = queue.at(i)->getClientId();
     accessLock.unlock();
     return ret;

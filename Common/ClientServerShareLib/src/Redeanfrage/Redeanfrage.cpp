@@ -27,8 +27,10 @@ Redeanfrage::~Redeanfrage()
 void
 Redeanfrage::prepare()
 {
+    //state changes are all the same
+    // - set state
+    // - emit state
     state = PREPARATION;
-    this -> clientId = clientId;
     emit stateChanged("PREPARED");
 }
 
@@ -36,7 +38,7 @@ void
 Redeanfrage::queue(QString clientId)
 {
     state = QUEUED;
-    this -> clientId = clientId;
+    this -> clientId = clientId; //set client id
     emit stateChanged("QUEUED");
 }
 
@@ -72,8 +74,9 @@ Message*
 Redeanfrage::packRedeanfrage()
 {
     Message *msg = new Message(CMD_RANF_ASK, clientId, "master");
+    //set state to queued by default
     state = QUEUED;
-    msg->addParameter("clientId", clientId);
+    msg->addParameter("clientId", clientId); //add client id
     emit stateChanged("QUEUED");
     return msg;
 }

@@ -16,19 +16,17 @@
 
 class Client;
 
+//! Parses Messages from XML to Message Object. Capable of separating between data an command/seperation by parent class. Throws signal if message was parsed.
 class XMLMessageParser: public QObject
 {
     Q_OBJECT
 public:
     XMLMessageParser();
-    //XMLMessageParser(Client *cl);
     virtual ~XMLMessageParser();
 private:
     Message* messageParser(QByteArray& bytes);
-    //QXmlStreamReader xmlr;
-    //Client* cl;
 public Q_SLOTS:
-    void parseMessage(QByteArray bytes); //TODO: should be removed because it don't seperates between data and command messages
+    void parseMessage(QByteArray bytes);
 
     void parseCmdMessage(QByteArray bytes);
     void parseDataMessage(QByteArray bytes);
@@ -36,7 +34,7 @@ public Q_SLOTS:
     void parseDataMessage(QByteArray bytes, uint clientId);
 
 Q_SIGNALS:
-    void messageParsed(Message *msg); //TODO: should be removed because it don't seperates between data and command messages
+    void messageParsed(Message *msg);
 
     void cmdMessageParsed(Message *msg);
     void dataMessageParsed(Message *msg);
