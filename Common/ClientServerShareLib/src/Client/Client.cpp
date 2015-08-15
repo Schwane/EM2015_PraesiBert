@@ -196,11 +196,7 @@ Client::loginResponse(QMap<QString, QVariant> parameters, QMap<QString, QString>
     return resp;
 }
 
-QString
-Client::getLastSentMsg()
-{
-    return lastSentMsg;
-}
+
 
 QString
 Client::getLoginState()

@@ -102,11 +102,6 @@ public Q_SLOTS:
     Message* stopPraesentation(QMap<QString, QVariant> parameters, QMap<QString, QString> parameter_types);
     //===============================================================================
     /* Routines for access from UI */
-    //TODO DELETE
-    //! Access current slide. Ment for GUI access.
-    Q_INVOKABLE bb::cascades::Image getSlide();
-    //TODO DELETE
-    Q_INVOKABLE QString getLastSentMsg();
     //! Access loginstate as human readable string.
     /*!
      * Access loginstate as human readable string. Ment for GUI access.
@@ -199,9 +194,9 @@ signals:
     void loginStateChanged();
     //! Signal is thrown if longer action is done and UI (or anything else) should indicate waiting state.
     void wait(bool active);
-    //! Signal is thrown if a valid presentation is loaded (either remotely (listener) or local (master). Warpper for QML access.
+    //! Signal is thrown if a valid presentation is loaded (either remotely (listener) or local (master). Wrapper for QML access.
     void praesentationReady();
-    //! Signal is whtorn if limits of slides is reached and next slide is accesed. Wrapper for QML access-
+    //! Signal is thrown if limits of slides is reached and next slide is accessed. Wrapper for QML access-
     void noMoreSlides();
 
 protected:
@@ -219,9 +214,6 @@ protected:
     XMLMessageParser* xmlmp_data;
     //! XML Message writer to data port.
     XMLMessageWriter* xmlmw_data;
-
-    //TODO DELETE
-    QString lastSentMsg;
 
     //! Instance of networklayer.
     Network::ClientSocket *cs;
