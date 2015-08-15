@@ -18,7 +18,6 @@ namespace ServerAppl
 {
     Listener::Listener()
     {
-        connectionStm(Init);
     }
 
     Listener::Listener(UnspecifiedClient * priorClientObject)
@@ -31,8 +30,6 @@ namespace ServerAppl
         this->hasPresentation = FALSE;
         this->loginAcknowledged = FALSE;
 
-        connectionStm(Init);
-//        delete(this->priorClientObject);
         WRITE_DEBUG("Listener constructor finished.")
     }
 
@@ -167,81 +164,5 @@ namespace ServerAppl
         delete msg;
 
         return responseMessage;
-    }
-
-    bool Listener::connectionStm(ListenerConnectionStmEvent event)
-    {
-        static ListenerConnectionStmState currentState = NotInitialized;
-        ListenerConnectionStmState newState = NotInitialized;
-        bool eventAllowed = FALSE;
-
-        switch(currentState)
-        {
-            case NetworkConnectionEstablished:
-                if(Login == event)
-                {
-                    newState = WaitingForSlides;
-                    eventAllowed = TRUE;
-                }
-                break;
-            case WaitingForSlides:
-                if(StartTransmittingSlides == event)
-                {
-                    newState = ReceivingSlides;
-                    eventAllowed = TRUE;
-                }
-                break;
-            case ReceivingSlides:
-                if(ReceivedSlides == event)
-                {
-                    newState = Ready;
-                    eventAllowed = TRUE;
-                }
-                break;
-            case Ready:
-                if(ShowOtherSlide == event)
-                {
-                    newState = Ready;
-                    eventAllowed = TRUE;
-                }
-                break;
-            case NotInitialized:
-                if(Init == event)
-                {
-                    newState = NetworkConnectionEstablished;
-                    eventAllowed = TRUE;
-                }
-                break;
-            default:
-                break;
-        }
-
-        if(eventAllowed)
-        {
-            switch(newState)
-            {
-                case NetworkConnectionEstablished:
-                    currentState = newState;
-                    break;
-                case WaitingForSlides:
-                    currentState = newState;
-                    break;
-                case ReceivingSlides:
-                    currentState = newState;
-                    break;
-                case Ready:
-                    currentState = newState;
-                    break;
-                case NotInitialized:
-                    currentState = newState;
-                    break;
-                default:
-                    eventAllowed = FALSE;
-                    break;
-            }
-
-        }
-
-        return eventAllowed;
     }
 } /* namespace ServerAppl */

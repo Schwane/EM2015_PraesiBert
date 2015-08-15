@@ -11,7 +11,6 @@
 
 #include <src/backend/Listener.h>
 #include <src/backend/Master.h>
-#include <src/backend/PresentationController.h>
 #include <src/backend/Logger.h>
 
 namespace ServerAppl
@@ -28,7 +27,6 @@ namespace ServerAppl
         messageWriter = new XMLMessageWriter();
         commandRouter =  new MessageRouter();
         dataRouter = new MessageRouter();
-        presentationController = new PresentationController(this);
         masterClient = NULL;
         presentation = NULL;
         currentSlide = 0;
@@ -166,8 +164,6 @@ namespace ServerAppl
             delete(masterClient);
         }
 
-
-        delete(presentationController);
         delete(dataRouter);
         delete(commandRouter);
         delete(messageWriter);
@@ -239,6 +235,7 @@ namespace ServerAppl
 //        commandRouter->unregisterMessageHandlers(masterClient->getClientId());
         connectedClients.remove(masterClient->getClientId());
         this->unregisterMaster(masterClient);
+        this->serverSocket->disconnectFromClient(masterClient->getClientId());
         delete(masterClient);
         masterClient = NULL;
     }
