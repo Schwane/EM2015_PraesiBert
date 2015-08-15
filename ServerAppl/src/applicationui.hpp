@@ -20,7 +20,6 @@
 #include <QObject>
 #include <bb/cascades/AbstractPane>
 
-#include <src/backend/PresentationController.h>
 #include <src/backend/Server.h>
 
 namespace bb

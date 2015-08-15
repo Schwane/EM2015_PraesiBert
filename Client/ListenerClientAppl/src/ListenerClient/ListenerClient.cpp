@@ -67,18 +67,6 @@ ListenerClient::redeanfrageFinish(QMap<QString, QVariant> parameters, QMap<QStri
     return msg;
 }
 
-
-void
-ListenerClient::onRanfStateChanged(QString state)
-{
-    //Re-prepare talk.request if needed
-    if (state == "REJECTED" || state == "FINISHED")
-    {
-        ranf->prepare();
-    }
-}
-
-
 void
 ListenerClient::doRanf()
 {
