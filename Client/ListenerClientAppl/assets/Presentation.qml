@@ -21,43 +21,7 @@ Page {
         Divider {
 
         }
-        /*
-        Container {
-            layout: GridLayout {
-            
-            }
-            Label {
-                id: lab_loginstate
-                text: "Login-Status:"
-                textStyle.textAlign: TextAlign.Right
-            }
-            Label {
-                id: lab_loginstate_val
-            }
-        
-        }
-        */
-        /*
-        TextArea {
-            id: tex_cmd
-            text: "request_praesentation"
-            autoSize.maxLineCount: 1
-        }
-        
-        Button {
-            id: btn_cmd
-            onClicked: {
-                cl.sendArbitraryCommand(tex_cmd.text);
-            }
-            text: "Send Command"        
-        }
-        /*
-        Label {
-            id: lab_ranf_state
-            text: "STATUS RANF"
-        
-        }  
-        */                 
+                      
         
         ImageButton {
             id: btn_do_ranf
@@ -105,7 +69,7 @@ Page {
                 confirmButton.label: "Ja"
                 onFinished: {
                     if (diag_ranfansw.result != SystemUiResult.CancelButtonSelection) {
-                        cl.acceptRanf();
+                        cl.acceptRanf(); //start audio recording
                         var p = "file://" + cl.getBasepath() + "voice/"+ Qt.formatDateTime(new Date(), "yyMMdd_HH_mm_ss") + ".m4a";
                         console.log("Recording to: " + p);
                         recorder.outputUrl = p;

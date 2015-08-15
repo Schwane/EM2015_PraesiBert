@@ -68,7 +68,7 @@ Page {
                     id: btn_logout
                     onClicked: {
                         cl.logout();
-                        praesi.btn_do_ranf.visible = false;
+                        praesi.btn_do_ranf.visible = false; //Redeanfrage only possible if connected
                     }
                     text: "Logout"
                     verticalAlignment: VerticalAlignment.Center

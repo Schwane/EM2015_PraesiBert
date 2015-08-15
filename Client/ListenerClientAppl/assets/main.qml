@@ -109,7 +109,7 @@ TabbedPane {
                 }
                 else if (state == "FINISHED")
                 {
-                    recorder.pause();
+                    recorder.pause(); //stop audio recording
                     recorder.reset();
                     recorder.outputUrl = "file:///accounts/1000/shared/voice/dummy.m4a";
                     redLED.cancel();
