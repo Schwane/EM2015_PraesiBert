@@ -1,0 +1,339 @@
+\hypertarget{class_praesentation}{}\section{Praesentation Class Reference}
+\label{class_praesentation}\index{Praesentation@{Praesentation}}
+
+
+Class to hold information about the presentation.  
+
+
+
+
+{\ttfamily \#include $<$Praesentation.\+hpp$>$}
+
+Inheritance diagram for Praesentation\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_praesentation}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_praesentation_a5608fefeee163857cb9d97658fbee5bc}{parse\+Praesentation} (Q\+Map$<$ Q\+String, Q\+Variant $>$ params, Q\+Map$<$ Q\+String, Q\+String $>$ types)
+\begin{DoxyCompactList}\small\item\em Parse presentation from parameters of a recevied message. \end{DoxyCompactList}\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_praesentation_a961ebbe5eac800ac68c161d8988081c2}{pack\+Praesentation} ()
+\begin{DoxyCompactList}\small\item\em Pack presentation to a message. \end{DoxyCompactList}\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_praesentation_ac1b47928e9f78a9be6b56164c214a4e8}{pack\+Praesentation} (\hyperlink{class_message}{Message} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Pack and add presentation to an existing message. \end{DoxyCompactList}\item 
+void \hyperlink{class_praesentation_ac485a89b9912c18234498c079948d6a1}{append\+Slide} (Q\+String path)
+\begin{DoxyCompactList}\small\item\em Append slide to presentation. \end{DoxyCompactList}\item 
+int \hyperlink{class_praesentation_ac58bce0421510a4f1604a78565068b2d}{get\+Current\+Slide} ()
+\begin{DoxyCompactList}\small\item\em Returns number of current slide (0 based). \end{DoxyCompactList}\item 
+int \hyperlink{class_praesentation_ab3376c4aae9f4304dce046e861a4afd7}{get\+Total\+Slides} ()
+\begin{DoxyCompactList}\small\item\em Returns total number of slides. \end{DoxyCompactList}\item 
+void \hyperlink{class_praesentation_a444d2cc623f1dbc138812e5db7e43da9}{set\+Slide} (int slide)
+\begin{DoxyCompactList}\small\item\em Sets presentation to slide x. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{class_praesentation_afa00aae450003f72222f1fa8cea6fac0}{get\+Praesentation\+Id} ()
+\begin{DoxyCompactList}\small\item\em Returns Presentation id. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{class_praesentation_a8e6f1a6f7b87ec6154501a03c0b8e6d0}{get\+Basepath} ()
+\begin{DoxyCompactList}\small\item\em Returns base path. \end{DoxyCompactList}\item 
+void \hyperlink{class_praesentation_a16fd49d6e8cc2f32cdaa79dae99a0916}{reset} ()
+\begin{DoxyCompactList}\small\item\em Resets all members. \end{DoxyCompactList}\item 
+void \hyperlink{class_praesentation_a0acd65f9f1a8ff1f57ca9fe461b5fcd3}{stop} ()
+\begin{DoxyCompactList}\small\item\em Stops presentation and emits signal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_praesentation_ad1128436589fd75a48aa710ae210471f}{slide\+Changed} (bb\+::cascades\+::\+Image)
+\begin{DoxyCompactList}\small\item\em Signal with slide as image. Deprecated. \end{DoxyCompactList}\item 
+void \hyperlink{class_praesentation_ae5584b494f754ff3061d64d0459cb990}{slide\+Changed\+Url} (Q\+Url url)
+\begin{DoxyCompactList}\small\item\em Signal with slide as url. \end{DoxyCompactList}\item 
+void \hyperlink{class_praesentation_a2e2b197daa18681fabf4a1c150d15080}{praesentation\+Parsed} (\hyperlink{class_message}{Message} $\ast$response)
+\begin{DoxyCompactList}\small\item\em Signal if presentation is parsed. \end{DoxyCompactList}\item 
+void \hyperlink{class_praesentation_a603de77e2cb53c702fb060cae8da669d}{parsing} (bool active)
+\begin{DoxyCompactList}\small\item\em Signal if parsing started/stopped. \end{DoxyCompactList}\item 
+void \hyperlink{class_praesentation_a67f5b3dc02f779822fd1467811bb13e1}{praesentation\+Ready} ()
+\begin{DoxyCompactList}\small\item\em Signal if presentation is ready to be started. \end{DoxyCompactList}\item 
+void \hyperlink{class_praesentation_af3a6c3f0988915478059fa82a2504c1e}{is\+Running} (bool active)
+\begin{DoxyCompactList}\small\item\em Signal if presentation is running or not. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_praesentation_a93b957c384c8150717202f44ddb7562d}{Praesentation} ()
+\item 
+virtual \hyperlink{class_praesentation_a880033dd8575b311349a96884b0988ad}{$\sim$\+Praesentation} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class to hold information about the presentation. 
+
+This class hold the information about the current status of the presentation. It holds the U\+R\+Ls to the slides, the number of total slides and the current slide, as well as an identifier. It is implemented thread safe to enable access from multiple threads. 
+
+Definition at line 25 of file Praesentation.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_praesentation_a93b957c384c8150717202f44ddb7562d}{}\index{Praesentation@{Praesentation}!Praesentation@{Praesentation}}
+\index{Praesentation@{Praesentation}!Praesentation@{Praesentation}}
+\subsubsection[{Praesentation()}]{\setlength{\rightskip}{0pt plus 5cm}Praesentation\+::\+Praesentation (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_praesentation_a93b957c384c8150717202f44ddb7562d}
+
+
+Definition at line 10 of file Praesentation.\+cpp.
+
+\hypertarget{class_praesentation_a880033dd8575b311349a96884b0988ad}{}\index{Praesentation@{Praesentation}!````~Praesentation@{$\sim$\+Praesentation}}
+\index{````~Praesentation@{$\sim$\+Praesentation}!Praesentation@{Praesentation}}
+\subsubsection[{$\sim$\+Praesentation()}]{\setlength{\rightskip}{0pt plus 5cm}Praesentation\+::$\sim$\+Praesentation (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_praesentation_a880033dd8575b311349a96884b0988ad}
+
+
+Definition at line 15 of file Praesentation.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_praesentation_ac485a89b9912c18234498c079948d6a1}{}\index{Praesentation@{Praesentation}!append\+Slide@{append\+Slide}}
+\index{append\+Slide@{append\+Slide}!Praesentation@{Praesentation}}
+\subsubsection[{append\+Slide}]{\setlength{\rightskip}{0pt plus 5cm}void Praesentation\+::append\+Slide (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{path}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_praesentation_ac485a89b9912c18234498c079948d6a1}
+
+
+Append slide to presentation. 
+
+
+
+Definition at line 64 of file Praesentation.\+cpp.
+
+\hypertarget{class_praesentation_a8e6f1a6f7b87ec6154501a03c0b8e6d0}{}\index{Praesentation@{Praesentation}!get\+Basepath@{get\+Basepath}}
+\index{get\+Basepath@{get\+Basepath}!Praesentation@{Praesentation}}
+\subsubsection[{get\+Basepath}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Praesentation\+::get\+Basepath (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_praesentation_a8e6f1a6f7b87ec6154501a03c0b8e6d0}
+
+
+Returns base path. 
+
+
+
+Definition at line 211 of file Praesentation.\+cpp.
+
+\hypertarget{class_praesentation_ac58bce0421510a4f1604a78565068b2d}{}\index{Praesentation@{Praesentation}!get\+Current\+Slide@{get\+Current\+Slide}}
+\index{get\+Current\+Slide@{get\+Current\+Slide}!Praesentation@{Praesentation}}
+\subsubsection[{get\+Current\+Slide}]{\setlength{\rightskip}{0pt plus 5cm}int Praesentation\+::get\+Current\+Slide (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_praesentation_ac58bce0421510a4f1604a78565068b2d}
+
+
+Returns number of current slide (0 based). 
+
+
+
+Definition at line 52 of file Praesentation.\+cpp.
+
+\hypertarget{class_praesentation_afa00aae450003f72222f1fa8cea6fac0}{}\index{Praesentation@{Praesentation}!get\+Praesentation\+Id@{get\+Praesentation\+Id}}
+\index{get\+Praesentation\+Id@{get\+Praesentation\+Id}!Praesentation@{Praesentation}}
+\subsubsection[{get\+Praesentation\+Id}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Praesentation\+::get\+Praesentation\+Id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_praesentation_afa00aae450003f72222f1fa8cea6fac0}
+
+
+Returns Presentation id. 
+
+
+
+Definition at line 21 of file Praesentation.\+cpp.
+
+\hypertarget{class_praesentation_ab3376c4aae9f4304dce046e861a4afd7}{}\index{Praesentation@{Praesentation}!get\+Total\+Slides@{get\+Total\+Slides}}
+\index{get\+Total\+Slides@{get\+Total\+Slides}!Praesentation@{Praesentation}}
+\subsubsection[{get\+Total\+Slides}]{\setlength{\rightskip}{0pt plus 5cm}int Praesentation\+::get\+Total\+Slides (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_praesentation_ab3376c4aae9f4304dce046e861a4afd7}
+
+
+Returns total number of slides. 
+
+
+
+Definition at line 58 of file Praesentation.\+cpp.
+
+\hypertarget{class_praesentation_af3a6c3f0988915478059fa82a2504c1e}{}\index{Praesentation@{Praesentation}!is\+Running@{is\+Running}}
+\index{is\+Running@{is\+Running}!Praesentation@{Praesentation}}
+\subsubsection[{is\+Running}]{\setlength{\rightskip}{0pt plus 5cm}void Praesentation\+::is\+Running (
+\begin{DoxyParamCaption}
+\item[{bool}]{active}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_praesentation_af3a6c3f0988915478059fa82a2504c1e}
+
+
+Signal if presentation is running or not. 
+
+\hypertarget{class_praesentation_a961ebbe5eac800ac68c161d8988081c2}{}\index{Praesentation@{Praesentation}!pack\+Praesentation@{pack\+Praesentation}}
+\index{pack\+Praesentation@{pack\+Praesentation}!Praesentation@{Praesentation}}
+\subsubsection[{pack\+Praesentation}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Praesentation\+::pack\+Praesentation (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_praesentation_a961ebbe5eac800ac68c161d8988081c2}
+
+
+Pack presentation to a message. 
+
+
+
+Definition at line 203 of file Praesentation.\+cpp.
+
+\hypertarget{class_praesentation_ac1b47928e9f78a9be6b56164c214a4e8}{}\index{Praesentation@{Praesentation}!pack\+Praesentation@{pack\+Praesentation}}
+\index{pack\+Praesentation@{pack\+Praesentation}!Praesentation@{Praesentation}}
+\subsubsection[{pack\+Praesentation}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Praesentation\+::pack\+Praesentation (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_praesentation_ac1b47928e9f78a9be6b56164c214a4e8}
+
+
+Pack and add presentation to an existing message. 
+
+
+
+Definition at line 179 of file Praesentation.\+cpp.
+
+\hypertarget{class_praesentation_a5608fefeee163857cb9d97658fbee5bc}{}\index{Praesentation@{Praesentation}!parse\+Praesentation@{parse\+Praesentation}}
+\index{parse\+Praesentation@{parse\+Praesentation}!Praesentation@{Praesentation}}
+\subsubsection[{parse\+Praesentation}]{\setlength{\rightskip}{0pt plus 5cm}void Praesentation\+::parse\+Praesentation (
+\begin{DoxyParamCaption}
+\item[{Q\+Map$<$ Q\+String, Q\+Variant $>$}]{params, }
+\item[{Q\+Map$<$ Q\+String, Q\+String $>$}]{types}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_praesentation_a5608fefeee163857cb9d97658fbee5bc}
+
+
+Parse presentation from parameters of a recevied message. 
+
+
+
+Definition at line 85 of file Praesentation.\+cpp.
+
+\hypertarget{class_praesentation_a603de77e2cb53c702fb060cae8da669d}{}\index{Praesentation@{Praesentation}!parsing@{parsing}}
+\index{parsing@{parsing}!Praesentation@{Praesentation}}
+\subsubsection[{parsing}]{\setlength{\rightskip}{0pt plus 5cm}void Praesentation\+::parsing (
+\begin{DoxyParamCaption}
+\item[{bool}]{active}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_praesentation_a603de77e2cb53c702fb060cae8da669d}
+
+
+Signal if parsing started/stopped. 
+
+\hypertarget{class_praesentation_a2e2b197daa18681fabf4a1c150d15080}{}\index{Praesentation@{Praesentation}!praesentation\+Parsed@{praesentation\+Parsed}}
+\index{praesentation\+Parsed@{praesentation\+Parsed}!Praesentation@{Praesentation}}
+\subsubsection[{praesentation\+Parsed}]{\setlength{\rightskip}{0pt plus 5cm}void Praesentation\+::praesentation\+Parsed (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{response}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_praesentation_a2e2b197daa18681fabf4a1c150d15080}
+
+
+Signal if presentation is parsed. 
+
+\hypertarget{class_praesentation_a67f5b3dc02f779822fd1467811bb13e1}{}\index{Praesentation@{Praesentation}!praesentation\+Ready@{praesentation\+Ready}}
+\index{praesentation\+Ready@{praesentation\+Ready}!Praesentation@{Praesentation}}
+\subsubsection[{praesentation\+Ready}]{\setlength{\rightskip}{0pt plus 5cm}void Praesentation\+::praesentation\+Ready (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_praesentation_a67f5b3dc02f779822fd1467811bb13e1}
+
+
+Signal if presentation is ready to be started. 
+
+\hypertarget{class_praesentation_a16fd49d6e8cc2f32cdaa79dae99a0916}{}\index{Praesentation@{Praesentation}!reset@{reset}}
+\index{reset@{reset}!Praesentation@{Praesentation}}
+\subsubsection[{reset}]{\setlength{\rightskip}{0pt plus 5cm}void Praesentation\+::reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_praesentation_a16fd49d6e8cc2f32cdaa79dae99a0916}
+
+
+Resets all members. 
+
+
+
+Definition at line 27 of file Praesentation.\+cpp.
+
+\hypertarget{class_praesentation_a444d2cc623f1dbc138812e5db7e43da9}{}\index{Praesentation@{Praesentation}!set\+Slide@{set\+Slide}}
+\index{set\+Slide@{set\+Slide}!Praesentation@{Praesentation}}
+\subsubsection[{set\+Slide}]{\setlength{\rightskip}{0pt plus 5cm}void Praesentation\+::set\+Slide (
+\begin{DoxyParamCaption}
+\item[{int}]{slide}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_praesentation_a444d2cc623f1dbc138812e5db7e43da9}
+
+
+Sets presentation to slide x. 
+
+
+
+Definition at line 151 of file Praesentation.\+cpp.
+
+\hypertarget{class_praesentation_ad1128436589fd75a48aa710ae210471f}{}\index{Praesentation@{Praesentation}!slide\+Changed@{slide\+Changed}}
+\index{slide\+Changed@{slide\+Changed}!Praesentation@{Praesentation}}
+\subsubsection[{slide\+Changed}]{\setlength{\rightskip}{0pt plus 5cm}void Praesentation\+::slide\+Changed (
+\begin{DoxyParamCaption}
+\item[{bb\+::cascades\+::\+Image}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_praesentation_ad1128436589fd75a48aa710ae210471f}
+
+
+Signal with slide as image. Deprecated. 
+
+\hypertarget{class_praesentation_ae5584b494f754ff3061d64d0459cb990}{}\index{Praesentation@{Praesentation}!slide\+Changed\+Url@{slide\+Changed\+Url}}
+\index{slide\+Changed\+Url@{slide\+Changed\+Url}!Praesentation@{Praesentation}}
+\subsubsection[{slide\+Changed\+Url}]{\setlength{\rightskip}{0pt plus 5cm}void Praesentation\+::slide\+Changed\+Url (
+\begin{DoxyParamCaption}
+\item[{Q\+Url}]{url}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_praesentation_ae5584b494f754ff3061d64d0459cb990}
+
+
+Signal with slide as url. 
+
+\hypertarget{class_praesentation_a0acd65f9f1a8ff1f57ca9fe461b5fcd3}{}\index{Praesentation@{Praesentation}!stop@{stop}}
+\index{stop@{stop}!Praesentation@{Praesentation}}
+\subsubsection[{stop}]{\setlength{\rightskip}{0pt plus 5cm}void Praesentation\+::stop (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_praesentation_a0acd65f9f1a8ff1f57ca9fe461b5fcd3}
+
+
+Stops presentation and emits signal. 
+
+
+
+Definition at line 43 of file Praesentation.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Common/\+Client\+Server\+Share\+Lib/include/\hyperlink{_praesentation_8hpp}{Praesentation.\+hpp}\item 
+Common/\+Client\+Server\+Share\+Lib/src/\+Praesentation/\hyperlink{_praesentation_8cpp}{Praesentation.\+cpp}\end{DoxyCompactItemize}

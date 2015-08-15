@@ -1,0 +1,332 @@
+\hypertarget{class_message}{}\section{Message Class Reference}
+\label{class_message}\index{Message@{Message}}
+
+
+Implementation of a \hyperlink{class_message}{Message}.  
+
+
+
+
+{\ttfamily \#include $<$Message.\+hpp$>$}
+
+Inheritance diagram for Message\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_message}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_message_a4fc4f717b634e66070366cb7722d7761}{Message} ()
+\item 
+\hyperlink{class_message_a5e8126d19b5dbc34db32273bbbeb10d9}{Message} (Q\+String command, Q\+String sender, Q\+String receiver)
+\item 
+virtual \hyperlink{class_message_a3f7275462831f787a861271687bcad67}{$\sim$\+Message} ()
+\item 
+Q\+String \hyperlink{class_message_a957a27e1733adc99208fd220bf21671d}{get\+Command} ()
+\item 
+Q\+String \hyperlink{class_message_a8de6319977b0ba2e1156f7f30f468ab3}{get\+Sender} ()
+\item 
+Q\+String \hyperlink{class_message_a628bc07c518f4f60be55500473001997}{get\+Receiver} ()
+\item 
+const Q\+Map$<$ Q\+String, Q\+Variant $>$ $\ast$ \hyperlink{class_message_a51d1f7130cceabe7b47a220d5f471268}{get\+Parameters} ()
+\item 
+const Q\+Map$<$ Q\+String, Q\+String $>$ $\ast$ \hyperlink{class_message_a4b5e040a732d394ec759afd1273ec81c}{get\+Parameter\+Types} ()
+\item 
+void \hyperlink{class_message_af0cd3cfcf400df803efb9e5a6a23d0df}{set\+Parameter\+List} (Q\+Map$<$ Q\+String, Q\+Variant $>$ list)
+\item 
+void \hyperlink{class_message_a87496e61666efca5fa20ec095d9ff1a8}{set\+Parameter\+Type\+List} (Q\+Map$<$ Q\+String, Q\+String $>$ types)
+\item 
+int \hyperlink{class_message_a92d813ec518fcb18816c7ea548b05941}{add\+Parameter} (Q\+String name, Q\+String value)
+\item 
+int \hyperlink{class_message_a55be3a8f0cb663fe95ced201ac57b091}{add\+Parameter} (Q\+String name, Q\+Date\+Time value)
+\item 
+int \hyperlink{class_message_a9b442945e30cac45b5c65c3f6c8716a7}{add\+Parameter} (Q\+String name, int value)
+\item 
+int \hyperlink{class_message_a1ead404f6a71966a9c8d2d016fcd7e9f}{add\+Parameter} (Q\+String name, double value)
+\item 
+int \hyperlink{class_message_a1f1e1ea213121e861157c82e6e7fd686}{add\+Parameter} (Q\+String name, Q\+Byte\+Array value)
+\item 
+Q\+Date\+Time \hyperlink{class_message_a662ed384ea3ce64bbbcb1438c59b4422}{get\+Timestamp} ()
+\item 
+void \hyperlink{class_message_a4ee4b7251846b719995b6de233c24853}{set\+Timestamp} (Q\+Date\+Time ts)
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_message_a3b49efc1a5ed45b65e8fbbf7a7e7a2fa}{X\+M\+L\+Message\+Parser}
+\item 
+class \hyperlink{class_message_a28ce36e58a67a190edd25dfaf58ec797}{X\+M\+L\+Message\+Writer}
+\item 
+class \hyperlink{class_message_a5db1c99e2c94b26278f3838c85cdb618}{Client}
+\item 
+class \hyperlink{class_message_a79767d474a726203aa273a6d4d99e1aa}{Praesentation}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Implementation of a \hyperlink{class_message}{Message}. 
+
+\hyperlink{class_message}{Message}\+: Contains Header\+:
+\begin{DoxyItemize}
+\item Sender
+\item Receiver
+\item Timestampt
+\item Command Contains Payload\+:
+\item Parameters
+\item Parameter types
+\end{DoxyItemize}
+
+\hyperlink{class_message}{Message} is instantiated if needed and finally passed to a X\+M\+L Writer which serializes the \hyperlink{class_message}{Message} to X\+M\+L and passes it to the network layer.$^\wedge$ \hyperlink{class_message}{Message} is instantiated by X\+M\+L Parser if network layer passed a valid X\+M\+L \hyperlink{class_message}{Message} to it.
+
+A parameter can be added by calling add\+Parameter with the name of the parameter and the payload. \hyperlink{class_message}{Message} automatically recognizes the type of the parameter and adds the type to the parameter type map. For now following types are supported\+:
+\begin{DoxyItemize}
+\item integer
+\item decimal
+\item string
+\item date/time
+\item raw byte array (is converted to base64 automatically; has to be converted from base64 {\itshape manually})
+\end{DoxyItemize}
+
+Member can either be accessed from friend classes or by getters and setter (payload is only accessible by friendclasses). If timestamp is requested and no timestamp is set yet the timestamp will be set to the time it is requested. 
+
+Definition at line 49 of file Message.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_message_a4fc4f717b634e66070366cb7722d7761}{}\index{Message@{Message}!Message@{Message}}
+\index{Message@{Message}!Message@{Message}}
+\subsubsection[{Message()}]{\setlength{\rightskip}{0pt plus 5cm}Message\+::\+Message (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_message_a4fc4f717b634e66070366cb7722d7761}
+
+
+Definition at line 19 of file Message.\+cpp.
+
+\hypertarget{class_message_a5e8126d19b5dbc34db32273bbbeb10d9}{}\index{Message@{Message}!Message@{Message}}
+\index{Message@{Message}!Message@{Message}}
+\subsubsection[{Message(\+Q\+String command, Q\+String sender, Q\+String receiver)}]{\setlength{\rightskip}{0pt plus 5cm}Message\+::\+Message (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{command, }
+\item[{Q\+String}]{sender, }
+\item[{Q\+String}]{receiver}
+\end{DoxyParamCaption}
+)}\label{class_message_a5e8126d19b5dbc34db32273bbbeb10d9}
+
+
+Definition at line 10 of file Message.\+cpp.
+
+\hypertarget{class_message_a3f7275462831f787a861271687bcad67}{}\index{Message@{Message}!````~Message@{$\sim$\+Message}}
+\index{````~Message@{$\sim$\+Message}!Message@{Message}}
+\subsubsection[{$\sim$\+Message()}]{\setlength{\rightskip}{0pt plus 5cm}Message\+::$\sim$\+Message (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_message_a3f7275462831f787a861271687bcad67}
+
+
+Definition at line 24 of file Message.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_message_a92d813ec518fcb18816c7ea548b05941}{}\index{Message@{Message}!add\+Parameter@{add\+Parameter}}
+\index{add\+Parameter@{add\+Parameter}!Message@{Message}}
+\subsubsection[{add\+Parameter(\+Q\+String name, Q\+String value)}]{\setlength{\rightskip}{0pt plus 5cm}int Message\+::add\+Parameter (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{name, }
+\item[{Q\+String}]{value}
+\end{DoxyParamCaption}
+)}\label{class_message_a92d813ec518fcb18816c7ea548b05941}
+
+
+Definition at line 41 of file Message.\+cpp.
+
+\hypertarget{class_message_a55be3a8f0cb663fe95ced201ac57b091}{}\index{Message@{Message}!add\+Parameter@{add\+Parameter}}
+\index{add\+Parameter@{add\+Parameter}!Message@{Message}}
+\subsubsection[{add\+Parameter(\+Q\+String name, Q\+Date\+Time value)}]{\setlength{\rightskip}{0pt plus 5cm}int Message\+::add\+Parameter (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{name, }
+\item[{Q\+Date\+Time}]{value}
+\end{DoxyParamCaption}
+)}\label{class_message_a55be3a8f0cb663fe95ced201ac57b091}
+
+
+Definition at line 57 of file Message.\+cpp.
+
+\hypertarget{class_message_a9b442945e30cac45b5c65c3f6c8716a7}{}\index{Message@{Message}!add\+Parameter@{add\+Parameter}}
+\index{add\+Parameter@{add\+Parameter}!Message@{Message}}
+\subsubsection[{add\+Parameter(\+Q\+String name, int value)}]{\setlength{\rightskip}{0pt plus 5cm}int Message\+::add\+Parameter (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{name, }
+\item[{int}]{value}
+\end{DoxyParamCaption}
+)}\label{class_message_a9b442945e30cac45b5c65c3f6c8716a7}
+
+
+Definition at line 70 of file Message.\+cpp.
+
+\hypertarget{class_message_a1ead404f6a71966a9c8d2d016fcd7e9f}{}\index{Message@{Message}!add\+Parameter@{add\+Parameter}}
+\index{add\+Parameter@{add\+Parameter}!Message@{Message}}
+\subsubsection[{add\+Parameter(\+Q\+String name, double value)}]{\setlength{\rightskip}{0pt plus 5cm}int Message\+::add\+Parameter (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{name, }
+\item[{double}]{value}
+\end{DoxyParamCaption}
+)}\label{class_message_a1ead404f6a71966a9c8d2d016fcd7e9f}
+
+
+Definition at line 83 of file Message.\+cpp.
+
+\hypertarget{class_message_a1f1e1ea213121e861157c82e6e7fd686}{}\index{Message@{Message}!add\+Parameter@{add\+Parameter}}
+\index{add\+Parameter@{add\+Parameter}!Message@{Message}}
+\subsubsection[{add\+Parameter(\+Q\+String name, Q\+Byte\+Array value)}]{\setlength{\rightskip}{0pt plus 5cm}int Message\+::add\+Parameter (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{name, }
+\item[{Q\+Byte\+Array}]{value}
+\end{DoxyParamCaption}
+)}\label{class_message_a1f1e1ea213121e861157c82e6e7fd686}
+
+
+Definition at line 96 of file Message.\+cpp.
+
+\hypertarget{class_message_a957a27e1733adc99208fd220bf21671d}{}\index{Message@{Message}!get\+Command@{get\+Command}}
+\index{get\+Command@{get\+Command}!Message@{Message}}
+\subsubsection[{get\+Command()}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Message\+::get\+Command (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_message_a957a27e1733adc99208fd220bf21671d}
+
+
+Definition at line 136 of file Message.\+cpp.
+
+\hypertarget{class_message_a51d1f7130cceabe7b47a220d5f471268}{}\index{Message@{Message}!get\+Parameters@{get\+Parameters}}
+\index{get\+Parameters@{get\+Parameters}!Message@{Message}}
+\subsubsection[{get\+Parameters()}]{\setlength{\rightskip}{0pt plus 5cm}const Q\+Map$<$ Q\+String, Q\+Variant $>$ $\ast$ Message\+::get\+Parameters (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_message_a51d1f7130cceabe7b47a220d5f471268}
+
+
+Definition at line 151 of file Message.\+cpp.
+
+\hypertarget{class_message_a4b5e040a732d394ec759afd1273ec81c}{}\index{Message@{Message}!get\+Parameter\+Types@{get\+Parameter\+Types}}
+\index{get\+Parameter\+Types@{get\+Parameter\+Types}!Message@{Message}}
+\subsubsection[{get\+Parameter\+Types()}]{\setlength{\rightskip}{0pt plus 5cm}const Q\+Map$<$ Q\+String, Q\+String $>$ $\ast$ Message\+::get\+Parameter\+Types (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_message_a4b5e040a732d394ec759afd1273ec81c}
+
+
+Definition at line 156 of file Message.\+cpp.
+
+\hypertarget{class_message_a628bc07c518f4f60be55500473001997}{}\index{Message@{Message}!get\+Receiver@{get\+Receiver}}
+\index{get\+Receiver@{get\+Receiver}!Message@{Message}}
+\subsubsection[{get\+Receiver()}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Message\+::get\+Receiver (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_message_a628bc07c518f4f60be55500473001997}
+
+
+Definition at line 146 of file Message.\+cpp.
+
+\hypertarget{class_message_a8de6319977b0ba2e1156f7f30f468ab3}{}\index{Message@{Message}!get\+Sender@{get\+Sender}}
+\index{get\+Sender@{get\+Sender}!Message@{Message}}
+\subsubsection[{get\+Sender()}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Message\+::get\+Sender (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_message_a8de6319977b0ba2e1156f7f30f468ab3}
+
+
+Definition at line 141 of file Message.\+cpp.
+
+\hypertarget{class_message_a662ed384ea3ce64bbbcb1438c59b4422}{}\index{Message@{Message}!get\+Timestamp@{get\+Timestamp}}
+\index{get\+Timestamp@{get\+Timestamp}!Message@{Message}}
+\subsubsection[{get\+Timestamp()}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Date\+Time Message\+::get\+Timestamp (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_message_a662ed384ea3ce64bbbcb1438c59b4422}
+
+
+Definition at line 120 of file Message.\+cpp.
+
+\hypertarget{class_message_af0cd3cfcf400df803efb9e5a6a23d0df}{}\index{Message@{Message}!set\+Parameter\+List@{set\+Parameter\+List}}
+\index{set\+Parameter\+List@{set\+Parameter\+List}!Message@{Message}}
+\subsubsection[{set\+Parameter\+List(\+Q\+Map$<$ Q\+String, Q\+Variant $>$ list)}]{\setlength{\rightskip}{0pt plus 5cm}void Message\+::set\+Parameter\+List (
+\begin{DoxyParamCaption}
+\item[{Q\+Map$<$ Q\+String, Q\+Variant $>$}]{list}
+\end{DoxyParamCaption}
+)}\label{class_message_af0cd3cfcf400df803efb9e5a6a23d0df}
+
+
+Definition at line 29 of file Message.\+cpp.
+
+\hypertarget{class_message_a87496e61666efca5fa20ec095d9ff1a8}{}\index{Message@{Message}!set\+Parameter\+Type\+List@{set\+Parameter\+Type\+List}}
+\index{set\+Parameter\+Type\+List@{set\+Parameter\+Type\+List}!Message@{Message}}
+\subsubsection[{set\+Parameter\+Type\+List(\+Q\+Map$<$ Q\+String, Q\+String $>$ types)}]{\setlength{\rightskip}{0pt plus 5cm}void Message\+::set\+Parameter\+Type\+List (
+\begin{DoxyParamCaption}
+\item[{Q\+Map$<$ Q\+String, Q\+String $>$}]{types}
+\end{DoxyParamCaption}
+)}\label{class_message_a87496e61666efca5fa20ec095d9ff1a8}
+
+
+Definition at line 35 of file Message.\+cpp.
+
+\hypertarget{class_message_a4ee4b7251846b719995b6de233c24853}{}\index{Message@{Message}!set\+Timestamp@{set\+Timestamp}}
+\index{set\+Timestamp@{set\+Timestamp}!Message@{Message}}
+\subsubsection[{set\+Timestamp(\+Q\+Date\+Time ts)}]{\setlength{\rightskip}{0pt plus 5cm}void Message\+::set\+Timestamp (
+\begin{DoxyParamCaption}
+\item[{Q\+Date\+Time}]{ts}
+\end{DoxyParamCaption}
+)}\label{class_message_a4ee4b7251846b719995b6de233c24853}
+
+
+Definition at line 131 of file Message.\+cpp.
+
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{class_message_a5db1c99e2c94b26278f3838c85cdb618}{}\index{Message@{Message}!Client@{Client}}
+\index{Client@{Client}!Message@{Message}}
+\subsubsection[{Client}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Client}\hspace{0.3cm}{\ttfamily [friend]}}\label{class_message_a5db1c99e2c94b26278f3838c85cdb618}
+
+
+Definition at line 54 of file Message.\+hpp.
+
+\hypertarget{class_message_a79767d474a726203aa273a6d4d99e1aa}{}\index{Message@{Message}!Praesentation@{Praesentation}}
+\index{Praesentation@{Praesentation}!Message@{Message}}
+\subsubsection[{Praesentation}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Praesentation}\hspace{0.3cm}{\ttfamily [friend]}}\label{class_message_a79767d474a726203aa273a6d4d99e1aa}
+
+
+Definition at line 55 of file Message.\+hpp.
+
+\hypertarget{class_message_a3b49efc1a5ed45b65e8fbbf7a7e7a2fa}{}\index{Message@{Message}!X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}}
+\index{X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}!Message@{Message}}
+\subsubsection[{X\+M\+L\+Message\+Parser}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf X\+M\+L\+Message\+Parser}\hspace{0.3cm}{\ttfamily [friend]}}\label{class_message_a3b49efc1a5ed45b65e8fbbf7a7e7a2fa}
+
+
+Definition at line 52 of file Message.\+hpp.
+
+\hypertarget{class_message_a28ce36e58a67a190edd25dfaf58ec797}{}\index{Message@{Message}!X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}}
+\index{X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}!Message@{Message}}
+\subsubsection[{X\+M\+L\+Message\+Writer}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf X\+M\+L\+Message\+Writer}\hspace{0.3cm}{\ttfamily [friend]}}\label{class_message_a28ce36e58a67a190edd25dfaf58ec797}
+
+
+Definition at line 53 of file Message.\+hpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Common/\+Client\+Server\+Share\+Lib/include/\hyperlink{_message_8hpp}{Message.\+hpp}\item 
+Common/\+Client\+Server\+Share\+Lib/src/\+Message/\hyperlink{_message_8cpp}{Message.\+cpp}\end{DoxyCompactItemize}

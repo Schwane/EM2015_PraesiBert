@@ -1,0 +1,151 @@
+\hypertarget{class_redeanfrage_queue}{}\section{Redeanfrage\+Queue Class Reference}
+\label{class_redeanfrage_queue}\index{Redeanfrage\+Queue@{Redeanfrage\+Queue}}
+
+
+Thread safe implementation of a queue containing talk requests.  
+
+
+
+
+{\ttfamily \#include $<$Redeanfrage\+Queue.\+hpp$>$}
+
+Inheritance diagram for Redeanfrage\+Queue\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_redeanfrage_queue}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{class_redeanfrage_queue_a9b32770072823dab226e4f8d9ea8a0e9}{enqueue} (\hyperlink{class_redeanfrage}{Redeanfrage} $\ast$ranf)
+\begin{DoxyCompactList}\small\item\em Only enqueue element if its not already contained. \end{DoxyCompactList}\item 
+\hyperlink{class_redeanfrage}{Redeanfrage} $\ast$ \hyperlink{class_redeanfrage_queue_a23cb67060c346c6b3eba739f933c52ab}{dequeue} ()
+\item 
+void \hyperlink{class_redeanfrage_queue_a4393b8ece223968dcd4fe4287984a297}{clear} ()
+\item 
+int \hyperlink{class_redeanfrage_queue_a927d85c9cb5dfc455da935459766e699}{get\+Size} ()
+\item 
+Q\+String \hyperlink{class_redeanfrage_queue_a19c10f8da883a952728af9d5e16de18e}{get\+Client\+Id\+At} (int i)
+\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_redeanfrage_queue_a3df3def473ea6e01418692d30a4f6e29}{size\+Changed} (int size)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_redeanfrage_queue_acfd253e54b5f46e71d503dbd866abe7d}{Redeanfrage\+Queue} ()
+\item 
+virtual \hyperlink{class_redeanfrage_queue_ab201ae450e08493d9b2d35de5d57f781}{$\sim$\+Redeanfrage\+Queue} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Thread safe implementation of a queue containing talk requests. 
+
+Thread safe implementation of a queue containing talk requests. Distinct enqueueing per default. 
+
+Definition at line 19 of file Redeanfrage\+Queue.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_redeanfrage_queue_acfd253e54b5f46e71d503dbd866abe7d}{}\index{Redeanfrage\+Queue@{Redeanfrage\+Queue}!Redeanfrage\+Queue@{Redeanfrage\+Queue}}
+\index{Redeanfrage\+Queue@{Redeanfrage\+Queue}!Redeanfrage\+Queue@{Redeanfrage\+Queue}}
+\subsubsection[{Redeanfrage\+Queue()}]{\setlength{\rightskip}{0pt plus 5cm}Redeanfrage\+Queue\+::\+Redeanfrage\+Queue (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_redeanfrage_queue_acfd253e54b5f46e71d503dbd866abe7d}
+
+
+Definition at line 10 of file Redeanfrage\+Queue.\+cpp.
+
+\hypertarget{class_redeanfrage_queue_ab201ae450e08493d9b2d35de5d57f781}{}\index{Redeanfrage\+Queue@{Redeanfrage\+Queue}!````~Redeanfrage\+Queue@{$\sim$\+Redeanfrage\+Queue}}
+\index{````~Redeanfrage\+Queue@{$\sim$\+Redeanfrage\+Queue}!Redeanfrage\+Queue@{Redeanfrage\+Queue}}
+\subsubsection[{$\sim$\+Redeanfrage\+Queue()}]{\setlength{\rightskip}{0pt plus 5cm}Redeanfrage\+Queue\+::$\sim$\+Redeanfrage\+Queue (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_redeanfrage_queue_ab201ae450e08493d9b2d35de5d57f781}
+
+
+Definition at line 15 of file Redeanfrage\+Queue.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_redeanfrage_queue_a4393b8ece223968dcd4fe4287984a297}{}\index{Redeanfrage\+Queue@{Redeanfrage\+Queue}!clear@{clear}}
+\index{clear@{clear}!Redeanfrage\+Queue@{Redeanfrage\+Queue}}
+\subsubsection[{clear}]{\setlength{\rightskip}{0pt plus 5cm}void Redeanfrage\+Queue\+::clear (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_redeanfrage_queue_a4393b8ece223968dcd4fe4287984a297}
+
+
+Definition at line 68 of file Redeanfrage\+Queue.\+cpp.
+
+\hypertarget{class_redeanfrage_queue_a23cb67060c346c6b3eba739f933c52ab}{}\index{Redeanfrage\+Queue@{Redeanfrage\+Queue}!dequeue@{dequeue}}
+\index{dequeue@{dequeue}!Redeanfrage\+Queue@{Redeanfrage\+Queue}}
+\subsubsection[{dequeue}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Redeanfrage} $\ast$ Redeanfrage\+Queue\+::dequeue (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_redeanfrage_queue_a23cb67060c346c6b3eba739f933c52ab}
+
+
+Definition at line 50 of file Redeanfrage\+Queue.\+cpp.
+
+\hypertarget{class_redeanfrage_queue_a9b32770072823dab226e4f8d9ea8a0e9}{}\index{Redeanfrage\+Queue@{Redeanfrage\+Queue}!enqueue@{enqueue}}
+\index{enqueue@{enqueue}!Redeanfrage\+Queue@{Redeanfrage\+Queue}}
+\subsubsection[{enqueue}]{\setlength{\rightskip}{0pt plus 5cm}int Redeanfrage\+Queue\+::enqueue (
+\begin{DoxyParamCaption}
+\item[{{\bf Redeanfrage} $\ast$}]{ranf}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_redeanfrage_queue_a9b32770072823dab226e4f8d9ea8a0e9}
+
+
+Only enqueue element if its not already contained. 
+
+
+
+Definition at line 22 of file Redeanfrage\+Queue.\+cpp.
+
+\hypertarget{class_redeanfrage_queue_a19c10f8da883a952728af9d5e16de18e}{}\index{Redeanfrage\+Queue@{Redeanfrage\+Queue}!get\+Client\+Id\+At@{get\+Client\+Id\+At}}
+\index{get\+Client\+Id\+At@{get\+Client\+Id\+At}!Redeanfrage\+Queue@{Redeanfrage\+Queue}}
+\subsubsection[{get\+Client\+Id\+At}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Redeanfrage\+Queue\+::get\+Client\+Id\+At (
+\begin{DoxyParamCaption}
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_redeanfrage_queue_a19c10f8da883a952728af9d5e16de18e}
+
+
+Definition at line 92 of file Redeanfrage\+Queue.\+cpp.
+
+\hypertarget{class_redeanfrage_queue_a927d85c9cb5dfc455da935459766e699}{}\index{Redeanfrage\+Queue@{Redeanfrage\+Queue}!get\+Size@{get\+Size}}
+\index{get\+Size@{get\+Size}!Redeanfrage\+Queue@{Redeanfrage\+Queue}}
+\subsubsection[{get\+Size}]{\setlength{\rightskip}{0pt plus 5cm}int Redeanfrage\+Queue\+::get\+Size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_redeanfrage_queue_a927d85c9cb5dfc455da935459766e699}
+
+
+Definition at line 81 of file Redeanfrage\+Queue.\+cpp.
+
+\hypertarget{class_redeanfrage_queue_a3df3def473ea6e01418692d30a4f6e29}{}\index{Redeanfrage\+Queue@{Redeanfrage\+Queue}!size\+Changed@{size\+Changed}}
+\index{size\+Changed@{size\+Changed}!Redeanfrage\+Queue@{Redeanfrage\+Queue}}
+\subsubsection[{size\+Changed}]{\setlength{\rightskip}{0pt plus 5cm}void Redeanfrage\+Queue\+::size\+Changed (
+\begin{DoxyParamCaption}
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_redeanfrage_queue_a3df3def473ea6e01418692d30a4f6e29}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Common/\+Client\+Server\+Share\+Lib/include/\hyperlink{_redeanfrage_queue_8hpp}{Redeanfrage\+Queue.\+hpp}\item 
+Common/\+Client\+Server\+Share\+Lib/src/\+Redeanfrage/\hyperlink{_redeanfrage_queue_8cpp}{Redeanfrage\+Queue.\+cpp}\end{DoxyCompactItemize}

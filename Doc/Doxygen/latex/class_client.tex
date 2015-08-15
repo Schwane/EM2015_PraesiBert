@@ -1,0 +1,738 @@
+\hypertarget{class_client}{}\section{Client Class Reference}
+\label{class_client}\index{Client@{Client}}
+
+
+Basic implementation of \hyperlink{class_client}{Client}.  
+
+
+
+
+{\ttfamily \#include $<$Client.\+hpp$>$}
+
+Inheritance diagram for Client\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_client}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{class_client_a1ea74a59c03de0d997aab2dc863adf28}{Login\+State} \{ \\*
+\hyperlink{class_client_a1ea74a59c03de0d997aab2dc863adf28a36793c560ee4460f256273cb62813d1c}{I\+D\+L\+E}, 
+\hyperlink{class_client_a1ea74a59c03de0d997aab2dc863adf28a0c124e4ae12121a08850307bce65375a}{C\+O\+N\+N\+E\+C\+T\+I\+N\+G}, 
+\hyperlink{class_client_a1ea74a59c03de0d997aab2dc863adf28a6851b79e5563a2fb2b9e765a45aa7ed4}{C\+O\+N\+N\+E\+C\+T\+E\+D}, 
+\hyperlink{class_client_a1ea74a59c03de0d997aab2dc863adf28abdedabe361eb26a7e231aae36ac99c99}{T\+R\+Y\+I\+N\+G}, 
+\\*
+\hyperlink{class_client_a1ea74a59c03de0d997aab2dc863adf28a1ac90fae2ef3db9ba75effa98fc96cb9}{A\+C\+C\+E\+P\+T\+E\+D}, 
+\hyperlink{class_client_a1ea74a59c03de0d997aab2dc863adf28a1ba9041e12f1ebc3ec169a1ba5697bf9}{R\+E\+J\+E\+C\+T\+E\+D}
+ \}\begin{DoxyCompactList}\small\item\em Loginstate of client. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_client_a63f0ef0092e5d2993b6e1bb42fbe1f9b}{set\+Slide} (Q\+Map$<$ Q\+String, Q\+Variant $>$ parameters, Q\+Map$<$ Q\+String, Q\+String $>$ parameter\+\_\+types)
+\begin{DoxyCompactList}\small\item\em Execute remote\+: Set slide to x. \end{DoxyCompactList}\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_client_a9dfa8414217d2930458d1e003c39d5d4}{parse\+Praesentation} (Q\+Map$<$ Q\+String, Q\+Variant $>$ parameters, Q\+Map$<$ Q\+String, Q\+String $>$ parameter\+\_\+types)
+\begin{DoxyCompactList}\small\item\em Execute remote\+: Parse presentation from \hyperlink{class_message}{Message}. \end{DoxyCompactList}\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_client_a5f974cb34a288aea6bf6fe6c176767b5}{login\+Response} (Q\+Map$<$ Q\+String, Q\+Variant $>$ parameters, Q\+Map$<$ Q\+String, Q\+String $>$ parameter\+\_\+types)
+\begin{DoxyCompactList}\small\item\em Execute remote\+: login response. \end{DoxyCompactList}\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_client_a2cea3c8843c7eb320ccce4c705b5ff33}{stop\+Praesentation} (Q\+Map$<$ Q\+String, Q\+Variant $>$ parameters, Q\+Map$<$ Q\+String, Q\+String $>$ parameter\+\_\+types)
+\begin{DoxyCompactList}\small\item\em Execute remote\+: stop presentation. \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E Q\+String \hyperlink{class_client_a6d04fe04f23bf5d41522858556108c4f}{get\+Login\+State} ()
+\begin{DoxyCompactList}\small\item\em Access loginstate as human readable string. \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E Q\+String \hyperlink{class_client_ab5b465398d44ca0292c353b3b694bcd3}{get\+Basepath} ()
+\begin{DoxyCompactList}\small\item\em Access base path of presentation. \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_client_ab78e2f1e01880452c2477e80051184da}{request\+Slide\+Change} (int offset)
+\begin{DoxyCompactList}\small\item\em Request a slide change. \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_client_aac9cadb66c33c2bfb49c5057a0f14856}{request\+Slide\+Change\+Absolute} (int slide)
+\begin{DoxyCompactList}\small\item\em Request a slide change. \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_client_a6e210504ac8ba9bcab19f52b8ce98e2d}{send\+Arbitrary\+Command} (Q\+String cmd)
+\begin{DoxyCompactList}\small\item\em Send arbitrary command to server. Implemented only for testpurposes. \end{DoxyCompactList}\item 
+void \hyperlink{class_client_a30faa4edf947fca3331f56149e2c15d0}{connection\+Lost} ()
+\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_client_a358257f5cba7013ff731406d1efc05d2}{deliver\+Recording} (Q\+String path)
+\begin{DoxyCompactList}\small\item\em Initiate a delivery of an audio file via dataport of networklayer. \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_client_a8fb56dacc21effb4ae1eb1c30e87095e}{invoke\+Remote} (\hyperlink{class_message}{Message} $\ast$msg)
+\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_client_a608094e7c3365318eaa978b6af2b68bf}{invoke\+Remote} (\hyperlink{class_message}{Message} $\ast$msg, bool cleanup)
+\begin{DoxyCompactList}\small\item\em Remote procedure call. \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_client_a923c7418e192b80599e3a36565ac4649}{login} ()
+\begin{DoxyCompactList}\small\item\em Initiate login to server. \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_client_aa977795294407c10fe843b5bc28b6685}{logout} ()
+\begin{DoxyCompactList}\small\item\em Initiate logout from server. \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_client_ae808db8dfa518dfb74c5ef48385dfc55}{connect\+To\+Server} (Q\+String addr, Q\+String cmd\+\_\+port, Q\+String data\+\_\+port)
+\begin{DoxyCompactList}\small\item\em Connect to a server (on network layer) with command port and data port on specific I\+P address. \end{DoxyCompactList}\item 
+void \hyperlink{class_client_a158fe80befa311a81900fc7c176a4654}{on\+New\+Slide\+Url} (Q\+Url url)
+\begin{DoxyCompactList}\small\item\em Slot for H\+D\+M\+I output if slide changed in presentation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_client_a1e3abd2fbe9f7a90afba3fc8071e1c30}{slide\+Changed} (bb\+::cascades\+::\+Image img)
+\begin{DoxyCompactList}\small\item\em Signal is thrown if slide changes and contains the image directly. Wrapper for Q\+M\+L access. \end{DoxyCompactList}\item 
+void \hyperlink{class_client_a2497dd354669579559ea47ce06859778}{slide\+Changed\+Url} (Q\+Url url)
+\begin{DoxyCompactList}\small\item\em Signal is thrown if slide changes and contains U\+R\+L to new slide. Wrapper for Q\+M\+L access. \end{DoxyCompactList}\item 
+void \hyperlink{class_client_accd6ad8ab25220bb0dbca8fae6330649}{message\+Sent} ()
+\item 
+void \hyperlink{class_client_aece1384151539c912f74e693642c3be4}{login\+State\+Changed} ()
+\begin{DoxyCompactList}\small\item\em Signal is thrown if loginstate has changed. \end{DoxyCompactList}\item 
+void \hyperlink{class_client_ae5883ec5efa56fc8f3524e21f24b1d44}{wait} (bool active)
+\begin{DoxyCompactList}\small\item\em Signal is thrown if longer action is done and U\+I (or anything else) should indicate waiting state. \end{DoxyCompactList}\item 
+void \hyperlink{class_client_a3da034ec31aa0ff81af386a3b0222209}{praesentation\+Ready} ()
+\begin{DoxyCompactList}\small\item\em Signal is thrown if a valid presentation is loaded (either remotely (listener) or local (master). Wrapper for Q\+M\+L access. \end{DoxyCompactList}\item 
+void \hyperlink{class_client_aeaa45726608dfeb0f5ec4c3fd2a987e5}{no\+More\+Slides} ()
+\begin{DoxyCompactList}\small\item\em Signal is thrown if limits of slides is reached and next slide is accessed. Wrapper for Q\+M\+L access-\/. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_client_ae51af7aa6b8f591496a8f6a4a87a14bf}{Client} ()
+\begin{DoxyCompactList}\small\item\em Constructor which initializes all members automatically and connects all signals and slots. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_client_a840e519ca781888cbd54181572ebe3a7}{$\sim$\+Client} ()
+\begin{DoxyCompactList}\small\item\em Destructor cleans up everything automatically. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Q\+Map$<$ Q\+String, \hyperlink{_client_8hpp_a6c4537f8fb6619ed97bd1f8e53fb4da0}{remote\+Function} $>$ \hyperlink{class_client_a2e033a4a4015c20b2c0d4c8dccd46e7a}{registerd\+Functions}
+\begin{DoxyCompactList}\small\item\em Contains mapping from remote command to member function. \end{DoxyCompactList}\item 
+bb\+::cascades\+::\+Image \hyperlink{class_client_a685777e360cd101ddcfeedfe13eac6bf}{m\+\_\+slide}
+\item 
+\hyperlink{class_x_m_l_message_parser}{X\+M\+L\+Message\+Parser} $\ast$ \hyperlink{class_client_a2ecd2185614d6b5ac3b4409d304fccd6}{xmlmp}
+\begin{DoxyCompactList}\small\item\em X\+M\+L \hyperlink{class_message}{Message} parser for commands. \end{DoxyCompactList}\item 
+\hyperlink{class_x_m_l_message_writer}{X\+M\+L\+Message\+Writer} $\ast$ \hyperlink{class_client_a4b344048fac2605fed5405cfa3425d4d}{xmlmw}
+\begin{DoxyCompactList}\small\item\em X\+M\+L \hyperlink{class_message}{Message} writer to command port. \end{DoxyCompactList}\item 
+\hyperlink{class_x_m_l_message_parser}{X\+M\+L\+Message\+Parser} $\ast$ \hyperlink{class_client_a24df7928ad0d6e42ab864b10ecbc20e9}{xmlmp\+\_\+data}
+\begin{DoxyCompactList}\small\item\em X\+M\+L \hyperlink{class_message}{Message} parser for data. \end{DoxyCompactList}\item 
+\hyperlink{class_x_m_l_message_writer}{X\+M\+L\+Message\+Writer} $\ast$ \hyperlink{class_client_a511d77665d9f4a3094bf6876bc2688b0}{xmlmw\+\_\+data}
+\begin{DoxyCompactList}\small\item\em X\+M\+L \hyperlink{class_message}{Message} writer to data port. \end{DoxyCompactList}\item 
+\hyperlink{class_network_1_1_client_socket}{Network\+::\+Client\+Socket} $\ast$ \hyperlink{class_client_a574c321203afa8d46a4e63de1a363446}{cs}
+\begin{DoxyCompactList}\small\item\em Instance of networklayer. \end{DoxyCompactList}\item 
+\hyperlink{class_client_a1ea74a59c03de0d997aab2dc863adf28}{Login\+State} \hyperlink{class_client_a7bb4d5f91c7c9ac1564ac77caa95a64b}{login\+\_\+state}
+\begin{DoxyCompactList}\small\item\em Loginstate of the client. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{class_client_a87166760a487c87b749414f2d9ba1aa9}{id}
+\begin{DoxyCompactList}\small\item\em I\+D of the client. \end{DoxyCompactList}\item 
+\hyperlink{class_praesentation}{Praesentation} $\ast$ \hyperlink{class_client_aae53be4d7e026f6de9416c85bf077384}{prs}
+\begin{DoxyCompactList}\small\item\em Instance of presentation.\+s. \end{DoxyCompactList}\item 
+\hyperlink{classbb_1_1_e_m2015_1_1_h_d_m_i}{bb\+::\+E\+M2015\+::\+H\+D\+M\+I} $\ast$ \hyperlink{class_client_af80c2e91331356e5af8db20ae1960957}{hdmi}
+\begin{DoxyCompactList}\small\item\em Instance of H\+D\+M\+I output wrapper.. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Basic implementation of \hyperlink{class_client}{Client}. 
+
+Basic implementation of \hyperlink{class_client}{Client}. Contains all members which are included in both Listener and Master. 
+
+Definition at line 40 of file Client.\+hpp.
+
+
+
+\subsection{Member Enumeration Documentation}
+\hypertarget{class_client_a1ea74a59c03de0d997aab2dc863adf28}{}\index{Client@{Client}!Login\+State@{Login\+State}}
+\index{Login\+State@{Login\+State}!Client@{Client}}
+\subsubsection[{Login\+State}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Client\+::\+Login\+State}}\label{class_client_a1ea74a59c03de0d997aab2dc863adf28}
+
+
+Loginstate of client. 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{I\+D\+L\+E@{I\+D\+L\+E}!Client@{Client}}\index{Client@{Client}!I\+D\+L\+E@{I\+D\+L\+E}}\item[{\em 
+\hypertarget{class_client_a1ea74a59c03de0d997aab2dc863adf28a36793c560ee4460f256273cb62813d1c}{}I\+D\+L\+E\label{class_client_a1ea74a59c03de0d997aab2dc863adf28a36793c560ee4460f256273cb62813d1c}
+}]\hyperlink{class_client}{Client} is not connected and not logged in \index{C\+O\+N\+N\+E\+C\+T\+I\+N\+G@{C\+O\+N\+N\+E\+C\+T\+I\+N\+G}!Client@{Client}}\index{Client@{Client}!C\+O\+N\+N\+E\+C\+T\+I\+N\+G@{C\+O\+N\+N\+E\+C\+T\+I\+N\+G}}\item[{\em 
+\hypertarget{class_client_a1ea74a59c03de0d997aab2dc863adf28a0c124e4ae12121a08850307bce65375a}{}C\+O\+N\+N\+E\+C\+T\+I\+N\+G\label{class_client_a1ea74a59c03de0d997aab2dc863adf28a0c124e4ae12121a08850307bce65375a}
+}]\hyperlink{class_client}{Client} is connecting to server \index{C\+O\+N\+N\+E\+C\+T\+E\+D@{C\+O\+N\+N\+E\+C\+T\+E\+D}!Client@{Client}}\index{Client@{Client}!C\+O\+N\+N\+E\+C\+T\+E\+D@{C\+O\+N\+N\+E\+C\+T\+E\+D}}\item[{\em 
+\hypertarget{class_client_a1ea74a59c03de0d997aab2dc863adf28a6851b79e5563a2fb2b9e765a45aa7ed4}{}C\+O\+N\+N\+E\+C\+T\+E\+D\label{class_client_a1ea74a59c03de0d997aab2dc863adf28a6851b79e5563a2fb2b9e765a45aa7ed4}
+}]\hyperlink{class_client}{Client} is connected to server (only on T\+C\+P Layer \index{T\+R\+Y\+I\+N\+G@{T\+R\+Y\+I\+N\+G}!Client@{Client}}\index{Client@{Client}!T\+R\+Y\+I\+N\+G@{T\+R\+Y\+I\+N\+G}}\item[{\em 
+\hypertarget{class_client_a1ea74a59c03de0d997aab2dc863adf28abdedabe361eb26a7e231aae36ac99c99}{}T\+R\+Y\+I\+N\+G\label{class_client_a1ea74a59c03de0d997aab2dc863adf28abdedabe361eb26a7e231aae36ac99c99}
+}]\hyperlink{class_client}{Client} is trying to log in to server \index{A\+C\+C\+E\+P\+T\+E\+D@{A\+C\+C\+E\+P\+T\+E\+D}!Client@{Client}}\index{Client@{Client}!A\+C\+C\+E\+P\+T\+E\+D@{A\+C\+C\+E\+P\+T\+E\+D}}\item[{\em 
+\hypertarget{class_client_a1ea74a59c03de0d997aab2dc863adf28a1ac90fae2ef3db9ba75effa98fc96cb9}{}A\+C\+C\+E\+P\+T\+E\+D\label{class_client_a1ea74a59c03de0d997aab2dc863adf28a1ac90fae2ef3db9ba75effa98fc96cb9}
+}]\hyperlink{class_client}{Client} login was accepted \index{R\+E\+J\+E\+C\+T\+E\+D@{R\+E\+J\+E\+C\+T\+E\+D}!Client@{Client}}\index{Client@{Client}!R\+E\+J\+E\+C\+T\+E\+D@{R\+E\+J\+E\+C\+T\+E\+D}}\item[{\em 
+\hypertarget{class_client_a1ea74a59c03de0d997aab2dc863adf28a1ba9041e12f1ebc3ec169a1ba5697bf9}{}R\+E\+J\+E\+C\+T\+E\+D\label{class_client_a1ea74a59c03de0d997aab2dc863adf28a1ba9041e12f1ebc3ec169a1ba5697bf9}
+}]\hyperlink{class_client}{Client} login was rejected \end{description}
+\end{Desc}
+
+
+Definition at line 45 of file Client.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_client_ae51af7aa6b8f591496a8f6a4a87a14bf}{}\index{Client@{Client}!Client@{Client}}
+\index{Client@{Client}!Client@{Client}}
+\subsubsection[{Client()}]{\setlength{\rightskip}{0pt plus 5cm}Client\+::\+Client (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_client_ae51af7aa6b8f591496a8f6a4a87a14bf}
+
+
+Constructor which initializes all members automatically and connects all signals and slots. 
+
+
+
+Definition at line 10 of file Client.\+cpp.
+
+\hypertarget{class_client_a840e519ca781888cbd54181572ebe3a7}{}\index{Client@{Client}!````~Client@{$\sim$\+Client}}
+\index{````~Client@{$\sim$\+Client}!Client@{Client}}
+\subsubsection[{$\sim$\+Client()}]{\setlength{\rightskip}{0pt plus 5cm}Client\+::$\sim$\+Client (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_client_a840e519ca781888cbd54181572ebe3a7}
+
+
+Destructor cleans up everything automatically. 
+
+
+
+Definition at line 55 of file Client.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_client_a30faa4edf947fca3331f56149e2c15d0}{}\index{Client@{Client}!connection\+Lost@{connection\+Lost}}
+\index{connection\+Lost@{connection\+Lost}!Client@{Client}}
+\subsubsection[{connection\+Lost}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::connection\+Lost (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_client_a30faa4edf947fca3331f56149e2c15d0}
+
+
+Definition at line 252 of file Client.\+cpp.
+
+\hypertarget{class_client_ae808db8dfa518dfb74c5ef48385dfc55}{}\index{Client@{Client}!connect\+To\+Server@{connect\+To\+Server}}
+\index{connect\+To\+Server@{connect\+To\+Server}!Client@{Client}}
+\subsubsection[{connect\+To\+Server}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::connect\+To\+Server (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{addr, }
+\item[{Q\+String}]{cmd\+\_\+port, }
+\item[{Q\+String}]{data\+\_\+port}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_client_ae808db8dfa518dfb74c5ef48385dfc55}
+
+
+Connect to a server (on network layer) with command port and data port on specific I\+P address. 
+
+Connect to a server (on network layer) with command port and data port on specific I\+P address. Set loginstate to connecting. 
+\begin{DoxyParams}{Parameters}
+{\em addr} & I\+P address of server \\
+\hline
+{\em cmd\+\_\+port} & Command port \\
+\hline
+{\em data\+\_\+port} & Data port \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 228 of file Client.\+cpp.
+
+\hypertarget{class_client_a358257f5cba7013ff731406d1efc05d2}{}\index{Client@{Client}!deliver\+Recording@{deliver\+Recording}}
+\index{deliver\+Recording@{deliver\+Recording}!Client@{Client}}
+\subsubsection[{deliver\+Recording}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::deliver\+Recording (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{path}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_client_a358257f5cba7013ff731406d1efc05d2}
+
+
+Initiate a delivery of an audio file via dataport of networklayer. 
+
+Initiates a delivery of an audio file via the data port of the networklayer-\/ Is primary called after the presentation is stopped or after a talk request is finished. 
+\begin{DoxyParams}{Parameters}
+{\em path} & Path to the file which should be delivered to the server. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 286 of file Client.\+cpp.
+
+\hypertarget{class_client_ab5b465398d44ca0292c353b3b694bcd3}{}\index{Client@{Client}!get\+Basepath@{get\+Basepath}}
+\index{get\+Basepath@{get\+Basepath}!Client@{Client}}
+\subsubsection[{get\+Basepath}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Client\+::get\+Basepath (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_client_ab5b465398d44ca0292c353b3b694bcd3}
+
+
+Access base path of presentation. 
+
+Access base path of presentation. Ment for G\+U\+I access (especially for audio recording in Q\+M\+L). \begin{DoxyReturn}{Returns}
+Basepath of presentation. 
+\end{DoxyReturn}
+
+
+Definition at line 322 of file Client.\+cpp.
+
+\hypertarget{class_client_a6d04fe04f23bf5d41522858556108c4f}{}\index{Client@{Client}!get\+Login\+State@{get\+Login\+State}}
+\index{get\+Login\+State@{get\+Login\+State}!Client@{Client}}
+\subsubsection[{get\+Login\+State}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Client\+::get\+Login\+State (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_client_a6d04fe04f23bf5d41522858556108c4f}
+
+
+Access loginstate as human readable string. 
+
+Access loginstate as human readable string. Ment for G\+U\+I access. \begin{DoxyReturn}{Returns}
+String which is congruent to current loginstate of \hyperlink{class_client}{Client}. 
+\end{DoxyReturn}
+
+
+Definition at line 196 of file Client.\+cpp.
+
+\hypertarget{class_client_a8fb56dacc21effb4ae1eb1c30e87095e}{}\index{Client@{Client}!invoke\+Remote@{invoke\+Remote}}
+\index{invoke\+Remote@{invoke\+Remote}!Client@{Client}}
+\subsubsection[{invoke\+Remote}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::invoke\+Remote (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_client_a8fb56dacc21effb4ae1eb1c30e87095e}
+Remote procedure call. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & \hyperlink{class_message}{Message} from Server. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_client_a8fb56dacc21effb4ae1eb1c30e87095e}{invoke\+Remote} 
+\end{DoxySeeAlso}
+
+
+Definition at line 70 of file Client.\+cpp.
+
+\hypertarget{class_client_a608094e7c3365318eaa978b6af2b68bf}{}\index{Client@{Client}!invoke\+Remote@{invoke\+Remote}}
+\index{invoke\+Remote@{invoke\+Remote}!Client@{Client}}
+\subsubsection[{invoke\+Remote}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::invoke\+Remote (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg, }
+\item[{bool}]{cleanup}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_client_a608094e7c3365318eaa978b6af2b68bf}
+
+
+Remote procedure call. 
+
+Existential function in concept of remote procedure call. After \hyperlink{class_message}{Message} is received by networklayer it is passed to the xml message parser. There it gets parsed to a message object which is then executed by this function. This function takes the message and looks up the corresponding member function which is ment to execute the remote command by looking it up in member registered\+Functions. Note that this is a whitelist approach; only commands which are registered can be executed, all others are silently dropped. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & \hyperlink{class_message}{Message} containing the command and payload. \\
+\hline
+{\em cleanup} & flag if the \hyperlink{class_message}{Message} should be deleted after processing. Extension point for later versions where \hyperlink{class_message}{Message} may be passed further afterwards. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 76 of file Client.\+cpp.
+
+\hypertarget{class_client_a923c7418e192b80599e3a36565ac4649}{}\index{Client@{Client}!login@{login}}
+\index{login@{login}!Client@{Client}}
+\subsubsection[{login}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::login (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_client_a923c7418e192b80599e3a36565ac4649}
+
+
+Initiate login to server. 
+
+
+
+Definition at line 240 of file Client.\+cpp.
+
+\hypertarget{class_client_a5f974cb34a288aea6bf6fe6c176767b5}{}\index{Client@{Client}!login\+Response@{login\+Response}}
+\index{login\+Response@{login\+Response}!Client@{Client}}
+\subsubsection[{login\+Response}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Client\+::login\+Response (
+\begin{DoxyParamCaption}
+\item[{Q\+Map$<$ Q\+String, Q\+Variant $>$}]{parameters, }
+\item[{Q\+Map$<$ Q\+String, Q\+String $>$}]{parameter\+\_\+types}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_client_a5f974cb34a288aea6bf6fe6c176767b5}
+
+
+Execute remote\+: login response. 
+
+Reacts to a response from server after login try. \hyperlink{class_message}{Message} should contain a status of type string with value either \char`\"{}\+O\+K\char`\"{} or something else. Response is either O\+K or an error message which explains the reason for the error. 
+\begin{DoxyParams}{Parameters}
+{\em parameters} & Map of name and parameter value from \hyperlink{class_message}{Message} \\
+\hline
+{\em parameter\+\_\+types} & Map of name and type of parameter from \hyperlink{class_message}{Message} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response to receveived command. 
+\end{DoxyReturn}
+
+
+Definition at line 164 of file Client.\+cpp.
+
+\hypertarget{class_client_aece1384151539c912f74e693642c3be4}{}\index{Client@{Client}!login\+State\+Changed@{login\+State\+Changed}}
+\index{login\+State\+Changed@{login\+State\+Changed}!Client@{Client}}
+\subsubsection[{login\+State\+Changed}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::login\+State\+Changed (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_client_aece1384151539c912f74e693642c3be4}
+
+
+Signal is thrown if loginstate has changed. 
+
+\hypertarget{class_client_aa977795294407c10fe843b5bc28b6685}{}\index{Client@{Client}!logout@{logout}}
+\index{logout@{logout}!Client@{Client}}
+\subsubsection[{logout}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::logout (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_client_aa977795294407c10fe843b5bc28b6685}
+
+
+Initiate logout from server. 
+
+
+
+Definition at line 309 of file Client.\+cpp.
+
+\hypertarget{class_client_accd6ad8ab25220bb0dbca8fae6330649}{}\index{Client@{Client}!message\+Sent@{message\+Sent}}
+\index{message\+Sent@{message\+Sent}!Client@{Client}}
+\subsubsection[{message\+Sent}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::message\+Sent (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_client_accd6ad8ab25220bb0dbca8fae6330649}
+\hypertarget{class_client_aeaa45726608dfeb0f5ec4c3fd2a987e5}{}\index{Client@{Client}!no\+More\+Slides@{no\+More\+Slides}}
+\index{no\+More\+Slides@{no\+More\+Slides}!Client@{Client}}
+\subsubsection[{no\+More\+Slides}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::no\+More\+Slides (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_client_aeaa45726608dfeb0f5ec4c3fd2a987e5}
+
+
+Signal is thrown if limits of slides is reached and next slide is accessed. Wrapper for Q\+M\+L access-\/. 
+
+\hypertarget{class_client_a158fe80befa311a81900fc7c176a4654}{}\index{Client@{Client}!on\+New\+Slide\+Url@{on\+New\+Slide\+Url}}
+\index{on\+New\+Slide\+Url@{on\+New\+Slide\+Url}!Client@{Client}}
+\subsubsection[{on\+New\+Slide\+Url}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::on\+New\+Slide\+Url (
+\begin{DoxyParamCaption}
+\item[{Q\+Url}]{url}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_client_a158fe80befa311a81900fc7c176a4654}
+
+
+Slot for H\+D\+M\+I output if slide changed in presentation. 
+
+Slot for H\+D\+M\+I output if slide changed in presentation. Delivers U\+R\+L to H\+D\+M\+I class because the H\+D\+M\+I class does not implement signal slot features. 
+
+Definition at line 315 of file Client.\+cpp.
+
+\hypertarget{class_client_a9dfa8414217d2930458d1e003c39d5d4}{}\index{Client@{Client}!parse\+Praesentation@{parse\+Praesentation}}
+\index{parse\+Praesentation@{parse\+Praesentation}!Client@{Client}}
+\subsubsection[{parse\+Praesentation}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Client\+::parse\+Praesentation (
+\begin{DoxyParamCaption}
+\item[{Q\+Map$<$ Q\+String, Q\+Variant $>$}]{parameters, }
+\item[{Q\+Map$<$ Q\+String, Q\+String $>$}]{parameter\+\_\+types}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_client_a9dfa8414217d2930458d1e003c39d5d4}
+
+
+Execute remote\+: Parse presentation from \hyperlink{class_message}{Message}. 
+
+Reacts to a parse presentation command. \hyperlink{class_message}{Message} should contain following parameters\+: total\+\_\+slides -\/ int -\/ number of total slides presentation\+I\+D -\/ string -\/ id of presentation
+
+Response is either O\+K or an error message which explains the reason for the error. 
+\begin{DoxyParams}{Parameters}
+{\em parameters} & Map of name and parameter value from \hyperlink{class_message}{Message} \\
+\hline
+{\em parameter\+\_\+types} & M\+Ap of name and type of parameter from \hyperlink{class_message}{Message} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response to receveived command. 
+\end{DoxyReturn}
+
+
+Definition at line 142 of file Client.\+cpp.
+
+\hypertarget{class_client_a3da034ec31aa0ff81af386a3b0222209}{}\index{Client@{Client}!praesentation\+Ready@{praesentation\+Ready}}
+\index{praesentation\+Ready@{praesentation\+Ready}!Client@{Client}}
+\subsubsection[{praesentation\+Ready}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::praesentation\+Ready (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_client_a3da034ec31aa0ff81af386a3b0222209}
+
+
+Signal is thrown if a valid presentation is loaded (either remotely (listener) or local (master). Wrapper for Q\+M\+L access. 
+
+\hypertarget{class_client_ab78e2f1e01880452c2477e80051184da}{}\index{Client@{Client}!request\+Slide\+Change@{request\+Slide\+Change}}
+\index{request\+Slide\+Change@{request\+Slide\+Change}!Client@{Client}}
+\subsubsection[{request\+Slide\+Change}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::request\+Slide\+Change (
+\begin{DoxyParamCaption}
+\item[{int}]{offset}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_client_ab78e2f1e01880452c2477e80051184da}
+
+
+Request a slide change. 
+
+Request a slide change from extern. For example, a U\+I Button or the gesture control can access those function either directly or via signal/slot. 
+\begin{DoxyParams}{Parameters}
+{\em offset} & relative position of the next slide. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+reqeust\+Slide\+Change\+Absolute 
+\end{DoxySeeAlso}
+
+
+Definition at line 260 of file Client.\+cpp.
+
+\hypertarget{class_client_aac9cadb66c33c2bfb49c5057a0f14856}{}\index{Client@{Client}!request\+Slide\+Change\+Absolute@{request\+Slide\+Change\+Absolute}}
+\index{request\+Slide\+Change\+Absolute@{request\+Slide\+Change\+Absolute}!Client@{Client}}
+\subsubsection[{request\+Slide\+Change\+Absolute}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::request\+Slide\+Change\+Absolute (
+\begin{DoxyParamCaption}
+\item[{int}]{slide}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_client_aac9cadb66c33c2bfb49c5057a0f14856}
+
+
+Request a slide change. 
+
+Request a slide change from extern. Used for direct access to a specific slide. 
+\begin{DoxyParams}{Parameters}
+{\em slide} & absolute position of the next slide. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_client_ab78e2f1e01880452c2477e80051184da}{request\+Slide\+Change} 
+\end{DoxySeeAlso}
+
+
+Definition at line 269 of file Client.\+cpp.
+
+\hypertarget{class_client_a6e210504ac8ba9bcab19f52b8ce98e2d}{}\index{Client@{Client}!send\+Arbitrary\+Command@{send\+Arbitrary\+Command}}
+\index{send\+Arbitrary\+Command@{send\+Arbitrary\+Command}!Client@{Client}}
+\subsubsection[{send\+Arbitrary\+Command}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::send\+Arbitrary\+Command (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{cmd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_client_a6e210504ac8ba9bcab19f52b8ce98e2d}
+
+
+Send arbitrary command to server. Implemented only for testpurposes. 
+
+
+
+Definition at line 278 of file Client.\+cpp.
+
+\hypertarget{class_client_a63f0ef0092e5d2993b6e1bb42fbe1f9b}{}\index{Client@{Client}!set\+Slide@{set\+Slide}}
+\index{set\+Slide@{set\+Slide}!Client@{Client}}
+\subsubsection[{set\+Slide}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Client\+::set\+Slide (
+\begin{DoxyParamCaption}
+\item[{Q\+Map$<$ Q\+String, Q\+Variant $>$}]{parameters, }
+\item[{Q\+Map$<$ Q\+String, Q\+String $>$}]{parameter\+\_\+types}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_client_a63f0ef0092e5d2993b6e1bb42fbe1f9b}
+
+
+Execute remote\+: Set slide to x. 
+
+Reacts to a slide change request. \hyperlink{class_message}{Message} should contain slide parameter of type int which indicates number of slide to set the presentation to. Response is either O\+K or an error message which explains the reason for the error. 
+\begin{DoxyParams}{Parameters}
+{\em parameters} & Map of name and parameter value from \hyperlink{class_message}{Message} \\
+\hline
+{\em parameter\+\_\+types} & M\+Ap of name and type of parameter from \hyperlink{class_message}{Message} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response to receveived command. 
+\end{DoxyReturn}
+
+
+Definition at line 99 of file Client.\+cpp.
+
+\hypertarget{class_client_a1e3abd2fbe9f7a90afba3fc8071e1c30}{}\index{Client@{Client}!slide\+Changed@{slide\+Changed}}
+\index{slide\+Changed@{slide\+Changed}!Client@{Client}}
+\subsubsection[{slide\+Changed}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::slide\+Changed (
+\begin{DoxyParamCaption}
+\item[{bb\+::cascades\+::\+Image}]{img}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_client_a1e3abd2fbe9f7a90afba3fc8071e1c30}
+
+
+Signal is thrown if slide changes and contains the image directly. Wrapper for Q\+M\+L access. 
+
+\hypertarget{class_client_a2497dd354669579559ea47ce06859778}{}\index{Client@{Client}!slide\+Changed\+Url@{slide\+Changed\+Url}}
+\index{slide\+Changed\+Url@{slide\+Changed\+Url}!Client@{Client}}
+\subsubsection[{slide\+Changed\+Url}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::slide\+Changed\+Url (
+\begin{DoxyParamCaption}
+\item[{Q\+Url}]{url}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_client_a2497dd354669579559ea47ce06859778}
+
+
+Signal is thrown if slide changes and contains U\+R\+L to new slide. Wrapper for Q\+M\+L access. 
+
+\hypertarget{class_client_a2cea3c8843c7eb320ccce4c705b5ff33}{}\index{Client@{Client}!stop\+Praesentation@{stop\+Praesentation}}
+\index{stop\+Praesentation@{stop\+Praesentation}!Client@{Client}}
+\subsubsection[{stop\+Praesentation}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Client\+::stop\+Praesentation (
+\begin{DoxyParamCaption}
+\item[{Q\+Map$<$ Q\+String, Q\+Variant $>$}]{parameters, }
+\item[{Q\+Map$<$ Q\+String, Q\+String $>$}]{parameter\+\_\+types}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_client_a2cea3c8843c7eb320ccce4c705b5ff33}
+
+
+Execute remote\+: stop presentation. 
+
+Reacts to a stop request. Repsonse is a A\+C\+K. 
+\begin{DoxyParams}{Parameters}
+{\em parameters} & Map of name and parameter value from \hyperlink{class_message}{Message} \\
+\hline
+{\em parameter\+\_\+types} & Map of name and type of parameter from \hyperlink{class_message}{Message} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response to receveived command. 
+\end{DoxyReturn}
+
+
+Definition at line 153 of file Client.\+cpp.
+
+\hypertarget{class_client_ae5883ec5efa56fc8f3524e21f24b1d44}{}\index{Client@{Client}!wait@{wait}}
+\index{wait@{wait}!Client@{Client}}
+\subsubsection[{wait}]{\setlength{\rightskip}{0pt plus 5cm}void Client\+::wait (
+\begin{DoxyParamCaption}
+\item[{bool}]{active}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_client_ae5883ec5efa56fc8f3524e21f24b1d44}
+
+
+Signal is thrown if longer action is done and U\+I (or anything else) should indicate waiting state. 
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_client_a574c321203afa8d46a4e63de1a363446}{}\index{Client@{Client}!cs@{cs}}
+\index{cs@{cs}!Client@{Client}}
+\subsubsection[{cs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Network\+::\+Client\+Socket}$\ast$ Client\+::cs\hspace{0.3cm}{\ttfamily [protected]}}\label{class_client_a574c321203afa8d46a4e63de1a363446}
+
+
+Instance of networklayer. 
+
+
+
+Definition at line 219 of file Client.\+hpp.
+
+\hypertarget{class_client_af80c2e91331356e5af8db20ae1960957}{}\index{Client@{Client}!hdmi@{hdmi}}
+\index{hdmi@{hdmi}!Client@{Client}}
+\subsubsection[{hdmi}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bb\+::\+E\+M2015\+::\+H\+D\+M\+I}$\ast$ Client\+::hdmi\hspace{0.3cm}{\ttfamily [protected]}}\label{class_client_af80c2e91331356e5af8db20ae1960957}
+
+
+Instance of H\+D\+M\+I output wrapper.. 
+
+
+
+Definition at line 233 of file Client.\+hpp.
+
+\hypertarget{class_client_a87166760a487c87b749414f2d9ba1aa9}{}\index{Client@{Client}!id@{id}}
+\index{id@{id}!Client@{Client}}
+\subsubsection[{id}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Client\+::id\hspace{0.3cm}{\ttfamily [protected]}}\label{class_client_a87166760a487c87b749414f2d9ba1aa9}
+
+
+I\+D of the client. 
+
+I\+D of client. If not logged in, it is set to \char`\"{}undefined\+\_\+client\char`\"{} After login it is set to \char`\"{}master\char`\"{} for Master and id received from server for listener. 
+
+Definition at line 228 of file Client.\+hpp.
+
+\hypertarget{class_client_a7bb4d5f91c7c9ac1564ac77caa95a64b}{}\index{Client@{Client}!login\+\_\+state@{login\+\_\+state}}
+\index{login\+\_\+state@{login\+\_\+state}!Client@{Client}}
+\subsubsection[{login\+\_\+state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Login\+State} Client\+::login\+\_\+state\hspace{0.3cm}{\ttfamily [protected]}}\label{class_client_a7bb4d5f91c7c9ac1564ac77caa95a64b}
+
+
+Loginstate of the client. 
+
+
+
+Definition at line 221 of file Client.\+hpp.
+
+\hypertarget{class_client_a685777e360cd101ddcfeedfe13eac6bf}{}\index{Client@{Client}!m\+\_\+slide@{m\+\_\+slide}}
+\index{m\+\_\+slide@{m\+\_\+slide}!Client@{Client}}
+\subsubsection[{m\+\_\+slide}]{\setlength{\rightskip}{0pt plus 5cm}bb\+::cascades\+::\+Image Client\+::m\+\_\+slide\hspace{0.3cm}{\ttfamily [protected]}}\label{class_client_a685777e360cd101ddcfeedfe13eac6bf}
+
+
+Definition at line 206 of file Client.\+hpp.
+
+\hypertarget{class_client_aae53be4d7e026f6de9416c85bf077384}{}\index{Client@{Client}!prs@{prs}}
+\index{prs@{prs}!Client@{Client}}
+\subsubsection[{prs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Praesentation}$\ast$ Client\+::prs\hspace{0.3cm}{\ttfamily [protected]}}\label{class_client_aae53be4d7e026f6de9416c85bf077384}
+
+
+Instance of presentation.\+s. 
+
+
+
+Definition at line 230 of file Client.\+hpp.
+
+\hypertarget{class_client_a2e033a4a4015c20b2c0d4c8dccd46e7a}{}\index{Client@{Client}!registerd\+Functions@{registerd\+Functions}}
+\index{registerd\+Functions@{registerd\+Functions}!Client@{Client}}
+\subsubsection[{registerd\+Functions}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Map$<$Q\+String, {\bf remote\+Function}$>$ Client\+::registerd\+Functions\hspace{0.3cm}{\ttfamily [protected]}}\label{class_client_a2e033a4a4015c20b2c0d4c8dccd46e7a}
+
+
+Contains mapping from remote command to member function. 
+
+
+
+Definition at line 204 of file Client.\+hpp.
+
+\hypertarget{class_client_a2ecd2185614d6b5ac3b4409d304fccd6}{}\index{Client@{Client}!xmlmp@{xmlmp}}
+\index{xmlmp@{xmlmp}!Client@{Client}}
+\subsubsection[{xmlmp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf X\+M\+L\+Message\+Parser}$\ast$ Client\+::xmlmp\hspace{0.3cm}{\ttfamily [protected]}}\label{class_client_a2ecd2185614d6b5ac3b4409d304fccd6}
+
+
+X\+M\+L \hyperlink{class_message}{Message} parser for commands. 
+
+
+
+Definition at line 209 of file Client.\+hpp.
+
+\hypertarget{class_client_a24df7928ad0d6e42ab864b10ecbc20e9}{}\index{Client@{Client}!xmlmp\+\_\+data@{xmlmp\+\_\+data}}
+\index{xmlmp\+\_\+data@{xmlmp\+\_\+data}!Client@{Client}}
+\subsubsection[{xmlmp\+\_\+data}]{\setlength{\rightskip}{0pt plus 5cm}{\bf X\+M\+L\+Message\+Parser}$\ast$ Client\+::xmlmp\+\_\+data\hspace{0.3cm}{\ttfamily [protected]}}\label{class_client_a24df7928ad0d6e42ab864b10ecbc20e9}
+
+
+X\+M\+L \hyperlink{class_message}{Message} parser for data. 
+
+
+
+Definition at line 214 of file Client.\+hpp.
+
+\hypertarget{class_client_a4b344048fac2605fed5405cfa3425d4d}{}\index{Client@{Client}!xmlmw@{xmlmw}}
+\index{xmlmw@{xmlmw}!Client@{Client}}
+\subsubsection[{xmlmw}]{\setlength{\rightskip}{0pt plus 5cm}{\bf X\+M\+L\+Message\+Writer}$\ast$ Client\+::xmlmw\hspace{0.3cm}{\ttfamily [protected]}}\label{class_client_a4b344048fac2605fed5405cfa3425d4d}
+
+
+X\+M\+L \hyperlink{class_message}{Message} writer to command port. 
+
+
+
+Definition at line 211 of file Client.\+hpp.
+
+\hypertarget{class_client_a511d77665d9f4a3094bf6876bc2688b0}{}\index{Client@{Client}!xmlmw\+\_\+data@{xmlmw\+\_\+data}}
+\index{xmlmw\+\_\+data@{xmlmw\+\_\+data}!Client@{Client}}
+\subsubsection[{xmlmw\+\_\+data}]{\setlength{\rightskip}{0pt plus 5cm}{\bf X\+M\+L\+Message\+Writer}$\ast$ Client\+::xmlmw\+\_\+data\hspace{0.3cm}{\ttfamily [protected]}}\label{class_client_a511d77665d9f4a3094bf6876bc2688b0}
+
+
+X\+M\+L \hyperlink{class_message}{Message} writer to data port. 
+
+
+
+Definition at line 216 of file Client.\+hpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Common/\+Client\+Server\+Share\+Lib/include/\hyperlink{_client_8hpp}{Client.\+hpp}\item 
+Common/\+Client\+Server\+Share\+Lib/src/\+Client/\hyperlink{_client_8cpp}{Client.\+cpp}\end{DoxyCompactItemize}

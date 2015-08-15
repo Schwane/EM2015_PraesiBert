@@ -1,0 +1,200 @@
+\hypertarget{class_camera_controller}{}\section{Camera\+Controller Class Reference}
+\label{class_camera_controller}\index{Camera\+Controller@{Camera\+Controller}}
+
+
+\hyperlink{class_camera_controller}{Camera\+Controller} class.  
+
+
+
+
+{\ttfamily \#include \char`\"{}Camera/\+Camera\+Controller.\+hpp\char`\"{}}
+
+Inheritance diagram for Camera\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_camera_controller}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_camera_controller_a94b78f28c1bce536a481ddcf16712771}{start} ()
+\begin{DoxyCompactList}\small\item\em Activates the gesture control feature. \end{DoxyCompactList}\item 
+void \hyperlink{class_camera_controller_ac74cc6dc570c37bfbd1da710c54e78b3}{stop} ()
+\begin{DoxyCompactList}\small\item\em Deactivates the gesture control feature. \end{DoxyCompactList}\item 
+void \hyperlink{class_camera_controller_ad7985bb1433289a5c09c3fdf093d7384}{on\+Gesture\+Detected} (int value)
+\begin{DoxyCompactList}\small\item\em Gets called when a gesture has been detected. \end{DoxyCompactList}\item 
+void \hyperlink{class_camera_controller_a0a2c8c616d31f2356b825c43afcb83bd}{on\+Error} (Q\+String e)
+\begin{DoxyCompactList}\small\item\em Gets called when an error has occurred. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_camera_controller_a83bfb3dd39d9d6bc1b80c31cb293c337}{error} (Q\+String e)
+\begin{DoxyCompactList}\small\item\em Emitted if an error has occured. \end{DoxyCompactList}\item 
+void \hyperlink{class_camera_controller_aef43092922808e9e4166bc28e7c9c7de}{gesture\+Detected} (int value)
+\begin{DoxyCompactList}\small\item\em Emitted if a gesture is detected. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_camera_controller_ab23fa2b1ef9167682f255dfdcf5fa657}{Camera\+Controller} (Q\+Object $\ast$parent=N\+U\+L\+L)
+\begin{DoxyCompactList}\small\item\em Constructor for the \hyperlink{class_camera_controller}{Camera\+Controller} class. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_camera_controller_a9ecb9436179d1436803822196cd949e6}{$\sim$\+Camera\+Controller} ()
+\begin{DoxyCompactList}\small\item\em Deconstructor for the \hyperlink{class_camera_controller}{Camera\+Controller} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_camera_controller}{Camera\+Controller} class. 
+
+The \hyperlink{class_camera_controller}{Camera\+Controller} class is part of the gesture control component. It works as an interface for the rest of the application. When a \hyperlink{class_camera_controller}{Camera\+Controller} object has been created, it can be used to activate and deactivate the gesture control feature. 
+
+Definition at line 24 of file Camera\+Controller.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_camera_controller_ab23fa2b1ef9167682f255dfdcf5fa657}{}\index{Camera\+Controller@{Camera\+Controller}!Camera\+Controller@{Camera\+Controller}}
+\index{Camera\+Controller@{Camera\+Controller}!Camera\+Controller@{Camera\+Controller}}
+\subsubsection[{Camera\+Controller(\+Q\+Object $\ast$parent=\+N\+U\+L\+L)}]{\setlength{\rightskip}{0pt plus 5cm}Camera\+Controller\+::\+Camera\+Controller (
+\begin{DoxyParamCaption}
+\item[{Q\+Object $\ast$}]{parent = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}\label{class_camera_controller_ab23fa2b1ef9167682f255dfdcf5fa657}
+
+
+Constructor for the \hyperlink{class_camera_controller}{Camera\+Controller} class. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em parent} & Parent Q\+Object that creates the \hyperlink{class_camera_controller}{Camera\+Controller} object\\
+\hline
+\end{DoxyParams}
+This constructor creates a new Q\+Thread (but does not start it yet) and checks if the device has a front camera. If not an error signal is emitted. 
+
+Definition at line 11 of file Camera\+Controller.\+cpp.
+
+\hypertarget{class_camera_controller_a9ecb9436179d1436803822196cd949e6}{}\index{Camera\+Controller@{Camera\+Controller}!````~Camera\+Controller@{$\sim$\+Camera\+Controller}}
+\index{````~Camera\+Controller@{$\sim$\+Camera\+Controller}!Camera\+Controller@{Camera\+Controller}}
+\subsubsection[{$\sim$\+Camera\+Controller()}]{\setlength{\rightskip}{0pt plus 5cm}Camera\+Controller\+::$\sim$\+Camera\+Controller (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_camera_controller_a9ecb9436179d1436803822196cd949e6}
+
+
+Deconstructor for the \hyperlink{class_camera_controller}{Camera\+Controller} class. 
+
+
+
+Definition at line 24 of file Camera\+Controller.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_camera_controller_a83bfb3dd39d9d6bc1b80c31cb293c337}{}\index{Camera\+Controller@{Camera\+Controller}!error@{error}}
+\index{error@{error}!Camera\+Controller@{Camera\+Controller}}
+\subsubsection[{error}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\+Controller\+::error (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{e}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_camera_controller_a83bfb3dd39d9d6bc1b80c31cb293c337}
+
+
+Emitted if an error has occured. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em e} & Q\+String with a description of the error\\
+\hline
+\end{DoxyParams}
+If something is not working (e. g. no front camera available), this signal is emitted. If the \hyperlink{class_camera_controller}{Camera\+Controller} receives an error signal from its \hyperlink{class_camera_processor}{Camera\+Processor} object, this signal is used to transfer that error to the application. \hypertarget{class_camera_controller_aef43092922808e9e4166bc28e7c9c7de}{}\index{Camera\+Controller@{Camera\+Controller}!gesture\+Detected@{gesture\+Detected}}
+\index{gesture\+Detected@{gesture\+Detected}!Camera\+Controller@{Camera\+Controller}}
+\subsubsection[{gesture\+Detected}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\+Controller\+::gesture\+Detected (
+\begin{DoxyParamCaption}
+\item[{int}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_camera_controller_aef43092922808e9e4166bc28e7c9c7de}
+
+
+Emitted if a gesture is detected. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em value} & Signals which gesture has been detected\+: -\/1 = to the left, +1 = to the right\\
+\hline
+\end{DoxyParams}
+If the \hyperlink{class_camera_processor}{Camera\+Processor} identifies a gesture, it emits a gesture\+Detected-\/\+Signal. This signal here is used to tranfer that signal to the application. \hypertarget{class_camera_controller_a0a2c8c616d31f2356b825c43afcb83bd}{}\index{Camera\+Controller@{Camera\+Controller}!on\+Error@{on\+Error}}
+\index{on\+Error@{on\+Error}!Camera\+Controller@{Camera\+Controller}}
+\subsubsection[{on\+Error}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\+Controller\+::on\+Error (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{e}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_camera_controller_a0a2c8c616d31f2356b825c43afcb83bd}
+
+
+Gets called when an error has occurred. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em e} & Q\+String with a description of the error\\
+\hline
+\end{DoxyParams}
+If an error has occurred, this slot transfers the signal to the application 
+
+Definition at line 113 of file Camera\+Controller.\+cpp.
+
+\hypertarget{class_camera_controller_ad7985bb1433289a5c09c3fdf093d7384}{}\index{Camera\+Controller@{Camera\+Controller}!on\+Gesture\+Detected@{on\+Gesture\+Detected}}
+\index{on\+Gesture\+Detected@{on\+Gesture\+Detected}!Camera\+Controller@{Camera\+Controller}}
+\subsubsection[{on\+Gesture\+Detected}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\+Controller\+::on\+Gesture\+Detected (
+\begin{DoxyParamCaption}
+\item[{int}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_camera_controller_ad7985bb1433289a5c09c3fdf093d7384}
+
+
+Gets called when a gesture has been detected. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em value} & Indicates which gesture has been detected\+: -\/1 = to the left, +1 = to the right\\
+\hline
+\end{DoxyParams}
+If a gesture has been detected, this slot transfers the signal to the application 
+
+Definition at line 108 of file Camera\+Controller.\+cpp.
+
+\hypertarget{class_camera_controller_a94b78f28c1bce536a481ddcf16712771}{}\index{Camera\+Controller@{Camera\+Controller}!start@{start}}
+\index{start@{start}!Camera\+Controller@{Camera\+Controller}}
+\subsubsection[{start}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\+Controller\+::start (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_camera_controller_a94b78f28c1bce536a481ddcf16712771}
+
+
+Activates the gesture control feature. 
+
+Creates a \hyperlink{class_camera_processor}{Camera\+Processor} object, moves it to a separate thread and calls its \hyperlink{class_camera_controller_a94b78f28c1bce536a481ddcf16712771}{start()}-\/function. This starts the scanning process for hand gestures. 
+
+Definition at line 47 of file Camera\+Controller.\+cpp.
+
+\hypertarget{class_camera_controller_ac74cc6dc570c37bfbd1da710c54e78b3}{}\index{Camera\+Controller@{Camera\+Controller}!stop@{stop}}
+\index{stop@{stop}!Camera\+Controller@{Camera\+Controller}}
+\subsubsection[{stop}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\+Controller\+::stop (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_camera_controller_ac74cc6dc570c37bfbd1da710c54e78b3}
+
+
+Deactivates the gesture control feature. 
+
+Deletes the \hyperlink{class_camera_processor}{Camera\+Processor} object and stops the thread. Thus stops scanning for hand gestures. 
+
+Definition at line 79 of file Camera\+Controller.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Common/\+Client\+Server\+Share\+Lib/include/\hyperlink{_camera_controller_8hpp}{Camera\+Controller.\+hpp}\item 
+Common/\+Client\+Server\+Share\+Lib/src/\+Camera/\hyperlink{_camera_controller_8cpp}{Camera\+Controller.\+cpp}\end{DoxyCompactItemize}

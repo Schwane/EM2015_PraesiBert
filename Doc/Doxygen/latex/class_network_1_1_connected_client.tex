@@ -1,0 +1,407 @@
+\hypertarget{class_network_1_1_connected_client}{}\section{Network\+:\+:Connected\+Client Class Reference}
+\label{class_network_1_1_connected_client}\index{Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}}
+
+
+Class for clients connected to the server.  
+
+
+
+
+{\ttfamily \#include \char`\"{}Network/\+Connected\+Client.\+h\char`\"{}}
+
+Inheritance diagram for Network\+:\+:Connected\+Client\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_network_1_1_connected_client}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_network_1_1_connected_client_a083bda8da4cc2314027cd8b87dc8bcf4}{process} ()
+\begin{DoxyCompactList}\small\item\em Method is called on start of the Thread. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_network_1_1_connected_client_a405d291ca221b2390fa58587145b5fb2}{new\+Cmd} (Q\+Byte\+Array data, uint client\+I\+D)
+\begin{DoxyCompactList}\small\item\em Signal that is emitted, whe an newcommanda is available fromthe commanda socket of the client. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_1_1_connected_client_ad4ed988e03524de43ed3a2ac8df8999c}{new\+Data} (Q\+Byte\+Array data, uint client\+I\+D)
+\begin{DoxyCompactList}\small\item\em Signal that is emitted, when new data is available from the data socket of the client. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_1_1_connected_client_ae9691e6b687bda4cec080cd26b4fc4a6}{disconnected} (uint client\+I\+D)
+\begin{DoxyCompactList}\small\item\em Signal that is emitted, when the client was disconnected. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_1_1_connected_client_ad91c79c1c98aaad2b35e554f6030cd0b}{finished} ()
+\begin{DoxyCompactList}\small\item\em Signal that is emitted, when the client is finished and ready for deletion. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_network_1_1_connected_client_a9797ac03885fae449628ab2403515398}{Connected\+Client} (uint client\+I\+D)
+\begin{DoxyCompactList}\small\item\em Constructor of the \hyperlink{class_network_1_1_connected_client}{Connected\+Client} class. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_network_1_1_connected_client_ad10880c9d465fba5f29dd9acfc8f374e}{$\sim$\+Connected\+Client} ()
+\begin{DoxyCompactList}\small\item\em Destructor of the \hyperlink{class_network_1_1_connected_client}{Connected\+Client} class. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_1_1_connected_client_a84d4ba47b0b82bb01fa6faca9e793412}{set\+Cmd\+Socket} (Q\+Tcp\+Socket $\ast$tcp\+Socket)
+\begin{DoxyCompactList}\small\item\em Method used to set the command socket. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_1_1_connected_client_ab992b4c8be1eca019690e728f34d8bbd}{set\+Data\+Socket} (Q\+Tcp\+Socket $\ast$tcp\+Socket)
+\begin{DoxyCompactList}\small\item\em Method used to set the data socket. \end{DoxyCompactList}\item 
+bool \hyperlink{class_network_1_1_connected_client_ac406ccefcf1864e3a50da9c1b05ef9bc}{has\+Cmd\+Socket} ()
+\begin{DoxyCompactList}\small\item\em Method that returns, whether the command socket is established already. \end{DoxyCompactList}\item 
+bool \hyperlink{class_network_1_1_connected_client_a7e702f3d7a9da70838b0baae35a3558e}{has\+Data\+Socket} ()
+\begin{DoxyCompactList}\small\item\em Method that returns, whether the data socket is established already. \end{DoxyCompactList}\item 
+int \hyperlink{class_network_1_1_connected_client_a4d4d24c1fb549997efdc0e6d3f336206}{send\+Cmd} (Q\+Byte\+Array data)
+\begin{DoxyCompactList}\small\item\em Sends a command to the connected client. \end{DoxyCompactList}\item 
+int \hyperlink{class_network_1_1_connected_client_a8ed4284d7f5187ebcf16a1dd8db07622}{send\+Data} (Q\+Byte\+Array data)
+\begin{DoxyCompactList}\small\item\em Sends data to the connected client. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_1_1_connected_client_a64c600f1673753092cd6eaa24a67081a}{disconnect\+From\+Server} ()
+\begin{DoxyCompactList}\small\item\em Closes the connection to the Server. \end{DoxyCompactList}\item 
+uint \hyperlink{class_network_1_1_connected_client_a97812f8788cc3635edceeb0b6202f19b}{get\+Client\+I\+D} ()
+\begin{DoxyCompactList}\small\item\em Returns the client\+I\+D of the socket. \end{DoxyCompactList}\item 
+Q\+Host\+Address \hyperlink{class_network_1_1_connected_client_a7e0ba50bdccd46a6c3a2a4a2f07e95f1}{get\+Peer\+Address} ()
+\begin{DoxyCompactList}\small\item\em Returns the peer address of the connected client. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class for clients connected to the server. 
+
+Class for clients that connect to the Server Socket (\hyperlink{class_network_1_1_server_socket}{Server\+Socket} class).~\newline
+ All of the objects that are created from this class are stored in an individual thread that is started when a new connection is established.~\newline
+ It uses 32 bit integers for determining the length of sent and received data.~\newline
+ The class provides several functions, signals and slots that are used to exchange data with a client\+: 
+\begin{DoxyItemize}
+\item functions\+: 
+\begin{DoxyItemize}
+\item \hyperlink{class_network_1_1_connected_client_a84d4ba47b0b82bb01fa6faca9e793412}{set\+Cmd\+Socket()}\+: Sets the socket that is given as parameter to the command socket. 
+\item \hyperlink{class_network_1_1_connected_client_ab992b4c8be1eca019690e728f34d8bbd}{set\+Data\+Socket()}\+: Sets the socket that is given as parameter to the data socket. 
+\item \hyperlink{class_network_1_1_connected_client_ac406ccefcf1864e3a50da9c1b05ef9bc}{has\+Cmd\+Socket()}\+: Returns true, if the command socket is set up. 
+\item \hyperlink{class_network_1_1_connected_client_a7e702f3d7a9da70838b0baae35a3558e}{has\+Data\+Socket()}\+: Returns true, if the data socket is set up. 
+\item \hyperlink{class_network_1_1_connected_client_a4d4d24c1fb549997efdc0e6d3f336206}{send\+Cmd()}\+: Sends the Byte\+Array that is given as parameter to the clients command socket. 
+\item \hyperlink{class_network_1_1_connected_client_a8ed4284d7f5187ebcf16a1dd8db07622}{send\+Data()}\+: Sends the Byte\+Array that is given as parameter to the clients data socket. 
+\item \hyperlink{class_network_1_1_connected_client_a64c600f1673753092cd6eaa24a67081a}{disconnect\+From\+Server()}\+: Disconnects both sockets from the servers sockets. 
+\item \hyperlink{class_network_1_1_connected_client_a97812f8788cc3635edceeb0b6202f19b}{get\+Client\+I\+D()}\+: Returns the I\+D of the client.
+\item 
+\item \hyperlink{class_network_1_1_connected_client_a7e0ba50bdccd46a6c3a2a4a2f07e95f1}{get\+Peer\+Address()}\+: Returns the peer address of the client. 
+\end{DoxyItemize}
+\item signals\+: 
+\begin{DoxyItemize}
+\item \hyperlink{class_network_1_1_connected_client_a405d291ca221b2390fa58587145b5fb2}{new\+Cmd()}\+: Emitted with the client\+I\+D and data when a new command is available from the clients command socket. 
+\item \hyperlink{class_network_1_1_connected_client_ad4ed988e03524de43ed3a2ac8df8999c}{new\+Data()}\+: Emitted with the client\+I\+D and data when new data is available from the clients data socket. 
+\item \hyperlink{class_network_1_1_connected_client_ae9691e6b687bda4cec080cd26b4fc4a6}{disconnected()}\+: Emitted with the client\+I\+D, when the connection to one of the clients sockets is lost. 
+\item \hyperlink{class_network_1_1_connected_client_ad91c79c1c98aaad2b35e554f6030cd0b}{finished()}\+: Emitted, when the connection to the client is lost and the client socket can be destroyed. 
+\end{DoxyItemize}
+\item slots\+: 
+\begin{DoxyItemize}
+\item \hyperlink{class_network_1_1_connected_client_a083bda8da4cc2314027cd8b87dc8bcf4}{process()}\+: This slot is connected to the start signal of the thread that stores the \hyperlink{class_network_1_1_connected_client}{Connected\+Client} object. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+Definition at line 54 of file Connected\+Client.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_network_1_1_connected_client_a9797ac03885fae449628ab2403515398}{}\index{Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}!Connected\+Client@{Connected\+Client}}
+\index{Connected\+Client@{Connected\+Client}!Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}}
+\subsubsection[{Connected\+Client(uint client\+I\+D)}]{\setlength{\rightskip}{0pt plus 5cm}Network\+::\+Connected\+Client\+::\+Connected\+Client (
+\begin{DoxyParamCaption}
+\item[{uint}]{client\+I\+D}
+\end{DoxyParamCaption}
+)}\label{class_network_1_1_connected_client_a9797ac03885fae449628ab2403515398}
+
+
+Constructor of the \hyperlink{class_network_1_1_connected_client}{Connected\+Client} class. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em client\+I\+D} & I\+D of the client that is created.\\
+\hline
+\end{DoxyParams}
+Initializes the variables {\itshape m\+\_\+client\+I\+D} with the value that was given as parameter.~\newline
+ Also initializes the booleans {\itshape has\+Cmd\+Socket} and {\itshape has\+Data\+Socket} with the value {\itshape false} and {\itshape m\+\_\+next\+\_\+block\+\_\+size\+\_\+cmd} and {\itshape m\+\_\+next\+\_\+block\+\_\+size\+\_\+data} with the value {\itshape 0}.~\newline
+ The constructor does not implement a parent object so that it can be moved into a Q\+Thread. 
+
+Definition at line 25 of file Connected\+Client.\+cpp.
+
+\hypertarget{class_network_1_1_connected_client_ad10880c9d465fba5f29dd9acfc8f374e}{}\index{Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}!````~Connected\+Client@{$\sim$\+Connected\+Client}}
+\index{````~Connected\+Client@{$\sim$\+Connected\+Client}!Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}}
+\subsubsection[{$\sim$\+Connected\+Client()}]{\setlength{\rightskip}{0pt plus 5cm}Network\+::\+Connected\+Client\+::$\sim$\+Connected\+Client (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_network_1_1_connected_client_ad10880c9d465fba5f29dd9acfc8f374e}
+
+
+Destructor of the \hyperlink{class_network_1_1_connected_client}{Connected\+Client} class. 
+
+The destructor closes the sockets and deletes them. 
+
+Definition at line 39 of file Connected\+Client.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_network_1_1_connected_client_ae9691e6b687bda4cec080cd26b4fc4a6}{}\index{Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}!disconnected@{disconnected}}
+\index{disconnected@{disconnected}!Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}}
+\subsubsection[{disconnected}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::\+Connected\+Client\+::disconnected (
+\begin{DoxyParamCaption}
+\item[{uint}]{client\+I\+D}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_network_1_1_connected_client_ae9691e6b687bda4cec080cd26b4fc4a6}
+
+
+Signal that is emitted, when the client was disconnected. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em client\+I\+D} & I\+D of the client that lost the connection. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_network_1_1_connected_client_a64c600f1673753092cd6eaa24a67081a}{}\index{Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}!disconnect\+From\+Server@{disconnect\+From\+Server}}
+\index{disconnect\+From\+Server@{disconnect\+From\+Server}!Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}}
+\subsubsection[{disconnect\+From\+Server()}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::\+Connected\+Client\+::disconnect\+From\+Server (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_network_1_1_connected_client_a64c600f1673753092cd6eaa24a67081a}
+
+
+Closes the connection to the Server. 
+
+This class closes the connection to the servers sockets. 
+
+Definition at line 154 of file Connected\+Client.\+cpp.
+
+\hypertarget{class_network_1_1_connected_client_ad91c79c1c98aaad2b35e554f6030cd0b}{}\index{Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}!finished@{finished}}
+\index{finished@{finished}!Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}}
+\subsubsection[{finished}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::\+Connected\+Client\+::finished (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_network_1_1_connected_client_ad91c79c1c98aaad2b35e554f6030cd0b}
+
+
+Signal that is emitted, when the client is finished and ready for deletion. 
+
+\hypertarget{class_network_1_1_connected_client_a97812f8788cc3635edceeb0b6202f19b}{}\index{Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}!get\+Client\+I\+D@{get\+Client\+I\+D}}
+\index{get\+Client\+I\+D@{get\+Client\+I\+D}!Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}}
+\subsubsection[{get\+Client\+I\+D()}]{\setlength{\rightskip}{0pt plus 5cm}uint Network\+::\+Connected\+Client\+::get\+Client\+I\+D (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_network_1_1_connected_client_a97812f8788cc3635edceeb0b6202f19b}
+
+
+Returns the client\+I\+D of the socket. 
+
+\begin{DoxyReturn}{Returns}
+Returns the client\+I\+D of the socket. 
+\end{DoxyReturn}
+
+
+Definition at line 166 of file Connected\+Client.\+cpp.
+
+\hypertarget{class_network_1_1_connected_client_a7e0ba50bdccd46a6c3a2a4a2f07e95f1}{}\index{Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}!get\+Peer\+Address@{get\+Peer\+Address}}
+\index{get\+Peer\+Address@{get\+Peer\+Address}!Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}}
+\subsubsection[{get\+Peer\+Address()}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Host\+Address Network\+::\+Connected\+Client\+::get\+Peer\+Address (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_network_1_1_connected_client_a7e0ba50bdccd46a6c3a2a4a2f07e95f1}
+
+
+Returns the peer address of the connected client. 
+
+\begin{DoxyReturn}{Returns}
+Returns the peer address of the connected client in Q\+Host\+Address format.
+\end{DoxyReturn}
+This function returns the peer address of the connected client.~\newline
+ The command socket is primarily used to determine the peer address.~\newline
+ If the command socket is not available, the data socket is used.~\newline
+ If none of the sockets is available, localhost is returned as peer address. 
+
+Definition at line 181 of file Connected\+Client.\+cpp.
+
+\hypertarget{class_network_1_1_connected_client_ac406ccefcf1864e3a50da9c1b05ef9bc}{}\index{Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}!has\+Cmd\+Socket@{has\+Cmd\+Socket}}
+\index{has\+Cmd\+Socket@{has\+Cmd\+Socket}!Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}}
+\subsubsection[{has\+Cmd\+Socket()}]{\setlength{\rightskip}{0pt plus 5cm}bool Network\+::\+Connected\+Client\+::has\+Cmd\+Socket (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_network_1_1_connected_client_ac406ccefcf1864e3a50da9c1b05ef9bc}
+
+
+Method that returns, whether the command socket is established already. 
+
+\begin{DoxyReturn}{Returns}
+Returns true, if the socket is set up and available. 
+\end{DoxyReturn}
+
+
+Definition at line 88 of file Connected\+Client.\+cpp.
+
+\hypertarget{class_network_1_1_connected_client_a7e702f3d7a9da70838b0baae35a3558e}{}\index{Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}!has\+Data\+Socket@{has\+Data\+Socket}}
+\index{has\+Data\+Socket@{has\+Data\+Socket}!Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}}
+\subsubsection[{has\+Data\+Socket()}]{\setlength{\rightskip}{0pt plus 5cm}bool Network\+::\+Connected\+Client\+::has\+Data\+Socket (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_network_1_1_connected_client_a7e702f3d7a9da70838b0baae35a3558e}
+
+
+Method that returns, whether the data socket is established already. 
+
+\begin{DoxyReturn}{Returns}
+Returns true, if the socket is set up and available. 
+\end{DoxyReturn}
+
+
+Definition at line 98 of file Connected\+Client.\+cpp.
+
+\hypertarget{class_network_1_1_connected_client_a405d291ca221b2390fa58587145b5fb2}{}\index{Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}!new\+Cmd@{new\+Cmd}}
+\index{new\+Cmd@{new\+Cmd}!Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}}
+\subsubsection[{new\+Cmd}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::\+Connected\+Client\+::new\+Cmd (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{data, }
+\item[{uint}]{client\+I\+D}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_network_1_1_connected_client_a405d291ca221b2390fa58587145b5fb2}
+
+
+Signal that is emitted, whe an newcommanda is available fromthe commanda socket of the client. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em data} & Data in Q\+Byte\+Array format that is send out. \\
+\hline
+\mbox{\tt out}  & {\em client\+I\+D} & Own I\+D of the client that sends the data. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_network_1_1_connected_client_ad4ed988e03524de43ed3a2ac8df8999c}{}\index{Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}!new\+Data@{new\+Data}}
+\index{new\+Data@{new\+Data}!Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}}
+\subsubsection[{new\+Data}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::\+Connected\+Client\+::new\+Data (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{data, }
+\item[{uint}]{client\+I\+D}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_network_1_1_connected_client_ad4ed988e03524de43ed3a2ac8df8999c}
+
+
+Signal that is emitted, when new data is available from the data socket of the client. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em data} & Data in Q\+Byte\+Array format that is send out. \\
+\hline
+\mbox{\tt out}  & {\em client\+I\+D} & Own I\+D of the client that sends the data. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_network_1_1_connected_client_a083bda8da4cc2314027cd8b87dc8bcf4}{}\index{Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}!process@{process}}
+\index{process@{process}!Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}}
+\subsubsection[{process}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::\+Connected\+Client\+::process (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_network_1_1_connected_client_a083bda8da4cc2314027cd8b87dc8bcf4}
+
+
+Method is called on start of the Thread. 
+
+This method is called on start of the Q\+Thread that the \hyperlink{class_network_1_1_connected_client}{Connected\+Client} object was moved to. 
+
+Definition at line 206 of file Connected\+Client.\+cpp.
+
+\hypertarget{class_network_1_1_connected_client_a4d4d24c1fb549997efdc0e6d3f336206}{}\index{Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}!send\+Cmd@{send\+Cmd}}
+\index{send\+Cmd@{send\+Cmd}!Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}}
+\subsubsection[{send\+Cmd(\+Q\+Byte\+Array data)}]{\setlength{\rightskip}{0pt plus 5cm}int Network\+::\+Connected\+Client\+::send\+Cmd (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{data}
+\end{DoxyParamCaption}
+)}\label{class_network_1_1_connected_client_a4d4d24c1fb549997efdc0e6d3f336206}
+
+
+Sends a command to the connected client. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em data} & Command in Q\+Byte\+Array format that is send.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the amount of bytes that were actually sent to the client.
+\end{DoxyReturn}
+This method is used to send a command to the connected client that is given in Q\+Byte\+Array format as parameter.~\newline
+ A 32 bit integer with information about the data length is send first. Then the actual data follows. 
+
+Definition at line 113 of file Connected\+Client.\+cpp.
+
+\hypertarget{class_network_1_1_connected_client_a8ed4284d7f5187ebcf16a1dd8db07622}{}\index{Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}!send\+Data@{send\+Data}}
+\index{send\+Data@{send\+Data}!Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}}
+\subsubsection[{send\+Data(\+Q\+Byte\+Array data)}]{\setlength{\rightskip}{0pt plus 5cm}int Network\+::\+Connected\+Client\+::send\+Data (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{data}
+\end{DoxyParamCaption}
+)}\label{class_network_1_1_connected_client_a8ed4284d7f5187ebcf16a1dd8db07622}
+
+
+Sends data to the connected client. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em data} & Data in Q\+Byte\+Array format that is send.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the amount of bytes that were actually sent to the client.
+\end{DoxyReturn}
+This method is used to send data to the connected client that is given in Q\+Byte\+Array format as parameter.~\newline
+ A 32 bit integer with information about the data length is send first. Then the actual data follows. 
+
+Definition at line 136 of file Connected\+Client.\+cpp.
+
+\hypertarget{class_network_1_1_connected_client_a84d4ba47b0b82bb01fa6faca9e793412}{}\index{Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}!set\+Cmd\+Socket@{set\+Cmd\+Socket}}
+\index{set\+Cmd\+Socket@{set\+Cmd\+Socket}!Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}}
+\subsubsection[{set\+Cmd\+Socket(\+Q\+Tcp\+Socket $\ast$tcp\+Socket)}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::\+Connected\+Client\+::set\+Cmd\+Socket (
+\begin{DoxyParamCaption}
+\item[{Q\+Tcp\+Socket $\ast$}]{tcp\+Socket}
+\end{DoxyParamCaption}
+)}\label{class_network_1_1_connected_client_a84d4ba47b0b82bb01fa6faca9e793412}
+
+
+Method used to set the command socket. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em tcp\+Socket} & New socket object that the clients command socket is assigned to.\\
+\hline
+\end{DoxyParams}
+Each time a new connection is established with the server, a new Q\+Tcp\+Socket object is created.~\newline
+ This object is then passed to this function as parameter.~\newline
+ Within this function, the new socket object is then assigned to the command socket. 
+
+Definition at line 56 of file Connected\+Client.\+cpp.
+
+\hypertarget{class_network_1_1_connected_client_ab992b4c8be1eca019690e728f34d8bbd}{}\index{Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}!set\+Data\+Socket@{set\+Data\+Socket}}
+\index{set\+Data\+Socket@{set\+Data\+Socket}!Network\+::\+Connected\+Client@{Network\+::\+Connected\+Client}}
+\subsubsection[{set\+Data\+Socket(\+Q\+Tcp\+Socket $\ast$tcp\+Socket)}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::\+Connected\+Client\+::set\+Data\+Socket (
+\begin{DoxyParamCaption}
+\item[{Q\+Tcp\+Socket $\ast$}]{tcp\+Socket}
+\end{DoxyParamCaption}
+)}\label{class_network_1_1_connected_client_ab992b4c8be1eca019690e728f34d8bbd}
+
+
+Method used to set the data socket. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em tcp\+Socket} & New socket object that the clients data socket is assigned to.\\
+\hline
+\end{DoxyParams}
+Each time a new connection is established with the server, a new Q\+Tcp\+Socket object is created.~\newline
+ This object is then passed to this function as parameter.~\newline
+ Within this function, the new socket object is then assigned to the data socket. 
+
+Definition at line 74 of file Connected\+Client.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Common/\+Client\+Server\+Share\+Lib/include/\hyperlink{_connected_client_8h}{Connected\+Client.\+h}\item 
+Common/\+Client\+Server\+Share\+Lib/src/\+Network/\hyperlink{_connected_client_8cpp}{Connected\+Client.\+cpp}\end{DoxyCompactItemize}

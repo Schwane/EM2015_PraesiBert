@@ -1,0 +1,183 @@
+\hypertarget{class_listener_client}{}\section{Listener\+Client Class Reference}
+\label{class_listener_client}\index{Listener\+Client@{Listener\+Client}}
+
+
+Implements extra functionality of \hyperlink{class_listener_client}{Listener\+Client}.  
+
+
+
+
+{\ttfamily \#include $<$Listener\+Client.\+hpp$>$}
+
+Inheritance diagram for Listener\+Client\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_listener_client}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_listener_client_a1557164978c13ba9badb565f4a6167ba}{redeanfrage\+Response} (Q\+Map$<$ Q\+String, Q\+Variant $>$ parameters, Q\+Map$<$ Q\+String, Q\+String $>$ parameter\+\_\+types)
+\begin{DoxyCompactList}\small\item\em Handle Response to talk-\/request. \end{DoxyCompactList}\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_listener_client_ab4f525f280d015e3af0aeb0fd2ad941f}{redeanfrage\+Finish} (Q\+Map$<$ Q\+String, Q\+Variant $>$ parameters, Q\+Map$<$ Q\+String, Q\+String $>$ parameter\+\_\+types)
+\begin{DoxyCompactList}\small\item\em Handle finishing of talk-\/request. \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_listener_client_a9a658a95c62226e6b8617a50a390036a}{do\+Ranf} ()
+\begin{DoxyCompactList}\small\item\em Initiates talk-\/request. \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_listener_client_a9b3ba155fff647e5482db33528465cb1}{accept\+Ranf} ()
+\begin{DoxyCompactList}\small\item\em talk-\/request is relevant \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_listener_client_a8dfc5ddcd32ee500e9c715f44b2284f4}{reject\+Ranf} ()
+\begin{DoxyCompactList}\small\item\em talk request is not relevant anymore \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_listener_client_a5db4c41d2acb7a8efba7f24e4b7a29b8}{ranf\+State\+Changed} (Q\+String state)
+\begin{DoxyCompactList}\small\item\em Rethrows signal of talk-\/request. \end{DoxyCompactList}\item 
+void \hyperlink{class_listener_client_aeff4410c66969c8ed771483b8d8fa4d2}{ranf\+Answer} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_listener_client_a051702d50840efb130e4470c52d506d7}{Listener\+Client} ()
+\item 
+virtual \hyperlink{class_listener_client_a49fe652095b359fa5adb698e356067bc}{$\sim$\+Listener\+Client} ()
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Implements extra functionality of \hyperlink{class_listener_client}{Listener\+Client}. 
+
+Implements extra functionality of \hyperlink{class_listener_client}{Listener\+Client}, mainly the possibility to do talk-\/requests. 
+
+Definition at line 20 of file Listener\+Client.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_listener_client_a051702d50840efb130e4470c52d506d7}{}\index{Listener\+Client@{Listener\+Client}!Listener\+Client@{Listener\+Client}}
+\index{Listener\+Client@{Listener\+Client}!Listener\+Client@{Listener\+Client}}
+\subsubsection[{Listener\+Client()}]{\setlength{\rightskip}{0pt plus 5cm}Listener\+Client\+::\+Listener\+Client (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_listener_client_a051702d50840efb130e4470c52d506d7}
+
+
+Definition at line 10 of file Listener\+Client.\+cpp.
+
+\hypertarget{class_listener_client_a49fe652095b359fa5adb698e356067bc}{}\index{Listener\+Client@{Listener\+Client}!````~Listener\+Client@{$\sim$\+Listener\+Client}}
+\index{````~Listener\+Client@{$\sim$\+Listener\+Client}!Listener\+Client@{Listener\+Client}}
+\subsubsection[{$\sim$\+Listener\+Client()}]{\setlength{\rightskip}{0pt plus 5cm}Listener\+Client\+::$\sim$\+Listener\+Client (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_listener_client_a49fe652095b359fa5adb698e356067bc}
+
+
+Definition at line 25 of file Listener\+Client.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_listener_client_a9b3ba155fff647e5482db33528465cb1}{}\index{Listener\+Client@{Listener\+Client}!accept\+Ranf@{accept\+Ranf}}
+\index{accept\+Ranf@{accept\+Ranf}!Listener\+Client@{Listener\+Client}}
+\subsubsection[{accept\+Ranf}]{\setlength{\rightskip}{0pt plus 5cm}void Listener\+Client\+::accept\+Ranf (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_listener_client_a9b3ba155fff647e5482db33528465cb1}
+
+
+talk-\/request is relevant 
+
+
+
+Definition at line 79 of file Listener\+Client.\+cpp.
+
+\hypertarget{class_listener_client_a9a658a95c62226e6b8617a50a390036a}{}\index{Listener\+Client@{Listener\+Client}!do\+Ranf@{do\+Ranf}}
+\index{do\+Ranf@{do\+Ranf}!Listener\+Client@{Listener\+Client}}
+\subsubsection[{do\+Ranf}]{\setlength{\rightskip}{0pt plus 5cm}void Listener\+Client\+::do\+Ranf (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_listener_client_a9a658a95c62226e6b8617a50a390036a}
+
+
+Initiates talk-\/request. 
+
+
+
+Definition at line 71 of file Listener\+Client.\+cpp.
+
+\hypertarget{class_listener_client_aeff4410c66969c8ed771483b8d8fa4d2}{}\index{Listener\+Client@{Listener\+Client}!ranf\+Answer@{ranf\+Answer}}
+\index{ranf\+Answer@{ranf\+Answer}!Listener\+Client@{Listener\+Client}}
+\subsubsection[{ranf\+Answer}]{\setlength{\rightskip}{0pt plus 5cm}void Listener\+Client\+::ranf\+Answer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_listener_client_aeff4410c66969c8ed771483b8d8fa4d2}
+\hypertarget{class_listener_client_a5db4c41d2acb7a8efba7f24e4b7a29b8}{}\index{Listener\+Client@{Listener\+Client}!ranf\+State\+Changed@{ranf\+State\+Changed}}
+\index{ranf\+State\+Changed@{ranf\+State\+Changed}!Listener\+Client@{Listener\+Client}}
+\subsubsection[{ranf\+State\+Changed}]{\setlength{\rightskip}{0pt plus 5cm}void Listener\+Client\+::ranf\+State\+Changed (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{state}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_listener_client_a5db4c41d2acb7a8efba7f24e4b7a29b8}
+
+
+Rethrows signal of talk-\/request. 
+
+\hypertarget{class_listener_client_ab4f525f280d015e3af0aeb0fd2ad941f}{}\index{Listener\+Client@{Listener\+Client}!redeanfrage\+Finish@{redeanfrage\+Finish}}
+\index{redeanfrage\+Finish@{redeanfrage\+Finish}!Listener\+Client@{Listener\+Client}}
+\subsubsection[{redeanfrage\+Finish}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Listener\+Client\+::redeanfrage\+Finish (
+\begin{DoxyParamCaption}
+\item[{Q\+Map$<$ Q\+String, Q\+Variant $>$}]{parameters, }
+\item[{Q\+Map$<$ Q\+String, Q\+String $>$}]{parameter\+\_\+types}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_listener_client_ab4f525f280d015e3af0aeb0fd2ad941f}
+
+
+Handle finishing of talk-\/request. 
+
+
+
+Definition at line 61 of file Listener\+Client.\+cpp.
+
+\hypertarget{class_listener_client_a1557164978c13ba9badb565f4a6167ba}{}\index{Listener\+Client@{Listener\+Client}!redeanfrage\+Response@{redeanfrage\+Response}}
+\index{redeanfrage\+Response@{redeanfrage\+Response}!Listener\+Client@{Listener\+Client}}
+\subsubsection[{redeanfrage\+Response}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Listener\+Client\+::redeanfrage\+Response (
+\begin{DoxyParamCaption}
+\item[{Q\+Map$<$ Q\+String, Q\+Variant $>$}]{parameters, }
+\item[{Q\+Map$<$ Q\+String, Q\+String $>$}]{parameter\+\_\+types}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_listener_client_a1557164978c13ba9badb565f4a6167ba}
+
+
+Handle Response to talk-\/request. 
+
+
+
+Definition at line 31 of file Listener\+Client.\+cpp.
+
+\hypertarget{class_listener_client_a8dfc5ddcd32ee500e9c715f44b2284f4}{}\index{Listener\+Client@{Listener\+Client}!reject\+Ranf@{reject\+Ranf}}
+\index{reject\+Ranf@{reject\+Ranf}!Listener\+Client@{Listener\+Client}}
+\subsubsection[{reject\+Ranf}]{\setlength{\rightskip}{0pt plus 5cm}void Listener\+Client\+::reject\+Ranf (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_listener_client_a8dfc5ddcd32ee500e9c715f44b2284f4}
+
+
+talk request is not relevant anymore 
+
+
+
+Definition at line 88 of file Listener\+Client.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Client/\+Listener\+Client\+Appl/src/\+Listener\+Client/\hyperlink{_listener_client_8hpp}{Listener\+Client.\+hpp}\item 
+Client/\+Listener\+Client\+Appl/src/\+Listener\+Client/\hyperlink{_listener_client_8cpp}{Listener\+Client.\+cpp}\end{DoxyCompactItemize}

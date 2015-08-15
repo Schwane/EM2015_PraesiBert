@@ -1,0 +1,233 @@
+\hypertarget{class_x_m_l_message_writer}{}\section{X\+M\+L\+Message\+Writer Class Reference}
+\label{class_x_m_l_message_writer}\index{X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}}
+
+
+Serializes \hyperlink{class_message}{Message} object to X\+M\+L. Capable of separating between data an command/seperation by parent class. Throws signal if message was written.  
+
+
+
+
+{\ttfamily \#include $<$X\+M\+L\+Message\+Writer.\+hpp$>$}
+
+Inheritance diagram for X\+M\+L\+Message\+Writer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_x_m_l_message_writer}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_x_m_l_message_writer_a4617ce9dfb773a7b953698a9ac76e304}{write\+Message} (\hyperlink{class_message}{Message} $\ast$msg)
+\item 
+void \hyperlink{class_x_m_l_message_writer_aab22aefde8e912b7fec4e48179c150cc}{write\+Cmd\+Message} (\hyperlink{class_message}{Message} $\ast$msg)
+\item 
+void \hyperlink{class_x_m_l_message_writer_a2b42845809f577ecca73721b7811567a}{write\+Data\+Message} (\hyperlink{class_message}{Message} $\ast$msg)
+\item 
+void \hyperlink{class_x_m_l_message_writer_ad25173249a63731f6729204988d7ca81}{write\+Cmd\+Message} (\hyperlink{class_message}{Message} $\ast$msg, uint client\+Id)
+\item 
+void \hyperlink{class_x_m_l_message_writer_a938fff0a4092d2a87a4e4af7abb059c7}{write\+Data\+Message} (\hyperlink{class_message}{Message} $\ast$msg, uint client\+Id)
+\item 
+void \hyperlink{class_x_m_l_message_writer_a6b54512b3f7c1e6d13c882b4fefcff6e}{write\+Cmd\+Message} (\hyperlink{class_message}{Message} $\ast$msg, Q\+List$<$ uint $>$ client\+I\+Ds)
+\item 
+void \hyperlink{class_x_m_l_message_writer_a0148f8cfd8304e97f11ee12f5a112087}{write\+Data\+Message} (\hyperlink{class_message}{Message} $\ast$msg, Q\+List$<$ uint $>$ client\+I\+Ds)
+\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_x_m_l_message_writer_a5933cecd527130818516cb075115acce}{message\+Written} (Q\+Byte\+Array msg)
+\item 
+void \hyperlink{class_x_m_l_message_writer_a9455136cd0c658e166fbbd0d47153568}{cmd\+Message\+Written} (Q\+Byte\+Array msg)
+\item 
+void \hyperlink{class_x_m_l_message_writer_a80e0298500422bda2e531b9054d3c2de}{data\+Message\+Written} (Q\+Byte\+Array msg)
+\item 
+void \hyperlink{class_x_m_l_message_writer_a8d80c318d90c538b1fe66781245b90ad}{cmd\+Message\+Written} (Q\+Byte\+Array msg, uint client\+Id)
+\item 
+void \hyperlink{class_x_m_l_message_writer_a49aa21f32d0fb886a8094be1006a7720}{data\+Message\+Written} (Q\+Byte\+Array msg, uint client\+Id)
+\item 
+void \hyperlink{class_x_m_l_message_writer_a530545ff124e44a0b4b0c8f465c880af}{cmd\+Message\+Written} (Q\+Byte\+Array msg, Q\+List$<$ uint $>$ client\+I\+Ds)
+\item 
+void \hyperlink{class_x_m_l_message_writer_ae26e634032594dca802e1aa8fb191465}{data\+Message\+Written} (Q\+Byte\+Array msg, Q\+List$<$ uint $>$ client\+I\+Ds)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_x_m_l_message_writer_a7feece46742c84f95efe202c217e2111}{X\+M\+L\+Message\+Writer} ()
+\item 
+virtual \hyperlink{class_x_m_l_message_writer_a864cd0a985276a6d8e229420b17b175b}{$\sim$\+X\+M\+L\+Message\+Writer} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Serializes \hyperlink{class_message}{Message} object to X\+M\+L. Capable of separating between data an command/seperation by parent class. Throws signal if message was written. 
+
+Definition at line 17 of file X\+M\+L\+Message\+Writer.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_x_m_l_message_writer_a7feece46742c84f95efe202c217e2111}{}\index{X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}!X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}}
+\index{X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}!X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}}
+\subsubsection[{X\+M\+L\+Message\+Writer()}]{\setlength{\rightskip}{0pt plus 5cm}X\+M\+L\+Message\+Writer\+::\+X\+M\+L\+Message\+Writer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_x_m_l_message_writer_a7feece46742c84f95efe202c217e2111}
+
+
+Definition at line 10 of file X\+M\+L\+Message\+Writer.\+cpp.
+
+\hypertarget{class_x_m_l_message_writer_a864cd0a985276a6d8e229420b17b175b}{}\index{X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}!````~X\+M\+L\+Message\+Writer@{$\sim$\+X\+M\+L\+Message\+Writer}}
+\index{````~X\+M\+L\+Message\+Writer@{$\sim$\+X\+M\+L\+Message\+Writer}!X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}}
+\subsubsection[{$\sim$\+X\+M\+L\+Message\+Writer()}]{\setlength{\rightskip}{0pt plus 5cm}X\+M\+L\+Message\+Writer\+::$\sim$\+X\+M\+L\+Message\+Writer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_x_m_l_message_writer_a864cd0a985276a6d8e229420b17b175b}
+
+
+Definition at line 21 of file X\+M\+L\+Message\+Writer.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_x_m_l_message_writer_a9455136cd0c658e166fbbd0d47153568}{}\index{X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}!cmd\+Message\+Written@{cmd\+Message\+Written}}
+\index{cmd\+Message\+Written@{cmd\+Message\+Written}!X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}}
+\subsubsection[{cmd\+Message\+Written}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Writer\+::cmd\+Message\+Written (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_x_m_l_message_writer_a9455136cd0c658e166fbbd0d47153568}
+\hypertarget{class_x_m_l_message_writer_a8d80c318d90c538b1fe66781245b90ad}{}\index{X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}!cmd\+Message\+Written@{cmd\+Message\+Written}}
+\index{cmd\+Message\+Written@{cmd\+Message\+Written}!X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}}
+\subsubsection[{cmd\+Message\+Written}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Writer\+::cmd\+Message\+Written (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{msg, }
+\item[{uint}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_x_m_l_message_writer_a8d80c318d90c538b1fe66781245b90ad}
+\hypertarget{class_x_m_l_message_writer_a530545ff124e44a0b4b0c8f465c880af}{}\index{X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}!cmd\+Message\+Written@{cmd\+Message\+Written}}
+\index{cmd\+Message\+Written@{cmd\+Message\+Written}!X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}}
+\subsubsection[{cmd\+Message\+Written}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Writer\+::cmd\+Message\+Written (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{msg, }
+\item[{Q\+List$<$ uint $>$}]{client\+I\+Ds}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_x_m_l_message_writer_a530545ff124e44a0b4b0c8f465c880af}
+\hypertarget{class_x_m_l_message_writer_a80e0298500422bda2e531b9054d3c2de}{}\index{X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}!data\+Message\+Written@{data\+Message\+Written}}
+\index{data\+Message\+Written@{data\+Message\+Written}!X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}}
+\subsubsection[{data\+Message\+Written}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Writer\+::data\+Message\+Written (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_x_m_l_message_writer_a80e0298500422bda2e531b9054d3c2de}
+\hypertarget{class_x_m_l_message_writer_a49aa21f32d0fb886a8094be1006a7720}{}\index{X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}!data\+Message\+Written@{data\+Message\+Written}}
+\index{data\+Message\+Written@{data\+Message\+Written}!X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}}
+\subsubsection[{data\+Message\+Written}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Writer\+::data\+Message\+Written (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{msg, }
+\item[{uint}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_x_m_l_message_writer_a49aa21f32d0fb886a8094be1006a7720}
+\hypertarget{class_x_m_l_message_writer_ae26e634032594dca802e1aa8fb191465}{}\index{X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}!data\+Message\+Written@{data\+Message\+Written}}
+\index{data\+Message\+Written@{data\+Message\+Written}!X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}}
+\subsubsection[{data\+Message\+Written}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Writer\+::data\+Message\+Written (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{msg, }
+\item[{Q\+List$<$ uint $>$}]{client\+I\+Ds}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_x_m_l_message_writer_ae26e634032594dca802e1aa8fb191465}
+\hypertarget{class_x_m_l_message_writer_a5933cecd527130818516cb075115acce}{}\index{X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}!message\+Written@{message\+Written}}
+\index{message\+Written@{message\+Written}!X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}}
+\subsubsection[{message\+Written}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Writer\+::message\+Written (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_x_m_l_message_writer_a5933cecd527130818516cb075115acce}
+\hypertarget{class_x_m_l_message_writer_aab22aefde8e912b7fec4e48179c150cc}{}\index{X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}!write\+Cmd\+Message@{write\+Cmd\+Message}}
+\index{write\+Cmd\+Message@{write\+Cmd\+Message}!X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}}
+\subsubsection[{write\+Cmd\+Message}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Writer\+::write\+Cmd\+Message (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_x_m_l_message_writer_aab22aefde8e912b7fec4e48179c150cc}
+
+
+Definition at line 90 of file X\+M\+L\+Message\+Writer.\+cpp.
+
+\hypertarget{class_x_m_l_message_writer_ad25173249a63731f6729204988d7ca81}{}\index{X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}!write\+Cmd\+Message@{write\+Cmd\+Message}}
+\index{write\+Cmd\+Message@{write\+Cmd\+Message}!X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}}
+\subsubsection[{write\+Cmd\+Message}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Writer\+::write\+Cmd\+Message (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg, }
+\item[{uint}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_x_m_l_message_writer_ad25173249a63731f6729204988d7ca81}
+
+
+Definition at line 110 of file X\+M\+L\+Message\+Writer.\+cpp.
+
+\hypertarget{class_x_m_l_message_writer_a6b54512b3f7c1e6d13c882b4fefcff6e}{}\index{X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}!write\+Cmd\+Message@{write\+Cmd\+Message}}
+\index{write\+Cmd\+Message@{write\+Cmd\+Message}!X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}}
+\subsubsection[{write\+Cmd\+Message}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Writer\+::write\+Cmd\+Message (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg, }
+\item[{Q\+List$<$ uint $>$}]{client\+I\+Ds}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_x_m_l_message_writer_a6b54512b3f7c1e6d13c882b4fefcff6e}
+
+
+Definition at line 129 of file X\+M\+L\+Message\+Writer.\+cpp.
+
+\hypertarget{class_x_m_l_message_writer_a2b42845809f577ecca73721b7811567a}{}\index{X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}!write\+Data\+Message@{write\+Data\+Message}}
+\index{write\+Data\+Message@{write\+Data\+Message}!X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}}
+\subsubsection[{write\+Data\+Message}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Writer\+::write\+Data\+Message (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_x_m_l_message_writer_a2b42845809f577ecca73721b7811567a}
+
+
+Definition at line 100 of file X\+M\+L\+Message\+Writer.\+cpp.
+
+\hypertarget{class_x_m_l_message_writer_a938fff0a4092d2a87a4e4af7abb059c7}{}\index{X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}!write\+Data\+Message@{write\+Data\+Message}}
+\index{write\+Data\+Message@{write\+Data\+Message}!X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}}
+\subsubsection[{write\+Data\+Message}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Writer\+::write\+Data\+Message (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg, }
+\item[{uint}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_x_m_l_message_writer_a938fff0a4092d2a87a4e4af7abb059c7}
+
+
+Definition at line 120 of file X\+M\+L\+Message\+Writer.\+cpp.
+
+\hypertarget{class_x_m_l_message_writer_a0148f8cfd8304e97f11ee12f5a112087}{}\index{X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}!write\+Data\+Message@{write\+Data\+Message}}
+\index{write\+Data\+Message@{write\+Data\+Message}!X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}}
+\subsubsection[{write\+Data\+Message}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Writer\+::write\+Data\+Message (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg, }
+\item[{Q\+List$<$ uint $>$}]{client\+I\+Ds}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_x_m_l_message_writer_a0148f8cfd8304e97f11ee12f5a112087}
+
+
+Definition at line 139 of file X\+M\+L\+Message\+Writer.\+cpp.
+
+\hypertarget{class_x_m_l_message_writer_a4617ce9dfb773a7b953698a9ac76e304}{}\index{X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}!write\+Message@{write\+Message}}
+\index{write\+Message@{write\+Message}!X\+M\+L\+Message\+Writer@{X\+M\+L\+Message\+Writer}}
+\subsubsection[{write\+Message}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Writer\+::write\+Message (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_x_m_l_message_writer_a4617ce9dfb773a7b953698a9ac76e304}
+
+
+Definition at line 80 of file X\+M\+L\+Message\+Writer.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Common/\+Client\+Server\+Share\+Lib/include/\hyperlink{_x_m_l_message_writer_8hpp}{X\+M\+L\+Message\+Writer.\+hpp}\item 
+Common/\+Client\+Server\+Share\+Lib/src/\+Message/\+X\+M\+L/\hyperlink{_x_m_l_message_writer_8cpp}{X\+M\+L\+Message\+Writer.\+cpp}\end{DoxyCompactItemize}

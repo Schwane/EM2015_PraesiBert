@@ -1,0 +1,381 @@
+\hypertarget{class_master_client}{}\section{Master\+Client Class Reference}
+\label{class_master_client}\index{Master\+Client@{Master\+Client}}
+
+
+Implements extra functionality of \hyperlink{class_master_client}{Master\+Client}.  
+
+
+
+
+{\ttfamily \#include $<$Master\+Client.\+hpp$>$}
+
+Inheritance diagram for Master\+Client\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_master_client}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_master_client_aee4f8e2661193dc116e43292ed3da060}{login\+Response} (Q\+Map$<$ Q\+String, Q\+Variant $>$ parameters, Q\+Map$<$ Q\+String, Q\+String $>$ parameter\+\_\+types)
+\begin{DoxyCompactList}\small\item\em react on authentication messages \end{DoxyCompactList}\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_master_client_ab6be0a3ee65665bac5ca1275a7ae7f8f}{redeanfrage} (Q\+Map$<$ Q\+String, Q\+Variant $>$ parameters, Q\+Map$<$ Q\+String, Q\+String $>$ parameter\+\_\+types)
+\begin{DoxyCompactList}\small\item\em handle talk-\/request \end{DoxyCompactList}\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_master_client_a68225aefe109a93cdcb61b3f165b0848}{redeanfrage\+Auto\+Reject} (Q\+Map$<$ Q\+String, Q\+Variant $>$ parameters, Q\+Map$<$ Q\+String, Q\+String $>$ parameter\+\_\+types)
+\begin{DoxyCompactList}\small\item\em auto-\/reject talk-\/request \end{DoxyCompactList}\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_master_client_aae06ba84b80df2b6ab7f3ea465b5a006}{redeanfrage\+Final} (Q\+Map$<$ Q\+String, Q\+Variant $>$ parameters, Q\+Map$<$ Q\+String, Q\+String $>$ parameter\+\_\+types)
+\begin{DoxyCompactList}\small\item\em handle if talk-\/request was relevant or not \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_master_client_a11198e43a00389af5fafffa316d1ac3d}{authenticate} ()
+\begin{DoxyCompactList}\small\item\em initiate authentication \end{DoxyCompactList}\item 
+void \hyperlink{class_master_client_aa739843ae87d6df0456755e9efb75638}{connection\+Lost\+Master} ()
+\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_master_client_a737e3f2476947fe17df76f584d54c3e7}{clear\+Ranf} ()
+\begin{DoxyCompactList}\small\item\em clear talk-\/requests \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_master_client_a8f8a33a659c751b62502936903b550b1}{mute\+Ranf} ()
+\begin{DoxyCompactList}\small\item\em mute talk-\/requests \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_master_client_a96ee9d9e5beb8d71dc5e0da949649f23}{accept\+Ranf} ()
+\begin{DoxyCompactList}\small\item\em accept talk-\/request \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_master_client_a410703b6a8e35cde05d2d6096baf981a}{finish\+Ranf} ()
+\begin{DoxyCompactList}\small\item\em finish talk-\/request \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_master_client_aaac66be279a2f4ec80db6514e8701cf5}{set\+Key} (Q\+String key)
+\begin{DoxyCompactList}\small\item\em set the session key \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_master_client_a2dd317bef7babb2e7a1a6babf3eccfc8}{select\+Praesentation} (Q\+String path)
+\begin{DoxyCompactList}\small\item\em read selected presentation from path \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_master_client_a3cfe1cc8dd262134b5e6b6a73aff2af4}{deliver\+Praesentation} ()
+\begin{DoxyCompactList}\small\item\em deliver presentation to server \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_master_client_a49b98e7c910dc92d3b189199251996a8}{request\+Stop\+Praesentation} ()
+\begin{DoxyCompactList}\small\item\em request a stop of the presentation \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+L\+E void \hyperlink{class_master_client_acf6776f3da0028d63f3d01cbc2f1c6bb}{activate\+Gesture} (bool active)
+\begin{DoxyCompactList}\small\item\em activate geasture controll \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_master_client_ae959ff9f0dac110f6a99c08746894167}{ranf\+Mute\+Changed} (bool mute)
+\begin{DoxyCompactList}\small\item\em thrown if talk-\/reqeust state of current request changed \end{DoxyCompactList}\item 
+void \hyperlink{class_master_client_a0a9db9f1554d0b2a85ae751f28be1012}{ranf\+Size\+Changed} (int size)
+\begin{DoxyCompactList}\small\item\em thrown if queue size changed \end{DoxyCompactList}\item 
+void \hyperlink{class_master_client_a21fd226ba53d129f9a07fb182cf020b9}{ranf\+Final\+Answer} (Q\+String answ)
+\begin{DoxyCompactList}\small\item\em thrown if relevance information arrived \end{DoxyCompactList}\item 
+void \hyperlink{class_master_client_a7bb0cc52809d0311c1ac835319a77c2c}{praesentation\+Running} (bool active)
+\begin{DoxyCompactList}\small\item\em thrown to idicate presentation state \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_master_client_aa8c2072b5bed03af35b35223405f0383}{Master\+Client} ()
+\item 
+virtual \hyperlink{class_master_client_a325b715df839f08b2f1ab0328cbd3677}{$\sim$\+Master\+Client} ()
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Implements extra functionality of \hyperlink{class_master_client}{Master\+Client}. 
+
+Implements extra functionality of \hyperlink{class_master_client}{Master\+Client}, mainly the possibility to queue and manage talk-\/requests, authentication and presentation controlling plus geasture control. 
+
+Definition at line 23 of file Master\+Client.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_master_client_aa8c2072b5bed03af35b35223405f0383}{}\index{Master\+Client@{Master\+Client}!Master\+Client@{Master\+Client}}
+\index{Master\+Client@{Master\+Client}!Master\+Client@{Master\+Client}}
+\subsubsection[{Master\+Client()}]{\setlength{\rightskip}{0pt plus 5cm}Master\+Client\+::\+Master\+Client (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_master_client_aa8c2072b5bed03af35b35223405f0383}
+
+
+Definition at line 10 of file Master\+Client.\+cpp.
+
+\hypertarget{class_master_client_a325b715df839f08b2f1ab0328cbd3677}{}\index{Master\+Client@{Master\+Client}!````~Master\+Client@{$\sim$\+Master\+Client}}
+\index{````~Master\+Client@{$\sim$\+Master\+Client}!Master\+Client@{Master\+Client}}
+\subsubsection[{$\sim$\+Master\+Client()}]{\setlength{\rightskip}{0pt plus 5cm}Master\+Client\+::$\sim$\+Master\+Client (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_master_client_a325b715df839f08b2f1ab0328cbd3677}
+
+
+Definition at line 56 of file Master\+Client.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_master_client_a96ee9d9e5beb8d71dc5e0da949649f23}{}\index{Master\+Client@{Master\+Client}!accept\+Ranf@{accept\+Ranf}}
+\index{accept\+Ranf@{accept\+Ranf}!Master\+Client@{Master\+Client}}
+\subsubsection[{accept\+Ranf}]{\setlength{\rightskip}{0pt plus 5cm}void Master\+Client\+::accept\+Ranf (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_master_client_a96ee9d9e5beb8d71dc5e0da949649f23}
+
+
+accept talk-\/request 
+
+
+
+Definition at line 270 of file Master\+Client.\+cpp.
+
+\hypertarget{class_master_client_acf6776f3da0028d63f3d01cbc2f1c6bb}{}\index{Master\+Client@{Master\+Client}!activate\+Gesture@{activate\+Gesture}}
+\index{activate\+Gesture@{activate\+Gesture}!Master\+Client@{Master\+Client}}
+\subsubsection[{activate\+Gesture}]{\setlength{\rightskip}{0pt plus 5cm}void Master\+Client\+::activate\+Gesture (
+\begin{DoxyParamCaption}
+\item[{bool}]{active}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_master_client_acf6776f3da0028d63f3d01cbc2f1c6bb}
+
+
+activate geasture controll 
+
+
+
+Definition at line 365 of file Master\+Client.\+cpp.
+
+\hypertarget{class_master_client_a11198e43a00389af5fafffa316d1ac3d}{}\index{Master\+Client@{Master\+Client}!authenticate@{authenticate}}
+\index{authenticate@{authenticate}!Master\+Client@{Master\+Client}}
+\subsubsection[{authenticate}]{\setlength{\rightskip}{0pt plus 5cm}void Master\+Client\+::authenticate (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_master_client_a11198e43a00389af5fafffa316d1ac3d}
+
+
+initiate authentication 
+
+
+
+Definition at line 209 of file Master\+Client.\+cpp.
+
+\hypertarget{class_master_client_a737e3f2476947fe17df76f584d54c3e7}{}\index{Master\+Client@{Master\+Client}!clear\+Ranf@{clear\+Ranf}}
+\index{clear\+Ranf@{clear\+Ranf}!Master\+Client@{Master\+Client}}
+\subsubsection[{clear\+Ranf}]{\setlength{\rightskip}{0pt plus 5cm}void Master\+Client\+::clear\+Ranf (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_master_client_a737e3f2476947fe17df76f584d54c3e7}
+
+
+clear talk-\/requests 
+
+
+
+Definition at line 242 of file Master\+Client.\+cpp.
+
+\hypertarget{class_master_client_aa739843ae87d6df0456755e9efb75638}{}\index{Master\+Client@{Master\+Client}!connection\+Lost\+Master@{connection\+Lost\+Master}}
+\index{connection\+Lost\+Master@{connection\+Lost\+Master}!Master\+Client@{Master\+Client}}
+\subsubsection[{connection\+Lost\+Master}]{\setlength{\rightskip}{0pt plus 5cm}void Master\+Client\+::connection\+Lost\+Master (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_master_client_aa739843ae87d6df0456755e9efb75638}
+
+
+Definition at line 222 of file Master\+Client.\+cpp.
+
+\hypertarget{class_master_client_a3cfe1cc8dd262134b5e6b6a73aff2af4}{}\index{Master\+Client@{Master\+Client}!deliver\+Praesentation@{deliver\+Praesentation}}
+\index{deliver\+Praesentation@{deliver\+Praesentation}!Master\+Client@{Master\+Client}}
+\subsubsection[{deliver\+Praesentation}]{\setlength{\rightskip}{0pt plus 5cm}void Master\+Client\+::deliver\+Praesentation (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_master_client_a3cfe1cc8dd262134b5e6b6a73aff2af4}
+
+
+deliver presentation to server 
+
+
+
+Definition at line 351 of file Master\+Client.\+cpp.
+
+\hypertarget{class_master_client_a410703b6a8e35cde05d2d6096baf981a}{}\index{Master\+Client@{Master\+Client}!finish\+Ranf@{finish\+Ranf}}
+\index{finish\+Ranf@{finish\+Ranf}!Master\+Client@{Master\+Client}}
+\subsubsection[{finish\+Ranf}]{\setlength{\rightskip}{0pt plus 5cm}void Master\+Client\+::finish\+Ranf (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_master_client_a410703b6a8e35cde05d2d6096baf981a}
+
+
+finish talk-\/request 
+
+
+
+Definition at line 288 of file Master\+Client.\+cpp.
+
+\hypertarget{class_master_client_aee4f8e2661193dc116e43292ed3da060}{}\index{Master\+Client@{Master\+Client}!login\+Response@{login\+Response}}
+\index{login\+Response@{login\+Response}!Master\+Client@{Master\+Client}}
+\subsubsection[{login\+Response}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Master\+Client\+::login\+Response (
+\begin{DoxyParamCaption}
+\item[{Q\+Map$<$ Q\+String, Q\+Variant $>$}]{parameters, }
+\item[{Q\+Map$<$ Q\+String, Q\+String $>$}]{parameter\+\_\+types}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_master_client_aee4f8e2661193dc116e43292ed3da060}
+
+
+react on authentication messages 
+
+
+
+Definition at line 63 of file Master\+Client.\+cpp.
+
+\hypertarget{class_master_client_a8f8a33a659c751b62502936903b550b1}{}\index{Master\+Client@{Master\+Client}!mute\+Ranf@{mute\+Ranf}}
+\index{mute\+Ranf@{mute\+Ranf}!Master\+Client@{Master\+Client}}
+\subsubsection[{mute\+Ranf}]{\setlength{\rightskip}{0pt plus 5cm}void Master\+Client\+::mute\+Ranf (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_master_client_a8f8a33a659c751b62502936903b550b1}
+
+
+mute talk-\/requests 
+
+
+
+Definition at line 257 of file Master\+Client.\+cpp.
+
+\hypertarget{class_master_client_a7bb0cc52809d0311c1ac835319a77c2c}{}\index{Master\+Client@{Master\+Client}!praesentation\+Running@{praesentation\+Running}}
+\index{praesentation\+Running@{praesentation\+Running}!Master\+Client@{Master\+Client}}
+\subsubsection[{praesentation\+Running}]{\setlength{\rightskip}{0pt plus 5cm}void Master\+Client\+::praesentation\+Running (
+\begin{DoxyParamCaption}
+\item[{bool}]{active}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_master_client_a7bb0cc52809d0311c1ac835319a77c2c}
+
+
+thrown to idicate presentation state 
+
+\hypertarget{class_master_client_a21fd226ba53d129f9a07fb182cf020b9}{}\index{Master\+Client@{Master\+Client}!ranf\+Final\+Answer@{ranf\+Final\+Answer}}
+\index{ranf\+Final\+Answer@{ranf\+Final\+Answer}!Master\+Client@{Master\+Client}}
+\subsubsection[{ranf\+Final\+Answer}]{\setlength{\rightskip}{0pt plus 5cm}void Master\+Client\+::ranf\+Final\+Answer (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{answ}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_master_client_a21fd226ba53d129f9a07fb182cf020b9}
+
+
+thrown if relevance information arrived 
+
+\hypertarget{class_master_client_ae959ff9f0dac110f6a99c08746894167}{}\index{Master\+Client@{Master\+Client}!ranf\+Mute\+Changed@{ranf\+Mute\+Changed}}
+\index{ranf\+Mute\+Changed@{ranf\+Mute\+Changed}!Master\+Client@{Master\+Client}}
+\subsubsection[{ranf\+Mute\+Changed}]{\setlength{\rightskip}{0pt plus 5cm}void Master\+Client\+::ranf\+Mute\+Changed (
+\begin{DoxyParamCaption}
+\item[{bool}]{mute}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_master_client_ae959ff9f0dac110f6a99c08746894167}
+
+
+thrown if talk-\/reqeust state of current request changed 
+
+\hypertarget{class_master_client_a0a9db9f1554d0b2a85ae751f28be1012}{}\index{Master\+Client@{Master\+Client}!ranf\+Size\+Changed@{ranf\+Size\+Changed}}
+\index{ranf\+Size\+Changed@{ranf\+Size\+Changed}!Master\+Client@{Master\+Client}}
+\subsubsection[{ranf\+Size\+Changed}]{\setlength{\rightskip}{0pt plus 5cm}void Master\+Client\+::ranf\+Size\+Changed (
+\begin{DoxyParamCaption}
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_master_client_a0a9db9f1554d0b2a85ae751f28be1012}
+
+
+thrown if queue size changed 
+
+\hypertarget{class_master_client_ab6be0a3ee65665bac5ca1275a7ae7f8f}{}\index{Master\+Client@{Master\+Client}!redeanfrage@{redeanfrage}}
+\index{redeanfrage@{redeanfrage}!Master\+Client@{Master\+Client}}
+\subsubsection[{redeanfrage}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Master\+Client\+::redeanfrage (
+\begin{DoxyParamCaption}
+\item[{Q\+Map$<$ Q\+String, Q\+Variant $>$}]{parameters, }
+\item[{Q\+Map$<$ Q\+String, Q\+String $>$}]{parameter\+\_\+types}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_master_client_ab6be0a3ee65665bac5ca1275a7ae7f8f}
+
+
+handle talk-\/request 
+
+
+
+Definition at line 138 of file Master\+Client.\+cpp.
+
+\hypertarget{class_master_client_a68225aefe109a93cdcb61b3f165b0848}{}\index{Master\+Client@{Master\+Client}!redeanfrage\+Auto\+Reject@{redeanfrage\+Auto\+Reject}}
+\index{redeanfrage\+Auto\+Reject@{redeanfrage\+Auto\+Reject}!Master\+Client@{Master\+Client}}
+\subsubsection[{redeanfrage\+Auto\+Reject}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Master\+Client\+::redeanfrage\+Auto\+Reject (
+\begin{DoxyParamCaption}
+\item[{Q\+Map$<$ Q\+String, Q\+Variant $>$}]{parameters, }
+\item[{Q\+Map$<$ Q\+String, Q\+String $>$}]{parameter\+\_\+types}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_master_client_a68225aefe109a93cdcb61b3f165b0848}
+
+
+auto-\/reject talk-\/request 
+
+
+
+Definition at line 160 of file Master\+Client.\+cpp.
+
+\hypertarget{class_master_client_aae06ba84b80df2b6ab7f3ea465b5a006}{}\index{Master\+Client@{Master\+Client}!redeanfrage\+Final@{redeanfrage\+Final}}
+\index{redeanfrage\+Final@{redeanfrage\+Final}!Master\+Client@{Master\+Client}}
+\subsubsection[{redeanfrage\+Final}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Master\+Client\+::redeanfrage\+Final (
+\begin{DoxyParamCaption}
+\item[{Q\+Map$<$ Q\+String, Q\+Variant $>$}]{parameters, }
+\item[{Q\+Map$<$ Q\+String, Q\+String $>$}]{parameter\+\_\+types}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_master_client_aae06ba84b80df2b6ab7f3ea465b5a006}
+
+
+handle if talk-\/request was relevant or not 
+
+
+
+Definition at line 179 of file Master\+Client.\+cpp.
+
+\hypertarget{class_master_client_a49b98e7c910dc92d3b189199251996a8}{}\index{Master\+Client@{Master\+Client}!request\+Stop\+Praesentation@{request\+Stop\+Praesentation}}
+\index{request\+Stop\+Praesentation@{request\+Stop\+Praesentation}!Master\+Client@{Master\+Client}}
+\subsubsection[{request\+Stop\+Praesentation}]{\setlength{\rightskip}{0pt plus 5cm}void Master\+Client\+::request\+Stop\+Praesentation (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_master_client_a49b98e7c910dc92d3b189199251996a8}
+
+
+request a stop of the presentation 
+
+
+
+Definition at line 358 of file Master\+Client.\+cpp.
+
+\hypertarget{class_master_client_a2dd317bef7babb2e7a1a6babf3eccfc8}{}\index{Master\+Client@{Master\+Client}!select\+Praesentation@{select\+Praesentation}}
+\index{select\+Praesentation@{select\+Praesentation}!Master\+Client@{Master\+Client}}
+\subsubsection[{select\+Praesentation}]{\setlength{\rightskip}{0pt plus 5cm}void Master\+Client\+::select\+Praesentation (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{path}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_master_client_a2dd317bef7babb2e7a1a6babf3eccfc8}
+
+
+read selected presentation from path 
+
+
+
+Definition at line 310 of file Master\+Client.\+cpp.
+
+\hypertarget{class_master_client_aaac66be279a2f4ec80db6514e8701cf5}{}\index{Master\+Client@{Master\+Client}!set\+Key@{set\+Key}}
+\index{set\+Key@{set\+Key}!Master\+Client@{Master\+Client}}
+\subsubsection[{set\+Key}]{\setlength{\rightskip}{0pt plus 5cm}void Master\+Client\+::set\+Key (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{key}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_master_client_aaac66be279a2f4ec80db6514e8701cf5}
+
+
+set the session key 
+
+
+
+Definition at line 301 of file Master\+Client.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Client/\+Master\+Client\+Appl/src/\+Master\+Client/\hyperlink{_master_client_8hpp}{Master\+Client.\+hpp}\item 
+Client/\+Master\+Client\+Appl/src/\+Master\+Client/\hyperlink{_master_client_8cpp}{Master\+Client.\+cpp}\end{DoxyCompactItemize}

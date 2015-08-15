@@ -1,0 +1,34 @@
+\hypertarget{_message_router_8h}{}\section{Server\+Appl/src/backend/\+Message\+Router.h File Reference}
+\label{_message_router_8h}\index{Server\+Appl/src/backend/\+Message\+Router.\+h@{Server\+Appl/src/backend/\+Message\+Router.\+h}}
+{\ttfamily \#include $<$Q\+Map$>$}\\*
+{\ttfamily \#include $<$Q\+Object$>$}\\*
+{\ttfamily \#include $<$Q\+String$>$}\\*
+{\ttfamily \#include $<$Message.\+hpp$>$}\\*
+{\ttfamily \#include $<$src/backend/\+Message\+Handler\+Interface.\+h$>$}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structmessage_handler}{message\+Handler}
+\item 
+class \hyperlink{class_server_appl_1_1_message_router}{Server\+Appl\+::\+Message\+Router}
+\begin{DoxyCompactList}\small\item\em This class receives Message-\/objects and delivers them to target-\/objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_server_appl}{Server\+Appl}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \hyperlink{class_message}{Message} $\ast$(Server\+Appl\+::\+Message\+Handler\+Interface\+::$\ast$ \hyperlink{_message_router_8h_a7aaf0117cb85c9ee1867235806553ef4}{handle\+Received\+Message\+Function}) (Q\+String command\+Name, \hyperlink{class_message}{Message} $\ast$message)
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\hypertarget{_message_router_8h_a7aaf0117cb85c9ee1867235806553ef4}{}\index{Message\+Router.\+h@{Message\+Router.\+h}!handle\+Received\+Message\+Function@{handle\+Received\+Message\+Function}}
+\index{handle\+Received\+Message\+Function@{handle\+Received\+Message\+Function}!Message\+Router.\+h@{Message\+Router.\+h}}
+\subsubsection[{handle\+Received\+Message\+Function}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf Message}$\ast$(Server\+Appl\+::\+Message\+Handler\+Interface\+::$\ast$ handle\+Received\+Message\+Function) (Q\+String command\+Name, {\bf Message} $\ast$message)}\label{_message_router_8h_a7aaf0117cb85c9ee1867235806553ef4}
+
+
+Definition at line 19 of file Message\+Router.\+h.
+

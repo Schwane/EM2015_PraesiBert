@@ -1,0 +1,249 @@
+\hypertarget{class_server_appl_1_1_listener}{}\section{Server\+Appl\+:\+:Listener Class Reference}
+\label{class_server_appl_1_1_listener}\index{Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}}
+
+
+Objects of this class represent a listener-\/client.  
+
+
+
+
+{\ttfamily \#include \char`\"{}src/backend/\+Listener.\+h\char`\"{}}
+
+Inheritance diagram for Server\+Appl\+:\+:Listener\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_server_appl_1_1_listener}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_server_appl_1_1_listener_af02cffd870aab335912deb5e7848c49a}{forwared\+Message\+To\+Master} (\hyperlink{class_message}{Message} $\ast$msg, unsigned int \hyperlink{class_server_appl_1_1_unspecified_client_a9a3cf2d070f19fb2bfd7d544053955b0}{client\+Id})
+\item 
+void \hyperlink{class_server_appl_1_1_listener_a950ec02a0b5ca19fbf46603a6af4de88}{request\+Deliver\+Presentation} (unsigned int \hyperlink{class_server_appl_1_1_unspecified_client_a9a3cf2d070f19fb2bfd7d544053955b0}{client\+Id})
+\item 
+void \hyperlink{class_server_appl_1_1_listener_a4f48a48f8348c388cffc0a4c6428cc0c}{write\+Audio\+Recording} (Q\+String file\+Name, const Q\+Byte\+Array \&recording)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_server_appl_1_1_listener_a0f28cc922a98983d0f6caaa6cbeb2170}{Listener} (\hyperlink{class_server_appl_1_1_unspecified_client}{Unspecified\+Client} $\ast$prior\+Client\+Object)
+\item 
+\hyperlink{class_server_appl_1_1_listener_abf3410b4c48da3098d278a9c2620e1e1}{Listener} ()
+\item 
+virtual \hyperlink{class_server_appl_1_1_listener_a87140a72f6f36f32654d80f55654a04c}{$\sim$\+Listener} ()
+\item 
+void \hyperlink{class_server_appl_1_1_listener_add510cf0b4761fbbb26e317161741133}{set\+Has\+Presentation} (bool has\+Presentation)
+\begin{DoxyCompactList}\small\item\em Sets an indicator whether a presentation had been transmitted to the listener. \end{DoxyCompactList}\item 
+bool \hyperlink{class_server_appl_1_1_listener_a9d5bd732a72f742a9ff76020b18a44f7}{get\+Has\+Presentation} ()
+\begin{DoxyCompactList}\small\item\em Indicates whether already a presentation has been transmitted to the listener. \end{DoxyCompactList}\item 
+\hyperlink{_unspecified_client_8h_af7f22c7d662171af2c3a5b74f621dc98}{Client\+Type} \hyperlink{class_server_appl_1_1_listener_a016b2bc155a45663fb3f9d92ece9fef7}{get\+Client\+Type} ()
+\begin{DoxyCompactList}\small\item\em Returns the type of this client (for this class always Client\+Type\+\_\+\+Lister). \end{DoxyCompactList}\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_server_appl_1_1_listener_a1cebfded97f01e360f20c9c836b6351c}{handle\+Unknown\+Message} (Q\+String command\+Name, \hyperlink{class_message}{Message} $\ast$msg)
+\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_server_appl_1_1_listener_a706a47dd41d7580559db8c36b48778d5}{handle\+Acknowledge} (Q\+String command\+Name, \hyperlink{class_message}{Message} $\ast$msg)
+\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_server_appl_1_1_listener_a222dd5f0471b0ccf4de504dbf676bad8}{handle\+Received\+Audio} (Q\+String command\+Name, \hyperlink{class_message}{Message} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Handles incomming audio-\/transmissions from the listener-\/client. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_server_appl_1_1_listener}{Listener} $\ast$ \hyperlink{class_server_appl_1_1_listener_a1f4940d6f1068b73b690493099c9955c}{create\+Listener} (\hyperlink{class_server_appl_1_1_unspecified_client}{Unspecified\+Client} $\ast$client)
+\begin{DoxyCompactList}\small\item\em Static function to generate a Listener-\/object basing on an Unspecified\+Client-\/object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Objects of this class represent a listener-\/client. 
+
+Objects of this class will represent a connected listener-\/client. It will be used mainly to hold some information about the listener (e.\+g. if already a presentation was delivered) and to receive audio-\/data from the listener. 
+
+Definition at line 28 of file Listener.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_server_appl_1_1_listener_a0f28cc922a98983d0f6caaa6cbeb2170}{}\index{Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}!Listener@{Listener}}
+\index{Listener@{Listener}!Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}}
+\subsubsection[{Listener(\+Unspecified\+Client $\ast$prior\+Client\+Object)}]{\setlength{\rightskip}{0pt plus 5cm}Server\+Appl\+::\+Listener\+::\+Listener (
+\begin{DoxyParamCaption}
+\item[{{\bf Unspecified\+Client} $\ast$}]{prior\+Client\+Object}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_listener_a0f28cc922a98983d0f6caaa6cbeb2170}
+
+
+Definition at line 23 of file Listener.\+cpp.
+
+\hypertarget{class_server_appl_1_1_listener_abf3410b4c48da3098d278a9c2620e1e1}{}\index{Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}!Listener@{Listener}}
+\index{Listener@{Listener}!Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}}
+\subsubsection[{Listener()}]{\setlength{\rightskip}{0pt plus 5cm}Server\+Appl\+::\+Listener\+::\+Listener (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_listener_abf3410b4c48da3098d278a9c2620e1e1}
+
+
+Definition at line 19 of file Listener.\+cpp.
+
+\hypertarget{class_server_appl_1_1_listener_a87140a72f6f36f32654d80f55654a04c}{}\index{Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}!````~Listener@{$\sim$\+Listener}}
+\index{````~Listener@{$\sim$\+Listener}!Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}}
+\subsubsection[{$\sim$\+Listener()}]{\setlength{\rightskip}{0pt plus 5cm}Server\+Appl\+::\+Listener\+::$\sim$\+Listener (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_server_appl_1_1_listener_a87140a72f6f36f32654d80f55654a04c}
+
+
+Definition at line 36 of file Listener.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_server_appl_1_1_listener_a1f4940d6f1068b73b690493099c9955c}{}\index{Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}!create\+Listener@{create\+Listener}}
+\index{create\+Listener@{create\+Listener}!Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}}
+\subsubsection[{create\+Listener(\+Unspecified\+Client $\ast$client)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Listener} $\ast$ Server\+Appl\+::\+Listener\+::create\+Listener (
+\begin{DoxyParamCaption}
+\item[{{\bf Unspecified\+Client} $\ast$}]{client}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_server_appl_1_1_listener_a1f4940d6f1068b73b690493099c9955c}
+
+
+Static function to generate a Listener-\/object basing on an Unspecified\+Client-\/object. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to a new Listener-\/object will be returned (may be N\+U\+L\+L!) 
+\end{DoxyReturn}
+
+
+Definition at line 41 of file Listener.\+cpp.
+
+\hypertarget{class_server_appl_1_1_listener_af02cffd870aab335912deb5e7848c49a}{}\index{Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}!forwared\+Message\+To\+Master@{forwared\+Message\+To\+Master}}
+\index{forwared\+Message\+To\+Master@{forwared\+Message\+To\+Master}!Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}}
+\subsubsection[{forwared\+Message\+To\+Master}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Listener\+::forwared\+Message\+To\+Master (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg, }
+\item[{unsigned int}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_listener_af02cffd870aab335912deb5e7848c49a}
+\hypertarget{class_server_appl_1_1_listener_a016b2bc155a45663fb3f9d92ece9fef7}{}\index{Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}!get\+Client\+Type@{get\+Client\+Type}}
+\index{get\+Client\+Type@{get\+Client\+Type}!Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}}
+\subsubsection[{get\+Client\+Type()}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Client\+Type} Server\+Appl\+::\+Listener\+::get\+Client\+Type (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_server_appl_1_1_listener_a016b2bc155a45663fb3f9d92ece9fef7}
+
+
+Returns the type of this client (for this class always Client\+Type\+\_\+\+Lister). 
+
+
+
+Reimplemented from \hyperlink{class_server_appl_1_1_unspecified_client_a239fa0949cf9b054593d7b1570e55624}{Server\+Appl\+::\+Unspecified\+Client}.
+
+
+
+Definition at line 144 of file Listener.\+cpp.
+
+\hypertarget{class_server_appl_1_1_listener_a9d5bd732a72f742a9ff76020b18a44f7}{}\index{Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}!get\+Has\+Presentation@{get\+Has\+Presentation}}
+\index{get\+Has\+Presentation@{get\+Has\+Presentation}!Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}}
+\subsubsection[{get\+Has\+Presentation()}]{\setlength{\rightskip}{0pt plus 5cm}bool Server\+Appl\+::\+Listener\+::get\+Has\+Presentation (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_listener_a9d5bd732a72f742a9ff76020b18a44f7}
+
+
+Indicates whether already a presentation has been transmitted to the listener. 
+
+\begin{DoxyReturn}{Returns}
+True if a presentation was transmitted. 
+\end{DoxyReturn}
+
+
+Definition at line 139 of file Listener.\+cpp.
+
+\hypertarget{class_server_appl_1_1_listener_a706a47dd41d7580559db8c36b48778d5}{}\index{Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}!handle\+Acknowledge@{handle\+Acknowledge}}
+\index{handle\+Acknowledge@{handle\+Acknowledge}!Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}}
+\subsubsection[{handle\+Acknowledge(\+Q\+String command\+Name, Message $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Server\+Appl\+::\+Listener\+::handle\+Acknowledge (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{command\+Name, }
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_listener_a706a47dd41d7580559db8c36b48778d5}
+
+
+Definition at line 149 of file Listener.\+cpp.
+
+\hypertarget{class_server_appl_1_1_listener_a222dd5f0471b0ccf4de504dbf676bad8}{}\index{Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}!handle\+Received\+Audio@{handle\+Received\+Audio}}
+\index{handle\+Received\+Audio@{handle\+Received\+Audio}!Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}}
+\subsubsection[{handle\+Received\+Audio(\+Q\+String command\+Name, Message $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Server\+Appl\+::\+Listener\+::handle\+Received\+Audio (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{command\+Name, }
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_listener_a222dd5f0471b0ccf4de504dbf676bad8}
+
+
+Handles incomming audio-\/transmissions from the listener-\/client. 
+
+The listener-\/shall transmit its audio-\/recordings over the data-\/port from a talk-\/request (\hyperlink{class_redeanfrage}{Redeanfrage}) to the server when the talk-\/request is finished. This message-\/handler emits the signal write\+Audio\+Recording with the received audio-\/data as a Q\+Byte\+Stream. The Server-\/object shall save the data afterwards to the file-\/system 
+
+Definition at line 106 of file Listener.\+cpp.
+
+\hypertarget{class_server_appl_1_1_listener_a1cebfded97f01e360f20c9c836b6351c}{}\index{Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}!handle\+Unknown\+Message@{handle\+Unknown\+Message}}
+\index{handle\+Unknown\+Message@{handle\+Unknown\+Message}!Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}}
+\subsubsection[{handle\+Unknown\+Message(\+Q\+String command\+Name, Message $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Server\+Appl\+::\+Listener\+::handle\+Unknown\+Message (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{command\+Name, }
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_server_appl_1_1_listener_a1cebfded97f01e360f20c9c836b6351c}
+
+
+Implements \hyperlink{class_server_appl_1_1_message_handler_interface_a12267f6f59f174d3608285cbc5be3415}{Server\+Appl\+::\+Message\+Handler\+Interface}.
+
+
+
+Definition at line 82 of file Listener.\+cpp.
+
+\hypertarget{class_server_appl_1_1_listener_a950ec02a0b5ca19fbf46603a6af4de88}{}\index{Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}!request\+Deliver\+Presentation@{request\+Deliver\+Presentation}}
+\index{request\+Deliver\+Presentation@{request\+Deliver\+Presentation}!Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}}
+\subsubsection[{request\+Deliver\+Presentation}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Listener\+::request\+Deliver\+Presentation (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_listener_a950ec02a0b5ca19fbf46603a6af4de88}
+\hypertarget{class_server_appl_1_1_listener_add510cf0b4761fbbb26e317161741133}{}\index{Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}!set\+Has\+Presentation@{set\+Has\+Presentation}}
+\index{set\+Has\+Presentation@{set\+Has\+Presentation}!Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}}
+\subsubsection[{set\+Has\+Presentation(bool has\+Presentation)}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Listener\+::set\+Has\+Presentation (
+\begin{DoxyParamCaption}
+\item[{bool}]{has\+Presentation}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_listener_add510cf0b4761fbbb26e317161741133}
+
+
+Sets an indicator whether a presentation had been transmitted to the listener. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em has\+Presentation} & True if a presentation was transmitted. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 134 of file Listener.\+cpp.
+
+\hypertarget{class_server_appl_1_1_listener_a4f48a48f8348c388cffc0a4c6428cc0c}{}\index{Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}!write\+Audio\+Recording@{write\+Audio\+Recording}}
+\index{write\+Audio\+Recording@{write\+Audio\+Recording}!Server\+Appl\+::\+Listener@{Server\+Appl\+::\+Listener}}
+\subsubsection[{write\+Audio\+Recording}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Listener\+::write\+Audio\+Recording (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{file\+Name, }
+\item[{const Q\+Byte\+Array \&}]{recording}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_listener_a4f48a48f8348c388cffc0a4c6428cc0c}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Server\+Appl/src/backend/\hyperlink{_listener_8h}{Listener.\+h}\item 
+Server\+Appl/src/backend/\hyperlink{_listener_8cpp}{Listener.\+cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,434 @@
+\hypertarget{class_network_1_1_server_socket}{}\section{Network\+:\+:Server\+Socket Class Reference}
+\label{class_network_1_1_server_socket}\index{Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}}
+
+
+\hyperlink{class_network_1_1_server_socket}{Server\+Socket} class.  
+
+
+
+
+{\ttfamily \#include \char`\"{}Network/\+Server\+Socket.\+h\char`\"{}}
+
+Inheritance diagram for Network\+:\+:Server\+Socket\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_network_1_1_server_socket}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_network_1_1_server_socket_a9e41efd6e4e10a04f89ee75968516ffa}{begin\+Listening} (Q\+String cmd\+Port\+\_\+str, Q\+String data\+Port\+\_\+str)
+\begin{DoxyCompactList}\small\item\em Method that is called to start listening for incoming connections. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_1_1_server_socket_a7a2145ba09e19b47acc31e1c52e3d302}{close\+Server} ()
+\begin{DoxyCompactList}\small\item\em Signal to close the server. \end{DoxyCompactList}\item 
+bool \hyperlink{class_network_1_1_server_socket_a4a81ff6969f81c35606d27aa47ca9dd5}{disconnect\+From\+Client} (uint client\+I\+D)
+\begin{DoxyCompactList}\small\item\em Method to close the connection to a client. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_1_1_server_socket_a9a308f099e84a216bfcb4c4bf4a49882}{send\+Cmd\+To\+All} (Q\+Byte\+Array data)
+\begin{DoxyCompactList}\small\item\em Method for sending a command to all clients. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_1_1_server_socket_a0d912607084ea9bc15626f3d88e5ac79}{send\+Data\+To\+All} (Q\+Byte\+Array data)
+\begin{DoxyCompactList}\small\item\em Method for sending data to all clients. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_1_1_server_socket_a6ebb53346e5a8492c56d817e7f7390b8}{send\+Cmd\+To\+Mult\+Clients} (Q\+Byte\+Array data, Q\+List$<$ uint $>$ client\+I\+Ds)
+\begin{DoxyCompactList}\small\item\em Method for sending a command to a specified list of clients. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_1_1_server_socket_a2f9151ad52bbcb6788dfcf8e0252d19f}{send\+Data\+To\+Mult\+Clients} (Q\+Byte\+Array data, Q\+List$<$ uint $>$ client\+I\+Ds)
+\begin{DoxyCompactList}\small\item\em Method for sending data to a specified list of clients. \end{DoxyCompactList}\item 
+int \hyperlink{class_network_1_1_server_socket_ac222f49a8b6ed8b55e1592d954bfb7d9}{send\+Cmd\+To\+I\+D} (Q\+Byte\+Array data, uint client\+I\+D)
+\begin{DoxyCompactList}\small\item\em Method for sending a command to a client with specified I\+D. \end{DoxyCompactList}\item 
+int \hyperlink{class_network_1_1_server_socket_a2493f626edede9a2dda80888d01e04dc}{send\+Data\+To\+I\+D} (Q\+Byte\+Array data, uint client\+I\+D)
+\begin{DoxyCompactList}\small\item\em Method for sending data to a client with specified I\+D. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_network_1_1_server_socket_a454aaa0c29dcf8558061145ca200c3aa}{new\+I\+P} (Q\+String new\+I\+P)
+\begin{DoxyCompactList}\small\item\em Signal that is emitted, when the server is set up correctly and a correct I\+P was found. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_1_1_server_socket_a8788c49c9d78b0e36d04c4accee2f9c3}{client\+Disconnect} (uint client\+I\+D)
+\begin{DoxyCompactList}\small\item\em Signal that is emitted, when the connection to a client was lost. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_1_1_server_socket_a65f1a073129152a95d54b8507620289b}{stopped\+Server} ()
+\begin{DoxyCompactList}\small\item\em Signal that is emitted, when the server was stopped. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_1_1_server_socket_ae1d282d143e7036b55e5e7ae983c29b7}{received\+Cmd\+From\+Client} (Q\+Byte\+Array data, uint client\+I\+D)
+\begin{DoxyCompactList}\small\item\em Signal that is emitted, when a new command was received from a client. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_1_1_server_socket_a17b0484dc24fc45db95126b3244586d8}{received\+Data\+From\+Client} (Q\+Byte\+Array data, uint client\+I\+D)
+\begin{DoxyCompactList}\small\item\em Signal that is emitted, when new data was received from a client. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_1_1_server_socket_aaf9a6226b498fa9d3a828c1ce95a5c7f}{new\+Client} (uint client\+I\+D)
+\begin{DoxyCompactList}\small\item\em Signal that is emitted, when a new client connected to the server. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_network_1_1_server_socket_a587f7cef82e2ddbac70b5c8199ba024f}{Server\+Socket} (Q\+Object $\ast$parent)
+\begin{DoxyCompactList}\small\item\em Constructor of the \hyperlink{class_network_1_1_server_socket}{Server\+Socket} class. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_network_1_1_server_socket_afb9b176dc5a73e644d6f2530672e72be}{$\sim$\+Server\+Socket} ()
+\begin{DoxyCompactList}\small\item\em Destructor of the \hyperlink{class_network_1_1_server_socket}{Server\+Socket} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_network_1_1_server_socket}{Server\+Socket} class. 
+
+Instantiates two T\+C\+P Server Sockets (command and data) that clients can connect to for communication.~\newline
+ The class provides several signals and slots for connection and data handling\+: 
+\begin{DoxyItemize}
+\item signals\+: 
+\begin{DoxyItemize}
+\item \hyperlink{class_network_1_1_server_socket_a454aaa0c29dcf8558061145ca200c3aa}{new\+I\+P()}\+: Emitted with current I\+P, when the server is set up. 
+\item \hyperlink{class_network_1_1_server_socket_a8788c49c9d78b0e36d04c4accee2f9c3}{client\+Disconnect()}\+: Emitted with client\+I\+D, when connection to a client is lost. 
+\item \hyperlink{class_network_1_1_server_socket_a65f1a073129152a95d54b8507620289b}{stopped\+Server()}\+: Emitted, when server is stopped. 
+\item \hyperlink{class_network_1_1_server_socket_ae1d282d143e7036b55e5e7ae983c29b7}{received\+Cmd\+From\+Client()}\+: Emitted with data and client\+I\+D, when a command was received from a client. 
+\item \hyperlink{class_network_1_1_server_socket_a17b0484dc24fc45db95126b3244586d8}{received\+Data\+From\+Client()}\+: Emitted with data and client\+I\+D, when data was received from a client. 
+\end{DoxyItemize}
+\item slots\+: 
+\begin{DoxyItemize}
+\item \hyperlink{class_network_1_1_server_socket_a9e41efd6e4e10a04f89ee75968516ffa}{begin\+Listening()}\+: Calling this slot makes the server start to listen for incoming connections (command and data) of the ports that are given as parameter. 
+\item \hyperlink{class_network_1_1_server_socket_a7a2145ba09e19b47acc31e1c52e3d302}{close\+Server()}\+: Shuts down the server. 
+\item \hyperlink{class_network_1_1_server_socket_a9a308f099e84a216bfcb4c4bf4a49882}{send\+Cmd\+To\+All()}\+: Sends the command that is given as parameter to all of its clients command sockets. 
+\item \hyperlink{class_network_1_1_server_socket_a0d912607084ea9bc15626f3d88e5ac79}{send\+Data\+To\+All()}\+: Sends the data that is given as parameter to all of its clients data sockets. 
+\item \hyperlink{class_network_1_1_server_socket_ac222f49a8b6ed8b55e1592d954bfb7d9}{send\+Cmd\+To\+I\+D()}\+: Sends the command that is given as parameter to the client with the specified I\+D. 
+\item \hyperlink{class_network_1_1_server_socket_a2493f626edede9a2dda80888d01e04dc}{send\+Data\+To\+I\+D()}\+: Sends the data that is given as parameter to the client with the specified I\+D. 
+\item \hyperlink{class_network_1_1_server_socket_a6ebb53346e5a8492c56d817e7f7390b8}{send\+Cmd\+To\+Mult\+Clients()}\+: Sends the command that is given as parameter to the I\+Ds of clients that are given in a Q\+List as parameter. 
+\item \hyperlink{class_network_1_1_server_socket_a6ebb53346e5a8492c56d817e7f7390b8}{send\+Cmd\+To\+Mult\+Clients()}\+: Sends the data that is given as parameter to the I\+Ds of clients that are given in a Q\+List as parameter. 
+\item \hyperlink{class_network_1_1_server_socket_a4a81ff6969f81c35606d27aa47ca9dd5}{disconnect\+From\+Client()}\+: Closes the connection to the client whose I\+D is given as parameter. 
+\end{DoxyItemize}
+\end{DoxyItemize}The \hyperlink{class_network_1_1_server_socket}{Server\+Socket} manages all of the connected clients in a list (m\+\_\+client\+List) with a specific I\+D. For each client that establishes a connection to the server, an object of the {\itshape \hyperlink{class_network_1_1_connected_client}{Connected\+Client}}-\/class is created, pushed to an own thread and stored in m\+\_\+client\+List.~\newline
+ The {\itshape \hyperlink{class_network_1_1_connected_client}{Connected\+Client}}-\/class contains two Q\+Tcp\+Sockets that the server can use to communicate with it\textquotesingle{}s clients. 
+
+Definition at line 57 of file Server\+Socket.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_network_1_1_server_socket_a587f7cef82e2ddbac70b5c8199ba024f}{}\index{Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}!Server\+Socket@{Server\+Socket}}
+\index{Server\+Socket@{Server\+Socket}!Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}}
+\subsubsection[{Server\+Socket(\+Q\+Object $\ast$parent)}]{\setlength{\rightskip}{0pt plus 5cm}Network\+::\+Server\+Socket\+::\+Server\+Socket (
+\begin{DoxyParamCaption}
+\item[{Q\+Object $\ast$}]{parent}
+\end{DoxyParamCaption}
+)}\label{class_network_1_1_server_socket_a587f7cef82e2ddbac70b5c8199ba024f}
+
+
+Constructor of the \hyperlink{class_network_1_1_server_socket}{Server\+Socket} class. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em parent} & Parent Q\+Object that creates the server socket object.\\
+\hline
+\end{DoxyParams}
+The constructor initializes {\itshape m\+\_\+client\+I\+D} (I\+D that is given to client) with its initial value {\itshape 0}.~\newline
+ Also initializes both types of server sockets with {\itshape parent} as parameter. 
+
+Definition at line 27 of file Server\+Socket.\+cpp.
+
+\hypertarget{class_network_1_1_server_socket_afb9b176dc5a73e644d6f2530672e72be}{}\index{Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}!````~Server\+Socket@{$\sim$\+Server\+Socket}}
+\index{````~Server\+Socket@{$\sim$\+Server\+Socket}!Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}}
+\subsubsection[{$\sim$\+Server\+Socket()}]{\setlength{\rightskip}{0pt plus 5cm}Network\+::\+Server\+Socket\+::$\sim$\+Server\+Socket (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_network_1_1_server_socket_afb9b176dc5a73e644d6f2530672e72be}
+
+
+Destructor of the \hyperlink{class_network_1_1_server_socket}{Server\+Socket} class. 
+
+Closes the server socket and deletes itself. 
+
+Definition at line 40 of file Server\+Socket.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_network_1_1_server_socket_a9e41efd6e4e10a04f89ee75968516ffa}{}\index{Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}!begin\+Listening@{begin\+Listening}}
+\index{begin\+Listening@{begin\+Listening}!Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}}
+\subsubsection[{begin\+Listening}]{\setlength{\rightskip}{0pt plus 5cm}bool Network\+::\+Server\+Socket\+::begin\+Listening (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{cmd\+Port\+\_\+str, }
+\item[{Q\+String}]{data\+Port\+\_\+str}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_network_1_1_server_socket_a9e41efd6e4e10a04f89ee75968516ffa}
+
+
+Method that is called to start listening for incoming connections. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cmd\+Port\+\_\+str} & Listening port for incoming command connections in Q\+String format. \\
+\hline
+\mbox{\tt in}  & {\em data\+Port\+\_\+str} & Listening port for incoming data connections in Q\+String format.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true, if the listening for incoming connections started successfully.
+\end{DoxyReturn}
+First the I\+P-\/\+Address of the server is located and the signal {\itshape \hyperlink{class_network_1_1_server_socket_a454aaa0c29dcf8558061145ca200c3aa}{new\+I\+P()}} with the I\+P in Q\+String format is emitted.~\newline
+ If no I\+P was found, localhost is used as I\+P-\/\+Address.~\newline
+ Afterwards initializes the T\+C\+P server sockets and starts listening for incoming connections on any address.~\newline
+ Also connects the signals {\itshape new\+Connection} of the server sockets with the handler slot {\itshape handle\+New\+Connection()}. 
+
+Definition at line 59 of file Server\+Socket.\+cpp.
+
+\hypertarget{class_network_1_1_server_socket_a8788c49c9d78b0e36d04c4accee2f9c3}{}\index{Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}!client\+Disconnect@{client\+Disconnect}}
+\index{client\+Disconnect@{client\+Disconnect}!Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}}
+\subsubsection[{client\+Disconnect}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::\+Server\+Socket\+::client\+Disconnect (
+\begin{DoxyParamCaption}
+\item[{uint}]{client\+I\+D}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_network_1_1_server_socket_a8788c49c9d78b0e36d04c4accee2f9c3}
+
+
+Signal that is emitted, when the connection to a client was lost. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em client\+I\+D} & I\+D of the client that the connection was lost to. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_network_1_1_server_socket_a7a2145ba09e19b47acc31e1c52e3d302}{}\index{Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}!close\+Server@{close\+Server}}
+\index{close\+Server@{close\+Server}!Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}}
+\subsubsection[{close\+Server}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::\+Server\+Socket\+::close\+Server (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_network_1_1_server_socket_a7a2145ba09e19b47acc31e1c52e3d302}
+
+
+Signal to close the server. 
+
+Disconnects from all of the clients in {\itshape m\+\_\+client\+List} and closes both servers. Emits the signal {\itshape stopped\+Server} afterwards. 
+
+Definition at line 139 of file Server\+Socket.\+cpp.
+
+\hypertarget{class_network_1_1_server_socket_a4a81ff6969f81c35606d27aa47ca9dd5}{}\index{Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}!disconnect\+From\+Client@{disconnect\+From\+Client}}
+\index{disconnect\+From\+Client@{disconnect\+From\+Client}!Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}}
+\subsubsection[{disconnect\+From\+Client}]{\setlength{\rightskip}{0pt plus 5cm}bool Network\+::\+Server\+Socket\+::disconnect\+From\+Client (
+\begin{DoxyParamCaption}
+\item[{uint}]{client\+I\+D}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_network_1_1_server_socket_a4a81ff6969f81c35606d27aa47ca9dd5}
+
+
+Method to close the connection to a client. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em client\+I\+D} & This method terminates the connection to a client that is connected to the server. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 116 of file Server\+Socket.\+cpp.
+
+\hypertarget{class_network_1_1_server_socket_aaf9a6226b498fa9d3a828c1ce95a5c7f}{}\index{Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}!new\+Client@{new\+Client}}
+\index{new\+Client@{new\+Client}!Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}}
+\subsubsection[{new\+Client}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::\+Server\+Socket\+::new\+Client (
+\begin{DoxyParamCaption}
+\item[{uint}]{client\+I\+D}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_network_1_1_server_socket_aaf9a6226b498fa9d3a828c1ce95a5c7f}
+
+
+Signal that is emitted, when a new client connected to the server. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em client\+I\+D} & I\+D of the client that connected to the server.\\
+\hline
+\end{DoxyParams}
+This Signal is only emitted, when {\bfseries both} types of sockets (data and command) successfully connected to the server. \hypertarget{class_network_1_1_server_socket_a454aaa0c29dcf8558061145ca200c3aa}{}\index{Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}!new\+I\+P@{new\+I\+P}}
+\index{new\+I\+P@{new\+I\+P}!Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}}
+\subsubsection[{new\+I\+P}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::\+Server\+Socket\+::new\+I\+P (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{new\+I\+P}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_network_1_1_server_socket_a454aaa0c29dcf8558061145ca200c3aa}
+
+
+Signal that is emitted, when the server is set up correctly and a correct I\+P was found. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em new\+I\+P} & I\+P-\/\+Address in Q\+String format that was found. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_network_1_1_server_socket_ae1d282d143e7036b55e5e7ae983c29b7}{}\index{Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}!received\+Cmd\+From\+Client@{received\+Cmd\+From\+Client}}
+\index{received\+Cmd\+From\+Client@{received\+Cmd\+From\+Client}!Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}}
+\subsubsection[{received\+Cmd\+From\+Client}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::\+Server\+Socket\+::received\+Cmd\+From\+Client (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{data, }
+\item[{uint}]{client\+I\+D}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_network_1_1_server_socket_ae1d282d143e7036b55e5e7ae983c29b7}
+
+
+Signal that is emitted, when a new command was received from a client. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em data} & Command that was received from the client. \\
+\hline
+\mbox{\tt out}  & {\em client\+I\+D} & I\+D of the client that sent the command. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_network_1_1_server_socket_a17b0484dc24fc45db95126b3244586d8}{}\index{Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}!received\+Data\+From\+Client@{received\+Data\+From\+Client}}
+\index{received\+Data\+From\+Client@{received\+Data\+From\+Client}!Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}}
+\subsubsection[{received\+Data\+From\+Client}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::\+Server\+Socket\+::received\+Data\+From\+Client (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{data, }
+\item[{uint}]{client\+I\+D}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_network_1_1_server_socket_a17b0484dc24fc45db95126b3244586d8}
+
+
+Signal that is emitted, when new data was received from a client. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em data} & Data that was received from the client. \\
+\hline
+\mbox{\tt out}  & {\em client\+I\+D} & I\+D of the client that sent the data. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_network_1_1_server_socket_a9a308f099e84a216bfcb4c4bf4a49882}{}\index{Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}!send\+Cmd\+To\+All@{send\+Cmd\+To\+All}}
+\index{send\+Cmd\+To\+All@{send\+Cmd\+To\+All}!Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}}
+\subsubsection[{send\+Cmd\+To\+All}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::\+Server\+Socket\+::send\+Cmd\+To\+All (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_network_1_1_server_socket_a9a308f099e84a216bfcb4c4bf4a49882}
+
+
+Method for sending a command to all clients. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em data} & Command that is send to the clients.\\
+\hline
+\end{DoxyParams}
+Sends a command to all clients. 
+
+Definition at line 161 of file Server\+Socket.\+cpp.
+
+\hypertarget{class_network_1_1_server_socket_ac222f49a8b6ed8b55e1592d954bfb7d9}{}\index{Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}!send\+Cmd\+To\+I\+D@{send\+Cmd\+To\+I\+D}}
+\index{send\+Cmd\+To\+I\+D@{send\+Cmd\+To\+I\+D}!Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}}
+\subsubsection[{send\+Cmd\+To\+I\+D}]{\setlength{\rightskip}{0pt plus 5cm}int Network\+::\+Server\+Socket\+::send\+Cmd\+To\+I\+D (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{data, }
+\item[{uint}]{client\+I\+D}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_network_1_1_server_socket_ac222f49a8b6ed8b55e1592d954bfb7d9}
+
+
+Method for sending a command to a client with specified I\+D. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em data} & Command that is send to the clients. \\
+\hline
+\mbox{\tt in}  & {\em client\+I\+D} & I\+D of the client that the command is send to.\\
+\hline
+\end{DoxyParams}
+Sends a command to the client with the specified I\+D. 
+
+Definition at line 230 of file Server\+Socket.\+cpp.
+
+\hypertarget{class_network_1_1_server_socket_a6ebb53346e5a8492c56d817e7f7390b8}{}\index{Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}!send\+Cmd\+To\+Mult\+Clients@{send\+Cmd\+To\+Mult\+Clients}}
+\index{send\+Cmd\+To\+Mult\+Clients@{send\+Cmd\+To\+Mult\+Clients}!Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}}
+\subsubsection[{send\+Cmd\+To\+Mult\+Clients}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::\+Server\+Socket\+::send\+Cmd\+To\+Mult\+Clients (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{data, }
+\item[{Q\+List$<$ uint $>$}]{client\+I\+Ds}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_network_1_1_server_socket_a6ebb53346e5a8492c56d817e7f7390b8}
+
+
+Method for sending a command to a specified list of clients. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em data} & Command that is send to the clients. \\
+\hline
+\mbox{\tt in}  & {\em client\+I\+Ds} & Q\+List with client\+I\+Ds to which the data is send.\\
+\hline
+\end{DoxyParams}
+Sends a command to all clients whose client\+I\+Ds are specified in the Q\+List. 
+
+Definition at line 192 of file Server\+Socket.\+cpp.
+
+\hypertarget{class_network_1_1_server_socket_a0d912607084ea9bc15626f3d88e5ac79}{}\index{Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}!send\+Data\+To\+All@{send\+Data\+To\+All}}
+\index{send\+Data\+To\+All@{send\+Data\+To\+All}!Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}}
+\subsubsection[{send\+Data\+To\+All}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::\+Server\+Socket\+::send\+Data\+To\+All (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_network_1_1_server_socket_a0d912607084ea9bc15626f3d88e5ac79}
+
+
+Method for sending data to all clients. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em data} & Data that is send to the clients.\\
+\hline
+\end{DoxyParams}
+Sends data to all clients. 
+
+Definition at line 176 of file Server\+Socket.\+cpp.
+
+\hypertarget{class_network_1_1_server_socket_a2493f626edede9a2dda80888d01e04dc}{}\index{Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}!send\+Data\+To\+I\+D@{send\+Data\+To\+I\+D}}
+\index{send\+Data\+To\+I\+D@{send\+Data\+To\+I\+D}!Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}}
+\subsubsection[{send\+Data\+To\+I\+D}]{\setlength{\rightskip}{0pt plus 5cm}int Network\+::\+Server\+Socket\+::send\+Data\+To\+I\+D (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{data, }
+\item[{uint}]{client\+I\+D}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_network_1_1_server_socket_a2493f626edede9a2dda80888d01e04dc}
+
+
+Method for sending data to a client with specified I\+D. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em data} & Data that is send to the clients. \\
+\hline
+\mbox{\tt in}  & {\em client\+I\+D} & I\+D of the client that the data is send to.\\
+\hline
+\end{DoxyParams}
+Sends data to the client with the specified I\+D. 
+
+Definition at line 251 of file Server\+Socket.\+cpp.
+
+\hypertarget{class_network_1_1_server_socket_a2f9151ad52bbcb6788dfcf8e0252d19f}{}\index{Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}!send\+Data\+To\+Mult\+Clients@{send\+Data\+To\+Mult\+Clients}}
+\index{send\+Data\+To\+Mult\+Clients@{send\+Data\+To\+Mult\+Clients}!Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}}
+\subsubsection[{send\+Data\+To\+Mult\+Clients}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::\+Server\+Socket\+::send\+Data\+To\+Mult\+Clients (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{data, }
+\item[{Q\+List$<$ uint $>$}]{client\+I\+Ds}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_network_1_1_server_socket_a2f9151ad52bbcb6788dfcf8e0252d19f}
+
+
+Method for sending data to a specified list of clients. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em data} & Data that is send to the clients. \\
+\hline
+\mbox{\tt in}  & {\em client\+I\+Ds} & Q\+List with client\+I\+Ds to which the data is send.\\
+\hline
+\end{DoxyParams}
+Sends data to all clients whose client\+I\+Ds are specified in the Q\+List. 
+
+Definition at line 211 of file Server\+Socket.\+cpp.
+
+\hypertarget{class_network_1_1_server_socket_a65f1a073129152a95d54b8507620289b}{}\index{Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}!stopped\+Server@{stopped\+Server}}
+\index{stopped\+Server@{stopped\+Server}!Network\+::\+Server\+Socket@{Network\+::\+Server\+Socket}}
+\subsubsection[{stopped\+Server}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::\+Server\+Socket\+::stopped\+Server (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_network_1_1_server_socket_a65f1a073129152a95d54b8507620289b}
+
+
+Signal that is emitted, when the server was stopped. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Common/\+Client\+Server\+Share\+Lib/include/\hyperlink{_server_socket_8h}{Server\+Socket.\+h}\item 
+Common/\+Client\+Server\+Share\+Lib/src/\+Network/\hyperlink{_server_socket_8cpp}{Server\+Socket.\+cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,135 @@
+\hypertarget{class_message_authenticator}{}\section{Message\+Authenticator Class Reference}
+\label{class_message_authenticator}\index{Message\+Authenticator@{Message\+Authenticator}}
+
+
+Provides a transparent interface to authenticate messages via H\+M\+A\+C given a key.  
+
+
+
+
+{\ttfamily \#include $<$Message\+Authenticator.\+h$>$}
+
+Inheritance diagram for Message\+Authenticator\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_message_authenticator}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_message_authenticator_a78f02c0b2b0a11c5c906661a3a9673a7}{authenticate\+Message} (Q\+Byte\+Array msg)
+\item 
+void \hyperlink{class_message_authenticator_a314015218155da216f59784ab665bd3f}{set\+Key} (Q\+Byte\+Array key)
+\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_message_authenticator_ab42eef9013d87c23c21e4d3033ff38aa}{message\+Authenticated} (Q\+Byte\+Array msg)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_message_authenticator_a173fa8bde5c0f43401a7528a46565a9b}{Message\+Authenticator} ()
+\item 
+virtual \hyperlink{class_message_authenticator_a035eb487443cddba078f0fa27e82e47b}{$\sim$\+Message\+Authenticator} ()
+\item 
+Q\+Byte\+Array \hyperlink{class_message_authenticator_ad25fd8900a040be37b82cc43a1c8206f}{hmac\+Sha1} (Q\+Byte\+Array base\+String)
+\item 
+Q\+Byte\+Array \hyperlink{class_message_authenticator_ae14e12c5081514a5af65bac25fe3de0c}{hmac\+Sha1} (Q\+Byte\+Array key, Q\+Byte\+Array base\+String)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Provides a transparent interface to authenticate messages via H\+M\+A\+C given a key. 
+
+Provides a transparent interface to authenticate messages via H\+M\+A\+C given a key. Key has to be set before authentication. In addition the class provides H\+M\+A\+C algorithm. It accepts raw byte data (D\+A\+T\+A) via slot and returns raw data concatenated with 28 byte base64 encoded mac (D\+A\+T\+A$\vert$$\vert$\+M\+A\+C) via signal. Example\+: For the Masterclient the Authenticator is placed between X\+M\+L Writer and network layer (via reconnecting signals and slots) so every message automatically gets mac\textquotesingle{}ed. 
+
+Definition at line 22 of file Message\+Authenticator.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_message_authenticator_a173fa8bde5c0f43401a7528a46565a9b}{}\index{Message\+Authenticator@{Message\+Authenticator}!Message\+Authenticator@{Message\+Authenticator}}
+\index{Message\+Authenticator@{Message\+Authenticator}!Message\+Authenticator@{Message\+Authenticator}}
+\subsubsection[{Message\+Authenticator()}]{\setlength{\rightskip}{0pt plus 5cm}Message\+Authenticator\+::\+Message\+Authenticator (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_message_authenticator_a173fa8bde5c0f43401a7528a46565a9b}
+
+
+Definition at line 10 of file Message\+Authenticator.\+cpp.
+
+\hypertarget{class_message_authenticator_a035eb487443cddba078f0fa27e82e47b}{}\index{Message\+Authenticator@{Message\+Authenticator}!````~Message\+Authenticator@{$\sim$\+Message\+Authenticator}}
+\index{````~Message\+Authenticator@{$\sim$\+Message\+Authenticator}!Message\+Authenticator@{Message\+Authenticator}}
+\subsubsection[{$\sim$\+Message\+Authenticator()}]{\setlength{\rightskip}{0pt plus 5cm}Message\+Authenticator\+::$\sim$\+Message\+Authenticator (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_message_authenticator_a035eb487443cddba078f0fa27e82e47b}
+
+
+Definition at line 15 of file Message\+Authenticator.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_message_authenticator_a78f02c0b2b0a11c5c906661a3a9673a7}{}\index{Message\+Authenticator@{Message\+Authenticator}!authenticate\+Message@{authenticate\+Message}}
+\index{authenticate\+Message@{authenticate\+Message}!Message\+Authenticator@{Message\+Authenticator}}
+\subsubsection[{authenticate\+Message}]{\setlength{\rightskip}{0pt plus 5cm}void Message\+Authenticator\+::authenticate\+Message (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_message_authenticator_a78f02c0b2b0a11c5c906661a3a9673a7}
+
+
+Definition at line 58 of file Message\+Authenticator.\+cpp.
+
+\hypertarget{class_message_authenticator_ad25fd8900a040be37b82cc43a1c8206f}{}\index{Message\+Authenticator@{Message\+Authenticator}!hmac\+Sha1@{hmac\+Sha1}}
+\index{hmac\+Sha1@{hmac\+Sha1}!Message\+Authenticator@{Message\+Authenticator}}
+\subsubsection[{hmac\+Sha1(\+Q\+Byte\+Array base\+String)}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Byte\+Array Message\+Authenticator\+::hmac\+Sha1 (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{base\+String}
+\end{DoxyParamCaption}
+)}\label{class_message_authenticator_ad25fd8900a040be37b82cc43a1c8206f}
+
+
+Definition at line 20 of file Message\+Authenticator.\+cpp.
+
+\hypertarget{class_message_authenticator_ae14e12c5081514a5af65bac25fe3de0c}{}\index{Message\+Authenticator@{Message\+Authenticator}!hmac\+Sha1@{hmac\+Sha1}}
+\index{hmac\+Sha1@{hmac\+Sha1}!Message\+Authenticator@{Message\+Authenticator}}
+\subsubsection[{hmac\+Sha1(\+Q\+Byte\+Array key, Q\+Byte\+Array base\+String)}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Byte\+Array Message\+Authenticator\+::hmac\+Sha1 (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{key, }
+\item[{Q\+Byte\+Array}]{base\+String}
+\end{DoxyParamCaption}
+)}\label{class_message_authenticator_ae14e12c5081514a5af65bac25fe3de0c}
+
+
+Definition at line 26 of file Message\+Authenticator.\+cpp.
+
+\hypertarget{class_message_authenticator_ab42eef9013d87c23c21e4d3033ff38aa}{}\index{Message\+Authenticator@{Message\+Authenticator}!message\+Authenticated@{message\+Authenticated}}
+\index{message\+Authenticated@{message\+Authenticated}!Message\+Authenticator@{Message\+Authenticator}}
+\subsubsection[{message\+Authenticated}]{\setlength{\rightskip}{0pt plus 5cm}void Message\+Authenticator\+::message\+Authenticated (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_message_authenticator_ab42eef9013d87c23c21e4d3033ff38aa}
+\hypertarget{class_message_authenticator_a314015218155da216f59784ab665bd3f}{}\index{Message\+Authenticator@{Message\+Authenticator}!set\+Key@{set\+Key}}
+\index{set\+Key@{set\+Key}!Message\+Authenticator@{Message\+Authenticator}}
+\subsubsection[{set\+Key}]{\setlength{\rightskip}{0pt plus 5cm}void Message\+Authenticator\+::set\+Key (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{key}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_message_authenticator_a314015218155da216f59784ab665bd3f}
+
+
+Definition at line 67 of file Message\+Authenticator.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Common/\+Client\+Server\+Share\+Lib/include/\hyperlink{_message_authenticator_8h}{Message\+Authenticator.\+h}\item 
+Common/\+Client\+Server\+Share\+Lib/src/\+Message/\+Authentication/\hyperlink{_message_authenticator_8cpp}{Message\+Authenticator.\+cpp}\end{DoxyCompactItemize}

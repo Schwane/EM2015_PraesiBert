@@ -1,0 +1,72 @@
+\hypertarget{_logger_8h}{}\section{Server\+Appl/src/backend/\+Logger.h File Reference}
+\label{_logger_8h}\index{Server\+Appl/src/backend/\+Logger.\+h@{Server\+Appl/src/backend/\+Logger.\+h}}
+{\ttfamily \#include $<$Q\+Debug$>$}\\*
+{\ttfamily \#include $<$Q\+File$>$}\\*
+{\ttfamily \#include $<$Q\+String$>$}\\*
+{\ttfamily \#include $<$Q\+Text\+Stream$>$}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_server_appl_1_1_logger}{Server\+Appl\+::\+Logger}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_server_appl}{Server\+Appl}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_logger_8h_a16ff6bebba871e2f89e48873aeb31a25}{I\+S\+\_\+\+D\+E\+B\+U\+G\+\_\+\+V\+E\+R\+S\+I\+O\+N}
+\item 
+\#define \hyperlink{_logger_8h_ab3cfbe11cd5b1de2f8fd9faf6b692075}{W\+R\+I\+T\+E\+\_\+\+L\+O\+G}(msg)~server\+Log\+Object.\+write\+Log\+Entry(Q\+String(msg));
+\item 
+\#define \hyperlink{_logger_8h_a051043922d408e9fe3c8a11a974ac801}{W\+R\+I\+T\+E\+\_\+\+D\+E\+B\+U\+G}(msg)~server\+Log\+Object.\+write\+Debug\+Log\+Entry(\+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, Q\+String(msg)); q\+Debug() $<$$<$ \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+ $<$$<$ \char`\"{}\+:\char`\"{} $<$$<$ \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+ $<$$<$ \char`\"{} -\/-\/$>$ \char`\"{} $<$$<$ msg;
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_server_appl_1_1_logger}{Server\+Appl\+::\+Logger} \hyperlink{_logger_8h_aa8c8862cde52462ea9e1f9e7f72916b5}{server\+Log\+Object}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{_logger_8h_a16ff6bebba871e2f89e48873aeb31a25}{}\index{Logger.\+h@{Logger.\+h}!I\+S\+\_\+\+D\+E\+B\+U\+G\+\_\+\+V\+E\+R\+S\+I\+O\+N@{I\+S\+\_\+\+D\+E\+B\+U\+G\+\_\+\+V\+E\+R\+S\+I\+O\+N}}
+\index{I\+S\+\_\+\+D\+E\+B\+U\+G\+\_\+\+V\+E\+R\+S\+I\+O\+N@{I\+S\+\_\+\+D\+E\+B\+U\+G\+\_\+\+V\+E\+R\+S\+I\+O\+N}!Logger.\+h@{Logger.\+h}}
+\subsubsection[{I\+S\+\_\+\+D\+E\+B\+U\+G\+\_\+\+V\+E\+R\+S\+I\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+S\+\_\+\+D\+E\+B\+U\+G\+\_\+\+V\+E\+R\+S\+I\+O\+N}\label{_logger_8h_a16ff6bebba871e2f89e48873aeb31a25}
+
+
+Definition at line 16 of file Logger.\+h.
+
+\hypertarget{_logger_8h_a051043922d408e9fe3c8a11a974ac801}{}\index{Logger.\+h@{Logger.\+h}!W\+R\+I\+T\+E\+\_\+\+D\+E\+B\+U\+G@{W\+R\+I\+T\+E\+\_\+\+D\+E\+B\+U\+G}}
+\index{W\+R\+I\+T\+E\+\_\+\+D\+E\+B\+U\+G@{W\+R\+I\+T\+E\+\_\+\+D\+E\+B\+U\+G}!Logger.\+h@{Logger.\+h}}
+\subsubsection[{W\+R\+I\+T\+E\+\_\+\+D\+E\+B\+U\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define W\+R\+I\+T\+E\+\_\+\+D\+E\+B\+U\+G(
+\begin{DoxyParamCaption}
+\item[{}]{msg}
+\end{DoxyParamCaption}
+)~server\+Log\+Object.\+write\+Debug\+Log\+Entry(\+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, Q\+String(msg)); q\+Debug() $<$$<$ \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+ $<$$<$ \char`\"{}\+:\char`\"{} $<$$<$ \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+ $<$$<$ \char`\"{} -\/-\/$>$ \char`\"{} $<$$<$ msg;}\label{_logger_8h_a051043922d408e9fe3c8a11a974ac801}
+
+
+Definition at line 49 of file Logger.\+h.
+
+\hypertarget{_logger_8h_ab3cfbe11cd5b1de2f8fd9faf6b692075}{}\index{Logger.\+h@{Logger.\+h}!W\+R\+I\+T\+E\+\_\+\+L\+O\+G@{W\+R\+I\+T\+E\+\_\+\+L\+O\+G}}
+\index{W\+R\+I\+T\+E\+\_\+\+L\+O\+G@{W\+R\+I\+T\+E\+\_\+\+L\+O\+G}!Logger.\+h@{Logger.\+h}}
+\subsubsection[{W\+R\+I\+T\+E\+\_\+\+L\+O\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define W\+R\+I\+T\+E\+\_\+\+L\+O\+G(
+\begin{DoxyParamCaption}
+\item[{}]{msg}
+\end{DoxyParamCaption}
+)~server\+Log\+Object.\+write\+Log\+Entry(Q\+String(msg));}\label{_logger_8h_ab3cfbe11cd5b1de2f8fd9faf6b692075}
+
+
+Definition at line 46 of file Logger.\+h.
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{_logger_8h_aa8c8862cde52462ea9e1f9e7f72916b5}{}\index{Logger.\+h@{Logger.\+h}!server\+Log\+Object@{server\+Log\+Object}}
+\index{server\+Log\+Object@{server\+Log\+Object}!Logger.\+h@{Logger.\+h}}
+\subsubsection[{server\+Log\+Object}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Server\+Appl\+::\+Logger} server\+Log\+Object}\label{_logger_8h_aa8c8862cde52462ea9e1f9e7f72916b5}
+
+
+Definition at line 14 of file Logger.\+cpp.
+

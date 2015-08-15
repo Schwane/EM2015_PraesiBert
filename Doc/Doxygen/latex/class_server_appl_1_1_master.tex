@@ -1,0 +1,453 @@
+\hypertarget{class_server_appl_1_1_master}{}\section{Server\+Appl\+:\+:Master Class Reference}
+\label{class_server_appl_1_1_master}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+
+
+Objects of this class represent a master-\/client.  
+
+
+
+
+{\ttfamily \#include \char`\"{}src/backend/\+Master.\+h\char`\"{}}
+
+Inheritance diagram for Server\+Appl\+:\+:Master\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_server_appl_1_1_master}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_server_appl_1_1_master_aa3eec24a3c9508726b133b21da9fd6fe}{on\+Received\+Data} (unsigned int receiver\+Identifier)
+\item 
+void \hyperlink{class_server_appl_1_1_master_a329d423c033208c46b88a0a3ef192ec5}{on\+Transmit\+Slides\+Response} (bool accepted)
+\item 
+void \hyperlink{class_server_appl_1_1_master_a19471eed9ec25d99f0dd31f649dc0c1b}{authentication\+Timeout} ()
+\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_server_appl_1_1_master_a4f91b9f8a0c3105a86c283ec9f9c5d31}{stop\+Presentation} ()
+\item 
+void \hyperlink{class_server_appl_1_1_master_a711258f635c3cd79d8328c9b1e0f56c3}{forward\+Message\+To\+Client} (\hyperlink{class_message}{Message} $\ast$msg, unsigned int \hyperlink{class_server_appl_1_1_unspecified_client_a9a3cf2d070f19fb2bfd7d544053955b0}{client\+Id})
+\item 
+void \hyperlink{class_server_appl_1_1_master_a7f1f6b0954971ce4a4cac720030433ec}{received\+Slides} ()
+\item 
+void \hyperlink{class_server_appl_1_1_master_a711fc68e3ffbd43fac7c72fe6b5c6eab}{received\+Set\+Slide} (int slide\+Number)
+\item 
+void \hyperlink{class_server_appl_1_1_master_a24fbea340517fe8b4e94e3634870f7e4}{authentication\+Failed} ()
+\item 
+void \hyperlink{class_server_appl_1_1_master_abb70fac43d3572f1895b1b69e55b9cc5}{authentication\+Successfull} ()
+\item 
+void \hyperlink{class_server_appl_1_1_master_a444769874f653f5bb3c67698327ffcd9}{received\+Presentation} (\hyperlink{class_praesentation}{Praesentation} $\ast$presentation, Q\+Map$<$ Q\+String, Q\+Variant $>$ presentation\+Parameter\+List, Q\+Map$<$ Q\+String, Q\+String $>$ presentation\+Parameter\+Type\+List)
+\item 
+void \hyperlink{class_server_appl_1_1_master_abae549f91598d2954857cac0ff445d7f}{write\+Audio\+Recording} (Q\+String file\+Name, const Q\+Byte\+Array \&recording)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_server_appl_1_1_master_afa904310825c83e664b99f4fe6af5c2f}{Master} ()
+\item 
+\hyperlink{class_server_appl_1_1_master_aa747df80d845d561a1dcb4ecb1921287}{Master} (\hyperlink{class_server_appl_1_1_unspecified_client}{Unspecified\+Client} $\ast$prior\+Client\+Object, Q\+String nonce1)
+\item 
+virtual \hyperlink{class_server_appl_1_1_master_a31306ed7f549dcb249712808b002563a}{$\sim$\+Master} ()
+\item 
+\hyperlink{struct_n_o_n_c_e}{N\+O\+N\+C\+E} \hyperlink{class_server_appl_1_1_master_a1ac1d9cda858d9f99295a7123653371d}{get\+Nonce} ()
+\begin{DoxyCompactList}\small\item\em Returns the complete nonce of the authentication-\/process. \end{DoxyCompactList}\item 
+\hyperlink{class_message_authenticator}{Message\+Authenticator} $\ast$ \hyperlink{class_server_appl_1_1_master_a8e40cceba43ab2e78bc79cbac9ed653b}{get\+Message\+Authenticator} ()
+\begin{DoxyCompactList}\small\item\em Returns a Message\+Authenticator-\/object which can be used to verify received messages from the master-\/client. \end{DoxyCompactList}\item 
+\hyperlink{_unspecified_client_8h_af7f22c7d662171af2c3a5b74f621dc98}{Client\+Type} \hyperlink{class_server_appl_1_1_master_a9fa7bd1e0f1770802900d10569c04b30}{get\+Client\+Type} ()
+\begin{DoxyCompactList}\small\item\em Returns the type of this client (for this class always Client\+Type\+\_\+\+Master). \end{DoxyCompactList}\item 
+\hyperlink{_master_8h_a33fa3e499badd7bda200e5ae6beb34d8}{Master\+Authentication\+State} \hyperlink{class_server_appl_1_1_master_a793bfbfaa7ea6143ad54e1a2b3f3b651}{authentication\+Stm} (\hyperlink{_master_8h_a6b219182cc755ee81f37301a90607094}{Master\+Authentication\+Event} event)
+\begin{DoxyCompactList}\small\item\em This function contains a state-\/machine for the authentication-\/process. \end{DoxyCompactList}\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_server_appl_1_1_master_a0cc4e6596d4c3d39eb8f6c993cc7340c}{handle\+Unknown\+Message} (Q\+String command\+Name, \hyperlink{class_message}{Message} $\ast$msg)
+\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_server_appl_1_1_master_a30f777abbc8337283960281b3cd8038b}{handle\+Authentication\+Phase3} (Q\+String command\+Name, \hyperlink{class_message}{Message} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Handles phase-\/3-\/authentication-\/command. The received message-\/object (msg) will be deleted. \end{DoxyCompactList}\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_server_appl_1_1_master_aa472caffc168d575b620384b598f6a02}{handle\+Authentication\+Acknowledge} (Q\+String command\+Name, \hyperlink{class_message}{Message} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Handles an authentication-\/acknowledge-\/command. \end{DoxyCompactList}\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_server_appl_1_1_master_ad2a85c966d163e8466f1a2da8a722553}{handle\+Data\+Presentation} (Q\+String command\+Name, \hyperlink{class_message}{Message} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em This message-\/handler will save a received presentation. \end{DoxyCompactList}\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_server_appl_1_1_master_ab4f3a44c0eb7f236783acd41435febf1}{handle\+Set\+Slide} (Q\+String command\+Name, \hyperlink{class_message}{Message} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em This handles a set-\/slide-\/command of the master-\/client. \end{DoxyCompactList}\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_server_appl_1_1_master_a4c13d447ddde25f16dc654688e82ef3e}{handle\+Stop\+Presentation} (Q\+String command\+Name, \hyperlink{class_message}{Message} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Handles a stop-\/presentation-\/command. \end{DoxyCompactList}\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_server_appl_1_1_master_a1e7730e5e9374205d55050e274ad2771}{handle\+Received\+Audio} (Q\+String command\+Name, \hyperlink{class_message}{Message} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Handles a received audio-\/transmission of the master-\/client. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_server_appl_1_1_master}{Master} $\ast$ \hyperlink{class_server_appl_1_1_master_a6f7f0653f75d230211ea71a18b3a11a5}{create\+Master} (\hyperlink{class_server_appl_1_1_unspecified_client}{Unspecified\+Client} $\ast$client, Q\+String nonce1)
+\begin{DoxyCompactList}\small\item\em Static function to generate a Master-\/object basing on an Unspecified\+Client-\/object and a received nonce (part 1). \end{DoxyCompactList}\item 
+static Q\+String \hyperlink{class_server_appl_1_1_master_a6fabe470a327c8415b925514723b92e9}{generate\+Nonce} (uint seed)
+\begin{DoxyCompactList}\small\item\em A function to generate a nonce (e.\+g. nonce parte 2) basing on a seed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Objects of this class represent a master-\/client. 
+
+Objects of this class will represent a connected master-\/client. Some of the commands from the master will be handled by this class (e.\+g. authentication-\/commands, set-\/slide-\/commands or receiving data from the master-\/client). 
+
+Definition at line 56 of file Master.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_server_appl_1_1_master_afa904310825c83e664b99f4fe6af5c2f}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!Master@{Master}}
+\index{Master@{Master}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{Master()}]{\setlength{\rightskip}{0pt plus 5cm}Server\+Appl\+::\+Master\+::\+Master (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_master_afa904310825c83e664b99f4fe6af5c2f}
+
+
+Definition at line 15 of file Master.\+cpp.
+
+\hypertarget{class_server_appl_1_1_master_aa747df80d845d561a1dcb4ecb1921287}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!Master@{Master}}
+\index{Master@{Master}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{Master(\+Unspecified\+Client $\ast$prior\+Client\+Object, Q\+String nonce1)}]{\setlength{\rightskip}{0pt plus 5cm}Server\+Appl\+::\+Master\+::\+Master (
+\begin{DoxyParamCaption}
+\item[{{\bf Unspecified\+Client} $\ast$}]{prior\+Client\+Object, }
+\item[{Q\+String}]{nonce1}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_master_aa747df80d845d561a1dcb4ecb1921287}
+
+
+Definition at line 21 of file Master.\+cpp.
+
+\hypertarget{class_server_appl_1_1_master_a31306ed7f549dcb249712808b002563a}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!````~Master@{$\sim$\+Master}}
+\index{````~Master@{$\sim$\+Master}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{$\sim$\+Master()}]{\setlength{\rightskip}{0pt plus 5cm}Server\+Appl\+::\+Master\+::$\sim$\+Master (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_server_appl_1_1_master_a31306ed7f549dcb249712808b002563a}
+
+
+Definition at line 49 of file Master.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_server_appl_1_1_master_a24fbea340517fe8b4e94e3634870f7e4}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!authentication\+Failed@{authentication\+Failed}}
+\index{authentication\+Failed@{authentication\+Failed}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{authentication\+Failed}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Master\+::authentication\+Failed (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_master_a24fbea340517fe8b4e94e3634870f7e4}
+\hypertarget{class_server_appl_1_1_master_a793bfbfaa7ea6143ad54e1a2b3f3b651}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!authentication\+Stm@{authentication\+Stm}}
+\index{authentication\+Stm@{authentication\+Stm}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{authentication\+Stm(\+Master\+Authentication\+Event event)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Master\+Authentication\+State} Server\+Appl\+::\+Master\+::authentication\+Stm (
+\begin{DoxyParamCaption}
+\item[{{\bf Master\+Authentication\+Event}}]{event}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_master_a793bfbfaa7ea6143ad54e1a2b3f3b651}
+
+
+This function contains a state-\/machine for the authentication-\/process. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em event} & An event for the state-\/machine.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The new state of the state-\/machine.
+\end{DoxyReturn}
+This function can be used to ensure a correct authentication-\/process. Just give an event to the state-\/machine and check the returned state. If the returned state is the same as the expected new state everything is fine. 
+
+Definition at line 246 of file Master.\+cpp.
+
+\hypertarget{class_server_appl_1_1_master_abb70fac43d3572f1895b1b69e55b9cc5}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!authentication\+Successfull@{authentication\+Successfull}}
+\index{authentication\+Successfull@{authentication\+Successfull}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{authentication\+Successfull}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Master\+::authentication\+Successfull (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_master_abb70fac43d3572f1895b1b69e55b9cc5}
+\hypertarget{class_server_appl_1_1_master_a19471eed9ec25d99f0dd31f649dc0c1b}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!authentication\+Timeout@{authentication\+Timeout}}
+\index{authentication\+Timeout@{authentication\+Timeout}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{authentication\+Timeout}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Master\+::authentication\+Timeout (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_server_appl_1_1_master_a19471eed9ec25d99f0dd31f649dc0c1b}
+
+
+Definition at line 99 of file Master.\+cpp.
+
+\hypertarget{class_server_appl_1_1_master_a6f7f0653f75d230211ea71a18b3a11a5}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!create\+Master@{create\+Master}}
+\index{create\+Master@{create\+Master}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{create\+Master(\+Unspecified\+Client $\ast$client, Q\+String nonce1)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Master} $\ast$ Server\+Appl\+::\+Master\+::create\+Master (
+\begin{DoxyParamCaption}
+\item[{{\bf Unspecified\+Client} $\ast$}]{client, }
+\item[{Q\+String}]{nonce1}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_server_appl_1_1_master_a6f7f0653f75d230211ea71a18b3a11a5}
+
+
+Static function to generate a Master-\/object basing on an Unspecified\+Client-\/object and a received nonce (part 1). 
+
+\begin{DoxyReturn}{Returns}
+A pointer to a new Master-\/object will be returned (may be N\+U\+L\+L!) 
+\end{DoxyReturn}
+
+
+Definition at line 56 of file Master.\+cpp.
+
+\hypertarget{class_server_appl_1_1_master_a711258f635c3cd79d8328c9b1e0f56c3}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!forward\+Message\+To\+Client@{forward\+Message\+To\+Client}}
+\index{forward\+Message\+To\+Client@{forward\+Message\+To\+Client}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{forward\+Message\+To\+Client}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Master\+::forward\+Message\+To\+Client (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg, }
+\item[{unsigned int}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_master_a711258f635c3cd79d8328c9b1e0f56c3}
+\hypertarget{class_server_appl_1_1_master_a6fabe470a327c8415b925514723b92e9}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!generate\+Nonce@{generate\+Nonce}}
+\index{generate\+Nonce@{generate\+Nonce}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{generate\+Nonce(uint seed)}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Server\+Appl\+::\+Master\+::generate\+Nonce (
+\begin{DoxyParamCaption}
+\item[{uint}]{seed}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_server_appl_1_1_master_a6fabe470a327c8415b925514723b92e9}
+
+
+A function to generate a nonce (e.\+g. nonce parte 2) basing on a seed. 
+
+Returns a string with a nonce. 
+
+Definition at line 61 of file Master.\+cpp.
+
+\hypertarget{class_server_appl_1_1_master_a9fa7bd1e0f1770802900d10569c04b30}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!get\+Client\+Type@{get\+Client\+Type}}
+\index{get\+Client\+Type@{get\+Client\+Type}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{get\+Client\+Type()}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Client\+Type} Server\+Appl\+::\+Master\+::get\+Client\+Type (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_server_appl_1_1_master_a9fa7bd1e0f1770802900d10569c04b30}
+
+
+Returns the type of this client (for this class always Client\+Type\+\_\+\+Master). 
+
+
+
+Reimplemented from \hyperlink{class_server_appl_1_1_unspecified_client_a239fa0949cf9b054593d7b1570e55624}{Server\+Appl\+::\+Unspecified\+Client}.
+
+
+
+Definition at line 226 of file Master.\+cpp.
+
+\hypertarget{class_server_appl_1_1_master_a8e40cceba43ab2e78bc79cbac9ed653b}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!get\+Message\+Authenticator@{get\+Message\+Authenticator}}
+\index{get\+Message\+Authenticator@{get\+Message\+Authenticator}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{get\+Message\+Authenticator()}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message\+Authenticator} $\ast$ Server\+Appl\+::\+Master\+::get\+Message\+Authenticator (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_master_a8e40cceba43ab2e78bc79cbac9ed653b}
+
+
+Returns a Message\+Authenticator-\/object which can be used to verify received messages from the master-\/client. 
+
+
+
+Definition at line 236 of file Master.\+cpp.
+
+\hypertarget{class_server_appl_1_1_master_a1ac1d9cda858d9f99295a7123653371d}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!get\+Nonce@{get\+Nonce}}
+\index{get\+Nonce@{get\+Nonce}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{get\+Nonce()}]{\setlength{\rightskip}{0pt plus 5cm}{\bf N\+O\+N\+C\+E} Server\+Appl\+::\+Master\+::get\+Nonce (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_master_a1ac1d9cda858d9f99295a7123653371d}
+
+
+Returns the complete nonce of the authentication-\/process. 
+
+\begin{DoxyReturn}{Returns}
+Returns the nonce which was transmitted by the master-\/client and the part that was generated on the server. 
+\end{DoxyReturn}
+
+
+Definition at line 231 of file Master.\+cpp.
+
+\hypertarget{class_server_appl_1_1_master_aa472caffc168d575b620384b598f6a02}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!handle\+Authentication\+Acknowledge@{handle\+Authentication\+Acknowledge}}
+\index{handle\+Authentication\+Acknowledge@{handle\+Authentication\+Acknowledge}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{handle\+Authentication\+Acknowledge(\+Q\+String command\+Name, Message $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Server\+Appl\+::\+Master\+::handle\+Authentication\+Acknowledge (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{command\+Name, }
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_master_aa472caffc168d575b620384b598f6a02}
+
+
+Handles an authentication-\/acknowledge-\/command. 
+
+This command will be transmitted by the master after the server responded on the phase-\/3-\/command. The received message-\/object (msg) will be deleted. 
+
+Definition at line 126 of file Master.\+cpp.
+
+\hypertarget{class_server_appl_1_1_master_a30f777abbc8337283960281b3cd8038b}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!handle\+Authentication\+Phase3@{handle\+Authentication\+Phase3}}
+\index{handle\+Authentication\+Phase3@{handle\+Authentication\+Phase3}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{handle\+Authentication\+Phase3(\+Q\+String command\+Name, Message $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Server\+Appl\+::\+Master\+::handle\+Authentication\+Phase3 (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{command\+Name, }
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_master_a30f777abbc8337283960281b3cd8038b}
+
+
+Handles phase-\/3-\/authentication-\/command. The received message-\/object (msg) will be deleted. 
+
+
+
+Definition at line 137 of file Master.\+cpp.
+
+\hypertarget{class_server_appl_1_1_master_ad2a85c966d163e8466f1a2da8a722553}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!handle\+Data\+Presentation@{handle\+Data\+Presentation}}
+\index{handle\+Data\+Presentation@{handle\+Data\+Presentation}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{handle\+Data\+Presentation(\+Q\+String command\+Name, Message $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Server\+Appl\+::\+Master\+::handle\+Data\+Presentation (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{command\+Name, }
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_master_ad2a85c966d163e8466f1a2da8a722553}
+
+
+This message-\/handler will save a received presentation. 
+
+Usually this message-\/handler shall be registered for a data-\/port. If a presentation was received the server will be informed (signal received\+Presentation). The new presentation will be given to the Server-\/object. The Server-\/object is responsible for the distribution of the new presentation to the listener-\/clients. The received message-\/object (msg) will be deleted. 
+
+Definition at line 71 of file Master.\+cpp.
+
+\hypertarget{class_server_appl_1_1_master_a1e7730e5e9374205d55050e274ad2771}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!handle\+Received\+Audio@{handle\+Received\+Audio}}
+\index{handle\+Received\+Audio@{handle\+Received\+Audio}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{handle\+Received\+Audio(\+Q\+String command\+Name, Message $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Server\+Appl\+::\+Master\+::handle\+Received\+Audio (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{command\+Name, }
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_master_a1e7730e5e9374205d55050e274ad2771}
+
+
+Handles a received audio-\/transmission of the master-\/client. 
+
+The audio-\/file will be given to the Server-\/object with the signal write\+Audio\+Recording. The received message-\/object (msg) will be deleted. 
+
+Definition at line 180 of file Master.\+cpp.
+
+\hypertarget{class_server_appl_1_1_master_ab4f3a44c0eb7f236783acd41435febf1}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!handle\+Set\+Slide@{handle\+Set\+Slide}}
+\index{handle\+Set\+Slide@{handle\+Set\+Slide}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{handle\+Set\+Slide(\+Q\+String command\+Name, Message $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Server\+Appl\+::\+Master\+::handle\+Set\+Slide (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{command\+Name, }
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_master_ab4f3a44c0eb7f236783acd41435febf1}
+
+
+This handles a set-\/slide-\/command of the master-\/client. 
+
+The server-\/object will be informed by the signal received\+Set\+Slide. The server-\/object is responsible for the forwarding of this command to the clients. The received message-\/object (msg) will be deleted. 
+
+Definition at line 86 of file Master.\+cpp.
+
+\hypertarget{class_server_appl_1_1_master_a4c13d447ddde25f16dc654688e82ef3e}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!handle\+Stop\+Presentation@{handle\+Stop\+Presentation}}
+\index{handle\+Stop\+Presentation@{handle\+Stop\+Presentation}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{handle\+Stop\+Presentation(\+Q\+String command\+Name, Message $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Server\+Appl\+::\+Master\+::handle\+Stop\+Presentation (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{command\+Name, }
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_master_a4c13d447ddde25f16dc654688e82ef3e}
+
+
+Handles a stop-\/presentation-\/command. 
+
+The Server-\/object will be informed of this command. The master-\/object will take no further actions. The received message-\/object (msg) will be deleted. 
+
+Definition at line 168 of file Master.\+cpp.
+
+\hypertarget{class_server_appl_1_1_master_a0cc4e6596d4c3d39eb8f6c993cc7340c}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!handle\+Unknown\+Message@{handle\+Unknown\+Message}}
+\index{handle\+Unknown\+Message@{handle\+Unknown\+Message}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{handle\+Unknown\+Message(\+Q\+String command\+Name, Message $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Server\+Appl\+::\+Master\+::handle\+Unknown\+Message (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{command\+Name, }
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_server_appl_1_1_master_a0cc4e6596d4c3d39eb8f6c993cc7340c}
+
+
+Implements \hyperlink{class_server_appl_1_1_message_handler_interface_a12267f6f59f174d3608285cbc5be3415}{Server\+Appl\+::\+Message\+Handler\+Interface}.
+
+
+
+Definition at line 106 of file Master.\+cpp.
+
+\hypertarget{class_server_appl_1_1_master_aa3eec24a3c9508726b133b21da9fd6fe}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!on\+Received\+Data@{on\+Received\+Data}}
+\index{on\+Received\+Data@{on\+Received\+Data}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{on\+Received\+Data}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Master\+::on\+Received\+Data (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{receiver\+Identifier}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_server_appl_1_1_master_aa3eec24a3c9508726b133b21da9fd6fe}
+
+
+Definition at line 208 of file Master.\+cpp.
+
+\hypertarget{class_server_appl_1_1_master_a329d423c033208c46b88a0a3ef192ec5}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!on\+Transmit\+Slides\+Response@{on\+Transmit\+Slides\+Response}}
+\index{on\+Transmit\+Slides\+Response@{on\+Transmit\+Slides\+Response}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{on\+Transmit\+Slides\+Response}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Master\+::on\+Transmit\+Slides\+Response (
+\begin{DoxyParamCaption}
+\item[{bool}]{accepted}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_server_appl_1_1_master_a329d423c033208c46b88a0a3ef192ec5}
+
+
+Definition at line 241 of file Master.\+cpp.
+
+\hypertarget{class_server_appl_1_1_master_a444769874f653f5bb3c67698327ffcd9}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!received\+Presentation@{received\+Presentation}}
+\index{received\+Presentation@{received\+Presentation}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{received\+Presentation}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Master\+::received\+Presentation (
+\begin{DoxyParamCaption}
+\item[{{\bf Praesentation} $\ast$}]{presentation, }
+\item[{Q\+Map$<$ Q\+String, Q\+Variant $>$}]{presentation\+Parameter\+List, }
+\item[{Q\+Map$<$ Q\+String, Q\+String $>$}]{presentation\+Parameter\+Type\+List}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_master_a444769874f653f5bb3c67698327ffcd9}
+\hypertarget{class_server_appl_1_1_master_a711fc68e3ffbd43fac7c72fe6b5c6eab}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!received\+Set\+Slide@{received\+Set\+Slide}}
+\index{received\+Set\+Slide@{received\+Set\+Slide}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{received\+Set\+Slide}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Master\+::received\+Set\+Slide (
+\begin{DoxyParamCaption}
+\item[{int}]{slide\+Number}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_master_a711fc68e3ffbd43fac7c72fe6b5c6eab}
+\hypertarget{class_server_appl_1_1_master_a7f1f6b0954971ce4a4cac720030433ec}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!received\+Slides@{received\+Slides}}
+\index{received\+Slides@{received\+Slides}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{received\+Slides}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Master\+::received\+Slides (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_master_a7f1f6b0954971ce4a4cac720030433ec}
+\hypertarget{class_server_appl_1_1_master_a4f91b9f8a0c3105a86c283ec9f9c5d31}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!stop\+Presentation@{stop\+Presentation}}
+\index{stop\+Presentation@{stop\+Presentation}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{stop\+Presentation}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Master\+::stop\+Presentation (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_master_a4f91b9f8a0c3105a86c283ec9f9c5d31}
+\hypertarget{class_server_appl_1_1_master_abae549f91598d2954857cac0ff445d7f}{}\index{Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}!write\+Audio\+Recording@{write\+Audio\+Recording}}
+\index{write\+Audio\+Recording@{write\+Audio\+Recording}!Server\+Appl\+::\+Master@{Server\+Appl\+::\+Master}}
+\subsubsection[{write\+Audio\+Recording}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Master\+::write\+Audio\+Recording (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{file\+Name, }
+\item[{const Q\+Byte\+Array \&}]{recording}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_master_abae549f91598d2954857cac0ff445d7f}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Server\+Appl/src/backend/\hyperlink{_master_8h}{Master.\+h}\item 
+Server\+Appl/src/backend/\hyperlink{_master_8cpp}{Master.\+cpp}\end{DoxyCompactItemize}

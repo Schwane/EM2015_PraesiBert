@@ -1,0 +1,189 @@
+\hypertarget{class_server_appl_1_1_byte_stream_verifier}{}\section{Server\+Appl\+:\+:Byte\+Stream\+Verifier Class Reference}
+\label{class_server_appl_1_1_byte_stream_verifier}\index{Server\+Appl\+::\+Byte\+Stream\+Verifier@{Server\+Appl\+::\+Byte\+Stream\+Verifier}}
+
+
+An object of this class can verify a Q\+Byte\+Stream that has a hash at its and.  
+
+
+
+
+{\ttfamily \#include \char`\"{}src/backend/\+Byte\+Stream\+Verifier.\+h\char`\"{}}
+
+Inheritance diagram for Server\+Appl\+:\+:Byte\+Stream\+Verifier\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_server_appl_1_1_byte_stream_verifier}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_server_appl_1_1_byte_stream_verifier_a580a6e8280f572ba4ce307e6b7a74be7}{verify\+Cmd\+Byte\+Stream} (Q\+Byte\+Array message\+Bytes, uint client\+Id)
+\begin{DoxyCompactList}\small\item\em Takes a received command-\/byte-\/stream and tries to verify it with a \hyperlink{class_message_authenticator}{Message\+Authenticator}. \end{DoxyCompactList}\item 
+void \hyperlink{class_server_appl_1_1_byte_stream_verifier_a9bc013d62bfe7ff2c597465ae062459f}{verify\+Data\+Byte\+Stream} (Q\+Byte\+Array message\+Bytes, uint client\+Id)
+\begin{DoxyCompactList}\small\item\em Takes a received data-\/byte-\/stream and tries to verify it with a \hyperlink{class_message_authenticator}{Message\+Authenticator}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_server_appl_1_1_byte_stream_verifier_a7c945c8c2eb698ba87ae445d9f5bd9bb}{cmd\+Byte\+Stream\+Verified} (Q\+Byte\+Array message\+Bytes, uint client\+Id)
+\begin{DoxyCompactList}\small\item\em Will be emitted if a byte-\/stream from a command-\/port was successfully verified. \end{DoxyCompactList}\item 
+void \hyperlink{class_server_appl_1_1_byte_stream_verifier_a32ce64ff8801b564a3216344fb8382a2}{data\+Byte\+Stream\+Verified} (Q\+Byte\+Array message\+Bytes, uint client\+Id)
+\begin{DoxyCompactList}\small\item\em Will be emitted if a byte-\/stream from a data-\/port was successfully verified. \end{DoxyCompactList}\item 
+void \hyperlink{class_server_appl_1_1_byte_stream_verifier_a5ce75d95b934a123f6a4a33d00f99f7d}{received\+Invalid\+Byte\+Stream} (Q\+Byte\+Array bytes, uint client\+Id)
+\begin{DoxyCompactList}\small\item\em Will be emitted if a byte-\/stream could not be verified. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_server_appl_1_1_byte_stream_verifier_a9d89c354709f052e4b4addcac8fbb996}{Byte\+Stream\+Verifier} ()
+\item 
+virtual \hyperlink{class_server_appl_1_1_byte_stream_verifier_ae4d363ecd0f99adf76ed6409e14b234a}{$\sim$\+Byte\+Stream\+Verifier} ()
+\item 
+bool \hyperlink{class_server_appl_1_1_byte_stream_verifier_ab172de1f63253d8b6b7b06f85e4dce4e}{add\+Message\+Authenticator} (unsigned int client\+Id, \hyperlink{class_message_authenticator}{Message\+Authenticator} $\ast$authenticator)
+\begin{DoxyCompactList}\small\item\em Adds a Message\+Authenticator-\/object for a specific client. \end{DoxyCompactList}\item 
+bool \hyperlink{class_server_appl_1_1_byte_stream_verifier_a9424c37813986023dc8c6833cc984a89}{remove\+Message\+Authenticator} (unsigned int client\+Id)
+\begin{DoxyCompactList}\small\item\em Removes a Message\+Authenticator-\/object for a specific client. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+An object of this class can verify a Q\+Byte\+Stream that has a hash at its and. 
+
+This class implements the verification of received byte-\/streams from a specific client. Therefore it has a list with client\+Id\textquotesingle{}s and corresponding Message\+Authenticator-\/objects. If a byte-\/stream from a client with an I\+D from that table was received the \hyperlink{class_server_appl_1_1_byte_stream_verifier}{Byte\+Stream\+Verifier} will try to check if the byte-\/stream is valid. If the byte-\/stream is not valid it will be deleted. Otherwise it will be forwarded. If no \hyperlink{class_message_authenticator}{Message\+Authenticator} for a client\+Id exist the byte-\/stream will always be forwarded. 
+
+Definition at line 32 of file Byte\+Stream\+Verifier.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_server_appl_1_1_byte_stream_verifier_a9d89c354709f052e4b4addcac8fbb996}{}\index{Server\+Appl\+::\+Byte\+Stream\+Verifier@{Server\+Appl\+::\+Byte\+Stream\+Verifier}!Byte\+Stream\+Verifier@{Byte\+Stream\+Verifier}}
+\index{Byte\+Stream\+Verifier@{Byte\+Stream\+Verifier}!Server\+Appl\+::\+Byte\+Stream\+Verifier@{Server\+Appl\+::\+Byte\+Stream\+Verifier}}
+\subsubsection[{Byte\+Stream\+Verifier()}]{\setlength{\rightskip}{0pt plus 5cm}Server\+Appl\+::\+Byte\+Stream\+Verifier\+::\+Byte\+Stream\+Verifier (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_byte_stream_verifier_a9d89c354709f052e4b4addcac8fbb996}
+
+
+Definition at line 14 of file Byte\+Stream\+Verifier.\+cpp.
+
+\hypertarget{class_server_appl_1_1_byte_stream_verifier_ae4d363ecd0f99adf76ed6409e14b234a}{}\index{Server\+Appl\+::\+Byte\+Stream\+Verifier@{Server\+Appl\+::\+Byte\+Stream\+Verifier}!````~Byte\+Stream\+Verifier@{$\sim$\+Byte\+Stream\+Verifier}}
+\index{````~Byte\+Stream\+Verifier@{$\sim$\+Byte\+Stream\+Verifier}!Server\+Appl\+::\+Byte\+Stream\+Verifier@{Server\+Appl\+::\+Byte\+Stream\+Verifier}}
+\subsubsection[{$\sim$\+Byte\+Stream\+Verifier()}]{\setlength{\rightskip}{0pt plus 5cm}Server\+Appl\+::\+Byte\+Stream\+Verifier\+::$\sim$\+Byte\+Stream\+Verifier (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_server_appl_1_1_byte_stream_verifier_ae4d363ecd0f99adf76ed6409e14b234a}
+
+
+Definition at line 19 of file Byte\+Stream\+Verifier.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_server_appl_1_1_byte_stream_verifier_ab172de1f63253d8b6b7b06f85e4dce4e}{}\index{Server\+Appl\+::\+Byte\+Stream\+Verifier@{Server\+Appl\+::\+Byte\+Stream\+Verifier}!add\+Message\+Authenticator@{add\+Message\+Authenticator}}
+\index{add\+Message\+Authenticator@{add\+Message\+Authenticator}!Server\+Appl\+::\+Byte\+Stream\+Verifier@{Server\+Appl\+::\+Byte\+Stream\+Verifier}}
+\subsubsection[{add\+Message\+Authenticator(unsigned int client\+Id, Message\+Authenticator $\ast$authenticator)}]{\setlength{\rightskip}{0pt plus 5cm}bool Server\+Appl\+::\+Byte\+Stream\+Verifier\+::add\+Message\+Authenticator (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{client\+Id, }
+\item[{{\bf Message\+Authenticator} $\ast$}]{authenticator}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_byte_stream_verifier_ab172de1f63253d8b6b7b06f85e4dce4e}
+
+
+Adds a Message\+Authenticator-\/object for a specific client. 
+
+
+
+Definition at line 54 of file Byte\+Stream\+Verifier.\+cpp.
+
+\hypertarget{class_server_appl_1_1_byte_stream_verifier_a7c945c8c2eb698ba87ae445d9f5bd9bb}{}\index{Server\+Appl\+::\+Byte\+Stream\+Verifier@{Server\+Appl\+::\+Byte\+Stream\+Verifier}!cmd\+Byte\+Stream\+Verified@{cmd\+Byte\+Stream\+Verified}}
+\index{cmd\+Byte\+Stream\+Verified@{cmd\+Byte\+Stream\+Verified}!Server\+Appl\+::\+Byte\+Stream\+Verifier@{Server\+Appl\+::\+Byte\+Stream\+Verifier}}
+\subsubsection[{cmd\+Byte\+Stream\+Verified}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Byte\+Stream\+Verifier\+::cmd\+Byte\+Stream\+Verified (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{message\+Bytes, }
+\item[{uint}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_byte_stream_verifier_a7c945c8c2eb698ba87ae445d9f5bd9bb}
+
+
+Will be emitted if a byte-\/stream from a command-\/port was successfully verified. 
+
+\hypertarget{class_server_appl_1_1_byte_stream_verifier_a32ce64ff8801b564a3216344fb8382a2}{}\index{Server\+Appl\+::\+Byte\+Stream\+Verifier@{Server\+Appl\+::\+Byte\+Stream\+Verifier}!data\+Byte\+Stream\+Verified@{data\+Byte\+Stream\+Verified}}
+\index{data\+Byte\+Stream\+Verified@{data\+Byte\+Stream\+Verified}!Server\+Appl\+::\+Byte\+Stream\+Verifier@{Server\+Appl\+::\+Byte\+Stream\+Verifier}}
+\subsubsection[{data\+Byte\+Stream\+Verified}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Byte\+Stream\+Verifier\+::data\+Byte\+Stream\+Verified (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{message\+Bytes, }
+\item[{uint}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_byte_stream_verifier_a32ce64ff8801b564a3216344fb8382a2}
+
+
+Will be emitted if a byte-\/stream from a data-\/port was successfully verified. 
+
+\hypertarget{class_server_appl_1_1_byte_stream_verifier_a5ce75d95b934a123f6a4a33d00f99f7d}{}\index{Server\+Appl\+::\+Byte\+Stream\+Verifier@{Server\+Appl\+::\+Byte\+Stream\+Verifier}!received\+Invalid\+Byte\+Stream@{received\+Invalid\+Byte\+Stream}}
+\index{received\+Invalid\+Byte\+Stream@{received\+Invalid\+Byte\+Stream}!Server\+Appl\+::\+Byte\+Stream\+Verifier@{Server\+Appl\+::\+Byte\+Stream\+Verifier}}
+\subsubsection[{received\+Invalid\+Byte\+Stream}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Byte\+Stream\+Verifier\+::received\+Invalid\+Byte\+Stream (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{bytes, }
+\item[{uint}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_byte_stream_verifier_a5ce75d95b934a123f6a4a33d00f99f7d}
+
+
+Will be emitted if a byte-\/stream could not be verified. 
+
+\hypertarget{class_server_appl_1_1_byte_stream_verifier_a9424c37813986023dc8c6833cc984a89}{}\index{Server\+Appl\+::\+Byte\+Stream\+Verifier@{Server\+Appl\+::\+Byte\+Stream\+Verifier}!remove\+Message\+Authenticator@{remove\+Message\+Authenticator}}
+\index{remove\+Message\+Authenticator@{remove\+Message\+Authenticator}!Server\+Appl\+::\+Byte\+Stream\+Verifier@{Server\+Appl\+::\+Byte\+Stream\+Verifier}}
+\subsubsection[{remove\+Message\+Authenticator(unsigned int client\+Id)}]{\setlength{\rightskip}{0pt plus 5cm}bool Server\+Appl\+::\+Byte\+Stream\+Verifier\+::remove\+Message\+Authenticator (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{client\+Id}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_byte_stream_verifier_a9424c37813986023dc8c6833cc984a89}
+
+
+Removes a Message\+Authenticator-\/object for a specific client. 
+
+\begin{DoxyReturn}{Returns}
+True if a \hyperlink{class_message_authenticator}{Message\+Authenticator} exists for the client and was successfully removed.
+\end{DoxyReturn}
+The object will N\+O\+T be deleted! 
+
+Definition at line 67 of file Byte\+Stream\+Verifier.\+cpp.
+
+\hypertarget{class_server_appl_1_1_byte_stream_verifier_a580a6e8280f572ba4ce307e6b7a74be7}{}\index{Server\+Appl\+::\+Byte\+Stream\+Verifier@{Server\+Appl\+::\+Byte\+Stream\+Verifier}!verify\+Cmd\+Byte\+Stream@{verify\+Cmd\+Byte\+Stream}}
+\index{verify\+Cmd\+Byte\+Stream@{verify\+Cmd\+Byte\+Stream}!Server\+Appl\+::\+Byte\+Stream\+Verifier@{Server\+Appl\+::\+Byte\+Stream\+Verifier}}
+\subsubsection[{verify\+Cmd\+Byte\+Stream}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Byte\+Stream\+Verifier\+::verify\+Cmd\+Byte\+Stream (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{message\+Bytes, }
+\item[{uint}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_server_appl_1_1_byte_stream_verifier_a580a6e8280f572ba4ce307e6b7a74be7}
+
+
+Takes a received command-\/byte-\/stream and tries to verify it with a \hyperlink{class_message_authenticator}{Message\+Authenticator}. 
+
+
+
+Definition at line 24 of file Byte\+Stream\+Verifier.\+cpp.
+
+\hypertarget{class_server_appl_1_1_byte_stream_verifier_a9bc013d62bfe7ff2c597465ae062459f}{}\index{Server\+Appl\+::\+Byte\+Stream\+Verifier@{Server\+Appl\+::\+Byte\+Stream\+Verifier}!verify\+Data\+Byte\+Stream@{verify\+Data\+Byte\+Stream}}
+\index{verify\+Data\+Byte\+Stream@{verify\+Data\+Byte\+Stream}!Server\+Appl\+::\+Byte\+Stream\+Verifier@{Server\+Appl\+::\+Byte\+Stream\+Verifier}}
+\subsubsection[{verify\+Data\+Byte\+Stream}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Byte\+Stream\+Verifier\+::verify\+Data\+Byte\+Stream (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{message\+Bytes, }
+\item[{uint}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_server_appl_1_1_byte_stream_verifier_a9bc013d62bfe7ff2c597465ae062459f}
+
+
+Takes a received data-\/byte-\/stream and tries to verify it with a \hyperlink{class_message_authenticator}{Message\+Authenticator}. 
+
+
+
+Definition at line 40 of file Byte\+Stream\+Verifier.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Server\+Appl/src/backend/\hyperlink{_byte_stream_verifier_8h}{Byte\+Stream\+Verifier.\+h}\item 
+Server\+Appl/src/backend/\hyperlink{_byte_stream_verifier_8cpp}{Byte\+Stream\+Verifier.\+cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,222 @@
+\hypertarget{class_camera_processor}{}\section{Camera\+Processor Class Reference}
+\label{class_camera_processor}\index{Camera\+Processor@{Camera\+Processor}}
+
+
+\hyperlink{class_camera_processor}{Camera\+Processor} class.  
+
+
+
+
+{\ttfamily \#include \char`\"{}Camera/\+Camera\+Processor.\+hpp\char`\"{}}
+
+Inheritance diagram for Camera\+Processor\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_camera_processor}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{class_camera_processor_a302481f2bda71ed63fda97d280abe128}{Status} \{ \hyperlink{class_camera_processor_a302481f2bda71ed63fda97d280abe128a5d7756fd07a0e2a716fa3285b6649c63}{N\+O\+T\+H\+I\+N\+G}, 
+\hyperlink{class_camera_processor_a302481f2bda71ed63fda97d280abe128a7576fb4180d941a33d45e64395f26827}{R\+I\+G\+H\+T}, 
+\hyperlink{class_camera_processor_a302481f2bda71ed63fda97d280abe128aea3db9eb5edbbbec72fc4492a5f1d6e1}{L\+E\+F\+T}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_camera_processor_a8fc5313c16268861a14f58891421592f}{start} ()
+\begin{DoxyCompactList}\small\item\em Starts the camera and the gesture detection. \end{DoxyCompactList}\item 
+void \hyperlink{class_camera_processor_af6547d64e6fad393441286535e908e40}{stop} ()
+\begin{DoxyCompactList}\small\item\em Stops the camera and the gesture detection. \end{DoxyCompactList}\item 
+void \hyperlink{class_camera_processor_ae0876748974a262d3481163ab876a074}{process} ()
+\begin{DoxyCompactList}\small\item\em Analyzes the actual frame for a possible gesture. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_camera_processor_a8e221894fdcae9f1a9e7628c7ed54dca}{gesture\+Detected} (int value)
+\begin{DoxyCompactList}\small\item\em Emitted if a gesture is detected. \end{DoxyCompactList}\item 
+void \hyperlink{class_camera_processor_a79dc2456e9146a17edba62104bf46fec}{error} (Q\+String e)
+\begin{DoxyCompactList}\small\item\em Emitted if an error has occured. \end{DoxyCompactList}\item 
+void \hyperlink{class_camera_processor_a3585468dcdcc49cc4553f1761bd481dc}{image\+Ready} ()
+\begin{DoxyCompactList}\small\item\em Emitted if a new image is ready for processing. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_camera_processor_af26223b70bc4d625f9c4d6ba274ce177}{Camera\+Processor} (Q\+Object $\ast$parent=N\+U\+L\+L)
+\begin{DoxyCompactList}\small\item\em Constructor for the \hyperlink{class_camera_processor}{Camera\+Processor} class. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_camera_processor_a89cc3fe4d8348f1af2dbdcdf9736ae02}{$\sim$\+Camera\+Processor} ()
+\begin{DoxyCompactList}\small\item\em Deconstructor for the \hyperlink{class_camera_controller}{Camera\+Controller} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_camera_processor}{Camera\+Processor} class. 
+
+The \hyperlink{class_camera_processor}{Camera\+Processor} class is part of the gesture control component. When the gesture control feature gets activated, an instance of this class is created. It then enables the front camera unit and starts the viewfinder. Every frame gets analyzed and if a gesture is detected, an according signal is emitted. When the gesture control feature gets deactivated, this class stops scanning and frees the camera ressource. 
+
+Definition at line 27 of file Camera\+Processor.\+hpp.
+
+
+
+\subsection{Member Enumeration Documentation}
+\hypertarget{class_camera_processor_a302481f2bda71ed63fda97d280abe128}{}\index{Camera\+Processor@{Camera\+Processor}!Status@{Status}}
+\index{Status@{Status}!Camera\+Processor@{Camera\+Processor}}
+\subsubsection[{Status}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Camera\+Processor\+::\+Status}}\label{class_camera_processor_a302481f2bda71ed63fda97d280abe128}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{N\+O\+T\+H\+I\+N\+G@{N\+O\+T\+H\+I\+N\+G}!Camera\+Processor@{Camera\+Processor}}\index{Camera\+Processor@{Camera\+Processor}!N\+O\+T\+H\+I\+N\+G@{N\+O\+T\+H\+I\+N\+G}}\item[{\em 
+\hypertarget{class_camera_processor_a302481f2bda71ed63fda97d280abe128a5d7756fd07a0e2a716fa3285b6649c63}{}N\+O\+T\+H\+I\+N\+G\label{class_camera_processor_a302481f2bda71ed63fda97d280abe128a5d7756fd07a0e2a716fa3285b6649c63}
+}]\index{R\+I\+G\+H\+T@{R\+I\+G\+H\+T}!Camera\+Processor@{Camera\+Processor}}\index{Camera\+Processor@{Camera\+Processor}!R\+I\+G\+H\+T@{R\+I\+G\+H\+T}}\item[{\em 
+\hypertarget{class_camera_processor_a302481f2bda71ed63fda97d280abe128a7576fb4180d941a33d45e64395f26827}{}R\+I\+G\+H\+T\label{class_camera_processor_a302481f2bda71ed63fda97d280abe128a7576fb4180d941a33d45e64395f26827}
+}]\index{L\+E\+F\+T@{L\+E\+F\+T}!Camera\+Processor@{Camera\+Processor}}\index{Camera\+Processor@{Camera\+Processor}!L\+E\+F\+T@{L\+E\+F\+T}}\item[{\em 
+\hypertarget{class_camera_processor_a302481f2bda71ed63fda97d280abe128aea3db9eb5edbbbec72fc4492a5f1d6e1}{}L\+E\+F\+T\label{class_camera_processor_a302481f2bda71ed63fda97d280abe128aea3db9eb5edbbbec72fc4492a5f1d6e1}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 59 of file Camera\+Processor.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_camera_processor_af26223b70bc4d625f9c4d6ba274ce177}{}\index{Camera\+Processor@{Camera\+Processor}!Camera\+Processor@{Camera\+Processor}}
+\index{Camera\+Processor@{Camera\+Processor}!Camera\+Processor@{Camera\+Processor}}
+\subsubsection[{Camera\+Processor(\+Q\+Object $\ast$parent=\+N\+U\+L\+L)}]{\setlength{\rightskip}{0pt plus 5cm}Camera\+Processor\+::\+Camera\+Processor (
+\begin{DoxyParamCaption}
+\item[{Q\+Object $\ast$}]{parent = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}\label{class_camera_processor_af26223b70bc4d625f9c4d6ba274ce177}
+
+
+Constructor for the \hyperlink{class_camera_processor}{Camera\+Processor} class. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em parent} & Parent Q\+Object that creates the \hyperlink{class_camera_processor}{Camera\+Processor} object\\
+\hline
+\end{DoxyParams}
+This constructor sets all member variables to default values and connects the image\+Ready-\/signal with the \hyperlink{class_camera_processor_ae0876748974a262d3481163ab876a074}{process()}-\/slot, which is used for analyzing the frames.~\newline
+ To optimize the performance, try changing the following parameters\+:~\newline
+ 
+\begin{DoxyItemize}
+\item m\+\_\+framerate\+: With a framerate of 16 (or less) frames per second every frame gets reliably processed, but maybe it could be set higher for better results. 
+\item m\+\_\+threshold\+: The threshold determines when a change in pixel value is deemed significant. The pixel values range from 255 (white) to 0 (black). Too small changes from one frame to the next may be caused by shadows etc., so they should be ignored. 
+\item m\+\_\+interval\+\_\+percentage\+: Determines the percentage of a frame that counts as left or right (where gestures start and finish) and the interval in which a gesture is regarded continued from one frame to the next.
+\end{DoxyItemize}
+
+Definition at line 27 of file Camera\+Processor.\+cpp.
+
+\hypertarget{class_camera_processor_a89cc3fe4d8348f1af2dbdcdf9736ae02}{}\index{Camera\+Processor@{Camera\+Processor}!````~Camera\+Processor@{$\sim$\+Camera\+Processor}}
+\index{````~Camera\+Processor@{$\sim$\+Camera\+Processor}!Camera\+Processor@{Camera\+Processor}}
+\subsubsection[{$\sim$\+Camera\+Processor()}]{\setlength{\rightskip}{0pt plus 5cm}Camera\+Processor\+::$\sim$\+Camera\+Processor (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_camera_processor_a89cc3fe4d8348f1af2dbdcdf9736ae02}
+
+
+Deconstructor for the \hyperlink{class_camera_controller}{Camera\+Controller} class. 
+
+If the camera ressource is still in use, the \hyperlink{class_camera_processor_af6547d64e6fad393441286535e908e40}{stop()}-\/procedure gets called. 
+
+Definition at line 47 of file Camera\+Processor.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_camera_processor_a79dc2456e9146a17edba62104bf46fec}{}\index{Camera\+Processor@{Camera\+Processor}!error@{error}}
+\index{error@{error}!Camera\+Processor@{Camera\+Processor}}
+\subsubsection[{error}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\+Processor\+::error (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{e}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_camera_processor_a79dc2456e9146a17edba62104bf46fec}
+
+
+Emitted if an error has occured. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em e} & Q\+String with a description of the error\\
+\hline
+\end{DoxyParams}
+If an error has occurred (e. g. it was not possible to set a specific resolution), this signal is emitted. \hypertarget{class_camera_processor_a8e221894fdcae9f1a9e7628c7ed54dca}{}\index{Camera\+Processor@{Camera\+Processor}!gesture\+Detected@{gesture\+Detected}}
+\index{gesture\+Detected@{gesture\+Detected}!Camera\+Processor@{Camera\+Processor}}
+\subsubsection[{gesture\+Detected}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\+Processor\+::gesture\+Detected (
+\begin{DoxyParamCaption}
+\item[{int}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_camera_processor_a8e221894fdcae9f1a9e7628c7ed54dca}
+
+
+Emitted if a gesture is detected. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em value} & Signals which gesture has been detected\+: -\/1 = to the left, +1 = to the right\\
+\hline
+\end{DoxyParams}
+If a gesture has been identified, this signal is emitted. \hypertarget{class_camera_processor_a3585468dcdcc49cc4553f1761bd481dc}{}\index{Camera\+Processor@{Camera\+Processor}!image\+Ready@{image\+Ready}}
+\index{image\+Ready@{image\+Ready}!Camera\+Processor@{Camera\+Processor}}
+\subsubsection[{image\+Ready}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\+Processor\+::image\+Ready (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_camera_processor_a3585468dcdcc49cc4553f1761bd481dc}
+
+
+Emitted if a new image is ready for processing. 
+
+When a frame is available, the callback function viewfinder\+\_\+callback() gets called. If the control variable m\+\_\+busy is not set, this signal is emitted \hypertarget{class_camera_processor_ae0876748974a262d3481163ab876a074}{}\index{Camera\+Processor@{Camera\+Processor}!process@{process}}
+\index{process@{process}!Camera\+Processor@{Camera\+Processor}}
+\subsubsection[{process}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\+Processor\+::process (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_camera_processor_ae0876748974a262d3481163ab876a074}
+
+
+Analyzes the actual frame for a possible gesture. 
+
+When a frame is available, the callback function viewfinder\+\_\+callback() gets called. If the control variable m\+\_\+busy is not set, the signal \hyperlink{class_camera_processor_a3585468dcdcc49cc4553f1761bd481dc}{image\+Ready()} is emitted and \hyperlink{class_camera_processor_ae0876748974a262d3481163ab876a074}{process()} gets called to analyze the new image which is stored in m\+\_\+image. 
+
+Definition at line 381 of file Camera\+Processor.\+cpp.
+
+\hypertarget{class_camera_processor_a8fc5313c16268861a14f58891421592f}{}\index{Camera\+Processor@{Camera\+Processor}!start@{start}}
+\index{start@{start}!Camera\+Processor@{Camera\+Processor}}
+\subsubsection[{start}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\+Processor\+::start (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_camera_processor_a8fc5313c16268861a14f58891421592f}
+
+
+Starts the camera and the gesture detection. 
+
+First enables the front camera unit by calling open\+Camera(), then adjusts the settings and starts the viewfinder by calling start\+Vf(). 
+
+Definition at line 56 of file Camera\+Processor.\+cpp.
+
+\hypertarget{class_camera_processor_af6547d64e6fad393441286535e908e40}{}\index{Camera\+Processor@{Camera\+Processor}!stop@{stop}}
+\index{stop@{stop}!Camera\+Processor@{Camera\+Processor}}
+\subsubsection[{stop}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\+Processor\+::stop (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_camera_processor_af6547d64e6fad393441286535e908e40}
+
+
+Stops the camera and the gesture detection. 
+
+First stops the viewfinder by calling stop\+Vf(), then disables the front camera unit by calling close\+Camera(). 
+
+Definition at line 64 of file Camera\+Processor.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Common/\+Client\+Server\+Share\+Lib/include/\hyperlink{_camera_processor_8hpp}{Camera\+Processor.\+hpp}\item 
+Common/\+Client\+Server\+Share\+Lib/src/\+Camera/\hyperlink{_camera_processor_8cpp}{Camera\+Processor.\+cpp}\end{DoxyCompactItemize}

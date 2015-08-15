@@ -1,0 +1,263 @@
+\hypertarget{class_server_appl_1_1_unspecified_client}{}\section{Server\+Appl\+:\+:Unspecified\+Client Class Reference}
+\label{class_server_appl_1_1_unspecified_client}\index{Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}}
+
+
+Objects of this class represent a client the has not shown if its a master-\/client or listener-\/client.  
+
+
+
+
+{\ttfamily \#include \char`\"{}src/backend/\+Unspecified\+Client.\+h\char`\"{}}
+
+Inheritance diagram for Server\+Appl\+:\+:Unspecified\+Client\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_server_appl_1_1_unspecified_client}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_server_appl_1_1_unspecified_client_adefdd2e73ed80da4934a206f00355d15}{Unspecified\+Client} ()
+\item 
+\hyperlink{class_server_appl_1_1_unspecified_client_a53f7a9a8ee49f3ab69a7aceb5fde3358}{Unspecified\+Client} (\hyperlink{class_server_appl_1_1_server}{Server} $\ast$\hyperlink{class_server_appl_1_1_unspecified_client_aed25c6192d4e27602c2bf4f0721360b5}{server}, uint \hyperlink{class_server_appl_1_1_unspecified_client_a9a3cf2d070f19fb2bfd7d544053955b0}{client\+Id}, Q\+String \hyperlink{class_server_appl_1_1_unspecified_client_a66f3dc8bd71e34f52ad02f692808593c}{name})
+\item 
+virtual \hyperlink{class_server_appl_1_1_unspecified_client_a2bd494a24d1b0f625efc77898c5da6b2}{$\sim$\+Unspecified\+Client} ()
+\item 
+unsigned int \hyperlink{class_server_appl_1_1_unspecified_client_a90eb13ada4cb106816c025095d69c124}{get\+Client\+Id} ()
+\begin{DoxyCompactList}\small\item\em Returns the unique I\+D of the client. \end{DoxyCompactList}\item 
+virtual \hyperlink{_unspecified_client_8h_af7f22c7d662171af2c3a5b74f621dc98}{Client\+Type} \hyperlink{class_server_appl_1_1_unspecified_client_a239fa0949cf9b054593d7b1570e55624}{get\+Client\+Type} ()
+\begin{DoxyCompactList}\small\item\em This function returns the type of the client. \end{DoxyCompactList}\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_server_appl_1_1_unspecified_client_abb48827aa6564e1550a8b068076d37f2}{handle\+Unknown\+Message} (Q\+String command\+Name, \hyperlink{class_message}{Message} $\ast$msg)
+\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_server_appl_1_1_unspecified_client_a2b57cebb68616c0973ff48274de30253}{handle\+Login\+Messages} (Q\+String command\+Name, \hyperlink{class_message}{Message} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Message-\/handler for login-\/commands of the client. \end{DoxyCompactList}\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_server_appl_1_1_unspecified_client_a2181c87edd7342462b30badffa1a0dc1}{handle\+Auth\+Phase1} (Q\+String command\+Name, \hyperlink{class_message}{Message} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Message-\/handler for auth-\/phase-\/1-\/commands. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{class_server_appl_1_1_unspecified_client_a6e1c8e92bc45576046956942e515da4a}{get\+Name} ()
+\item 
+Q\+Time \hyperlink{class_server_appl_1_1_unspecified_client_a539c101624ce66e1bc2faae200eb43c0}{get\+Last\+Timestamp} ()
+\item 
+\hyperlink{class_server_appl_1_1_server}{Server} $\ast$ \hyperlink{class_server_appl_1_1_unspecified_client_a8aed9d0af091d198b6805b292d63e481}{get\+Server} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_server_appl_1_1_server}{Server} $\ast$ \hyperlink{class_server_appl_1_1_unspecified_client_aed25c6192d4e27602c2bf4f0721360b5}{server}
+\item 
+uint \hyperlink{class_server_appl_1_1_unspecified_client_a9a3cf2d070f19fb2bfd7d544053955b0}{client\+Id}
+\item 
+Q\+String \hyperlink{class_server_appl_1_1_unspecified_client_a66f3dc8bd71e34f52ad02f692808593c}{name}
+\item 
+Q\+Time \hyperlink{class_server_appl_1_1_unspecified_client_a243b627d332e06cd922148b7008af97e}{last\+Timestamp}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Objects of this class represent a client the has not shown if its a master-\/client or listener-\/client. 
+
+The class \hyperlink{class_server_appl_1_1_unspecified_client}{Unspecified\+Client} will represent a client for the time after the network-\/connection was established but no login-\/procedure was performed. In this time it is not clear what kind of client it is. After receiving a login-\/command it can be defined if its a master-\/client or a listener-\/client. It then will be transformed into an object of the classes \hyperlink{class_server_appl_1_1_master}{Master} or \hyperlink{class_server_appl_1_1_listener}{Listener}. Both classes offer static functions which will build an Master/\+Listener-\/object basing on the data of a Unspecified\+Client-\/object.
+
+Further this class is the base-\/class of Mater/\+Client-\/class. It defines a common interface for both classes and some basic-\/functionallity. 
+
+Definition at line 45 of file Unspecified\+Client.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_server_appl_1_1_unspecified_client_adefdd2e73ed80da4934a206f00355d15}{}\index{Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}!Unspecified\+Client@{Unspecified\+Client}}
+\index{Unspecified\+Client@{Unspecified\+Client}!Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}}
+\subsubsection[{Unspecified\+Client()}]{\setlength{\rightskip}{0pt plus 5cm}Server\+Appl\+::\+Unspecified\+Client\+::\+Unspecified\+Client (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_unspecified_client_adefdd2e73ed80da4934a206f00355d15}
+
+
+Definition at line 19 of file Unspecified\+Client.\+cpp.
+
+\hypertarget{class_server_appl_1_1_unspecified_client_a53f7a9a8ee49f3ab69a7aceb5fde3358}{}\index{Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}!Unspecified\+Client@{Unspecified\+Client}}
+\index{Unspecified\+Client@{Unspecified\+Client}!Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}}
+\subsubsection[{Unspecified\+Client(\+Server $\ast$server, uint client\+Id, Q\+String name)}]{\setlength{\rightskip}{0pt plus 5cm}Server\+Appl\+::\+Unspecified\+Client\+::\+Unspecified\+Client (
+\begin{DoxyParamCaption}
+\item[{{\bf Server} $\ast$}]{server, }
+\item[{uint}]{client\+Id, }
+\item[{Q\+String}]{name}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_unspecified_client_a53f7a9a8ee49f3ab69a7aceb5fde3358}
+
+
+Definition at line 24 of file Unspecified\+Client.\+cpp.
+
+\hypertarget{class_server_appl_1_1_unspecified_client_a2bd494a24d1b0f625efc77898c5da6b2}{}\index{Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}!````~Unspecified\+Client@{$\sim$\+Unspecified\+Client}}
+\index{````~Unspecified\+Client@{$\sim$\+Unspecified\+Client}!Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}}
+\subsubsection[{$\sim$\+Unspecified\+Client()}]{\setlength{\rightskip}{0pt plus 5cm}Server\+Appl\+::\+Unspecified\+Client\+::$\sim$\+Unspecified\+Client (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_server_appl_1_1_unspecified_client_a2bd494a24d1b0f625efc77898c5da6b2}
+
+
+Definition at line 32 of file Unspecified\+Client.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_server_appl_1_1_unspecified_client_a90eb13ada4cb106816c025095d69c124}{}\index{Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}!get\+Client\+Id@{get\+Client\+Id}}
+\index{get\+Client\+Id@{get\+Client\+Id}!Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}}
+\subsubsection[{get\+Client\+Id()}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int Server\+Appl\+::\+Unspecified\+Client\+::get\+Client\+Id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_unspecified_client_a90eb13ada4cb106816c025095d69c124}
+
+
+Returns the unique I\+D of the client. 
+
+\begin{DoxyReturn}{Returns}
+Unsigned integer which is the I\+D of the client.
+\end{DoxyReturn}
+The I\+D\textquotesingle{}s of the clients will be generated by the network-\/module. 
+
+Definition at line 146 of file Unspecified\+Client.\+cpp.
+
+\hypertarget{class_server_appl_1_1_unspecified_client_a239fa0949cf9b054593d7b1570e55624}{}\index{Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}!get\+Client\+Type@{get\+Client\+Type}}
+\index{get\+Client\+Type@{get\+Client\+Type}!Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}}
+\subsubsection[{get\+Client\+Type()}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Client\+Type} Server\+Appl\+::\+Unspecified\+Client\+::get\+Client\+Type (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_server_appl_1_1_unspecified_client_a239fa0949cf9b054593d7b1570e55624}
+
+
+This function returns the type of the client. 
+
+\begin{DoxyReturn}{Returns}
+Will return Client\+Type\+\_\+\+Unspecified, Client\+Type\+\_\+\+Listener or Client\+Type\+\_\+\+Master. 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_server_appl_1_1_master_a9fa7bd1e0f1770802900d10569c04b30}{Server\+Appl\+::\+Master}, and \hyperlink{class_server_appl_1_1_listener_a016b2bc155a45663fb3f9d92ece9fef7}{Server\+Appl\+::\+Listener}.
+
+
+
+Definition at line 141 of file Unspecified\+Client.\+cpp.
+
+\hypertarget{class_server_appl_1_1_unspecified_client_a539c101624ce66e1bc2faae200eb43c0}{}\index{Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}!get\+Last\+Timestamp@{get\+Last\+Timestamp}}
+\index{get\+Last\+Timestamp@{get\+Last\+Timestamp}!Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}}
+\subsubsection[{get\+Last\+Timestamp()}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Time Server\+Appl\+::\+Unspecified\+Client\+::get\+Last\+Timestamp (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_unspecified_client_a539c101624ce66e1bc2faae200eb43c0}
+
+
+Definition at line 156 of file Unspecified\+Client.\+cpp.
+
+\hypertarget{class_server_appl_1_1_unspecified_client_a6e1c8e92bc45576046956942e515da4a}{}\index{Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}!get\+Name@{get\+Name}}
+\index{get\+Name@{get\+Name}!Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}}
+\subsubsection[{get\+Name()}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Server\+Appl\+::\+Unspecified\+Client\+::get\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_unspecified_client_a6e1c8e92bc45576046956942e515da4a}
+
+
+Definition at line 151 of file Unspecified\+Client.\+cpp.
+
+\hypertarget{class_server_appl_1_1_unspecified_client_a8aed9d0af091d198b6805b292d63e481}{}\index{Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}!get\+Server@{get\+Server}}
+\index{get\+Server@{get\+Server}!Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}}
+\subsubsection[{get\+Server()}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Server} $\ast$ Server\+Appl\+::\+Unspecified\+Client\+::get\+Server (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_unspecified_client_a8aed9d0af091d198b6805b292d63e481}
+
+
+Definition at line 161 of file Unspecified\+Client.\+cpp.
+
+\hypertarget{class_server_appl_1_1_unspecified_client_a2181c87edd7342462b30badffa1a0dc1}{}\index{Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}!handle\+Auth\+Phase1@{handle\+Auth\+Phase1}}
+\index{handle\+Auth\+Phase1@{handle\+Auth\+Phase1}!Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}}
+\subsubsection[{handle\+Auth\+Phase1(\+Q\+String command\+Name, Message $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Server\+Appl\+::\+Unspecified\+Client\+::handle\+Auth\+Phase1 (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{command\+Name, }
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_unspecified_client_a2181c87edd7342462b30badffa1a0dc1}
+
+
+Message-\/handler for auth-\/phase-\/1-\/commands. 
+
+Only a master-\/client will transmit this command. It is the first command in the login-\/phase of the master-\/client. After receiving this command the Unspecified\+Client-\/object will be transformed into a Master-\/object and the Server-\/object will verify the new Master-\/object. 
+
+Definition at line 88 of file Unspecified\+Client.\+cpp.
+
+\hypertarget{class_server_appl_1_1_unspecified_client_a2b57cebb68616c0973ff48274de30253}{}\index{Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}!handle\+Login\+Messages@{handle\+Login\+Messages}}
+\index{handle\+Login\+Messages@{handle\+Login\+Messages}!Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}}
+\subsubsection[{handle\+Login\+Messages(\+Q\+String command\+Name, Message $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Server\+Appl\+::\+Unspecified\+Client\+::handle\+Login\+Messages (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{command\+Name, }
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_unspecified_client_a2b57cebb68616c0973ff48274de30253}
+
+
+Message-\/handler for login-\/commands of the client. 
+
+If the command transmitted a login-\/command to the server this function shall handle the command. Only listener-\/clients will transmit this command. After receiving this command the Unspecified\+Client-\/object will be transformed into a Listener-\/object. The new object will be verified by the Server-\/object. 
+
+Definition at line 48 of file Unspecified\+Client.\+cpp.
+
+\hypertarget{class_server_appl_1_1_unspecified_client_abb48827aa6564e1550a8b068076d37f2}{}\index{Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}!handle\+Unknown\+Message@{handle\+Unknown\+Message}}
+\index{handle\+Unknown\+Message@{handle\+Unknown\+Message}!Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}}
+\subsubsection[{handle\+Unknown\+Message(\+Q\+String command\+Name, Message $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Server\+Appl\+::\+Unspecified\+Client\+::handle\+Unknown\+Message (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{command\+Name, }
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_server_appl_1_1_unspecified_client_abb48827aa6564e1550a8b068076d37f2}
+
+
+Implements \hyperlink{class_server_appl_1_1_message_handler_interface_a12267f6f59f174d3608285cbc5be3415}{Server\+Appl\+::\+Message\+Handler\+Interface}.
+
+
+
+Definition at line 36 of file Unspecified\+Client.\+cpp.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_server_appl_1_1_unspecified_client_a9a3cf2d070f19fb2bfd7d544053955b0}{}\index{Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}!client\+Id@{client\+Id}}
+\index{client\+Id@{client\+Id}!Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}}
+\subsubsection[{client\+Id}]{\setlength{\rightskip}{0pt plus 5cm}uint Server\+Appl\+::\+Unspecified\+Client\+::client\+Id\hspace{0.3cm}{\ttfamily [protected]}}\label{class_server_appl_1_1_unspecified_client_a9a3cf2d070f19fb2bfd7d544053955b0}
+
+
+Definition at line 98 of file Unspecified\+Client.\+h.
+
+\hypertarget{class_server_appl_1_1_unspecified_client_a243b627d332e06cd922148b7008af97e}{}\index{Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}!last\+Timestamp@{last\+Timestamp}}
+\index{last\+Timestamp@{last\+Timestamp}!Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}}
+\subsubsection[{last\+Timestamp}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Time Server\+Appl\+::\+Unspecified\+Client\+::last\+Timestamp\hspace{0.3cm}{\ttfamily [protected]}}\label{class_server_appl_1_1_unspecified_client_a243b627d332e06cd922148b7008af97e}
+
+
+Definition at line 100 of file Unspecified\+Client.\+h.
+
+\hypertarget{class_server_appl_1_1_unspecified_client_a66f3dc8bd71e34f52ad02f692808593c}{}\index{Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}!name@{name}}
+\index{name@{name}!Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Server\+Appl\+::\+Unspecified\+Client\+::name\hspace{0.3cm}{\ttfamily [protected]}}\label{class_server_appl_1_1_unspecified_client_a66f3dc8bd71e34f52ad02f692808593c}
+
+
+Definition at line 99 of file Unspecified\+Client.\+h.
+
+\hypertarget{class_server_appl_1_1_unspecified_client_aed25c6192d4e27602c2bf4f0721360b5}{}\index{Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}!server@{server}}
+\index{server@{server}!Server\+Appl\+::\+Unspecified\+Client@{Server\+Appl\+::\+Unspecified\+Client}}
+\subsubsection[{server}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Server}$\ast$ Server\+Appl\+::\+Unspecified\+Client\+::server\hspace{0.3cm}{\ttfamily [protected]}}\label{class_server_appl_1_1_unspecified_client_aed25c6192d4e27602c2bf4f0721360b5}
+
+
+Definition at line 97 of file Unspecified\+Client.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Server\+Appl/src/backend/\hyperlink{_unspecified_client_8h}{Unspecified\+Client.\+h}\item 
+Server\+Appl/src/backend/\hyperlink{_unspecified_client_8cpp}{Unspecified\+Client.\+cpp}\end{DoxyCompactItemize}

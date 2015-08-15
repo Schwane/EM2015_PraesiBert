@@ -1,0 +1,60 @@
+\hypertarget{_message_handler_interface_8h}{}\section{Server\+Appl/src/backend/\+Message\+Handler\+Interface.h File Reference}
+\label{_message_handler_interface_8h}\index{Server\+Appl/src/backend/\+Message\+Handler\+Interface.\+h@{Server\+Appl/src/backend/\+Message\+Handler\+Interface.\+h}}
+{\ttfamily \#include $<$Q\+String$>$}\\*
+{\ttfamily \#include $<$Message.\+hpp$>$}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_server_appl_1_1_message_handler_interface}{Server\+Appl\+::\+Message\+Handler\+Interface}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_server_appl}{Server\+Appl}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_message_handler_interface_8h_a7e1998e720968be07f8db1ada0cfd8ed}{I\+S\+\_\+\+C\+O\+M\+M\+A\+N\+D}(cmd\+Obj,  cmd\+Str)~((cmd\+Str) == (cmd\+Obj))
+\item 
+\#define \hyperlink{_message_handler_interface_8h_ace825ec0154e2dbcfded079d3ed06701}{H\+A\+N\+D\+L\+E\+R\+\_\+\+O\+B\+J}(obj)~((Message\+Handler\+Interface $\ast$)(obj))
+\item 
+\#define \hyperlink{_message_handler_interface_8h_a60c4b321c57ae863e74a8d1954eb51bf}{H\+A\+N\+D\+L\+E\+R\+\_\+\+F\+U\+N\+C}(func)~( static\+\_\+cast$<$\hyperlink{_message_router_8h_a7aaf0117cb85c9ee1867235806553ef4}{handle\+Received\+Message\+Function}$>$(\&func) )
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{_message_handler_interface_8h_a60c4b321c57ae863e74a8d1954eb51bf}{}\index{Message\+Handler\+Interface.\+h@{Message\+Handler\+Interface.\+h}!H\+A\+N\+D\+L\+E\+R\+\_\+\+F\+U\+N\+C@{H\+A\+N\+D\+L\+E\+R\+\_\+\+F\+U\+N\+C}}
+\index{H\+A\+N\+D\+L\+E\+R\+\_\+\+F\+U\+N\+C@{H\+A\+N\+D\+L\+E\+R\+\_\+\+F\+U\+N\+C}!Message\+Handler\+Interface.\+h@{Message\+Handler\+Interface.\+h}}
+\subsubsection[{H\+A\+N\+D\+L\+E\+R\+\_\+\+F\+U\+N\+C}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+N\+D\+L\+E\+R\+\_\+\+F\+U\+N\+C(
+\begin{DoxyParamCaption}
+\item[{}]{func}
+\end{DoxyParamCaption}
+)~( static\+\_\+cast$<${\bf handle\+Received\+Message\+Function}$>$(\&func) )}\label{_message_handler_interface_8h_a60c4b321c57ae863e74a8d1954eb51bf}
+
+
+Definition at line 17 of file Message\+Handler\+Interface.\+h.
+
+\hypertarget{_message_handler_interface_8h_ace825ec0154e2dbcfded079d3ed06701}{}\index{Message\+Handler\+Interface.\+h@{Message\+Handler\+Interface.\+h}!H\+A\+N\+D\+L\+E\+R\+\_\+\+O\+B\+J@{H\+A\+N\+D\+L\+E\+R\+\_\+\+O\+B\+J}}
+\index{H\+A\+N\+D\+L\+E\+R\+\_\+\+O\+B\+J@{H\+A\+N\+D\+L\+E\+R\+\_\+\+O\+B\+J}!Message\+Handler\+Interface.\+h@{Message\+Handler\+Interface.\+h}}
+\subsubsection[{H\+A\+N\+D\+L\+E\+R\+\_\+\+O\+B\+J}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+N\+D\+L\+E\+R\+\_\+\+O\+B\+J(
+\begin{DoxyParamCaption}
+\item[{}]{obj}
+\end{DoxyParamCaption}
+)~((Message\+Handler\+Interface $\ast$)(obj))}\label{_message_handler_interface_8h_ace825ec0154e2dbcfded079d3ed06701}
+
+
+Definition at line 16 of file Message\+Handler\+Interface.\+h.
+
+\hypertarget{_message_handler_interface_8h_a7e1998e720968be07f8db1ada0cfd8ed}{}\index{Message\+Handler\+Interface.\+h@{Message\+Handler\+Interface.\+h}!I\+S\+\_\+\+C\+O\+M\+M\+A\+N\+D@{I\+S\+\_\+\+C\+O\+M\+M\+A\+N\+D}}
+\index{I\+S\+\_\+\+C\+O\+M\+M\+A\+N\+D@{I\+S\+\_\+\+C\+O\+M\+M\+A\+N\+D}!Message\+Handler\+Interface.\+h@{Message\+Handler\+Interface.\+h}}
+\subsubsection[{I\+S\+\_\+\+C\+O\+M\+M\+A\+N\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+S\+\_\+\+C\+O\+M\+M\+A\+N\+D(
+\begin{DoxyParamCaption}
+\item[{}]{cmd\+Obj, }
+\item[{}]{cmd\+Str}
+\end{DoxyParamCaption}
+)~((cmd\+Str) == (cmd\+Obj))}\label{_message_handler_interface_8h_a7e1998e720968be07f8db1ada0cfd8ed}
+
+
+Definition at line 15 of file Message\+Handler\+Interface.\+h.
+

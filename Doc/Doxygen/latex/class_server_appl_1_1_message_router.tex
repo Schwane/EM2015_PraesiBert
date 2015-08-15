@@ -1,0 +1,291 @@
+\hypertarget{class_server_appl_1_1_message_router}{}\section{Server\+Appl\+:\+:Message\+Router Class Reference}
+\label{class_server_appl_1_1_message_router}\index{Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}}
+
+
+This class receives Message-\/objects and delivers them to target-\/objects.  
+
+
+
+
+{\ttfamily \#include \char`\"{}src/backend/\+Message\+Router.\+h\char`\"{}}
+
+Inheritance diagram for Server\+Appl\+:\+:Message\+Router\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_server_appl_1_1_message_router}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_server_appl_1_1_message_router_a89ce4becafb4e58791bcd3def1c279a3}{on\+Message\+Parsed} (\hyperlink{class_message}{Message} $\ast$message, uint client\+Id)
+\begin{DoxyCompactList}\small\item\em This slot handles received Message-\/objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_server_appl_1_1_message_router_a07bf4019a746b53dfeb4400ee97159b9}{write\+Message} (\hyperlink{class_message}{Message} $\ast$message, uint client\+Id)
+\begin{DoxyCompactList}\small\item\em This signal will be used to transmit response-\/messages for a received Message-\/object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_server_appl_1_1_message_router_ae120c05ba781d09cc2f9dbad3207318f}{Message\+Router} ()
+\item 
+\hyperlink{class_server_appl_1_1_message_router_aa53a25f4f00d925f7eb17289db43f1a7}{$\sim$\+Message\+Router} ()
+\item 
+bool \hyperlink{class_server_appl_1_1_message_router_a579f5ac2024d4b7badcb64d2f8f81ff0}{register\+Message\+Handler} (uint client\+Id, Q\+String command, \hyperlink{class_server_appl_1_1_message_handler_interface}{Message\+Handler\+Interface} $\ast$object, \hyperlink{_message_router_8h_a7aaf0117cb85c9ee1867235806553ef4}{handle\+Received\+Message\+Function} function)
+\begin{DoxyCompactList}\small\item\em Function to register a handler-\/function for a defined command and transmitter-\/client-\/id. \end{DoxyCompactList}\item 
+bool \hyperlink{class_server_appl_1_1_message_router_a519dd3612a2679cb3ee41e02a831165c}{register\+Message\+Handler} (uint client\+Id, Q\+String command, \hyperlink{structmessage_handler}{message\+Handler} handler)
+\begin{DoxyCompactList}\small\item\em Function to register a handler-\/function for a defined command and transmitter-\/client-\/id. \end{DoxyCompactList}\item 
+bool \hyperlink{class_server_appl_1_1_message_router_a7fa02758e05c0432426cfe5ab4fbe592}{unregister\+Message\+Handler} (uint client\+Id, Q\+String command)
+\begin{DoxyCompactList}\small\item\em Function to remove a message-\/handler from the registered\+Message\+Handlers-\/table. \end{DoxyCompactList}\item 
+bool \hyperlink{class_server_appl_1_1_message_router_a08121b10588f0026c2d8b775deec1ef3}{unregister\+Message\+Handlers} (uint client\+Id)
+\begin{DoxyCompactList}\small\item\em Function to remove all message-\/handler for commands from a client. \end{DoxyCompactList}\item 
+bool \hyperlink{class_server_appl_1_1_message_router_a844d25bee8a5dfcaa16cc8c9e807a5b1}{add\+Direct\+Route} (Q\+String receiver, uint receiver\+Id)
+\begin{DoxyCompactList}\small\item\em Function to register a direct route. \end{DoxyCompactList}\item 
+bool \hyperlink{class_server_appl_1_1_message_router_a3b2a59837ef4592b010d4af0269cadfe}{remove\+Direct\+Route} (Q\+String receiver)
+\begin{DoxyCompactList}\small\item\em Function to remove a direct route. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class receives Message-\/objects and delivers them to target-\/objects. 
+
+Message-\/objects can be given to this class over the slot on\+Message\+Parsed. The \hyperlink{class_server_appl_1_1_message_router}{Message\+Router} will inspect the client\+Id of the transmitting client and will check in a table (registered\+Message\+Handlers) if handler-\/function for that Message-\/object exists. If a handler-\/function exist it will be called. If not the \hyperlink{class_server_appl_1_1_message_router}{Message\+Router} will try to find a direct route in the table direct\+Routing\+Table with the receiver-\/field of the Message-\/object. If no direkt-\/route was found this message-\/object will be deleted.
+
+An object/class that want to receive Message-\/objects from this \hyperlink{class_server_appl_1_1_message_router}{Message\+Router} needs to emplement the class \hyperlink{class_server_appl_1_1_message_handler_interface}{Message\+Handler\+Interface}. If it does it can define handler-\/functions according to the type handle\+Received\+Message\+Function. These handler-\/functions can be added to the table registered\+Message\+Handlers with the function register\+Message\+Handler of the Message\+Router-\/class.
+
+The signal write\+Message will be used to transmit response-\/messages. 
+
+Definition at line 44 of file Message\+Router.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_server_appl_1_1_message_router_ae120c05ba781d09cc2f9dbad3207318f}{}\index{Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}!Message\+Router@{Message\+Router}}
+\index{Message\+Router@{Message\+Router}!Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}}
+\subsubsection[{Message\+Router()}]{\setlength{\rightskip}{0pt plus 5cm}Server\+Appl\+::\+Message\+Router\+::\+Message\+Router (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_message_router_ae120c05ba781d09cc2f9dbad3207318f}
+
+
+Definition at line 14 of file Message\+Router.\+cpp.
+
+\hypertarget{class_server_appl_1_1_message_router_aa53a25f4f00d925f7eb17289db43f1a7}{}\index{Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}!````~Message\+Router@{$\sim$\+Message\+Router}}
+\index{````~Message\+Router@{$\sim$\+Message\+Router}!Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}}
+\subsubsection[{$\sim$\+Message\+Router()}]{\setlength{\rightskip}{0pt plus 5cm}Server\+Appl\+::\+Message\+Router\+::$\sim$\+Message\+Router (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_message_router_aa53a25f4f00d925f7eb17289db43f1a7}
+
+
+Definition at line 20 of file Message\+Router.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_server_appl_1_1_message_router_a844d25bee8a5dfcaa16cc8c9e807a5b1}{}\index{Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}!add\+Direct\+Route@{add\+Direct\+Route}}
+\index{add\+Direct\+Route@{add\+Direct\+Route}!Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}}
+\subsubsection[{add\+Direct\+Route(\+Q\+String receiver, uint receiver\+Id)}]{\setlength{\rightskip}{0pt plus 5cm}bool Server\+Appl\+::\+Message\+Router\+::add\+Direct\+Route (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{receiver, }
+\item[{uint}]{receiver\+Id}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_message_router_a844d25bee8a5dfcaa16cc8c9e807a5b1}
+
+
+Function to register a direct route. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em receiver} & This is a string with the receiver of a message. \\
+\hline
+\mbox{\tt in}  & {\em receiver\+Id} & Client\+Id of the receiver.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true if the direct route was registered successfully.
+\end{DoxyReturn}
+If for a received Message-\/object no message-\/handler could be found the \hyperlink{class_server_appl_1_1_message_router}{Message\+Router} will try to find the receiver-\/string of the Message-\/object in the table direct\+Routing\+Table. If the direct\+Routing table contains the receiver-\/string the Message-\/object will be forwarded to the according client\+Id which is specified in the direct\+Routing\+Table. 
+
+Definition at line 108 of file Message\+Router.\+cpp.
+
+\hypertarget{class_server_appl_1_1_message_router_a89ce4becafb4e58791bcd3def1c279a3}{}\index{Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}!on\+Message\+Parsed@{on\+Message\+Parsed}}
+\index{on\+Message\+Parsed@{on\+Message\+Parsed}!Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}}
+\subsubsection[{on\+Message\+Parsed}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Message\+Router\+::on\+Message\+Parsed (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{message, }
+\item[{uint}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_server_appl_1_1_message_router_a89ce4becafb4e58791bcd3def1c279a3}
+
+
+This slot handles received Message-\/objects. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em message} & Pointer to the Message-\/object which was received (will be deleted whithin the function!) \\
+\hline
+\mbox{\tt in}  & {\em client\+Id} & I\+D of the client from which the Message-\/object was transmitted.\\
+\hline
+\end{DoxyParams}
+This slot will try to find a message-\/handler (basing on the client\+Id and the command-\/name of the Message-\/object). If no message-\/handler was found it will try to forward it on a direct-\/route (basing on the receiver-\/string of the Message-\/object and the direct\+Routing\+Table) to a specific client. If both failed (finding a message-\/handler and a direct-\/route) the Message-\/object will be deleted. 
+
+Definition at line 134 of file Message\+Router.\+cpp.
+
+\hypertarget{class_server_appl_1_1_message_router_a579f5ac2024d4b7badcb64d2f8f81ff0}{}\index{Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}!register\+Message\+Handler@{register\+Message\+Handler}}
+\index{register\+Message\+Handler@{register\+Message\+Handler}!Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}}
+\subsubsection[{register\+Message\+Handler(uint client\+Id, Q\+String command, Message\+Handler\+Interface $\ast$object, handle\+Received\+Message\+Function function)}]{\setlength{\rightskip}{0pt plus 5cm}bool Server\+Appl\+::\+Message\+Router\+::register\+Message\+Handler (
+\begin{DoxyParamCaption}
+\item[{uint}]{client\+Id, }
+\item[{Q\+String}]{command, }
+\item[{{\bf Message\+Handler\+Interface} $\ast$}]{object, }
+\item[{{\bf handle\+Received\+Message\+Function}}]{function}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_message_router_a579f5ac2024d4b7badcb64d2f8f81ff0}
+
+
+Function to register a handler-\/function for a defined command and transmitter-\/client-\/id. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em client\+Id} & Client\+Id of the client which transmitted the command to the server. \\
+\hline
+\mbox{\tt in}  & {\em command} & Name of the command which shall be handled. \\
+\hline
+\mbox{\tt in}  & {\em object} & Pointer to the object which contains the handler-\/function. \\
+\hline
+\mbox{\tt in}  & {\em function} & Pointer to the member-\/function which shall handle the command.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true if the handler-\/function was registered successfully.
+\end{DoxyReturn}
+The function will try to add the given handler-\/function to the registered\+Message\+Handler-\/table. If already an entry for this command/client-\/combination exist a boolean false-\/value will be returned and no handler-\/function will be added. 
+
+Definition at line 32 of file Message\+Router.\+cpp.
+
+\hypertarget{class_server_appl_1_1_message_router_a519dd3612a2679cb3ee41e02a831165c}{}\index{Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}!register\+Message\+Handler@{register\+Message\+Handler}}
+\index{register\+Message\+Handler@{register\+Message\+Handler}!Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}}
+\subsubsection[{register\+Message\+Handler(uint client\+Id, Q\+String command, message\+Handler handler)}]{\setlength{\rightskip}{0pt plus 5cm}bool Server\+Appl\+::\+Message\+Router\+::register\+Message\+Handler (
+\begin{DoxyParamCaption}
+\item[{uint}]{client\+Id, }
+\item[{Q\+String}]{command, }
+\item[{{\bf message\+Handler}}]{handler}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_message_router_a519dd3612a2679cb3ee41e02a831165c}
+
+
+Function to register a handler-\/function for a defined command and transmitter-\/client-\/id. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em client\+Id} & Client\+Id of the client which transmitted the command to the server. \\
+\hline
+\mbox{\tt in}  & {\em command} & Name of the command which shall be handled. \\
+\hline
+\mbox{\tt in}  & {\em handler} & A structure with a pointer to the object with the handler-\/function and a function-\/pointer to the handler-\/function itself.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true if the handler-\/function was registered successfully.
+\end{DoxyReturn}
+The function will try to add the given handler-\/function to the registered\+Message\+Handler-\/table. If already an entry for this command/client-\/combination exist a boolean false-\/value will be returned and no handler-\/function will be added. 
+
+Definition at line 43 of file Message\+Router.\+cpp.
+
+\hypertarget{class_server_appl_1_1_message_router_a3b2a59837ef4592b010d4af0269cadfe}{}\index{Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}!remove\+Direct\+Route@{remove\+Direct\+Route}}
+\index{remove\+Direct\+Route@{remove\+Direct\+Route}!Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}}
+\subsubsection[{remove\+Direct\+Route(\+Q\+String receiver)}]{\setlength{\rightskip}{0pt plus 5cm}bool Server\+Appl\+::\+Message\+Router\+::remove\+Direct\+Route (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{receiver}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_message_router_a3b2a59837ef4592b010d4af0269cadfe}
+
+
+Function to remove a direct route. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em receiver} & A direct-\/route for this receiver will be removed.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true if the route was found and successfully removed. 
+\end{DoxyReturn}
+
+
+Definition at line 121 of file Message\+Router.\+cpp.
+
+\hypertarget{class_server_appl_1_1_message_router_a7fa02758e05c0432426cfe5ab4fbe592}{}\index{Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}!unregister\+Message\+Handler@{unregister\+Message\+Handler}}
+\index{unregister\+Message\+Handler@{unregister\+Message\+Handler}!Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}}
+\subsubsection[{unregister\+Message\+Handler(uint client\+Id, Q\+String command)}]{\setlength{\rightskip}{0pt plus 5cm}bool Server\+Appl\+::\+Message\+Router\+::unregister\+Message\+Handler (
+\begin{DoxyParamCaption}
+\item[{uint}]{client\+Id, }
+\item[{Q\+String}]{command}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_message_router_a7fa02758e05c0432426cfe5ab4fbe592}
+
+
+Function to remove a message-\/handler from the registered\+Message\+Handlers-\/table. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em client\+Id} & I\+D of the client to which the message-\/handler belongs. \\
+\hline
+\mbox{\tt in}  & {\em command} & Command-\/name whose message-\/handler shall be removed.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true if message-\/handler was found in the registered\+Message\+Handlers-\/table and successfully removed. 
+\end{DoxyReturn}
+
+
+Definition at line 76 of file Message\+Router.\+cpp.
+
+\hypertarget{class_server_appl_1_1_message_router_a08121b10588f0026c2d8b775deec1ef3}{}\index{Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}!unregister\+Message\+Handlers@{unregister\+Message\+Handlers}}
+\index{unregister\+Message\+Handlers@{unregister\+Message\+Handlers}!Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}}
+\subsubsection[{unregister\+Message\+Handlers(uint client\+Id)}]{\setlength{\rightskip}{0pt plus 5cm}bool Server\+Appl\+::\+Message\+Router\+::unregister\+Message\+Handlers (
+\begin{DoxyParamCaption}
+\item[{uint}]{client\+Id}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_message_router_a08121b10588f0026c2d8b775deec1ef3}
+
+
+Function to remove all message-\/handler for commands from a client. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em client\+Id} & All message-\/handlers for this client will be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 95 of file Message\+Router.\+cpp.
+
+\hypertarget{class_server_appl_1_1_message_router_a07bf4019a746b53dfeb4400ee97159b9}{}\index{Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}!write\+Message@{write\+Message}}
+\index{write\+Message@{write\+Message}!Server\+Appl\+::\+Message\+Router@{Server\+Appl\+::\+Message\+Router}}
+\subsubsection[{write\+Message}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Message\+Router\+::write\+Message (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{message, }
+\item[{uint}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_message_router_a07bf4019a746b53dfeb4400ee97159b9}
+
+
+This signal will be used to transmit response-\/messages for a received Message-\/object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em message} & Pointer to the message-\/object which shall be transmitted. \\
+\hline
+\mbox{\tt out}  & {\em client\+Id} & I\+D of the client to which the Message-\/object shall be transmitted. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Server\+Appl/src/backend/\hyperlink{_message_router_8h}{Message\+Router.\+h}\item 
+Server\+Appl/src/backend/\hyperlink{_message_router_8cpp}{Message\+Router.\+cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,451 @@
+\hypertarget{class_server_appl_1_1_server}{}\section{Server\+Appl\+:\+:Server Class Reference}
+\label{class_server_appl_1_1_server}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+
+
+An object of this class is the central component of the server-\/application.  
+
+
+
+
+{\ttfamily \#include \char`\"{}src/backend/\+Server.\+h\char`\"{}}
+
+Inheritance diagram for Server\+Appl\+:\+:Server\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_server_appl_1_1_server}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_server_appl_1_1_server_a58bf3574ddee832a114aaa7652372bae}{on\+Stop\+Presentation} ()
+\item 
+void \hyperlink{class_server_appl_1_1_server_a7216e8161ab1907b5d899718f8757c05}{on\+Forward\+Message\+To\+Client} (\hyperlink{class_message}{Message} $\ast$msg, unsigned int client\+Id)
+\item 
+void \hyperlink{class_server_appl_1_1_server_a688f9c5d409ed90572a69aa7f54240bf}{on\+Forwared\+Message\+To\+Master} (\hyperlink{class_message}{Message} $\ast$msg, unsigned int client\+Id)
+\item 
+void \hyperlink{class_server_appl_1_1_server_a66ffe6e0ecf4aaf3cb83215d7e14fd6c}{on\+Received\+Set\+Slide} (int slide\+Number)
+\item 
+void \hyperlink{class_server_appl_1_1_server_aec2c1436c6a6cbb8ef4400d7c986cd80}{on\+New\+Client} (uint client\+Id)
+\item 
+void \hyperlink{class_server_appl_1_1_server_aa92b4c070111a2efe7a99b95708e545f}{on\+Master\+Authentication\+Failed} ()
+\item 
+void \hyperlink{class_server_appl_1_1_server_a83286ec5660a7fe0a1fe3764e1eba91a}{on\+Master\+Authentification\+Successfull} ()
+\item 
+void \hyperlink{class_server_appl_1_1_server_a694f60e54fc0dd24cd5b7b41731a060d}{on\+Received\+Presentation} (\hyperlink{class_praesentation}{Praesentation} $\ast$presentation, Q\+Map$<$ Q\+String, Q\+Variant $>$ presentation\+Parameter\+List, Q\+Map$<$ Q\+String, Q\+String $>$ presentation\+Parameter\+Type\+List)
+\item 
+void \hyperlink{class_server_appl_1_1_server_a5bb9d08bbbd005132ba892033ef1fd2a}{on\+Deliver\+Presentation\+To\+Client} (unsigned int client\+Id)
+\item 
+void \hyperlink{class_server_appl_1_1_server_a29e8649cb4010e5b0620a03cc9f38ac8}{on\+Client\+Disconnected} (unsigned int client\+Id)
+\item 
+void \hyperlink{class_server_appl_1_1_server_a8aaec8df3cb6d1fbd949dd75b36f66b2}{on\+New\+I\+P} (Q\+String new\+I\+P)
+\item 
+void \hyperlink{class_server_appl_1_1_server_a5fc71b2de6794aac74789087115bbaf4}{on\+Write\+Audio\+Recording} (Q\+String file\+Name, const Q\+Byte\+Array \&recording)
+\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_server_appl_1_1_server_ac5f8b4875da98db7628cd30b313f5ad3}{send\+Cmd\+To\+I\+D} (\hyperlink{class_message}{Message} $\ast$msg, uint client\+I\+D)
+\item 
+void \hyperlink{class_server_appl_1_1_server_ac1d549bb41c2de88b9a00f063612769e}{send\+Cmd\+Message\+To\+Mult\+Clients} (\hyperlink{class_message}{Message} $\ast$data, Q\+List$<$ uint $>$ client\+I\+Ds)
+\item 
+void \hyperlink{class_server_appl_1_1_server_af15bcdad44457e23861b04e57b049dcd}{send\+Data\+Message\+To\+Mult\+Clients} (\hyperlink{class_message}{Message} $\ast$data, Q\+List$<$ uint $>$ client\+I\+Ds)
+\item 
+void \hyperlink{class_server_appl_1_1_server_aec12f26df6da0373db5b54e60fc0f20a}{send\+Cmd\+Message\+To\+All} (\hyperlink{class_message}{Message} $\ast$msg)
+\item 
+void \hyperlink{class_server_appl_1_1_server_a75584f109e945b3f55d3de9605a89a34}{got\+Ip\+Address} (Q\+String ip\+Address)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_server_appl_1_1_server_aa3d3935f49c69eee2c6c01930484ba71}{Server} ()
+\item 
+virtual \hyperlink{class_server_appl_1_1_server_a92f2b83a24b4e147236b7478428e66b5}{$\sim$\+Server} ()
+\item 
+Q\+List$<$ unsigned int $>$ $\ast$ \hyperlink{class_server_appl_1_1_server_a90caf0a64ec60c7161c6a8dd97898dfc}{get\+All\+Client\+Identifiers} ()
+\item 
+Q\+List$<$ unsigned int $>$ $\ast$ \hyperlink{class_server_appl_1_1_server_a1eca13e8d3dff6b2ab21f82d0988c409}{get\+Listener\+Client\+Identifiers} ()
+\item 
+unsigned int \hyperlink{class_server_appl_1_1_server_a7ebe02fbc00cda690d65ec95933d7249}{get\+Master\+Client\+Identifier} ()
+\item 
+bool \hyperlink{class_server_appl_1_1_server_a443a30c3ca056aa0d9b69c9dd64dac43}{register\+Master} (\hyperlink{class_server_appl_1_1_master}{Master} $\ast$master)
+\item 
+bool \hyperlink{class_server_appl_1_1_server_a6bed16ae8613fde254ff64dd5af6c4b5}{unregister\+Master} (\hyperlink{class_server_appl_1_1_master}{Master} $\ast$master)
+\item 
+bool \hyperlink{class_server_appl_1_1_server_a0aed20fb7741d027bb281e5cf09f8280}{register\+Listener} (\hyperlink{class_server_appl_1_1_listener}{Listener} $\ast$listener)
+\item 
+Q\+String \hyperlink{class_server_appl_1_1_server_aae7a507d8f1619998393fd406a35af69}{get\+Ip\+Address} ()
+\item 
+Q\+String \hyperlink{class_server_appl_1_1_server_a83c0d28b5a6a64900165540ea3982fe5}{get\+Command\+Port} ()
+\item 
+Q\+String \hyperlink{class_server_appl_1_1_server_a34b5eadf81712a8c055aa41c8ad09d14}{get\+Data\+Port} ()
+\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_server_appl_1_1_server_a42d7f3a2bb9cb905f68b8979b0a398ce}{handle\+Unknown\+Message} (Q\+String command\+Name, \hyperlink{class_message}{Message} $\ast$msg)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const char \hyperlink{class_server_appl_1_1_server_abfeaa964d428c04cb8e9f5562c08326f}{server\+Command\+Port} \mbox{[}$\,$\mbox{]} = \char`\"{}1337\char`\"{}
+\item 
+static const char \hyperlink{class_server_appl_1_1_server_a37097612fb76a9b0eabf26af42db1019}{server\+Data\+Port} \mbox{[}$\,$\mbox{]} = \char`\"{}1338\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+An object of this class is the central component of the server-\/application. 
+
+The Server-\/class contains all other components of the server-\/application (client-\/lists, \hyperlink{class_server_appl_1_1_byte_stream_verifier}{Byte\+Stream\+Verifier}, Server\+Socket, \hyperlink{class_server_appl_1_1_message_router}{Message\+Router}, Xml\+Message\+Parser, Xml\+Message\+Writer, ...).
+
+On initialization all objects will be created and the network-\/module (Server\+Socket) will be configured.
+
+If the Server\+Socket receives a new connection the slot on\+New\+Client will be called. It will generate an Unspecified\+Client-\/object and register all necessary message-\/handlers at the \hyperlink{class_server_appl_1_1_message_router}{Message\+Router}\textquotesingle{}s (command-\/ and data-\/router). Also the Unspecified\+Client-\/object will be inserted into the list connected\+Clients. When the \hyperlink{class_server_appl_1_1_unspecified_client}{Unspecified\+Client} received a login-\/command (which shows the type of the client) the Unspecified\+Client-\/object will create a Master-\/ or Listener-\/object and give it to the Server-\/object (register\+Master-\/ or register\+Listener-\/function). Here it will be checked (e.\+g. for a Master-\/object if already exists one) and if everything is O\+K the object will be inserted into the listener\+Clients-\/list or the master\+Client-\/property. Afterwards the old Unspecified\+Client-\/object from the connected\+Clients-\/list will be replaced with the new one (Master-\/ or Listener-\/object).
+
+If the authentication-\/process of a master-\/object fails the slot on\+Master\+Authentication\+Failed will delete all objects of the master-\/client and disconnect the network-\/connection.
+
+If the master-\/object received a presentation the slot on\+Received\+Presentation will save the presentation in the Server-\/object an afterwards it will forward the presentation to all listener\+Clients which are successfully registered at the server. If further listener-\/\+Clients will connect the server the presentation will be transmitted to them right after successfull login.
+
+If a Master-\/ or Listener-\/object received an audio-\/recording the slot on\+Write\+Audio\+Recording will write the audio-\/data into the file-\/system of the device. The filename will be given as a parameter of the slot. The path will be the same as the presentation used to save the slides. 
+
+Definition at line 61 of file Server.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_server_appl_1_1_server_aa3d3935f49c69eee2c6c01930484ba71}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!Server@{Server}}
+\index{Server@{Server}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{Server()}]{\setlength{\rightskip}{0pt plus 5cm}Server\+Appl\+::\+Server\+::\+Server (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_server_aa3d3935f49c69eee2c6c01930484ba71}
+
+
+Definition at line 21 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_a92f2b83a24b4e147236b7478428e66b5}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!````~Server@{$\sim$\+Server}}
+\index{````~Server@{$\sim$\+Server}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{$\sim$\+Server()}]{\setlength{\rightskip}{0pt plus 5cm}Server\+Appl\+::\+Server\+::$\sim$\+Server (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_server_appl_1_1_server_a92f2b83a24b4e147236b7478428e66b5}
+
+
+Definition at line 155 of file Server.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_server_appl_1_1_server_a90caf0a64ec60c7161c6a8dd97898dfc}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!get\+All\+Client\+Identifiers@{get\+All\+Client\+Identifiers}}
+\index{get\+All\+Client\+Identifiers@{get\+All\+Client\+Identifiers}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{get\+All\+Client\+Identifiers()}]{\setlength{\rightskip}{0pt plus 5cm}Q\+List$<$ unsigned int $>$ $\ast$ Server\+Appl\+::\+Server\+::get\+All\+Client\+Identifiers (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_server_a90caf0a64ec60c7161c6a8dd97898dfc}
+
+
+Definition at line 411 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_a83c0d28b5a6a64900165540ea3982fe5}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!get\+Command\+Port@{get\+Command\+Port}}
+\index{get\+Command\+Port@{get\+Command\+Port}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{get\+Command\+Port()}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Server\+Appl\+::\+Server\+::get\+Command\+Port (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_server_a83c0d28b5a6a64900165540ea3982fe5}
+
+
+Definition at line 440 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_a34b5eadf81712a8c055aa41c8ad09d14}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!get\+Data\+Port@{get\+Data\+Port}}
+\index{get\+Data\+Port@{get\+Data\+Port}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{get\+Data\+Port()}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Server\+Appl\+::\+Server\+::get\+Data\+Port (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_server_a34b5eadf81712a8c055aa41c8ad09d14}
+
+
+Definition at line 445 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_aae7a507d8f1619998393fd406a35af69}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!get\+Ip\+Address@{get\+Ip\+Address}}
+\index{get\+Ip\+Address@{get\+Ip\+Address}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{get\+Ip\+Address()}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Server\+Appl\+::\+Server\+::get\+Ip\+Address (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_server_aae7a507d8f1619998393fd406a35af69}
+
+
+Definition at line 435 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_a1eca13e8d3dff6b2ab21f82d0988c409}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!get\+Listener\+Client\+Identifiers@{get\+Listener\+Client\+Identifiers}}
+\index{get\+Listener\+Client\+Identifiers@{get\+Listener\+Client\+Identifiers}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{get\+Listener\+Client\+Identifiers()}]{\setlength{\rightskip}{0pt plus 5cm}Q\+List$<$ unsigned int $>$ $\ast$ Server\+Appl\+::\+Server\+::get\+Listener\+Client\+Identifiers (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_server_a1eca13e8d3dff6b2ab21f82d0988c409}
+
+
+Definition at line 421 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_a7ebe02fbc00cda690d65ec95933d7249}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!get\+Master\+Client\+Identifier@{get\+Master\+Client\+Identifier}}
+\index{get\+Master\+Client\+Identifier@{get\+Master\+Client\+Identifier}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{get\+Master\+Client\+Identifier()}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int Server\+Appl\+::\+Server\+::get\+Master\+Client\+Identifier (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_server_a7ebe02fbc00cda690d65ec95933d7249}
+
+
+Definition at line 430 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_a75584f109e945b3f55d3de9605a89a34}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!got\+Ip\+Address@{got\+Ip\+Address}}
+\index{got\+Ip\+Address@{got\+Ip\+Address}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{got\+Ip\+Address}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Server\+::got\+Ip\+Address (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{ip\+Address}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_server_a75584f109e945b3f55d3de9605a89a34}
+\hypertarget{class_server_appl_1_1_server_a42d7f3a2bb9cb905f68b8979b0a398ce}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!handle\+Unknown\+Message@{handle\+Unknown\+Message}}
+\index{handle\+Unknown\+Message@{handle\+Unknown\+Message}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{handle\+Unknown\+Message(\+Q\+String command\+Name, Message $\ast$msg)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Server\+Appl\+::\+Server\+::handle\+Unknown\+Message (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{command\+Name, }
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_server_appl_1_1_server_a42d7f3a2bb9cb905f68b8979b0a398ce}
+
+
+Implements \hyperlink{class_server_appl_1_1_message_handler_interface_a12267f6f59f174d3608285cbc5be3415}{Server\+Appl\+::\+Message\+Handler\+Interface}.
+
+
+
+Definition at line 177 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_a29e8649cb4010e5b0620a03cc9f38ac8}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!on\+Client\+Disconnected@{on\+Client\+Disconnected}}
+\index{on\+Client\+Disconnected@{on\+Client\+Disconnected}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{on\+Client\+Disconnected}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Server\+::on\+Client\+Disconnected (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_server_appl_1_1_server_a29e8649cb4010e5b0620a03cc9f38ac8}
+
+
+Definition at line 297 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_a5bb9d08bbbd005132ba892033ef1fd2a}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!on\+Deliver\+Presentation\+To\+Client@{on\+Deliver\+Presentation\+To\+Client}}
+\index{on\+Deliver\+Presentation\+To\+Client@{on\+Deliver\+Presentation\+To\+Client}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{on\+Deliver\+Presentation\+To\+Client}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Server\+::on\+Deliver\+Presentation\+To\+Client (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_server_appl_1_1_server_a5bb9d08bbbd005132ba892033ef1fd2a}
+
+
+Definition at line 369 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_a7216e8161ab1907b5d899718f8757c05}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!on\+Forward\+Message\+To\+Client@{on\+Forward\+Message\+To\+Client}}
+\index{on\+Forward\+Message\+To\+Client@{on\+Forward\+Message\+To\+Client}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{on\+Forward\+Message\+To\+Client}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Server\+::on\+Forward\+Message\+To\+Client (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg, }
+\item[{unsigned int}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_server_appl_1_1_server_a7216e8161ab1907b5d899718f8757c05}
+
+
+Definition at line 182 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_a688f9c5d409ed90572a69aa7f54240bf}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!on\+Forwared\+Message\+To\+Master@{on\+Forwared\+Message\+To\+Master}}
+\index{on\+Forwared\+Message\+To\+Master@{on\+Forwared\+Message\+To\+Master}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{on\+Forwared\+Message\+To\+Master}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Server\+::on\+Forwared\+Message\+To\+Master (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg, }
+\item[{unsigned int}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_server_appl_1_1_server_a688f9c5d409ed90572a69aa7f54240bf}
+
+
+Definition at line 190 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_aa92b4c070111a2efe7a99b95708e545f}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!on\+Master\+Authentication\+Failed@{on\+Master\+Authentication\+Failed}}
+\index{on\+Master\+Authentication\+Failed@{on\+Master\+Authentication\+Failed}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{on\+Master\+Authentication\+Failed}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Server\+::on\+Master\+Authentication\+Failed (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_server_appl_1_1_server_aa92b4c070111a2efe7a99b95708e545f}
+
+
+Definition at line 232 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_a83286ec5660a7fe0a1fe3764e1eba91a}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!on\+Master\+Authentification\+Successfull@{on\+Master\+Authentification\+Successfull}}
+\index{on\+Master\+Authentification\+Successfull@{on\+Master\+Authentification\+Successfull}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{on\+Master\+Authentification\+Successfull}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Server\+::on\+Master\+Authentification\+Successfull (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_server_appl_1_1_server_a83286ec5660a7fe0a1fe3764e1eba91a}
+
+
+Definition at line 243 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_aec2c1436c6a6cbb8ef4400d7c986cd80}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!on\+New\+Client@{on\+New\+Client}}
+\index{on\+New\+Client@{on\+New\+Client}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{on\+New\+Client}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Server\+::on\+New\+Client (
+\begin{DoxyParamCaption}
+\item[{uint}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_server_appl_1_1_server_aec2c1436c6a6cbb8ef4400d7c986cd80}
+
+
+Definition at line 200 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_a8aaec8df3cb6d1fbd949dd75b36f66b2}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!on\+New\+I\+P@{on\+New\+I\+P}}
+\index{on\+New\+I\+P@{on\+New\+I\+P}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{on\+New\+I\+P}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Server\+::on\+New\+I\+P (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{new\+I\+P}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_server_appl_1_1_server_a8aaec8df3cb6d1fbd949dd75b36f66b2}
+
+
+Definition at line 667 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_a694f60e54fc0dd24cd5b7b41731a060d}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!on\+Received\+Presentation@{on\+Received\+Presentation}}
+\index{on\+Received\+Presentation@{on\+Received\+Presentation}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{on\+Received\+Presentation}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Server\+::on\+Received\+Presentation (
+\begin{DoxyParamCaption}
+\item[{{\bf Praesentation} $\ast$}]{presentation, }
+\item[{Q\+Map$<$ Q\+String, Q\+Variant $>$}]{presentation\+Parameter\+List, }
+\item[{Q\+Map$<$ Q\+String, Q\+String $>$}]{presentation\+Parameter\+Type\+List}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_server_appl_1_1_server_a694f60e54fc0dd24cd5b7b41731a060d}
+
+
+Definition at line 257 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_a66ffe6e0ecf4aaf3cb83215d7e14fd6c}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!on\+Received\+Set\+Slide@{on\+Received\+Set\+Slide}}
+\index{on\+Received\+Set\+Slide@{on\+Received\+Set\+Slide}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{on\+Received\+Set\+Slide}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Server\+::on\+Received\+Set\+Slide (
+\begin{DoxyParamCaption}
+\item[{int}]{slide\+Number}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_server_appl_1_1_server_a66ffe6e0ecf4aaf3cb83215d7e14fd6c}
+
+
+Definition at line 268 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_a58bf3574ddee832a114aaa7652372bae}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!on\+Stop\+Presentation@{on\+Stop\+Presentation}}
+\index{on\+Stop\+Presentation@{on\+Stop\+Presentation}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{on\+Stop\+Presentation}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Server\+::on\+Stop\+Presentation (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_server_appl_1_1_server_a58bf3574ddee832a114aaa7652372bae}
+
+
+Definition at line 363 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_a5fc71b2de6794aac74789087115bbaf4}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!on\+Write\+Audio\+Recording@{on\+Write\+Audio\+Recording}}
+\index{on\+Write\+Audio\+Recording@{on\+Write\+Audio\+Recording}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{on\+Write\+Audio\+Recording}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Server\+::on\+Write\+Audio\+Recording (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{file\+Name, }
+\item[{const Q\+Byte\+Array \&}]{recording}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_server_appl_1_1_server_a5fc71b2de6794aac74789087115bbaf4}
+
+
+Definition at line 388 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_a0aed20fb7741d027bb281e5cf09f8280}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!register\+Listener@{register\+Listener}}
+\index{register\+Listener@{register\+Listener}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{register\+Listener(\+Listener $\ast$listener)}]{\setlength{\rightskip}{0pt plus 5cm}bool Server\+Appl\+::\+Server\+::register\+Listener (
+\begin{DoxyParamCaption}
+\item[{{\bf Listener} $\ast$}]{listener}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_server_a0aed20fb7741d027bb281e5cf09f8280}
+
+
+Definition at line 606 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_a443a30c3ca056aa0d9b69c9dd64dac43}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!register\+Master@{register\+Master}}
+\index{register\+Master@{register\+Master}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{register\+Master(\+Master $\ast$master)}]{\setlength{\rightskip}{0pt plus 5cm}bool Server\+Appl\+::\+Server\+::register\+Master (
+\begin{DoxyParamCaption}
+\item[{{\bf Master} $\ast$}]{master}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_server_a443a30c3ca056aa0d9b69c9dd64dac43}
+
+
+Definition at line 463 of file Server.\+cpp.
+
+\hypertarget{class_server_appl_1_1_server_aec12f26df6da0373db5b54e60fc0f20a}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!send\+Cmd\+Message\+To\+All@{send\+Cmd\+Message\+To\+All}}
+\index{send\+Cmd\+Message\+To\+All@{send\+Cmd\+Message\+To\+All}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{send\+Cmd\+Message\+To\+All}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Server\+::send\+Cmd\+Message\+To\+All (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_server_aec12f26df6da0373db5b54e60fc0f20a}
+\hypertarget{class_server_appl_1_1_server_ac1d549bb41c2de88b9a00f063612769e}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!send\+Cmd\+Message\+To\+Mult\+Clients@{send\+Cmd\+Message\+To\+Mult\+Clients}}
+\index{send\+Cmd\+Message\+To\+Mult\+Clients@{send\+Cmd\+Message\+To\+Mult\+Clients}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{send\+Cmd\+Message\+To\+Mult\+Clients}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Server\+::send\+Cmd\+Message\+To\+Mult\+Clients (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{data, }
+\item[{Q\+List$<$ uint $>$}]{client\+I\+Ds}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_server_ac1d549bb41c2de88b9a00f063612769e}
+\hypertarget{class_server_appl_1_1_server_ac5f8b4875da98db7628cd30b313f5ad3}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!send\+Cmd\+To\+I\+D@{send\+Cmd\+To\+I\+D}}
+\index{send\+Cmd\+To\+I\+D@{send\+Cmd\+To\+I\+D}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{send\+Cmd\+To\+I\+D}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Server\+::send\+Cmd\+To\+I\+D (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg, }
+\item[{uint}]{client\+I\+D}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_server_ac5f8b4875da98db7628cd30b313f5ad3}
+\hypertarget{class_server_appl_1_1_server_af15bcdad44457e23861b04e57b049dcd}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!send\+Data\+Message\+To\+Mult\+Clients@{send\+Data\+Message\+To\+Mult\+Clients}}
+\index{send\+Data\+Message\+To\+Mult\+Clients@{send\+Data\+Message\+To\+Mult\+Clients}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{send\+Data\+Message\+To\+Mult\+Clients}]{\setlength{\rightskip}{0pt plus 5cm}void Server\+Appl\+::\+Server\+::send\+Data\+Message\+To\+Mult\+Clients (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{data, }
+\item[{Q\+List$<$ uint $>$}]{client\+I\+Ds}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_server_appl_1_1_server_af15bcdad44457e23861b04e57b049dcd}
+\hypertarget{class_server_appl_1_1_server_a6bed16ae8613fde254ff64dd5af6c4b5}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!unregister\+Master@{unregister\+Master}}
+\index{unregister\+Master@{unregister\+Master}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{unregister\+Master(\+Master $\ast$master)}]{\setlength{\rightskip}{0pt plus 5cm}bool Server\+Appl\+::\+Server\+::unregister\+Master (
+\begin{DoxyParamCaption}
+\item[{{\bf Master} $\ast$}]{master}
+\end{DoxyParamCaption}
+)}\label{class_server_appl_1_1_server_a6bed16ae8613fde254ff64dd5af6c4b5}
+
+
+Definition at line 563 of file Server.\+cpp.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_server_appl_1_1_server_abfeaa964d428c04cb8e9f5562c08326f}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!server\+Command\+Port@{server\+Command\+Port}}
+\index{server\+Command\+Port@{server\+Command\+Port}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{server\+Command\+Port}]{\setlength{\rightskip}{0pt plus 5cm}const char Server\+Appl\+::\+Server\+::server\+Command\+Port = \char`\"{}1337\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\label{class_server_appl_1_1_server_abfeaa964d428c04cb8e9f5562c08326f}
+
+
+Definition at line 113 of file Server.\+h.
+
+\hypertarget{class_server_appl_1_1_server_a37097612fb76a9b0eabf26af42db1019}{}\index{Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}!server\+Data\+Port@{server\+Data\+Port}}
+\index{server\+Data\+Port@{server\+Data\+Port}!Server\+Appl\+::\+Server@{Server\+Appl\+::\+Server}}
+\subsubsection[{server\+Data\+Port}]{\setlength{\rightskip}{0pt plus 5cm}const char Server\+Appl\+::\+Server\+::server\+Data\+Port = \char`\"{}1338\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\label{class_server_appl_1_1_server_a37097612fb76a9b0eabf26af42db1019}
+
+
+Definition at line 114 of file Server.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Server\+Appl/src/backend/\hyperlink{_server_8h}{Server.\+h}\item 
+Server\+Appl/src/backend/\hyperlink{_server_8cpp}{Server.\+cpp}\end{DoxyCompactItemize}

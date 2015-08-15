@@ -1,0 +1,185 @@
+\hypertarget{class_x_m_l_message_parser}{}\section{X\+M\+L\+Message\+Parser Class Reference}
+\label{class_x_m_l_message_parser}\index{X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}}
+
+
+Parses Messages from X\+M\+L to \hyperlink{class_message}{Message} Object. Capable of separating between data an command/seperation by parent class. Throws signal if message was parsed.  
+
+
+
+
+{\ttfamily \#include $<$X\+M\+L\+Message\+Parser.\+hpp$>$}
+
+Inheritance diagram for X\+M\+L\+Message\+Parser\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_x_m_l_message_parser}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_x_m_l_message_parser_a9fc14a7468ad502f705ffa92671c2284}{parse\+Message} (Q\+Byte\+Array bytes)
+\item 
+void \hyperlink{class_x_m_l_message_parser_ab01279b415a498d15fc9326abeeb692d}{parse\+Cmd\+Message} (Q\+Byte\+Array bytes)
+\item 
+void \hyperlink{class_x_m_l_message_parser_ad455f5408ec1d6289bcc8a4f2d5e1473}{parse\+Data\+Message} (Q\+Byte\+Array bytes)
+\item 
+void \hyperlink{class_x_m_l_message_parser_aff44c6ee3a1158b0d1729564a4dd183c}{parse\+Cmd\+Message} (Q\+Byte\+Array bytes, uint client\+Id)
+\item 
+void \hyperlink{class_x_m_l_message_parser_a03953c5b090132123596719af163e362}{parse\+Data\+Message} (Q\+Byte\+Array bytes, uint client\+Id)
+\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_x_m_l_message_parser_a1bb70af94b181f3f0696e7181c0c63dd}{message\+Parsed} (\hyperlink{class_message}{Message} $\ast$msg)
+\item 
+void \hyperlink{class_x_m_l_message_parser_af2c240a3dd79ad5afc223208bf0f0179}{cmd\+Message\+Parsed} (\hyperlink{class_message}{Message} $\ast$msg)
+\item 
+void \hyperlink{class_x_m_l_message_parser_aac6080abe8de2c74fbb335251c928ac6}{data\+Message\+Parsed} (\hyperlink{class_message}{Message} $\ast$msg)
+\item 
+void \hyperlink{class_x_m_l_message_parser_a6590080c887b3a26ad671eb6eac0ca0f}{cmd\+Message\+Parsed} (\hyperlink{class_message}{Message} $\ast$msg, uint client\+Id)
+\item 
+void \hyperlink{class_x_m_l_message_parser_a733b137cf8e7d66bf04beeaeac7fa0c5}{data\+Message\+Parsed} (\hyperlink{class_message}{Message} $\ast$msg, uint client\+Id)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_x_m_l_message_parser_af52b0b980f36eebfd1b4d0561d4d3fb9}{X\+M\+L\+Message\+Parser} ()
+\item 
+virtual \hyperlink{class_x_m_l_message_parser_a20e9e81f3675635ec3f5ea720b040a41}{$\sim$\+X\+M\+L\+Message\+Parser} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Parses Messages from X\+M\+L to \hyperlink{class_message}{Message} Object. Capable of separating between data an command/seperation by parent class. Throws signal if message was parsed. 
+
+Definition at line 20 of file X\+M\+L\+Message\+Parser.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_x_m_l_message_parser_af52b0b980f36eebfd1b4d0561d4d3fb9}{}\index{X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}!X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}}
+\index{X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}!X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}}
+\subsubsection[{X\+M\+L\+Message\+Parser()}]{\setlength{\rightskip}{0pt plus 5cm}X\+M\+L\+Message\+Parser\+::\+X\+M\+L\+Message\+Parser (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_x_m_l_message_parser_af52b0b980f36eebfd1b4d0561d4d3fb9}
+
+
+Definition at line 10 of file X\+M\+L\+Message\+Parser.\+cpp.
+
+\hypertarget{class_x_m_l_message_parser_a20e9e81f3675635ec3f5ea720b040a41}{}\index{X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}!````~X\+M\+L\+Message\+Parser@{$\sim$\+X\+M\+L\+Message\+Parser}}
+\index{````~X\+M\+L\+Message\+Parser@{$\sim$\+X\+M\+L\+Message\+Parser}!X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}}
+\subsubsection[{$\sim$\+X\+M\+L\+Message\+Parser()}]{\setlength{\rightskip}{0pt plus 5cm}X\+M\+L\+Message\+Parser\+::$\sim$\+X\+M\+L\+Message\+Parser (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_x_m_l_message_parser_a20e9e81f3675635ec3f5ea720b040a41}
+
+
+Definition at line 15 of file X\+M\+L\+Message\+Parser.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_x_m_l_message_parser_af2c240a3dd79ad5afc223208bf0f0179}{}\index{X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}!cmd\+Message\+Parsed@{cmd\+Message\+Parsed}}
+\index{cmd\+Message\+Parsed@{cmd\+Message\+Parsed}!X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}}
+\subsubsection[{cmd\+Message\+Parsed}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Parser\+::cmd\+Message\+Parsed (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_x_m_l_message_parser_af2c240a3dd79ad5afc223208bf0f0179}
+\hypertarget{class_x_m_l_message_parser_a6590080c887b3a26ad671eb6eac0ca0f}{}\index{X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}!cmd\+Message\+Parsed@{cmd\+Message\+Parsed}}
+\index{cmd\+Message\+Parsed@{cmd\+Message\+Parsed}!X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}}
+\subsubsection[{cmd\+Message\+Parsed}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Parser\+::cmd\+Message\+Parsed (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg, }
+\item[{uint}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_x_m_l_message_parser_a6590080c887b3a26ad671eb6eac0ca0f}
+\hypertarget{class_x_m_l_message_parser_aac6080abe8de2c74fbb335251c928ac6}{}\index{X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}!data\+Message\+Parsed@{data\+Message\+Parsed}}
+\index{data\+Message\+Parsed@{data\+Message\+Parsed}!X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}}
+\subsubsection[{data\+Message\+Parsed}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Parser\+::data\+Message\+Parsed (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_x_m_l_message_parser_aac6080abe8de2c74fbb335251c928ac6}
+\hypertarget{class_x_m_l_message_parser_a733b137cf8e7d66bf04beeaeac7fa0c5}{}\index{X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}!data\+Message\+Parsed@{data\+Message\+Parsed}}
+\index{data\+Message\+Parsed@{data\+Message\+Parsed}!X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}}
+\subsubsection[{data\+Message\+Parsed}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Parser\+::data\+Message\+Parsed (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg, }
+\item[{uint}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_x_m_l_message_parser_a733b137cf8e7d66bf04beeaeac7fa0c5}
+\hypertarget{class_x_m_l_message_parser_a1bb70af94b181f3f0696e7181c0c63dd}{}\index{X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}!message\+Parsed@{message\+Parsed}}
+\index{message\+Parsed@{message\+Parsed}!X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}}
+\subsubsection[{message\+Parsed}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Parser\+::message\+Parsed (
+\begin{DoxyParamCaption}
+\item[{{\bf Message} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_x_m_l_message_parser_a1bb70af94b181f3f0696e7181c0c63dd}
+\hypertarget{class_x_m_l_message_parser_ab01279b415a498d15fc9326abeeb692d}{}\index{X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}!parse\+Cmd\+Message@{parse\+Cmd\+Message}}
+\index{parse\+Cmd\+Message@{parse\+Cmd\+Message}!X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}}
+\subsubsection[{parse\+Cmd\+Message}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Parser\+::parse\+Cmd\+Message (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{bytes}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_x_m_l_message_parser_ab01279b415a498d15fc9326abeeb692d}
+
+
+Definition at line 25 of file X\+M\+L\+Message\+Parser.\+cpp.
+
+\hypertarget{class_x_m_l_message_parser_aff44c6ee3a1158b0d1729564a4dd183c}{}\index{X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}!parse\+Cmd\+Message@{parse\+Cmd\+Message}}
+\index{parse\+Cmd\+Message@{parse\+Cmd\+Message}!X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}}
+\subsubsection[{parse\+Cmd\+Message}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Parser\+::parse\+Cmd\+Message (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{bytes, }
+\item[{uint}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_x_m_l_message_parser_aff44c6ee3a1158b0d1729564a4dd183c}
+
+
+Definition at line 37 of file X\+M\+L\+Message\+Parser.\+cpp.
+
+\hypertarget{class_x_m_l_message_parser_ad455f5408ec1d6289bcc8a4f2d5e1473}{}\index{X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}!parse\+Data\+Message@{parse\+Data\+Message}}
+\index{parse\+Data\+Message@{parse\+Data\+Message}!X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}}
+\subsubsection[{parse\+Data\+Message}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Parser\+::parse\+Data\+Message (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{bytes}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_x_m_l_message_parser_ad455f5408ec1d6289bcc8a4f2d5e1473}
+
+
+Definition at line 31 of file X\+M\+L\+Message\+Parser.\+cpp.
+
+\hypertarget{class_x_m_l_message_parser_a03953c5b090132123596719af163e362}{}\index{X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}!parse\+Data\+Message@{parse\+Data\+Message}}
+\index{parse\+Data\+Message@{parse\+Data\+Message}!X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}}
+\subsubsection[{parse\+Data\+Message}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Parser\+::parse\+Data\+Message (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{bytes, }
+\item[{uint}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_x_m_l_message_parser_a03953c5b090132123596719af163e362}
+
+
+Definition at line 43 of file X\+M\+L\+Message\+Parser.\+cpp.
+
+\hypertarget{class_x_m_l_message_parser_a9fc14a7468ad502f705ffa92671c2284}{}\index{X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}!parse\+Message@{parse\+Message}}
+\index{parse\+Message@{parse\+Message}!X\+M\+L\+Message\+Parser@{X\+M\+L\+Message\+Parser}}
+\subsubsection[{parse\+Message}]{\setlength{\rightskip}{0pt plus 5cm}void X\+M\+L\+Message\+Parser\+::parse\+Message (
+\begin{DoxyParamCaption}
+\item[{Q\+Byte\+Array}]{bytes}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_x_m_l_message_parser_a9fc14a7468ad502f705ffa92671c2284}
+
+
+Definition at line 20 of file X\+M\+L\+Message\+Parser.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Common/\+Client\+Server\+Share\+Lib/include/\hyperlink{_x_m_l_message_parser_8hpp}{X\+M\+L\+Message\+Parser.\+hpp}\item 
+Common/\+Client\+Server\+Share\+Lib/src/\+Message/\+X\+M\+L/\hyperlink{_x_m_l_message_parser_8cpp}{X\+M\+L\+Message\+Parser.\+cpp}\end{DoxyCompactItemize}

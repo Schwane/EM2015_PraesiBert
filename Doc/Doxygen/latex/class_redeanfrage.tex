@@ -1,0 +1,289 @@
+\hypertarget{class_redeanfrage}{}\section{Redeanfrage Class Reference}
+\label{class_redeanfrage}\index{Redeanfrage@{Redeanfrage}}
+
+
+Class containing one talk request and its state.  
+
+
+
+
+{\ttfamily \#include $<$Redeanfrage.\+hpp$>$}
+
+Inheritance diagram for Redeanfrage\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_redeanfrage}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{class_redeanfrage_ac4156718456ad89ed6d32e281a8bac18}{Redeanfrage\+State} \{ \\*
+\hyperlink{class_redeanfrage_ac4156718456ad89ed6d32e281a8bac18a6cba11c1a96fe60aee29cd341d998254}{P\+R\+E\+P\+A\+R\+A\+T\+I\+O\+N}, 
+\hyperlink{class_redeanfrage_ac4156718456ad89ed6d32e281a8bac18a557e21c2f59009e72cd8160dfb493f08}{Q\+U\+E\+U\+E\+D}, 
+\hyperlink{class_redeanfrage_ac4156718456ad89ed6d32e281a8bac18a217bb92c818ea26f6b8554a4cf374a61}{A\+C\+C\+E\+P\+T\+E\+D}, 
+\hyperlink{class_redeanfrage_ac4156718456ad89ed6d32e281a8bac18a9130e0ad36fc7f13a9896dc5d561fbdf}{R\+E\+J\+E\+C\+T\+E\+D}, 
+\\*
+\hyperlink{class_redeanfrage_ac4156718456ad89ed6d32e281a8bac18a66196f5384c2da89e04966043bd7ec55}{F\+I\+N\+I\+S\+H\+E\+D}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_redeanfrage_a033cd847599186f92b8ffdb7143e9818}{prepare} ()
+\begin{DoxyCompactList}\small\item\em Prepare talk request. \end{DoxyCompactList}\item 
+void \hyperlink{class_redeanfrage_a317e2c464a74333b110746ea7ad5dc5c}{queue} (Q\+String client\+Id)
+\begin{DoxyCompactList}\small\item\em Queue talk request and set client id at once. \end{DoxyCompactList}\item 
+void \hyperlink{class_redeanfrage_a2e4d6dc526ffc7c9c3a654b39ae6a2d5}{queue} ()
+\begin{DoxyCompactList}\small\item\em Queue talk request. \end{DoxyCompactList}\item 
+void \hyperlink{class_redeanfrage_a4427120a66c68c244117aa1ea96746e3}{accept} ()
+\begin{DoxyCompactList}\small\item\em Accept talk request. \end{DoxyCompactList}\item 
+void \hyperlink{class_redeanfrage_a0289317466dfdbb6071bd89633258fe2}{reject} ()
+\begin{DoxyCompactList}\small\item\em Reject talk request. \end{DoxyCompactList}\item 
+void \hyperlink{class_redeanfrage_a8121285b4f17ec8d6c732fff8e34ae3f}{finish} ()
+\begin{DoxyCompactList}\small\item\em Finish talk request. \end{DoxyCompactList}\item 
+\hyperlink{class_message}{Message} $\ast$ \hyperlink{class_redeanfrage_a55d781a13c089e0559254246b9217fe4}{pack\+Redeanfrage} ()
+\begin{DoxyCompactList}\small\item\em Pack talk request for sending. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{class_redeanfrage_a20a2511b30819dcdfff28248f231d592}{get\+Client\+Id} ()
+\begin{DoxyCompactList}\small\item\em Returns client id. \end{DoxyCompactList}\item 
+void \hyperlink{class_redeanfrage_a076d330b3ee5a4ddc23c064435df0c3d}{set\+Client\+Id} (Q\+String client\+Id)
+\begin{DoxyCompactList}\small\item\em Set client id. necessary if client id is not known at creation time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_redeanfrage_a0e4f160b9abaa1ec463d7b50539cc2d7}{state\+Changed} (Q\+String state)
+\begin{DoxyCompactList}\small\item\em Signal if state has changed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_redeanfrage_af0ad449227e01e5c845479bb3482d657}{Redeanfrage} ()
+\item 
+\hyperlink{class_redeanfrage_a94a97414b39dff0a18c84621b385c6d4}{Redeanfrage} (Q\+String client\+Id)
+\item 
+virtual \hyperlink{class_redeanfrage_a0b74c9f48b5ab8421bd8f70dede0705a}{$\sim$\+Redeanfrage} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class containing one talk request and its state. 
+
+Implementation of talk requests. Contains the state of the request as well as operations to change state or send the request. For detailed information see documentation\textquotesingle{}s state diagram. 
+
+Definition at line 21 of file Redeanfrage.\+hpp.
+
+
+
+\subsection{Member Enumeration Documentation}
+\hypertarget{class_redeanfrage_ac4156718456ad89ed6d32e281a8bac18}{}\index{Redeanfrage@{Redeanfrage}!Redeanfrage\+State@{Redeanfrage\+State}}
+\index{Redeanfrage\+State@{Redeanfrage\+State}!Redeanfrage@{Redeanfrage}}
+\subsubsection[{Redeanfrage\+State}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Redeanfrage\+::\+Redeanfrage\+State}}\label{class_redeanfrage_ac4156718456ad89ed6d32e281a8bac18}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{P\+R\+E\+P\+A\+R\+A\+T\+I\+O\+N@{P\+R\+E\+P\+A\+R\+A\+T\+I\+O\+N}!Redeanfrage@{Redeanfrage}}\index{Redeanfrage@{Redeanfrage}!P\+R\+E\+P\+A\+R\+A\+T\+I\+O\+N@{P\+R\+E\+P\+A\+R\+A\+T\+I\+O\+N}}\item[{\em 
+\hypertarget{class_redeanfrage_ac4156718456ad89ed6d32e281a8bac18a6cba11c1a96fe60aee29cd341d998254}{}P\+R\+E\+P\+A\+R\+A\+T\+I\+O\+N\label{class_redeanfrage_ac4156718456ad89ed6d32e281a8bac18a6cba11c1a96fe60aee29cd341d998254}
+}]Preperation state \index{Q\+U\+E\+U\+E\+D@{Q\+U\+E\+U\+E\+D}!Redeanfrage@{Redeanfrage}}\index{Redeanfrage@{Redeanfrage}!Q\+U\+E\+U\+E\+D@{Q\+U\+E\+U\+E\+D}}\item[{\em 
+\hypertarget{class_redeanfrage_ac4156718456ad89ed6d32e281a8bac18a557e21c2f59009e72cd8160dfb493f08}{}Q\+U\+E\+U\+E\+D\label{class_redeanfrage_ac4156718456ad89ed6d32e281a8bac18a557e21c2f59009e72cd8160dfb493f08}
+}]queued and waiting for answer \index{A\+C\+C\+E\+P\+T\+E\+D@{A\+C\+C\+E\+P\+T\+E\+D}!Redeanfrage@{Redeanfrage}}\index{Redeanfrage@{Redeanfrage}!A\+C\+C\+E\+P\+T\+E\+D@{A\+C\+C\+E\+P\+T\+E\+D}}\item[{\em 
+\hypertarget{class_redeanfrage_ac4156718456ad89ed6d32e281a8bac18a217bb92c818ea26f6b8554a4cf374a61}{}A\+C\+C\+E\+P\+T\+E\+D\label{class_redeanfrage_ac4156718456ad89ed6d32e281a8bac18a217bb92c818ea26f6b8554a4cf374a61}
+}]answer was an accept \index{R\+E\+J\+E\+C\+T\+E\+D@{R\+E\+J\+E\+C\+T\+E\+D}!Redeanfrage@{Redeanfrage}}\index{Redeanfrage@{Redeanfrage}!R\+E\+J\+E\+C\+T\+E\+D@{R\+E\+J\+E\+C\+T\+E\+D}}\item[{\em 
+\hypertarget{class_redeanfrage_ac4156718456ad89ed6d32e281a8bac18a9130e0ad36fc7f13a9896dc5d561fbdf}{}R\+E\+J\+E\+C\+T\+E\+D\label{class_redeanfrage_ac4156718456ad89ed6d32e281a8bac18a9130e0ad36fc7f13a9896dc5d561fbdf}
+}]answer was a reject \index{F\+I\+N\+I\+S\+H\+E\+D@{F\+I\+N\+I\+S\+H\+E\+D}!Redeanfrage@{Redeanfrage}}\index{Redeanfrage@{Redeanfrage}!F\+I\+N\+I\+S\+H\+E\+D@{F\+I\+N\+I\+S\+H\+E\+D}}\item[{\em 
+\hypertarget{class_redeanfrage_ac4156718456ad89ed6d32e281a8bac18a66196f5384c2da89e04966043bd7ec55}{}F\+I\+N\+I\+S\+H\+E\+D\label{class_redeanfrage_ac4156718456ad89ed6d32e281a8bac18a66196f5384c2da89e04966043bd7ec55}
+}]successfully finish talk request after accept \end{description}
+\end{Desc}
+
+
+Definition at line 25 of file Redeanfrage.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_redeanfrage_af0ad449227e01e5c845479bb3482d657}{}\index{Redeanfrage@{Redeanfrage}!Redeanfrage@{Redeanfrage}}
+\index{Redeanfrage@{Redeanfrage}!Redeanfrage@{Redeanfrage}}
+\subsubsection[{Redeanfrage()}]{\setlength{\rightskip}{0pt plus 5cm}Redeanfrage\+::\+Redeanfrage (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_redeanfrage_af0ad449227e01e5c845479bb3482d657}
+
+
+Definition at line 10 of file Redeanfrage.\+cpp.
+
+\hypertarget{class_redeanfrage_a94a97414b39dff0a18c84621b385c6d4}{}\index{Redeanfrage@{Redeanfrage}!Redeanfrage@{Redeanfrage}}
+\index{Redeanfrage@{Redeanfrage}!Redeanfrage@{Redeanfrage}}
+\subsubsection[{Redeanfrage(\+Q\+String client\+Id)}]{\setlength{\rightskip}{0pt plus 5cm}Redeanfrage\+::\+Redeanfrage (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{client\+Id}
+\end{DoxyParamCaption}
+)}\label{class_redeanfrage_a94a97414b39dff0a18c84621b385c6d4}
+
+
+Definition at line 16 of file Redeanfrage.\+cpp.
+
+\hypertarget{class_redeanfrage_a0b74c9f48b5ab8421bd8f70dede0705a}{}\index{Redeanfrage@{Redeanfrage}!````~Redeanfrage@{$\sim$\+Redeanfrage}}
+\index{````~Redeanfrage@{$\sim$\+Redeanfrage}!Redeanfrage@{Redeanfrage}}
+\subsubsection[{$\sim$\+Redeanfrage()}]{\setlength{\rightskip}{0pt plus 5cm}Redeanfrage\+::$\sim$\+Redeanfrage (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_redeanfrage_a0b74c9f48b5ab8421bd8f70dede0705a}
+
+
+Definition at line 22 of file Redeanfrage.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_redeanfrage_a4427120a66c68c244117aa1ea96746e3}{}\index{Redeanfrage@{Redeanfrage}!accept@{accept}}
+\index{accept@{accept}!Redeanfrage@{Redeanfrage}}
+\subsubsection[{accept}]{\setlength{\rightskip}{0pt plus 5cm}void Redeanfrage\+::accept (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_redeanfrage_a4427120a66c68c244117aa1ea96746e3}
+
+
+Accept talk request. 
+
+
+
+Definition at line 53 of file Redeanfrage.\+cpp.
+
+\hypertarget{class_redeanfrage_a8121285b4f17ec8d6c732fff8e34ae3f}{}\index{Redeanfrage@{Redeanfrage}!finish@{finish}}
+\index{finish@{finish}!Redeanfrage@{Redeanfrage}}
+\subsubsection[{finish}]{\setlength{\rightskip}{0pt plus 5cm}void Redeanfrage\+::finish (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_redeanfrage_a8121285b4f17ec8d6c732fff8e34ae3f}
+
+
+Finish talk request. 
+
+
+
+Definition at line 67 of file Redeanfrage.\+cpp.
+
+\hypertarget{class_redeanfrage_a20a2511b30819dcdfff28248f231d592}{}\index{Redeanfrage@{Redeanfrage}!get\+Client\+Id@{get\+Client\+Id}}
+\index{get\+Client\+Id@{get\+Client\+Id}!Redeanfrage@{Redeanfrage}}
+\subsubsection[{get\+Client\+Id}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Redeanfrage\+::get\+Client\+Id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_redeanfrage_a20a2511b30819dcdfff28248f231d592}
+
+
+Returns client id. 
+
+
+
+Definition at line 85 of file Redeanfrage.\+cpp.
+
+\hypertarget{class_redeanfrage_a55d781a13c089e0559254246b9217fe4}{}\index{Redeanfrage@{Redeanfrage}!pack\+Redeanfrage@{pack\+Redeanfrage}}
+\index{pack\+Redeanfrage@{pack\+Redeanfrage}!Redeanfrage@{Redeanfrage}}
+\subsubsection[{pack\+Redeanfrage}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Message} $\ast$ Redeanfrage\+::pack\+Redeanfrage (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_redeanfrage_a55d781a13c089e0559254246b9217fe4}
+
+
+Pack talk request for sending. 
+
+
+
+Definition at line 74 of file Redeanfrage.\+cpp.
+
+\hypertarget{class_redeanfrage_a033cd847599186f92b8ffdb7143e9818}{}\index{Redeanfrage@{Redeanfrage}!prepare@{prepare}}
+\index{prepare@{prepare}!Redeanfrage@{Redeanfrage}}
+\subsubsection[{prepare}]{\setlength{\rightskip}{0pt plus 5cm}void Redeanfrage\+::prepare (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_redeanfrage_a033cd847599186f92b8ffdb7143e9818}
+
+
+Prepare talk request. 
+
+
+
+Definition at line 28 of file Redeanfrage.\+cpp.
+
+\hypertarget{class_redeanfrage_a317e2c464a74333b110746ea7ad5dc5c}{}\index{Redeanfrage@{Redeanfrage}!queue@{queue}}
+\index{queue@{queue}!Redeanfrage@{Redeanfrage}}
+\subsubsection[{queue}]{\setlength{\rightskip}{0pt plus 5cm}void Redeanfrage\+::queue (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_redeanfrage_a317e2c464a74333b110746ea7ad5dc5c}
+
+
+Queue talk request and set client id at once. 
+
+
+
+Definition at line 38 of file Redeanfrage.\+cpp.
+
+\hypertarget{class_redeanfrage_a2e4d6dc526ffc7c9c3a654b39ae6a2d5}{}\index{Redeanfrage@{Redeanfrage}!queue@{queue}}
+\index{queue@{queue}!Redeanfrage@{Redeanfrage}}
+\subsubsection[{queue}]{\setlength{\rightskip}{0pt plus 5cm}void Redeanfrage\+::queue (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_redeanfrage_a2e4d6dc526ffc7c9c3a654b39ae6a2d5}
+
+
+Queue talk request. 
+
+
+
+Definition at line 46 of file Redeanfrage.\+cpp.
+
+\hypertarget{class_redeanfrage_a0289317466dfdbb6071bd89633258fe2}{}\index{Redeanfrage@{Redeanfrage}!reject@{reject}}
+\index{reject@{reject}!Redeanfrage@{Redeanfrage}}
+\subsubsection[{reject}]{\setlength{\rightskip}{0pt plus 5cm}void Redeanfrage\+::reject (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_redeanfrage_a0289317466dfdbb6071bd89633258fe2}
+
+
+Reject talk request. 
+
+
+
+Definition at line 60 of file Redeanfrage.\+cpp.
+
+\hypertarget{class_redeanfrage_a076d330b3ee5a4ddc23c064435df0c3d}{}\index{Redeanfrage@{Redeanfrage}!set\+Client\+Id@{set\+Client\+Id}}
+\index{set\+Client\+Id@{set\+Client\+Id}!Redeanfrage@{Redeanfrage}}
+\subsubsection[{set\+Client\+Id}]{\setlength{\rightskip}{0pt plus 5cm}void Redeanfrage\+::set\+Client\+Id (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{client\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_redeanfrage_a076d330b3ee5a4ddc23c064435df0c3d}
+
+
+Set client id. necessary if client id is not known at creation time. 
+
+
+
+Definition at line 91 of file Redeanfrage.\+cpp.
+
+\hypertarget{class_redeanfrage_a0e4f160b9abaa1ec463d7b50539cc2d7}{}\index{Redeanfrage@{Redeanfrage}!state\+Changed@{state\+Changed}}
+\index{state\+Changed@{state\+Changed}!Redeanfrage@{Redeanfrage}}
+\subsubsection[{state\+Changed}]{\setlength{\rightskip}{0pt plus 5cm}void Redeanfrage\+::state\+Changed (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{state}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_redeanfrage_a0e4f160b9abaa1ec463d7b50539cc2d7}
+
+
+Signal if state has changed. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Common/\+Client\+Server\+Share\+Lib/include/\hyperlink{_redeanfrage_8hpp}{Redeanfrage.\+hpp}\item 
+Common/\+Client\+Server\+Share\+Lib/src/\+Redeanfrage/\hyperlink{_redeanfrage_8cpp}{Redeanfrage.\+cpp}\end{DoxyCompactItemize}

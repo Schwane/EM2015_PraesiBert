@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['object',['object',['../structmessage_handler.html#a19e36429d315bc4d38639035be25d257',1,'messageHandler']]],
+  ['onclientdisconnected',['onClientDisconnected',['../class_server_appl_1_1_server.html#a29e8649cb4010e5b0620a03cc9f38ac8',1,'ServerAppl::Server']]],
+  ['ondeliverpresentationtoclient',['onDeliverPresentationToClient',['../class_server_appl_1_1_server.html#a5bb9d08bbbd005132ba892033ef1fd2a',1,'ServerAppl::Server']]],
+  ['onerror',['onError',['../class_camera_controller.html#a0a2c8c616d31f2356b825c43afcb83bd',1,'CameraController']]],
+  ['onforwardmessagetoclient',['onForwardMessageToClient',['../class_server_appl_1_1_server.html#a7216e8161ab1907b5d899718f8757c05',1,'ServerAppl::Server']]],
+  ['onforwaredmessagetomaster',['onForwaredMessageToMaster',['../class_server_appl_1_1_server.html#a688f9c5d409ed90572a69aa7f54240bf',1,'ServerAppl::Server']]],
+  ['ongesturedetected',['onGestureDetected',['../class_camera_controller.html#ad7985bb1433289a5c09c3fdf093d7384',1,'CameraController']]],
+  ['onmasterauthenticationfailed',['onMasterAuthenticationFailed',['../class_server_appl_1_1_server.html#aa92b4c070111a2efe7a99b95708e545f',1,'ServerAppl::Server']]],
+  ['onmasterauthentificationsuccessfull',['onMasterAuthentificationSuccessfull',['../class_server_appl_1_1_server.html#a83286ec5660a7fe0a1fe3764e1eba91a',1,'ServerAppl::Server']]],
+  ['onmessageparsed',['onMessageParsed',['../class_server_appl_1_1_message_router.html#a89ce4becafb4e58791bcd3def1c279a3',1,'ServerAppl::MessageRouter']]],
+  ['onnewclient',['onNewClient',['../class_server_appl_1_1_server.html#aec2c1436c6a6cbb8ef4400d7c986cd80',1,'ServerAppl::Server']]],
+  ['onnewip',['onNewIP',['../class_server_appl_1_1_server.html#a8aaec8df3cb6d1fbd949dd75b36f66b2',1,'ServerAppl::Server']]],
+  ['onnewslideurl',['onNewSlideUrl',['../class_client.html#a158fe80befa311a81900fc7c176a4654',1,'Client']]],
+  ['onreceiveddata',['onReceivedData',['../class_server_appl_1_1_master.html#aa3eec24a3c9508726b133b21da9fd6fe',1,'ServerAppl::Master']]],
+  ['onreceivedpresentation',['onReceivedPresentation',['../class_server_appl_1_1_server.html#a694f60e54fc0dd24cd5b7b41731a060d',1,'ServerAppl::Server']]],
+  ['onreceivedsetslide',['onReceivedSetSlide',['../class_server_appl_1_1_server.html#a66ffe6e0ecf4aaf3cb83215d7e14fd6c',1,'ServerAppl::Server']]],
+  ['onstoppresentation',['onStopPresentation',['../class_server_appl_1_1_server.html#a58bf3574ddee832a114aaa7652372bae',1,'ServerAppl::Server']]],
+  ['ontransmitslidesresponse',['onTransmitSlidesResponse',['../class_server_appl_1_1_master.html#a329d423c033208c46b88a0a3ef192ec5',1,'ServerAppl::Master']]],
+  ['onwriteaudiorecording',['onWriteAudioRecording',['../class_server_appl_1_1_server.html#a5fc71b2de6794aac74789087115bbaf4',1,'ServerAppl::Server']]],
+  ['open',['open',['../class_external_display.html#aaf0cfeaf1464cf09bb931b71b0695cfc',1,'ExternalDisplay']]]
+];
