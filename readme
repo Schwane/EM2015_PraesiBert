@@ -2,16 +2,29 @@ Verzeichnisstruktur:
 
 EM2015_PraesiBert
     |
-    |----> ServerAppl (Verzeichnis mit Momentics-Cascades-Projekt)  
-    |
     |----> Client
-    |    |----> MasterClientAppl (Verzeichnis mit Momentics-Cascades-Projekt)
     |    |----> ListenerClientAppl (Verzeichnis mit Momentics-Cascades-Projekt)
-    |    |----> ClientLib (Verzeichnis mit Momentics-API-Projekt)        
+    |    |        Projektordner für die Applikation des Listener Clients.
+    |    |
+    |    |----> MasterClientAppl (Verzeichnis mit Momentics-Cascades-Projekt)
+    |             Projektordner für die Applikation des Master Clients.
     |
     |----> Common
-    |    |----> NetworkLib (Verzeichnis mit Momentics-API-Projekt)
-    |    |----> AudioLib (Verzeichnis mit Momentics-API-Projekt)
-    |    |----> VideoUiLib (Verzeichnis mit Momentics-API-Projekt)
+    |    |----> ClientServerShareLib (Verzeichnis mit Momentics-API-Projekt)
+    |    |        Library-Projekt für die von den Applikationen genutzten Komponenten.
+    |    |
+    |    |----> OpenCV
+    |             Ordner mit Quellcode für OpenCV.
     |
-    |----> .git (Verzeichnis, das von git erstellt wird und uns nicht betrifft)
+    |----> Doc
+    |    |   Dokumentation des Projekts in .PDF und .DOCX sowie die Präsentation in .PPTX
+    |    |----> Doxygen
+    |    |        Ordner mit Doxygen Dokumentation (Sowohl HTML als auch PDF [Latex]).
+    |    |
+    |    |----> Folien_JPG
+    |             Einzelne Folien der Präsentation im .JPG-Format.
+    |
+    |----> ServerAppl (Verzeichnis mit Momentics-Cascades-Projekt)
+    |        Projektordner für die Applikation des Server Clients.
+    |
+    |----> .git (Verzeichnis, welches von git erstellt wird)
